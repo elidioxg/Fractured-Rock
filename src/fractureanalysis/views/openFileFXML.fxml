@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    xmlns:fx="http://javafx.com/fxml" 
+    id="gridPaneOpen" 
+    prefHeight="200.0" 
+    prefWidth="300.0" 
+    fx:controller="fractureanalysis.controller.AppController" 
+    alignment="CENTER" 
+    hgap="10"
+    vgap="10"  
+    >
+    
+    <Label GridPane.columnIndex="0"
+        GridPane.rowIndex="0"
+        text="Location" />
+    <HBox GridPane.columnIndex="0"
+        GridPane.rowIndex="1" 
+    >
+        <TextField 
+            fx:id="tfFilename" >
+        </TextField>
+        <Button text="Locate"
+                onAction="#dialogOpen" 
+        />
+    </HBox>
+            
+    <HBox 
+        GridPane.columnIndex="0"
+          GridPane.rowIndex="2" >
+        <CheckBox 
+            fx:id="cbHeader"
+            selected="true"              
+        />
+        <Label text="First line as header">
+            
+        </Label> 
+    </HBox>
+    <HBox 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3">
+        <Label text="Separator: ">
+            
+        </Label> 
+        <TextField fx:id="tfSeparator"
+            text=",">
+            
+        </TextField>
+    </HBox>  
+    <ButtonBar 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="4"     
+        >
+        <buttons>
+            <Button 
+                text="Apply"
+                ButtonBar.buttonData="APPLY"
+                onAction="#datasetListAdd"/>
+            <Button 
+                ButtonBar.buttonData="CANCEL_CLOSE" 
+                text="Close"
+                onAction="#closeOpenFileStage"/>
+        </buttons>
+    </ButtonBar>
+</GridPane>

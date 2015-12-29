@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    fx:controller="fractureanalysis.controller.AppController" 
+    xmlns:fx="http://javafx.com/fxml" 
+    id="gridPane" 
+    prefHeight="500.0" 
+    prefWidth="600.0"     
+    alignment="CENTER"
+    hgap="10"
+    vgap="10"           
+    >
+    
+    <padding>
+        
+    </padding>
+    <gridLinesVisible>true</gridLinesVisible>
+    <ListView 
+        fx:id="lvDatasets"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="3"  
+        onMouseClicked="#onMouseClicked"        
+    >                
+    </ListView>
+    
+    <TableView 
+        fx:id="tvDataset"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="3"
+        GridPane.columnSpan="1" 
+        GridPane.rowSpan="2">
+    </TableView>  
+    
+    <ButtonBar GridPane.columnIndex="0"
+        GridPane.rowIndex="0"
+        GridPane.columnSpan="3"
+        GridPane.rowSpan="1">        
+        <buttons>            
+            <Button fx:id="btnOpen"
+                onAction="#openFileStage" 
+                text="Open Data"
+                ButtonBar.buttonData="LEFT">
+            </Button>             
+            <Button text="Line Chart" onAction="#lineChartStage" ></Button>  
+            <Button text="Bar Chart"  onAction="#barChartStage" ></Button>
+        </buttons>        
+    </ButtonBar>
+    
+    <Label
+        text="Datasets"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="2">
+    </Label>   
+    
+    <Label 
+        text="Data"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="2">
+    </Label>   
+    
+    
+    <VBox GridPane.columnIndex="1"
+        GridPane.rowIndex="4"         
+    >
+        <HBox >
+            
+        </HBox>
+    </VBox>            
+                                  
+</GridPane>
