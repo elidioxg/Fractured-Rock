@@ -10,7 +10,7 @@
     xmlns:fx="http://javafx.com/fxml/1" 
     id="gridPaneBar" 
     prefHeight="400.0" 
-    prefWidth="600.0"     
+    prefWidth="800.0"     
     fx:controller="fractureanalysis.controller.AppController" 
     alignment="CENTER"
     hgap="10"
@@ -54,7 +54,10 @@
         <HBox >
             <Button text="Add" onAction="#plotBar" />
             <Button text="Clear"/>
-            <Button text="Close"/>
+            <Button 
+                fx:id="btnCloseBar"
+                text="Close"
+                onAction="#closeBarStage"/>
         </HBox>
         <HBox >
             <Label text="Serie name:"/>
@@ -71,10 +74,10 @@
     >
         
         <xAxis>
-            <javafx.scene.chart.CategoryAxis label="X"/> 
+            <javafx.scene.chart.NumberAxis label="X"/> 
         </xAxis>        
         <yAxis>
-            <javafx.scene.chart.NumberAxis label="Y"/> 
+            <javafx.scene.chart.CategoryAxis  label="Y"/> 
         </yAxis>
     </javafx.scene.chart.BarChart>
     

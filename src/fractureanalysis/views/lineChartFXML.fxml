@@ -10,7 +10,7 @@
     xmlns:fx="http://javafx.com/fxml/1" 
     id="gridLinePane" 
     prefHeight="400.0" 
-    prefWidth="600.0"     
+    prefWidth="800.0"     
     fx:controller="fractureanalysis.controller.AppController" 
     alignment="CENTER"
     hgap="20"
@@ -59,7 +59,10 @@
         </HBox>        
         <HBox >
             <Button text="Add" onAction="#plotLine"  />
-            <Button text="Close" onAction="#closeLineStage"/>
+            <Button 
+                fx:id="btnCloseLine"
+                text="Close" 
+                onAction="#closeLineStage"/>
             <Button text="Clear" onAction="#clearLineChart"/>
         </HBox>
                 

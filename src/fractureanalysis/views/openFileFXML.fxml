@@ -21,7 +21,7 @@
         GridPane.rowIndex="0"
         text="Location" />
     <HBox GridPane.columnIndex="0"
-        GridPane.rowIndex="1" 
+        GridPane.rowIndex="1"          
     >
         <TextField 
             fx:id="tfFilename" >
@@ -62,7 +62,8 @@
                 text="Apply"
                 ButtonBar.buttonData="APPLY"
                 onAction="#datasetListAdd"/>
-            <Button 
+            <Button
+                fx:id="btnClose" 
                 ButtonBar.buttonData="CANCEL_CLOSE" 
                 text="Close"
                 onAction="#closeOpenFileStage"/>
