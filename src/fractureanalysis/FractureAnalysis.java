@@ -1,7 +1,7 @@
 package fractureanalysis;
 
 import fractureanalysis.controller.AppController;
-import fractureanalysis.data.CSVFile;
+import fractureanalysis.data.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ import javafx.util.Callback;
 public class FractureAnalysis extends Application {
 
     private final String strAppName = "Application Name";
-    public CSVFile file = new CSVFile();    
-    public Stage stage;
-    public Stage testStage;
+
+    public AnalysisFile file = new AnalysisFile();
+    public Stage stage;   
 
     public ListView listView;
 
@@ -44,7 +44,7 @@ public class FractureAnalysis extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {        
+    public void start(Stage primaryStage) throws IOException {
         try {
             FXMLLoader root = new FXMLLoader(getClass().getResource(
                     "views/appFXML.fxml"));
@@ -62,7 +62,8 @@ public class FractureAnalysis extends Application {
                         protected void updateItem(DatasetModel myObject, boolean b) {
                             super.updateItem(myObject, b);
                             if (myObject != null) {
-                                setText(myObject.getName());                                
+                                setText(myObject.getName());
+                                controller.setStatistics();
                             }
                         }
                     };
@@ -74,12 +75,14 @@ public class FractureAnalysis extends Application {
                 @Override
                 public void handle(MouseEvent event) {
                     DatasetModel dm = (DatasetModel) listView.getSelectionModel().getSelectedItem();
-                    file.setFilename(dm.getFileName());
-                    file.setDatasetName(dm.getName());
-                    file.setSeparator(dm.getSeparator());
-                    file.setHeader(dm.getHeader());
-                    file.setHeaderStrings(dm.getHeaderStrings());
-                    controller.populateTable(dm.filename, dm.separator, dm.header);
+                    if (dm != null) {
+                        file.setFilename(dm.getFileName());
+                        file.setDatasetName(dm.getName());
+                        file.setSeparator(dm.getSeparator());
+                        file.setHeader(dm.getHeader());
+                        file.setHeaderStrings(dm.getHeaderStrings());
+                        controller.populateTable(dm.filename, dm.separator, dm.header);
+                    }
                 }
             });
 
@@ -100,7 +103,8 @@ public class FractureAnalysis extends Application {
         ObservableList<DatasetModel> olDatasets
                 = FXCollections.observableList(list);
         listView.setItems(null);
-        listView.setItems(olDatasets);        
+        listView.setItems(olDatasets);
+
     }
 
     /**

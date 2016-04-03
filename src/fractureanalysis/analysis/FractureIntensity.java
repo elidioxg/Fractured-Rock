@@ -31,14 +31,24 @@ public class FractureIntensity {
     public ArrayList[][] listAndSort(ArrayList<Double> list, boolean reverse) {
         Collections.sort(list);
         ArrayList[][] arrayList = new ArrayList[list.size()][list.size()];
-        int i = list.size() - 1;
-        for (Double values : list) {
+        if(reverse){
+            int i = list.size() - 1;
+            for (Double values : list) {
             arrayList[i][0] = new ArrayList();
             arrayList[i][1] = new ArrayList();
             arrayList[i][0].add(i + 1);
             arrayList[i][1].add(values);
             i--;
+            }    
+        } else {            
+            for (int i = 0; i<list.size()-1; i++) {
+            arrayList[i][0] = new ArrayList();
+            arrayList[i][1] = new ArrayList();
+            arrayList[i][0].add(i + 1);
+            arrayList[i][1].add(list.get(i));            
+            }    
         }
+        
         return arrayList;
     }
 

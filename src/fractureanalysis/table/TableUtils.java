@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableDoubleValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,32 +43,59 @@ public class TableUtils {
         return column;
     }
     
-    public TableColumn<ObservableList<Number>, Number> createColumnNumber(
+    public TableColumn<ObservableList<StringProperty>, String>  createColumnNumber(
             final int columnIndex, String columnTitle) {
-        TableColumn<ObservableList<Number>, Number> column = new TableColumn<>();
+        TableColumn<ObservableList<StringProperty>, String> column = new TableColumn<>();
+        //TableColumn<ObservableList<Number>, Number> column = new TableColumn<>();
         String title;
         if (columnTitle == null || columnTitle.trim().length() == 0) {
-            title = "Column " + (columnIndex + 1);
+            switch(columnIndex){
+                case 0: 
+                    title = "id";
+                    break;
+                case 1:
+                    title = "sp";
+                    break;
+                case 2:
+                    title = "ap";
+                    break;
+                default:
+                    title = "Column " + (columnIndex + 1);
+                    break;
+            }            
         } else {
             title = columnTitle;
         }
         column.setText(title);
         column.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<ObservableList<
-                Number>, Number>, ObservableValue<Number>>() {
+                StringProperty>, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<Number> call(
-                    TableColumn.CellDataFeatures<ObservableList<Number>,
-                            Number> cellDataFeatures) {
-                ObservableList<Number> values = cellDataFeatures.getValue();
+            public ObservableValue<String> call(
+                    TableColumn.CellDataFeatures<ObservableList<StringProperty>,
+                            String> cellDataFeatures) {
+                ObservableList<StringProperty> values = cellDataFeatures.getValue();
                 if (columnIndex >= values.size()) {
-                    return new SimpleDoubleProperty();
-                } else {                    
-                    return new SimpleDoubleProperty(
-                            cellDataFeatures.getValue().get(columnIndex).doubleValue());
+                    return new SimpleStringProperty("");
+                } else {
+                    return cellDataFeatures.getValue().get(columnIndex);
                 }
             }
         });
+        /*
+        column.setCellValueFactory((TableColumn.CellDataFeatures<ObservableList<Number>,
+                Number> cellDataFeatures) -> {
+            ObservableList<Number> values = cellDataFeatures.getValue();
+            if (columnIndex >= values.size()) {
+                return new 
+                SimpleDoubleProperty(0.);
+            } else {                               
+                return new SimpleDoubleProperty(
+                 (double) Double.valueOf(cellDataFeatures.getValue().
+                         get(columnIndex).doubleValue()));
+            }
+        });
+        */
         return column;
     }
     

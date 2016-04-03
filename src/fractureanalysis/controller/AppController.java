@@ -2,6 +2,7 @@ package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.analysis.FractureIntensity;
+import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
@@ -9,6 +10,7 @@ import fractureanalysis.stages.BarChartStage;
 import fractureanalysis.stages.EstimateStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
+import fractureanalysis.statistics.Average;
 import fractureanalysis.table.TableUtils;
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,13 +34,25 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class AppController implements Initializable {
-
+public class AppController implements Initializable {          
+        
+    
+    public void setStatistics(){
+        if(FractureAnalysis.getInstance().file.getColumnsNumber()>0){
+            
+        }        
+    }
+    
+    @FXML 
+    protected TableView tvDataset;
+    
     @FXML
     private ComboBox comboBoxX;
 
@@ -47,10 +61,7 @@ public class AppController implements Initializable {
 
     @FXML
     private TextField tfFilename;
-
-    @FXML
-    private TableView tvDataset;
-
+    
     @FXML
     private ListView lvDatasets;
 
@@ -59,6 +70,7 @@ public class AppController implements Initializable {
 
     @FXML
     protected ComboBox cbSpValues;
+    
     @FXML
     protected ComboBox cbApValues;
     
@@ -87,10 +99,11 @@ public class AppController implements Initializable {
 
     @FXML//mouse handler for ListView lvDatasets
     protected void onMouseClicked() throws IOException {
-        DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();
+        DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();        
         populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
     }
 
+    
     @FXML
     public void populateTable(final String filename, final String separator,
             final boolean hasHeader) {
@@ -146,7 +159,15 @@ public class AppController implements Initializable {
             thread.start();
         }
     }
-
+    
+    @FXML 
+    protected TextField tfSeparator;
+    
+    @FXML protected ScrollPane spProperties;
+    @FXML protected GridPane paneProperties;
+    @FXML protected ComboBox cbColumnAp;
+    @FXML protected ComboBox cbColumnSp;
+    
     @FXML
     protected void datasetListAdd() throws IOException {
         if (cbHeader.isSelected()) {
@@ -154,6 +175,17 @@ public class AppController implements Initializable {
         } else {
             FractureAnalysis.getInstance().file.setHeader(false);
         }
+        
+        String sep = tfSeparator.getCharacters().toString();
+        int columnCount = DatasetProperties.getColumnsCount(
+                        FractureAnalysis.getInstance().file.getFileName(), sep);
+        FractureAnalysis.getInstance().file.setSeparator(sep);
+        FractureAnalysis.getInstance().file.setColumnsNumber(
+                columnCount);
+        if(FractureAnalysis.getInstance().file.getColumnsNumber()>1){
+            FractureAnalysis.getInstance().file.setColumnAp(0);
+            FractureAnalysis.getInstance().file.setColumnSp(1);
+        }        
         FractureAnalysis.getInstance().updateListView();
     }
 
@@ -166,7 +198,7 @@ public class AppController implements Initializable {
 
             tfFilename.setText(file.getAbsolutePath());
             FractureAnalysis.getInstance().file.setDatasetName(file.getName());
-            FractureAnalysis.getInstance().file.setFilename(file.getAbsolutePath());
+            FractureAnalysis.getInstance().file.setFilename(file.getAbsolutePath());            
         }
     }
 
@@ -276,4 +308,7 @@ public class AppController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+    
+    @FXML protected Label lMinValue, lMaxValue, lStdDevValue, lAvgValue;
+    @FXML protected ComboBox cbColumn;
 }
