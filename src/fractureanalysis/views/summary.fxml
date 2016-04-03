@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="AnchorPane"             
+    prefHeight="400.0" 
+    prefWidth="600.0" 
+    styleClass="mainFxmlClass" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="fractureanalysis.controller.AppController">
+    <stylesheets>
+        <URL value="@summary.css"/>
+    </stylesheets>
+    
+    <Label text="Column: "
+           GridPane.columnIndex="0"
+           GridPane.rowIndex="1">
+    </Label>
+    
+    <ComboBox fx:id="cbColumn"
+              GridPane.columnIndex="1"
+              GridPane.rowIndex="1">
+    </ComboBox>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"   
+        text="Minimum Value: ">
+    </Label>
+    
+    <Label
+        fx:id="lMinValue"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="2"   
+        text="">
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3"   
+        text="Maximum Value: ">
+    </Label>
+    
+    <Label
+        fx:id="lMaxValue"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="3"   
+        text="">
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="4"   
+        text="Average Value: ">
+    </Label>
+    
+    <Label
+        fx:id="lAvgValue"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="4"   
+        text="">
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="5"   
+        text="Mean Value: ">
+    </Label>
+    
+    <Label
+        fx:id="lMeanValue"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="5"   
+        text="">
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="6"   
+        text="Standard Deviation: ">
+    </Label>
+    
+    <Label
+        fx:id="lStdDevValue"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="6"   
+        text="">
+    </Label>
+    
+</GridPane>
