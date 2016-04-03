@@ -17,7 +17,7 @@ public class LineChartStage {
     public void createStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 FractureAnalysis.getInstance().getClass().getResource(
-                        "views/lineChartFXML.fxml"));
+                        "views/LineChartStage.fxml"));
         Parent parent = (Parent) loader.load();
         List list = new ArrayList();
         for (int i = 0; i < FractureAnalysis.getInstance().
