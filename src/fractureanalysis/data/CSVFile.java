@@ -5,7 +5,8 @@ public class CSVFile {
     private String datasetFilename = "";
     private String separator = ",";
     private boolean hasHeader = true;
-    private String[] headerStrings;        
+    private String[] headerStrings;     
+    private int columnsNumber = 0;
     
     public void CSVFile(){
     
@@ -53,5 +54,13 @@ public class CSVFile {
     
     public String getHeaderStrings(int colIndex){
         return this.headerStrings[colIndex];
+    }
+    
+    public void setColumnsNumber(int number){
+        this.columnsNumber = number;
+    }
+    
+    public int getColumnsNumber(){
+        return this.columnsNumber;
     }
 }
