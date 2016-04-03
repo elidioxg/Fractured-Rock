@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="paneProperties"        
+    hgap="5"
+    vgap="5"
+    prefHeight="80.0" 
+    prefWidth="80.0" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="fractureanalysis.controller.AppController">
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"
+        text="Aperture Column">
+    </Label>
+    
+    <ComboBox 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0"
+        fx:id="cbColumnAp">
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        text="Sp Column">
+    </Label>
+    
+    <ComboBox 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1"
+        fx:id="cbColumnSp">
+    </ComboBox>
+    
+</GridPane>

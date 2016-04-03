@@ -10,63 +10,14 @@
     xmlns:fx="http://javafx.com/fxml/1" 
     id="gridLinePane" 
     prefHeight="400.0" 
-    prefWidth="800.0"     
+    prefWidth="400.0"     
     fx:controller="fractureanalysis.controller.AppController" 
     alignment="CENTER"
-    hgap="20"
-    vgap="20">    
+    hgap="10"
+    vgap="10">    
     <padding>
         <javafx.geometry.Insets ></javafx.geometry.Insets>
     </padding>
-    <VBox 
-        GridPane.columnIndex="0" 
-        GridPane.rowIndex="0"
-        GridPane.columnSpan="4"
-        GridPane.rowSpan="4"  
-    >        
-        <HBox >
-            <Label text="Dataset:"/>
-            <ComboBox fx:id="cbDataset"></ComboBox>
-        </HBox>
-        <HBox >
-            <Label 
-                text="Graph label:"/>
-            <TextField fx:id="tfGraphLabel"/>
-        </HBox>        
-        <HBox >
-            <Label text="X Axis label:" />
-            <TextField fx:id="tfXLabel"/>
-        </HBox>
-        <HBox >
-            <Label text="Y Axis label:"/>
-            <TextField fx:id="tfYLabel"/> 
-        </HBox>
-        <HBox >
-            <Label text="X field data:"/>
-            <ComboBox fx:id="comboBoxX"></ComboBox>
-            <CheckBox fx:id="cbXSorted" selected="false" ></CheckBox>
-            <Label text="Sorted" />
-        </HBox>
-        <HBox >
-            <Label text="Y field data:"/>
-            <ComboBox fx:id="comboBoxY"></ComboBox>
-            <CheckBox fx:id="cbYSorted" selected="true" ></CheckBox>
-            <Label text="Sorted" />
-        </HBox>
-        <HBox>
-            <Label text="Serie Name:"/>
-            <TextField fx:id="tfSerieLabel"></TextField>
-        </HBox>        
-        <HBox >
-            <Button text="Add" onAction="#plotLine"  />
-            <Button 
-                fx:id="btnCloseLine"
-                text="Close" 
-                onAction="#closeLineStage"/>
-            <Button text="Clear" onAction="#clearLineChart"/>
-        </HBox>
-                
-    </VBox> 
     
     <javafx.scene.chart.LineChart 
         fx:id="lineChart"
