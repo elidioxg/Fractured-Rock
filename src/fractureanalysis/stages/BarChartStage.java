@@ -15,8 +15,9 @@ import javafx.stage.Stage;
 public class BarChartStage {
 
     public void createStage() throws IOException {
+        if(!FractureAnalysis.getInstance().file.getFileName().trim().isEmpty()){
         FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().getClass().getResource(
-                "views/barChartFXML.fxml"));
+                "views/BarChartStage.fxml"));
         Parent parent = (Parent) loader.load();
         List list = new ArrayList();
         //to do:  platform.runlater {
@@ -28,7 +29,7 @@ public class BarChartStage {
         ObservableList olDatasets = FXCollections.observableArrayList(
                 FractureAnalysis.getInstance().datasets);
 
-        ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDataset");
+        ComboBox cbDatasets = (ComboBox) parent.lookup("#cbBarDataset");
         cbDatasets.setItems(olDatasets);
         cbDatasets.getSelectionModel().select(
                 FractureAnalysis.getInstance().file.getDatasetName());
@@ -42,6 +43,7 @@ public class BarChartStage {
         stageBar.setTitle("Bar Chart");
         stageBar.setScene(scene);
         stageBar.show();
+        }
     }
 
 }
