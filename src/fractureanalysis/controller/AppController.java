@@ -10,7 +10,6 @@ import fractureanalysis.stages.BarChartStage;
 import fractureanalysis.stages.EstimateStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
-import fractureanalysis.statistics.Average;
 import fractureanalysis.table.TableUtils;
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,7 +27,6 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -52,12 +50,6 @@ public class AppController implements Initializable {
     
     @FXML 
     protected TableView tvDataset;
-    
-    @FXML
-    private ComboBox comboBoxX;
-
-    @FXML
-    private ComboBox comboBoxY;
 
     @FXML
     private TextField tfFilename;
@@ -169,7 +161,7 @@ public class AppController implements Initializable {
     @FXML protected ComboBox cbColumnSp;
     
     @FXML
-    protected void datasetListAdd() throws IOException {
+    protected void addToList() throws IOException {
         if (cbHeader.isSelected()) {
             FractureAnalysis.getInstance().file.setHeader(true);
         } else {
@@ -205,7 +197,7 @@ public class AppController implements Initializable {
     @FXML
     protected void openFileStage() throws IOException {
         OpenDataStage od = new OpenDataStage();
-        Stage stageOpenWindow = od.createWindow();
+        od.createWindow();
     }
 
     @FXML
@@ -222,25 +214,6 @@ public class AppController implements Initializable {
         LineChartStage lcs = new LineChartStage();
         lcs.createStage();
     }
-    @FXML
-    protected Button btnCloseLine;
-
-    @FXML
-    protected void closeLineStage() throws IOException {
-        Stage stageLine = (Stage) btnCloseLine.getScene().getWindow();
-        stageLine.close();
-    }
-    @FXML
-    protected Button btnCloseBar;
-
-    @FXML
-    protected void closeBarStage() throws IOException {
-        Stage stageBar = (Stage) btnCloseBar.getScene().getWindow();
-        stageBar.close();
-    }
-
-    @FXML
-    protected ComboBox cbDatasets;
 
     @FXML
     protected void estimateStage() throws IOException {
@@ -253,57 +226,7 @@ public class AppController implements Initializable {
         BarChartStage bcs = new BarChartStage();
         bcs.createStage();
     }
-
-    @FXML
-    protected TextField tfGraphLabel, tfXLabel, tfYLabel, tfSerieLabel;
-
-    @FXML
-    protected LineChart lineChart;
-
-    @FXML
-    protected BarChart barChart;
-    @FXML
-    protected TextField tfLabelChart, tfLabelX, tfLabelY, tfBarSerie;
-    @FXML
-    protected ComboBox cbDataX, cbDataY;
-    @FXML
-    protected CheckBox cbSortX, cbSortY;
-
-    @FXML
-    protected void plotBar() {
-        int indexX = cbDataX.getSelectionModel().getSelectedIndex();
-        int indexY = cbDataY.getSelectionModel().getSelectedIndex();
-        barChart.setTitle(tfLabelChart.getText());
-        barChart.getXAxis().setLabel(tfLabelX.getText());
-        barChart.getYAxis().setLabel(tfLabelY.getText());
-        PlotSeries plot = new PlotSeries();
-        barChart.getData().add(plot.plotBarSeries(
-                FractureAnalysis.getInstance().file.getFileName(),
-                FractureAnalysis.getInstance().file.getSeparator(),
-                tfBarSerie.getText(),
-                indexX, indexY));
-    }
-
-    @FXML
-    protected void plotLine() {
-        int indexX = comboBoxX.getSelectionModel().getSelectedIndex();
-        int indexY = comboBoxY.getSelectionModel().getSelectedIndex();
-        lineChart.setTitle(tfGraphLabel.getText());
-        lineChart.getXAxis().setLabel(tfXLabel.getText());
-        lineChart.getYAxis().setLabel(tfYLabel.getText());
-        PlotSeries plot = new PlotSeries();
-        lineChart.getData().add(plot.plotLineSeries(
-                FractureAnalysis.getInstance().file.getFileName(),
-                FractureAnalysis.getInstance().file.getSeparator(),
-                tfSerieLabel.getText(),
-                indexX, indexY));
-    }
-
-    @FXML
-    protected void clearLineChart() {
-        lineChart.getData().clear();
-    }
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
