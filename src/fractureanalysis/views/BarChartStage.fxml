@@ -12,69 +12,124 @@
     id="gridPaneBar" 
     prefHeight="400.0" 
     prefWidth="800.0"     
-    fx:controller="fractureanalysis.controller.AppController" 
+    fx:controller="fractureanalysis.controller.BarChartController" 
     alignment="CENTER"
     hgap="10"
-    vgap="10"
->    
-    <VBox 
+    vgap="10">  
+   
+    <Label
         GridPane.columnIndex="0" 
+        GridPane.rowIndex="0" 
+        text="Dataset:"/>            
+    <ComboBox 
+        GridPane.columnIndex="1" 
         GridPane.rowIndex="0"
-        GridPane.columnSpan="4"
-        GridPane.rowSpan="4"  
-    >       
-        <HBox>
-            <Label text="Dataset:"/>
-            <ComboBox fx:id="cbDataset"/>              
-        </HBox>
-        <HBox >
-            <Label 
-                text="Graph label:"/>
-            <TextField fx:id="tfLabelChart"/>
-        </HBox>        
-        <HBox >
-            <Label text="X Axis label:" />
-            <TextField fx:id="tfLabelX"/>
-        </HBox>
-        <HBox >
-            <Label text="Y Axis label:"/>
-            <TextField fx:id="tfLabelY"/> 
-        </HBox>
-        <HBox >
-            <Label text="X field data:"/>
-            <ComboBox fx:id="cbDataX"></ComboBox>
-            <CheckBox fx:id="cbSortX"></CheckBox>
-            <Label text="Sorted"></Label>
-        </HBox>
-        <HBox >
-            <Label text="Y field data:"/>
-            <ComboBox fx:id="cbDataY"></ComboBox>
-            <CheckBox fx:id="cbSortY"></CheckBox>
-            <Label text="Sorted"/>
-        </HBox>
-        <HBox >
-            <Button text="Add" onAction="#plotBar" />
-            <Button text="Clear"/>
-            <Button 
-                fx:id="btnCloseBar"
-                text="Close"
-                onAction="#closeBarStage"/>
-        </HBox>
-        <HBox >
-            <Label text="Serie name:"/>
-            <TextField fx:id="tfBarSerie"></TextField>
-        </HBox>        
-    </VBox> 
+        GridPane.columnSpan="2" 
+        fx:id="cbBarDataset"/>              
+            
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="1"
+        text="Graph label:"/>            
+    <TextField 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="1"
+        GridPane.columnSpan="2"
+        fx:id="tfLabelChart"/>
+            
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="2"
+        text="X Axis label:" />
+    <TextField 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="2"
+        GridPane.columnSpan="2"
+        fx:id="tfLabelX"/>
+            
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="3"
+        text="Y Axis label:"/>
+    <TextField 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="3"
+        GridPane.columnSpan="2"
+        fx:id="tfLabelY"/> 
+            
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="4"
+        text="X field data:"/>
+    <ComboBox 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="4"
+        fx:id="cbDataX">
+    </ComboBox>
+            
+    <CheckBox 
+        GridPane.columnIndex="2" 
+        GridPane.rowIndex="4"
+        fx:id="cbSortX"
+        text="Sorted"
+    >
+    </CheckBox>
+            
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="5"
+        text="Y field data:"/>
+    <ComboBox 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="5"
+        fx:id="cbDataY">
+    </ComboBox>
+    <CheckBox 
+        GridPane.columnIndex="2" 
+        GridPane.rowIndex="5"
+        fx:id="cbSortY"
+        text="Sorted">
+    </CheckBox>
     
-    <ScrollPane 
-        GridPane.columnIndex="4"
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="6"        
+        text="Serie name:"/>
+    <TextField 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="6"
+        GridPane.columnSpan="2"
+        fx:id="tfBarSerie">
+    </TextField>
+           
+    <Button 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="7"
+        text="Add" onAction="#plotBar" />
+    <Button 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="7"
+        text="Clear"/>
+    <Button 
+        GridPane.columnIndex="2" 
+        GridPane.rowIndex="7"
+        fx:id="btnCloseBar"
+        text="Close"
+        onAction="#closeBarStage"/>       
+    
+    <javafx.scene.chart.BarChart 
+        GridPane.columnIndex="3"
         GridPane.rowIndex="0"
         GridPane.columnSpan="4"
-        GridPane.rowSpan="4"      >
-        
-        <content >
-            <fx:include source="barChartFXML.fxml"/>
-        </content>
-    </ScrollPane>    
+        GridPane.rowSpan="7"    
+        fx:id="barChart">
+            
+        <xAxis>
+            <javafx.scene.chart.NumberAxis label="X"/> 
+        </xAxis>        
+        <yAxis>
+            <javafx.scene.chart.CategoryAxis  label="Y"/> 
+        </yAxis>
+    </javafx.scene.chart.BarChart>  
     
 </GridPane>

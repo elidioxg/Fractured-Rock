@@ -12,7 +12,7 @@
     id="gridLinePane" 
     prefHeight="400.0" 
     prefWidth="800.0"     
-    fx:controller="fractureanalysis.controller.AppController" 
+    fx:controller="fractureanalysis.controller.LineChartController" 
     alignment="CENTER"
     hgap="20"
     vgap="20">    
@@ -22,7 +22,6 @@
     <VBox 
         GridPane.columnIndex="0" 
         GridPane.rowIndex="0"
-        GridPane.columnSpan="4"
         GridPane.rowSpan="4"  
     >        
         <HBox >
@@ -32,7 +31,7 @@
         <HBox >
             <Label 
                 text="Graph label:"/>
-            <TextField fx:id="tfGraphLabel"/>
+                <TextField fx:id="tfGraphLabel"></TextField>
         </HBox>        
         <HBox >
             <Label text="X Axis label:" />
@@ -69,6 +68,23 @@
                 
     </VBox> 
     
-    <fx:include source="lineChartFXML.fxml"/>
+    <javafx.scene.chart.LineChart 
+        fx:id="lineChart"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="0"
+        GridPane.columnSpan="4"
+        GridPane.rowSpan="4" 
+        >
+        <xAxis>
+            <javafx.scene.chart.CategoryAxis 
+                label="X"                 
+                />                
+        </xAxis>
+        <yAxis>
+            <javafx.scene.chart.CategoryAxis 
+                label="Y"
+                /> 
+        </yAxis>        
+    </javafx.scene.chart.LineChart>
        
 </GridPane>

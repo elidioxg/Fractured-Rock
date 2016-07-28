@@ -61,7 +61,7 @@
             <Button 
                 text="Apply"
                 ButtonBar.buttonData="APPLY"
-                onAction="#datasetListAdd"/>
+                onAction="#addToList"/>
             <Button
                 fx:id="btnClose" 
                 ButtonBar.buttonData="CANCEL_CLOSE" 
