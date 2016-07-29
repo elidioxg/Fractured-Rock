@@ -5,7 +5,6 @@ import fractureanalysis.analysis.FractureIntensity;
 import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
-import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.stages.BarChartStage;
 import fractureanalysis.stages.EstimateStage;
 import fractureanalysis.stages.LineChartStage;
@@ -26,7 +25,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -41,13 +39,6 @@ import javafx.stage.Stage;
 
 public class AppController implements Initializable {          
         
-    
-    public void setStatistics(){
-        if(FractureAnalysis.getInstance().file.getColumnsNumber()>0){
-            
-        }        
-    }
-    
     @FXML 
     protected TableView tvDataset;
 
@@ -232,6 +223,17 @@ public class AppController implements Initializable {
 
     }
     
-    @FXML protected Label lMinValue, lMaxValue, lStdDevValue, lAvgValue;
-    @FXML protected ComboBox cbColumn;
+    @FXML 
+    protected Label lMinValue, lMaxValue, lStdDevValue, lAvgValue;
+    
+    @FXML 
+    protected ComboBox cbSColumn;
+   
+    @FXML 
+    protected void cbSummaryChange(){
+        
+         
+        
+    }
+        
 }

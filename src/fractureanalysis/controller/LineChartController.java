@@ -40,7 +40,7 @@ public class LineChartController implements Initializable{
     protected void plotLine() {
         int indexX = comboBoxX.getSelectionModel().getSelectedIndex();
         int indexY = comboBoxY.getSelectionModel().getSelectedIndex();
-        lineChart.setTitle(tfGraphLabel.getText().toString());
+        lineChart.setTitle(tfGraphLabel.getText());
         lineChart.getXAxis().setLabel(tfXLabel.getText());
         lineChart.getYAxis().setLabel(tfYLabel.getText());
         PlotSeries plot = new PlotSeries();
