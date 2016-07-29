@@ -23,7 +23,8 @@
            GridPane.rowIndex="1">
     </Label>
     
-    <ComboBox fx:id="cbColumn"
+    <ComboBox fx:id="cbSColumn"
+              onValueChange="" 
               GridPane.columnIndex="1"
               GridPane.rowIndex="1">
     </ComboBox>
@@ -55,6 +56,7 @@
     </Label>
     
     <Label
+        fx:id="lAvg"
         GridPane.columnIndex="0"
         GridPane.rowIndex="4"   
         text="Average Value: ">

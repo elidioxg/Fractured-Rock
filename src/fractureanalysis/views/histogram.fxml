@@ -16,5 +16,5 @@
     <stylesheets>
         <URL value="@histogram.css"/>
     </stylesheets>
-    <fx:include fx:id="barChar" source="barChartFXML.fxml"/>
+    <!--<fx:include fx:id="barChar" source="barChartFXML.fxml"/>-->
 </AnchorPane>
