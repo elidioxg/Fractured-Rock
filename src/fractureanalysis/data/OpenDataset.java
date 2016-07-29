@@ -9,7 +9,7 @@ import java.util.List;
 
 public class OpenDataset {
 
-    public ArrayList<Double> openCSVFileToDouble(String fileName, String separator,
+    public static ArrayList<Double> openCSVFileToDouble(String fileName, String separator,
             int column, boolean hasHeader) {
         BufferedReader br = null;
         ArrayList<Double> values = new ArrayList<>();
