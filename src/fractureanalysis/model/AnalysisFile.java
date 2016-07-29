@@ -1,4 +1,4 @@
-package fractureanalysis.data;
+package fractureanalysis.model;
 
 import java.util.ArrayList;
 

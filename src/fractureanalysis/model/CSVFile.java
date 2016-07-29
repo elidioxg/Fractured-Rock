@@ -1,4 +1,4 @@
-package fractureanalysis.data;
+package fractureanalysis.model;
 
 public class CSVFile {
     private String datasetName = "";

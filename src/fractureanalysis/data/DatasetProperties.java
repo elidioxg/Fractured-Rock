@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -40,4 +41,21 @@ public class DatasetProperties {
         return lineValues.length;
     }
     
+    /**
+     * 
+     * @param filename
+     * @param separator
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    public static ArrayList<String> getHeaders(String filename, String separator) 
+            throws FileNotFoundException, IOException{
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        final String headerLine = br.readLine();
+        final String[] headerValues = headerLine.split(separator);
+        ArrayList<String> result = new ArrayList();
+        result.addAll(Arrays.asList(headerValues));
+        return result;
+    }
 }

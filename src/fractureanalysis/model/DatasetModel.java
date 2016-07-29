@@ -6,12 +6,14 @@ package fractureanalysis.model;
  */
 public class DatasetModel {
     
-    public String name;
+    private String name;
     //public int listIndex;
-    public String filename;
-    public String separator=",";
-    public boolean header = true;
-    public String[] headerStrings;
+    private String filename;
+    private String separator=",";
+    private boolean header = true;
+    private String[] headerStrings;
+    private int currentColumn = 0;
+    
     
     public DatasetModel(String valueX, String valueY){
         
@@ -64,6 +66,12 @@ public class DatasetModel {
     
     public void setHeaderStrings(String[] header){
         this.headerStrings = header;
+    }
+    public void setCurrentColumn(int index){
+        this.currentColumn = index;
+    }
+    public int getCurrentColumn(){
+        return this.currentColumn;
     }
 }
 
