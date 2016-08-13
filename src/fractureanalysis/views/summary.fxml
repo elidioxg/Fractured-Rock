@@ -95,4 +95,30 @@
         text="">
     </Label>
     
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="7"
+        text="Variance">
+    </Label> 
+    
+    <Label 
+        fx:id="lVariance"
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="7"
+        text="">
+    </Label> 
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="8"
+        text="Variantion Coefficient">
+    </Label> 
+    
+    <Label 
+        fx:id="lVariation"
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="8"
+        text="">
+    </Label> 
+    
 </GridPane>
