@@ -7,14 +7,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" 
-            id="AnchorPane" 
-            prefHeight="400.0" 
-            prefWidth="600.0" 
-            styleClass="mainFxmlClass"             
-            fx:controller="fractureanalysis.controller.AppController">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" 
+          id="AnchorPane" 
+          prefHeight="400.0" 
+          prefWidth="600.0" 
+          styleClass="mainFxmlClass"             
+          fx:controller="fractureanalysis.controller.AppController">
     <stylesheets>
         <URL value="@histogram.css"/>
     </stylesheets>
-    <!--<fx:include fx:id="barChar" source="barChartFXML.fxml"/>-->
-</AnchorPane>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"
+        text="Column">
+    </Label>  
+    <ComboBox 
+        fx:id="cbColIndex"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0">
+    </ComboBox>  
+    <javafx.scene.chart.BarChart 
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="1" 
+        GridPane.rowSpan="2">
+        
+        <xAxis>
+            <javafx.scene.chart.NumberAxis label="X"/> 
+        </xAxis>
+        <yAxis>
+            <javafx.scene.chart.CategoryAxis label="Y"/> 
+        </yAxis>
+    </javafx.scene.chart.BarChart>    
+    
+</GridPane>
