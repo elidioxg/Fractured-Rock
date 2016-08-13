@@ -21,6 +21,39 @@
         
     </padding>
     <gridLinesVisible>true</gridLinesVisible>
+    
+    <MenuBar 
+        fx:id="menuBar"
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="3"
+        GridPane.rowIndex="0">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem 
+                        text="Open"
+                        onAction="#openFileStage" 
+                    />
+                    <MenuItem text="Exit"/>
+                </items>                    
+            </Menu>
+            <Menu text="Plot">
+                <items>
+                    <MenuItem 
+                        onAction="#barChartStage" 
+                        text="Bar Chart"/>
+                    <MenuItem 
+                        text="Line Chart"
+                        onAction="#lineChartStage" />
+                    <MenuItem 
+                        text="Scatter Chart"
+                       
+                    />
+                </items>
+            </Menu>            
+        </menus>    
+    </MenuBar>   
+    
     <ListView 
         fx:id="lvDatasets"
         GridPane.columnIndex="1"
@@ -56,24 +89,7 @@
             </content>
         </Tab>
         
-    </TabPane>   
-    
-    
-    <ButtonBar GridPane.columnIndex="0"
-               GridPane.rowIndex="0"
-               GridPane.columnSpan="3"
-               GridPane.rowSpan="1">        
-        <buttons>            
-            <Button fx:id="btnOpen"
-                    onAction="#openFileStage" 
-                    text="Open Data"
-                    ButtonBar.buttonData="LEFT">
-            </Button>             
-            <Button text="Line Chart" onAction="#lineChartStage" ></Button>  
-            <Button text="Bar Chart"  onAction="#barChartStage" ></Button>
-            <Button text="Scatter Chart" ></Button> 
-        </buttons>        
-    </ButtonBar>
+    </TabPane> 
     
     <Label
         text="Datasets"
