@@ -21,9 +21,10 @@ public class EstimateStage {
         Parent parent = (Parent) loader.load();
 
         List list = new ArrayList();
-        for (int i = 0; i < FractureAnalysis.getInstance().
-                file.getHeaderStrings().length; i++) {
-            list.add(FractureAnalysis.getInstance().file.getHeaderStrings(i));
+        if (FractureAnalysis.getInstance().file.getHeaderStrings() != null) {
+            for (int i = 0; i < FractureAnalysis.getInstance().file.getHeaderStrings().length; i++) {
+                list.add(FractureAnalysis.getInstance().file.getHeaderStrings(i));
+            }
         }
         ObservableList ol = FXCollections.observableArrayList(list);
         ObservableList olDatasets = FXCollections.observableArrayList(
