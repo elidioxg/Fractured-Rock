@@ -9,6 +9,11 @@ import fractureanalysis.stages.BarChartStage;
 import fractureanalysis.stages.EstimateStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
+import fractureanalysis.statistics.ClassInterval;
+import fractureanalysis.statistics.Frequency;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
+import fractureanalysis.statistics.SampleAmplitude;
 import fractureanalysis.table.TableUtils;
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,6 +30,8 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -233,12 +240,40 @@ public class AppController implements Initializable {
     protected ComboBox cbSColumn;
    
     @FXML 
-    protected void cbSummaryChange(){
+    protected void cbSummaryChange(){        
         int colIndex = cbSColumn.getSelectionModel().getSelectedIndex();
         FractureAnalysis.getInstance().setColumnStatistics(
                 FractureAnalysis.getInstance().file.getFileName(),
                 FractureAnalysis.getInstance().file.getSeparator(),
                 colIndex);                 
+    }
+    
+    @FXML 
+    protected BarChart chartHistogram;
+    
+    @FXML
+    protected ComboBox cbColIndex;
+    @FXML 
+    protected void cbHistogramChange(){
+        int index = cbColIndex.getSelectionModel().getSelectedIndex();
+        ArrayList array = OpenDataset.openCSVFileToDouble(
+                FractureAnalysis.getInstance().file.getFileName(), 
+                FractureAnalysis.getInstance().file.getSeparator(), index, true);
+        double amplitude = SampleAmplitude.getAmplitude(array);
+        double classIntervals = Frequency.sturgesExpression(amplitude, array.size());
+        double min = MinimumValue.getMinValue(array);
+        double max = MaximumValue.getMaxValue(array);
+        ArrayList<ClassInterval> intervals = Frequency.classIntervals(min, max, classIntervals);
+        intervals = Frequency.countObsFrequency(array, intervals);
+        
+        XYChart.Series series= new XYChart.Series();
+        series.setName("Histogram");        
+        for(int i = 0; i < intervals.size(); i++){
+            series.getData().add(
+                    new XYChart.Data(intervals.get(i).getLabel(), intervals.get(i).getObsFrequency()));
+        }        
+        chartHistogram.getData().clear();
+        chartHistogram.getData().addAll(series);
     }
         
 }

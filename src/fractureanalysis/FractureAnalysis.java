@@ -121,7 +121,7 @@ public class FractureAnalysis extends Application {
                         setColumnStatistics(dm.getFileName(), dm.getSeparator(), 
                                 0/*dm.getCurrentColumn()*/);
                         try {
-                            columnsComboboxSummary(dm.getFileName(), dm.getSeparator());
+                            itemsComboboxes(dm.getFileName(), dm.getSeparator());
                         } catch (IOException ex) {
                             Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -191,13 +191,21 @@ public class FractureAnalysis extends Application {
      * @param separator
      * @throws IOException 
      */
-    private void columnsComboboxSummary(String filename, String separator) throws IOException{
+    private void itemsComboboxes(String filename, String separator) throws IOException{
         ObservableList<String> ol = 
                 FXCollections.observableList(
                         DatasetProperties.getHeaders(filename, separator));
         
         ComboBox cbSColumn = (ComboBox)grid.lookup("#cbSColumn");
         cbSColumn.setItems(ol);
+        cbSColumn.getSelectionModel().selectFirst();
+        ComboBox cbColIndex = (ComboBox)grid.lookup("#cbColIndex");
+        cbColIndex.setItems(ol);
+        cbColIndex.getSelectionModel().selectFirst();
+        ComboBox cbColumnAp  = (ComboBox)grid.lookup("#cbColumnAp");
+        cbColumnAp.setItems(ol);
+        ComboBox cbColumnSp  = (ComboBox)grid.lookup("#cbColumnSp");
+        cbColumnSp.setItems(ol);
     }
 
     /**

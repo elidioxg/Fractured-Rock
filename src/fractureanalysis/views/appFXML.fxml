@@ -101,22 +101,13 @@
         text="Data"
         GridPane.columnIndex="2"
         GridPane.rowIndex="2">
-    </Label>   
-    
-    
-    <VBox GridPane.columnIndex="1"
-          GridPane.rowIndex="4"         
-    >
-        <HBox >
-            
-        </HBox>
-    </VBox>                
+    </Label>               
     
     <ScrollPane 
         fx:id="spProperties"
         GridPane.columnIndex="1"
         GridPane.rowSpan="2" 
-        GridPane.rowIndex="5">
+        GridPane.rowIndex="4">
                 
         <content>
             <fx:include fx:id="datasetProperties" source="datasetProperties.fxml"/>                              

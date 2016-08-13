@@ -24,20 +24,22 @@
     </Label>  
     <ComboBox 
         fx:id="cbColIndex"
+        onAction="#cbHistogramChange" 
         GridPane.columnIndex="1"
         GridPane.rowIndex="0">
     </ComboBox>  
     <javafx.scene.chart.BarChart 
+        fx:id="chartHistogram"
         GridPane.columnIndex="0"
         GridPane.columnSpan="2"
         GridPane.rowIndex="1" 
         GridPane.rowSpan="2">
         
         <xAxis>
-            <javafx.scene.chart.NumberAxis label="X"/> 
+            <javafx.scene.chart.CategoryAxis label="Classes"/> 
         </xAxis>
         <yAxis>
-            <javafx.scene.chart.CategoryAxis label="Y"/> 
+            <javafx.scene.chart.NumberAxis label="Frequency"/> 
         </yAxis>
     </javafx.scene.chart.BarChart>    
     
