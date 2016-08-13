@@ -8,10 +8,8 @@
 
 <GridPane 
     id="paneProperties"        
-    hgap="5"
-    vgap="5"
-    prefHeight="80.0" 
-    prefWidth="80.0" 
+    prefHeight="120.0" 
+    prefWidth="200.0" 
     xmlns:fx="http://javafx.com/fxml/1" 
     fx:controller="fractureanalysis.controller.AppController">
     
@@ -38,5 +36,13 @@
         GridPane.rowIndex="1"
         fx:id="cbColumnSp">
     </ComboBox>
+    
+    <Button 
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="1" 
+        GridPane.rowIndex="2" 
+        text="Estimate Distribution" 
+        onAction="#estimateStage">
+    </Button>           
     
 </GridPane>

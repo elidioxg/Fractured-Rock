@@ -71,9 +71,7 @@
             </Button>             
             <Button text="Line Chart" onAction="#lineChartStage" ></Button>  
             <Button text="Bar Chart"  onAction="#barChartStage" ></Button>
-            <Button text="Estimate Distribution" 
-                    onAction="#estimateStage">
-            </Button>            
+            <Button text="Scatter Chart" ></Button> 
         </buttons>        
     </ButtonBar>
     
