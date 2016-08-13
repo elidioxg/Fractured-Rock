@@ -30,6 +30,8 @@ import fractureanalysis.statistics.Average;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
 import fractureanalysis.statistics.StdDeviation;
+import fractureanalysis.statistics.Variance;
+import fractureanalysis.statistics.VariationCoefficient;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +118,8 @@ public class FractureAnalysis extends Application {
                         file.setHeader(dm.getHeader());
                         file.setHeaderStrings(dm.getHeaderStrings());
                         controller.populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
-                        setColumnStatistics(dm.getFileName(), dm.getSeparator(), dm.getCurrentColumn());
+                        setColumnStatistics(dm.getFileName(), dm.getSeparator(), 
+                                0/*dm.getCurrentColumn()*/);
                         try {
                             columnsComboboxSummary(dm.getFileName(), dm.getSeparator());
                         } catch (IOException ex) {
@@ -172,7 +175,13 @@ public class FractureAnalysis extends Application {
             //double mean = 
             Label lStdDevValue = (Label) grid.lookup("#lStdDevValue");
             double stdDev = StdDeviation.stdDeviation(array);
-            lStdDevValue.setText(String.valueOf(stdDev));            
+            lStdDevValue.setText(String.valueOf(stdDev));  
+            Label lVariance = (Label) grid.lookup("#lVariance");
+            double variance = Variance.variance(array);
+            lVariance.setText(String.valueOf(variance));
+            Label lVariation = (Label) grid.lookup("#lVariation");
+            double variation = VariationCoefficient.variationCoefficient(array);
+            lVariation.setText(String.valueOf(variation));
         }        
     }
     
