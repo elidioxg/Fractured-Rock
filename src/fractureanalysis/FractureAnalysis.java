@@ -27,6 +27,9 @@ import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.statistics.Average;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
+import fractureanalysis.statistics.StdDeviation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,16 +149,39 @@ public class FractureAnalysis extends Application {
 
     }
     
+    /**
+     * Set the statistics to selected column on combobox 
+     * @param filename
+     * @param separator
+     * @param columnIndex 
+     */
     public void setColumnStatistics(String filename, String separator, int columnIndex){
         if(FractureAnalysis.getInstance().file.getColumnsNumber()>0){
             ArrayList<Double> array = 
                     OpenDataset.openCSVFileToDouble(filename, separator, columnIndex, true);
-            double avg = Average.arithmeticAverage(array);
             Label lAvg = (Label) grid.lookup("#lAvgValue");
+            double avg = Average.arithmeticAverage(array);            
             lAvg.setText(String.valueOf(avg));
+            Label lMinValue = (Label) grid.lookup("#lMinValue");
+            double min = MinimumValue.getMinValue(array);
+            lMinValue.setText(String.valueOf(min));
+            Label lMaxValue = (Label) grid.lookup("#lMaxValue");
+            double max = MaximumValue.getMaxValue(array);
+            lMaxValue.setText(String.valueOf(max));
+            Label lMeanValue = (Label) grid.lookup("#lMeanValue");
+            //double mean = 
+            Label lStdDevValue = (Label) grid.lookup("#lStdDevValue");
+            double stdDev = StdDeviation.stdDeviation(array);
+            lStdDevValue.setText(String.valueOf(stdDev));            
         }        
     }
     
+    /**
+     * Add the headers to the combobox in summary view
+     * @param filename
+     * @param separator
+     * @throws IOException 
+     */
     private void columnsComboboxSummary(String filename, String separator) throws IOException{
         ObservableList<String> ol = 
                 FXCollections.observableList(

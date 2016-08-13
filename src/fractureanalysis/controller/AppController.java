@@ -38,7 +38,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class AppController implements Initializable {          
-        
+    
     @FXML 
     protected TableView tvDataset;
 
@@ -64,11 +64,15 @@ public class AppController implements Initializable {
         int spIndex = cbSpValues.getSelectionModel().getSelectedIndex();
         int apIndex = cbApValues.getSelectionModel().getSelectedIndex();
         OpenDataset od = new OpenDataset();
-        ArrayList<Double> spArray = new ArrayList<>();
-        spArray = od.openCSVFileToDouble(FractureAnalysis.getInstance().file.getFileName(), FractureAnalysis.getInstance().file.getSeparator(), spIndex,
+        ArrayList<Double> spArray;
+        spArray = OpenDataset.openCSVFileToDouble(
+                FractureAnalysis.getInstance().file.getFileName(), 
+                FractureAnalysis.getInstance().file.getSeparator(), spIndex,
                 FractureAnalysis.getInstance().file.getHeader());
-        ArrayList<Double> apArray = new ArrayList<>();
-        apArray = od.openCSVFileToDouble(FractureAnalysis.getInstance().file.getFileName(), FractureAnalysis.getInstance().file.getSeparator(), apIndex,
+        ArrayList<Double> apArray;
+        apArray = OpenDataset.openCSVFileToDouble(
+                FractureAnalysis.getInstance().file.getFileName(), 
+                FractureAnalysis.getInstance().file.getSeparator(), apIndex,
                 FractureAnalysis.getInstance().file.getHeader());
         FractureIntensity fi = new FractureIntensity();
         ArrayList[][] arraySorted = fi.listAndSort(spArray, true);
@@ -86,7 +90,6 @@ public class AppController implements Initializable {
         populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
     }
 
-    
     @FXML
     public void populateTable(final String filename, final String separator,
             final boolean hasHeader) {
