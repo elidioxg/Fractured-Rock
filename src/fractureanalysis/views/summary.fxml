@@ -24,7 +24,7 @@
     </Label>
     
     <ComboBox fx:id="cbSColumn"
-              onValueChange="" 
+              onValueChange="#cbSummaryChange" 
               GridPane.columnIndex="1"
               GridPane.rowIndex="1">
     </ComboBox>

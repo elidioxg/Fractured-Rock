@@ -234,9 +234,11 @@ public class AppController implements Initializable {
    
     @FXML 
     protected void cbSummaryChange(){
-        
-         
-        
+        int colIndex = cbSColumn.getSelectionModel().getSelectedIndex();
+        FractureAnalysis.getInstance().setColumnStatistics(
+                FractureAnalysis.getInstance().file.getFileName(),
+                FractureAnalysis.getInstance().file.getSeparator(),
+                colIndex);                 
     }
         
 }
