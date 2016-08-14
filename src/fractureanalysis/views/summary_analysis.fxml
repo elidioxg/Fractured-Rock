@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="AnchorPane" 
+    prefHeight="400.0" 
+    prefWidth="600.0" 
+    xmlns:fx="http://javafx.com/fxml/1">
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"
+        text="Fracture Intensity"
+    >
+    </Label> 
+    <Label 
+        fx:id="lFracInt"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0"
+        text=""
+    >
+    </Label> 
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        text="Average Spacing"
+    >
+    </Label> 
+    <Label
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1"
+        text="">
+    </Label>  
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"
+        text="Scanline Lenght">
+    </Label>  
+    <Label 
+        fx:id="lScanLen"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"
+        text="">
+    </Label>  
+    
+</GridPane>
