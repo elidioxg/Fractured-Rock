@@ -176,8 +176,8 @@ public class AppController implements Initializable {
         FractureAnalysis.getInstance().file.setColumnsNumber(
                 columnCount);
         if(FractureAnalysis.getInstance().file.getColumnsNumber()>1){
-            FractureAnalysis.getInstance().file.setColumnAp(0);
-            FractureAnalysis.getInstance().file.setColumnSp(1);
+            //FractureAnalysis.getInstance().file.setColumnAp(0);
+            //FractureAnalysis.getInstance().file.setColumnSp(1);
         }        
         FractureAnalysis.getInstance().updateListView();
     }

@@ -182,6 +182,9 @@ public class FractureAnalysis extends Application {
             Label lVariation = (Label) grid.lookup("#lVariation");
             double variation = VariationCoefficient.variationCoefficient(array);
             lVariation.setText(String.valueOf(variation));
+            Label lGeoAvg = (Label)grid.lookup("#lGeoAvg");
+            double geoAvg = Average.geometricAverage(array);
+            lGeoAvg.setText(String.valueOf(geoAvg));
         }        
     }
     
