@@ -133,4 +133,16 @@
         text="">
     </Label> 
     
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="10"
+        text="Count">
+    </Label>
+    <Label 
+        fx:id="lCount"
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="10"
+        text="">
+    </Label>   
+    
 </GridPane>
