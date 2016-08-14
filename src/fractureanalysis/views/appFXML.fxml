@@ -91,7 +91,7 @@
         
         <Tab text="Correlation">
             <content>
-                
+                <fx:include source="correlationTab.fxml"/>
             </content>
         </Tab>
         

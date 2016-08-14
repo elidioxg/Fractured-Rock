@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="AnchorPane" 
+    prefHeight="400.0" 
+    prefWidth="600.0" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="fractureanalysis.controller.AppController">
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"
+        text="Variable A">
+    </Label> 
+    <ComboBox
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0">
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        text="Variable B">
+    </Label> 
+    <ComboBox
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1">
+    </ComboBox>    
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"
+        text="Pearson Coefficient">
+    </Label> 
+    <Label
+        fx:id="lPearson"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="2">
+    </Label>
+    
+</GridPane>
