@@ -44,14 +44,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class AppController implements Initializable {          
-    
-    @FXML 
+public class AppController implements Initializable {
+
+    @FXML
     protected TableView tvDataset;
 
     @FXML
     private TextField tfFilename;
-    
+
     @FXML
     private ListView lvDatasets;
 
@@ -60,11 +60,12 @@ public class AppController implements Initializable {
 
     @FXML
     protected ComboBox cbSpValues;
-    
+
     @FXML
     protected ComboBox cbApValues;
-    
-    @FXML protected TableView tvProcessed;
+
+    @FXML
+    protected TableView tvProcessed;
 
     @FXML
     protected void estimate() {
@@ -73,12 +74,12 @@ public class AppController implements Initializable {
         OpenDataset od = new OpenDataset();
         ArrayList<Double> spArray;
         spArray = OpenDataset.openCSVFileToDouble(
-                FractureAnalysis.getInstance().file.getFileName(), 
+                FractureAnalysis.getInstance().file.getFileName(),
                 FractureAnalysis.getInstance().file.getSeparator(), spIndex,
                 FractureAnalysis.getInstance().file.getHeader());
         ArrayList<Double> apArray;
         apArray = OpenDataset.openCSVFileToDouble(
-                FractureAnalysis.getInstance().file.getFileName(), 
+                FractureAnalysis.getInstance().file.getFileName(),
                 FractureAnalysis.getInstance().file.getSeparator(), apIndex,
                 FractureAnalysis.getInstance().file.getHeader());
         FractureIntensity fi = new FractureIntensity();
@@ -88,12 +89,12 @@ public class AppController implements Initializable {
         ArrayList[][] arrayNormalized = fi.filterAndNormalize(
                 arraySorted, scanlineLength);
         TableUtils tu = new TableUtils();
-        tu.AddColumn(tvProcessed, arrayNormalized,"test", 0,0);
-    }                
+        tu.AddColumn(tvProcessed, arrayNormalized, "test", 0, 0);
+    }
 
     @FXML//mouse handler for ListView lvDatasets
     protected void onMouseClicked() throws IOException {
-        DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();        
+        DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();
         populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
     }
 
@@ -152,15 +153,19 @@ public class AppController implements Initializable {
             thread.start();
         }
     }
-    
-    @FXML 
+
+    @FXML
     protected TextField tfSeparator;
-    
-    @FXML protected ScrollPane spProperties;
-    @FXML protected GridPane paneProperties;
-    @FXML protected ComboBox cbColumnAp;
-    @FXML protected ComboBox cbColumnSp;
-    
+
+    @FXML
+    protected ScrollPane spProperties;
+    @FXML
+    protected GridPane paneProperties;
+    @FXML
+    protected ComboBox cbColumnAp;
+    @FXML
+    protected ComboBox cbColumnSp;
+
     @FXML
     protected void addToList() throws IOException {
         if (cbHeader.isSelected()) {
@@ -168,17 +173,17 @@ public class AppController implements Initializable {
         } else {
             FractureAnalysis.getInstance().file.setHeader(false);
         }
-        
+
         String sep = tfSeparator.getCharacters().toString();
         int columnCount = DatasetProperties.getColumnsCount(
-                        FractureAnalysis.getInstance().file.getFileName(), sep);
+                FractureAnalysis.getInstance().file.getFileName(), sep);
         FractureAnalysis.getInstance().file.setSeparator(sep);
         FractureAnalysis.getInstance().file.setColumnsNumber(
                 columnCount);
-        if(FractureAnalysis.getInstance().file.getColumnsNumber()>1){
+        if (FractureAnalysis.getInstance().file.getColumnsNumber() > 1) {
             //FractureAnalysis.getInstance().file.setColumnAp(0);
             //FractureAnalysis.getInstance().file.setColumnSp(1);
-        }        
+        }
         FractureAnalysis.getInstance().updateListView();
     }
 
@@ -191,7 +196,7 @@ public class AppController implements Initializable {
 
             tfFilename.setText(file.getAbsolutePath());
             FractureAnalysis.getInstance().file.setDatasetName(file.getName());
-            FractureAnalysis.getInstance().file.setFilename(file.getAbsolutePath());            
+            FractureAnalysis.getInstance().file.setFilename(file.getAbsolutePath());
         }
     }
 
@@ -227,37 +232,38 @@ public class AppController implements Initializable {
         BarChartStage bcs = new BarChartStage();
         bcs.createStage();
     }
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-    
-    @FXML 
+
+    @FXML
     protected Label lMinValue, lMaxValue, lStdDevValue, lAvgValue;
-    
-    @FXML 
+
+    @FXML
     protected ComboBox cbSColumn;
-   
-    @FXML 
-    protected void cbSummaryChange(){        
+
+    @FXML
+    protected void cbSummaryChange() {
         int colIndex = cbSColumn.getSelectionModel().getSelectedIndex();
         FractureAnalysis.getInstance().setColumnStatistics(
                 FractureAnalysis.getInstance().file.getFileName(),
                 FractureAnalysis.getInstance().file.getSeparator(),
-                colIndex);                 
+                colIndex);
     }
-    
-    @FXML 
+
+    @FXML
     protected BarChart chartHistogram;
-    
+
     @FXML
     protected ComboBox cbColIndex;
-    @FXML 
-    protected void cbHistogramChange(){
+
+    @FXML
+    protected void cbHistogramChange() {
         int index = cbColIndex.getSelectionModel().getSelectedIndex();
         ArrayList array = OpenDataset.openCSVFileToDouble(
-                FractureAnalysis.getInstance().file.getFileName(), 
+                FractureAnalysis.getInstance().file.getFileName(),
                 FractureAnalysis.getInstance().file.getSeparator(), index, true);
         double amplitude = SampleAmplitude.getAmplitude(array);
         double classIntervals = Frequency.sturgesExpression(amplitude, array.size());
@@ -265,15 +271,20 @@ public class AppController implements Initializable {
         double max = MaximumValue.getMaxValue(array);
         ArrayList<ClassInterval> intervals = Frequency.classIntervals(min, max, classIntervals);
         intervals = Frequency.countObsFrequency(array, intervals);
-        
-        XYChart.Series series= new XYChart.Series();
-        series.setName("Histogram");        
-        for(int i = 0; i < intervals.size(); i++){
+
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Histogram");
+        for (int i = 0; i < intervals.size(); i++) {
             series.getData().add(
                     new XYChart.Data(intervals.get(i).getLabel(), intervals.get(i).getObsFrequency()));
-        }        
+        }
         chartHistogram.getData().clear();
         chartHistogram.getData().addAll(series);
     }
-        
+
+    @FXML
+    protected void close() {
+        Platform.exit();
+        System.exit(0);
+    }
 }

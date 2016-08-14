@@ -37,6 +37,7 @@ public class Variograms {
         ArrayList<Double> ap = analysisModel.getArrayAp();
         ArrayList<Double> dist = analysisModel.getArrayDistances();
         double sum = 0.;        
+        System.out.println(" ### dist.size: "+dist.size());
         for(int i=0 ; i<dist.size(); i++){
             for(int j=0; j< dist.size(); j++){
                 if(i!=j){
@@ -47,6 +48,10 @@ public class Variograms {
                 }
             }
         }       
-        return sum/(2*pairs);
+        if(pairs==0){
+            return 0.;
+        }else{        
+            return sum/(2*pairs);
+        }
     }
 }

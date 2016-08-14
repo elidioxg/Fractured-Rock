@@ -39,6 +39,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -130,6 +131,7 @@ public class FractureAnalysis extends Application {
             });
 
             grid.add(listView, 1, 3);
+            primaryStage.setOnCloseRequest(e -> Platform.exit());
             primaryStage.setTitle(strAppName);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -205,10 +207,14 @@ public class FractureAnalysis extends Application {
         ComboBox cbColIndex = (ComboBox)grid.lookup("#cbColIndex");
         cbColIndex.setItems(ol);
         cbColIndex.getSelectionModel().selectFirst();
-        ComboBox cbColumnAp  = (ComboBox)grid.lookup("#cbColumnAp");
-        cbColumnAp.setItems(ol);
-        ComboBox cbColumnSp  = (ComboBox)grid.lookup("#cbColumnSp");
-        cbColumnSp.setItems(ol);
+        ComboBox cbVarA = (ComboBox)grid.lookup("#cbVarA");
+        cbVarA.setItems(ol);
+        ComboBox cbVarB = (ComboBox)grid.lookup("#cbVarB");
+        cbVarB.setItems(ol);
+        ComboBox cbSpVar = (ComboBox)grid.lookup("#cbSpVar");
+        cbSpVar.setItems(ol);
+        ComboBox cbApVar = (ComboBox)grid.lookup("#cbApVar");
+        cbApVar.setItems(ol);
     }
 
     /**
