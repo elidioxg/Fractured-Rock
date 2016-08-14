@@ -11,7 +11,7 @@
     id="GridPane" 
     prefHeight="400.0" 
     prefWidth="600.0"
-    fx:controller="fractureanalysis.controller.AnalysisController">
+    fx:controller="fractureanalysis.controller.SLVariogramController">
     
     <Label 
         GridPane.columnIndex="0"
@@ -51,6 +51,11 @@
         GridPane.columnSpan="5"
         GridPane.rowSpan="5"  
     >
+        <Tab text="Summary">
+            <content>
+                <fx:include source="summary_analysis.fxml"/>
+            </content>
+        </Tab>
         <Tab text="Variogram">
             <content><fx:include fx:id="variogram" source="fracture_variogram.fxml"/></content>
         </Tab>

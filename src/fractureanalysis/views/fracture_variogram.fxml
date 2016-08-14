@@ -8,10 +8,10 @@
 
 <GridPane 
     id="VariogramPane" 
-    prefHeight="400.0" 
-    prefWidth="600.0" 
+    prefHeight="600.0" 
+    prefWidth="800.0" 
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="fractureanalysis.controller.AnalysisController">
+    fx:controller="fractureanalysis.controller.SLVariogramController">
     
     <Label 
         GridPane.columnIndex="0"
@@ -34,28 +34,42 @@
     </ListView>    
     
     <TextArea 
+        fx:id="taDist"
         GridPane.columnIndex="0"
         GridPane.rowIndex="4"
         prefRowCount="1"
-        prefColumnCount="5"  
+        prefColumnCount="6"  
     >
     </TextArea>
+    
     <Button 
+        fx:id="bAddDist"
         GridPane.columnIndex="1"
         GridPane.rowIndex="4"
-        text="Add">
+        text="Add"
+        onAction="#bAddClick" >
+    </Button>
+    
+    <Button 
+        fx:id="bRmDist"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="4"
+        text="Remove"
+        onAction="#bRmClick" >
     </Button>
    
     <Button 
         GridPane.columnIndex="0"
         GridPane.rowIndex="5"
-        text="Plot">
+        text="Plot"
+        onAction="#onClick" >
     </Button>     
     
     <Button 
         GridPane.columnIndex="1"
         GridPane.rowIndex="5"
-        text="Clear">
+        text="Clear"
+        onAction="#clear" >
     </Button>     
     
     <javafx.scene.chart.ScatterChart 
