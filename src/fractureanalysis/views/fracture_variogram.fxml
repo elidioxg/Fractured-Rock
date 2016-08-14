@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="AnchorPane" 
+    prefHeight="400.0" 
+    prefWidth="600.0" 
+    xmlns:fx="http://javafx.com/fxml/1">
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"  
+        text="Sp Column">
+    </Label>
+    <ComboBox 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0"
+    >
+    </ComboBox>
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        text="Ap Column">
+    </Label>
+    <ComboBox 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1"
+    >
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"
+        GridPane.columnSpan="2"
+        text="List of distances">
+    </Label>
+    <TextArea 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3"
+        prefRowCount="1"
+        prefColumnCount="5"  
+    >
+    </TextArea>
+    <Button 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="3"
+        text="Add">
+    </Button>
+    
+    <ListView 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="4"
+        GridPane.columnSpan="3"
+        GridPane.rowSpan="2"
+        orientation="VERTICAL" 
+        prefWidth="100" 
+    >
+        
+    </ListView>    
+   
+    <Button 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="6"
+        text="Plot">
+    </Button>     
+    
+    <Button 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="6"
+        text="Clear">
+    </Button>     
+    
+    <javafx.scene.chart.LineChart 
+        GridPane.columnIndex="5"
+        GridPane.rowIndex="0"    
+        GridPane.columnSpan="6"
+        GridPane.rowSpan="6">
+        <xAxis>
+            <javafx.scene.chart.CategoryAxis 
+                label="X">
+            </javafx.scene.chart.CategoryAxis>
+        </xAxis>
+        <yAxis>
+            <javafx.scene.chart.CategoryAxis
+                label="Y"
+            >
+            </javafx.scene.chart.CategoryAxis>
+        </yAxis>
+       
+    </javafx.scene.chart.LineChart>
+    
+</GridPane>

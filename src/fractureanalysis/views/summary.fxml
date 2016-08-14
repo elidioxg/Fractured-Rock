@@ -121,4 +121,16 @@
         text="">
     </Label> 
     
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="9"
+        text="Geometric Average">
+    </Label>  
+    <Label 
+        fx:id="lGeoAvg"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="9"
+        text="">
+    </Label> 
+    
 </GridPane>

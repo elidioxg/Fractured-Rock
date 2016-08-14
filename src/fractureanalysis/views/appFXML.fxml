@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane 
-    xmlns:fx="http://javafx.com/fxml/1" 
+    xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="fractureanalysis.controller.AppController"     
     id="gridPane" 
     prefHeight="600.0" 
@@ -86,6 +86,20 @@
         <Tab text="Histogram">
             <content>
                 <fx:include fx:id="histogramView" source="histogram.fxml"/>
+            </content>
+        </Tab>
+        
+        <Tab text="Correlation">
+            <content>
+                
+            </content>
+        </Tab>
+        
+        <Tab text="Fracture Analysis">
+            <content>
+                <ScrollPane >
+                    <content><fx:include fx:id="analysisView" source="analysis_view.fxml"/></content>
+                </ScrollPane>                
             </content>
         </Tab>
         
