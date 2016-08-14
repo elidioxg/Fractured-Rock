@@ -11,7 +11,7 @@
     prefHeight="400.0" 
     prefWidth="600.0" 
     xmlns:fx="http://javafx.com/fxml/1" 
-    fx:controller="fractureanalysis.controller.AppController">
+    fx:controller="fractureanalysis.controller.CorrelationController">
     
     <Label 
         GridPane.columnIndex="0"
@@ -19,8 +19,10 @@
         text="Variable A">
     </Label> 
     <ComboBox
+        fx:id="cbVarA"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="0">
+        GridPane.rowIndex="0"
+        onAction="#comboboxChange" >
     </ComboBox>
     
     <Label 
@@ -29,8 +31,10 @@
         text="Variable B">
     </Label> 
     <ComboBox
+        fx:id="cbVarB"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="1">
+        GridPane.rowIndex="1"
+        onAction="#comboboxChange" >
     </ComboBox>    
     
     <Label 

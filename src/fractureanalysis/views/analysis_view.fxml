@@ -7,14 +7,52 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane 
-    xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    id="GridPane" 
     prefHeight="400.0" 
     prefWidth="600.0"
-    fx:controller="fractureanalysis.controller.AppController">
+    fx:controller="fractureanalysis.controller.AnalysisController">
     
-    <TabPane >
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"  
+        text="Sp Column">
+    </Label>
+    <ComboBox 
+        fx:id="cbSpVar"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0"
+    >
+    </ComboBox>
+    <Label 
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="0"
+        text="Ap Column">
+    </Label>
+    <ComboBox 
+        fx:id="cbApVar"
+        GridPane.columnIndex="3"
+        GridPane.rowIndex="0"
+    >
+    </ComboBox>
+    
+    <Button 
+        GridPane.columnIndex="4"
+        GridPane.rowIndex="0"
+        text="Update"
+        onAction="#onClick" 
+    >
+        
+    </Button>
+    
+    <TabPane 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        GridPane.columnSpan="5"
+        GridPane.rowSpan="5"  
+    >
         <Tab text="Variogram">
-            <content><fx:include source="fracture_variogram.fxml"/></content>
+            <content><fx:include fx:id="variogram" source="fracture_variogram.fxml"/></content>
         </Tab>
     </TabPane>
     
