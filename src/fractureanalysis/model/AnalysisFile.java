@@ -29,25 +29,42 @@ public class AnalysisFile extends CSVFile {
 
     //This variable defines the distance from first point
     private ArrayList<Double> distances = new ArrayList();
+    private double scanLineLenght = 0.;
+    
+    public AnalysisFile(){
+        this.ap = new ArrayList();
+        this.sp = new ArrayList();
+    }
+    
+    public AnalysisFile(ArrayList<Double> ap, ArrayList<Double> sp){
+        this.ap = ap;
+        this.sp = sp;
+        setDistance();
+    }
 
-    private void setDistance(ArrayList<Double> sp) {
+    private void setDistance() {
         double distance = 0.;
-        for (int i = 0; i < sp.size(); i++) {
+        for (int i = 0; i < this.sp.size(); i++) {
             if (i == 0) {
                 //this.distances.add(distance);
             } else {
                 for (int j = 0; j < i; j++) {
-                    distance += this.sp.get(j);
+                    distance += this.sp.get(j)+this.ap.get(j);
                 }
             }
             if (distance != 0) {
                 this.distances.add(distance);
             }
         }
+        this.scanLineLenght = distance;
         System.out.println(" **  Distances:    " + this.distances);
     }
+    
+    public double getSLLenght(){
+        return this.scanLineLenght;
+    }
 
-    public ArrayList<Double> getArrayDistances() {
+    public ArrayList<Double> getArrayDistance() {
         return this.distances;
     }
 
@@ -61,7 +78,7 @@ public class AnalysisFile extends CSVFile {
 
     public void setArraySp(ArrayList<Double> values) {
         this.sp = values;
-        setDistance(values);
+        setDistance();
     }
 
     public ArrayList<Double> getArraySp() {

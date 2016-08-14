@@ -14,7 +14,7 @@ import javafx.scene.chart.XYChart;
 
 public class PlotSeries {
     
-    public XYChart.Series plotLineSeries(ArrayList<Double> columnX, 
+    public static XYChart.Series plotLineSeries(ArrayList<Double> columnX, 
             ArrayList<Double> columnY) throws Exception{
         if(columnX.size()!=columnY.size()){
             throw new Exception("Columns X and Y must have same size.");            

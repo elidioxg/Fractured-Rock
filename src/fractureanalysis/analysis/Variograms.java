@@ -35,7 +35,7 @@ public class Variograms {
             double maxDistance){        
         int pairs =0;
         ArrayList<Double> ap = analysisModel.getArrayAp();
-        ArrayList<Double> dist = analysisModel.getArrayDistances();
+        ArrayList<Double> dist = analysisModel.getArrayDistance();
         double sum = 0.;        
         System.out.println(" ### dist.size: "+dist.size());
         for(int i=0 ; i<dist.size(); i++){

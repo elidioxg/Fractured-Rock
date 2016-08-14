@@ -34,14 +34,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 
 /**
  *
  * @author elidioxg
  */
-public class AnalysisController implements Initializable {
+public class SLVariogramController implements Initializable {
 
     @FXML
     protected ComboBox cbSpVar, cbApVar;
@@ -69,7 +71,7 @@ public class AnalysisController implements Initializable {
                     filename, sep, indexSp, true);
             model.setArrayAp(ap);
             model.setArraySp(sp);
-            ArrayList<Double> dist = model.getArrayDistances();            
+            ArrayList<Double> dist = model.getArrayDistance();            
             
             lvDistances = (ListView) scene.lookup("#lvDistances");
             ObservableList<Double> ol;
@@ -96,6 +98,29 @@ public class AnalysisController implements Initializable {
             }
             chart.getData().addAll(PlotSeries.plotLineSeries(distance, variogramValue));
         }
+    }
+    
+    @FXML
+    protected Button bAddDist, bRmDist;
+    
+    @FXML
+    protected TextArea taDist;
+    
+    @FXML
+    protected void bAddClick(){
+        String strDist = taDist.getText();
+        lvDistances.getItems().addAll(FXCollections.singletonObservableList(strDist));
+    }
+    
+    @FXML
+    protected void bRmClick(){
+        int rmIndex = lvDistances.getSelectionModel().getSelectedIndex();
+        lvDistances.getItems().remove(rmIndex);
+    }
+    
+    @FXML
+    protected void clear(){
+    
     }
 
     @Override
