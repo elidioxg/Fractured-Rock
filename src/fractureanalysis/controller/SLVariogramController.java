@@ -19,10 +19,14 @@ package fractureanalysis.controller;
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.analysis.FractureIntensity;
 import fractureanalysis.data.OpenDataset;
-import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.plot.PlotFractureVariogram;
+import fractureanalysis.statistics.Average;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
+import fractureanalysis.statistics.StdDeviation;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,6 +39,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -52,14 +57,20 @@ public class SLVariogramController implements Initializable {
     protected ScatterChart chart;
     
     @FXML
+    protected TextField tfLenght;
+
+    @FXML
     protected Label lFracInt, lAvgSpacing, lScanLen;
 
     @FXML
     protected void onClick() throws Exception {
         int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
-        int indexAp = cbApVar.getSelectionModel().getSelectedIndex();  
+        int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
+        String strLen = tfLenght.getText();
+        double len = Double.valueOf(strLen);
+        FractureAnalysis.getInstance().file.setSLLenght(len);
         String filename = FractureAnalysis.getInstance().file.getFileName();
-        String sep = FractureAnalysis.getInstance().file.getSeparator();        
+        String sep = FractureAnalysis.getInstance().file.getSeparator();
         ArrayList<Double> ap = OpenDataset.openCSVFileToDouble(filename, sep, indexAp, true);
         ArrayList<Double> sp = OpenDataset.openCSVFileToDouble(filename, sep, indexSp, true);
         FractureAnalysis.getInstance().file.setArraysSpAp(ap, sp);
@@ -67,17 +78,14 @@ public class SLVariogramController implements Initializable {
         chart = (ScatterChart) scene.lookup("#variogram_chart");
         chart.getData().clear();
         lvDistances = (ListView) scene.lookup("#lvDistances");
-        ObservableList<Double> ol;
         //add distances to listview, if is empty
         if (lvDistances.getItems().isEmpty()) {
-//            ol = FXCollections.observableArrayList(array);
-//            lvDistances.getItems().addAll(ol);
-        } else {
-            ol = FXCollections.observableArrayList(lvDistances.getItems());
-            chart.getData().addAll(
-                    PlotFractureVariogram.variogram1D(
-                            FractureAnalysis.getInstance().file, ol));            
+            auto();
         }
+        ObservableList<Double> ol = FXCollections.observableArrayList(lvDistances.getItems());
+        chart.getData().addAll(
+                PlotFractureVariogram.variogram1D(
+                        FractureAnalysis.getInstance().file, ol));
         FractureIntensity fi = new FractureIntensity(
                 FractureAnalysis.getInstance().file);
         lFracInt = (Label) scene.lookup("#lFracInt");
@@ -108,12 +116,21 @@ public class SLVariogramController implements Initializable {
 
     @FXML
     protected void clear() {
-
+        lvDistances.getSelectionModel().getSelectedItems().clear();        
     }
-    
+
     @FXML
-    protected void auto(){
-        
+    protected void auto() {
+        ArrayList<Double> array = FractureAnalysis.getInstance().file.getArrayDistance();
+        double max = MaximumValue.getMaxValue(array);
+        double min = MinimumValue.getMinValue(array);
+        double step = (max - min) / 10;
+        ArrayList<Double> listDistances = new ArrayList();
+        for (int i = 3; i <= 8; i++) {
+            listDistances.add(min + (step * i));
+        }
+        ObservableList<Double> ol = FXCollections.observableArrayList(listDistances);
+        lvDistances.getItems().addAll(ol);
     }
 
     @Override

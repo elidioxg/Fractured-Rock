@@ -36,9 +36,21 @@
     >
     </ComboBox>
     
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        text="Scanline lenght">
+    </Label>
+    <TextField 
+        fx:id="tfLenght"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1"
+        GridPane.rowSpan="2"     >
+    </TextField>
+    
     <Button 
         GridPane.columnIndex="4"
-        GridPane.rowIndex="0"
+        GridPane.rowIndex="1"
         text="Update"
         onAction="#onClick" 
     >
@@ -47,7 +59,7 @@
     
     <TabPane 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="1"
+        GridPane.rowIndex="2"
         GridPane.columnSpan="5"
         GridPane.rowSpan="5"  
     >

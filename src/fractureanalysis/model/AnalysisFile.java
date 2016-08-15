@@ -32,14 +32,10 @@ public class AnalysisFile extends CSVFile {
     private double scanLineLenght = 0.;
     private int fracturesCount = 0;
 
-    public AnalysisFile() {
-        this.ap = new ArrayList();
-        this.sp = new ArrayList();
-    }
-
-    public AnalysisFile(ArrayList<Double> ap, ArrayList<Double> sp) {
+    public AnalysisFile(ArrayList<Double> ap, ArrayList<Double> sp, double lenght) {
         this.ap = ap;
         this.sp = sp;
+        this.scanLineLenght = lenght;
         setDistance();
         setFractureCount(this.sp.size());
     }
@@ -65,9 +61,12 @@ public class AnalysisFile extends CSVFile {
             if (distance != 0) {
                 this.distances.add(distance);
             }
-        }
-        this.scanLineLenght = distance;
+        }        
         System.out.println(" **  Distances:    " + this.distances);
+    }
+    
+    public void setSLLenght(double len){
+        this.scanLineLenght=len;
     }
 
     public double getSLLenght() {

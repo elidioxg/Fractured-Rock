@@ -57,7 +57,7 @@ public class FractureAnalysis extends Application {
 
     private final String strAppName = "Application Name";
 
-    public AnalysisFile file = new AnalysisFile();
+    public AnalysisFile file;
     public Stage stage;   
 
     public ListView listView;
@@ -80,7 +80,8 @@ public class FractureAnalysis extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException {        
+        file = new AnalysisFile(new ArrayList<Double>(), new ArrayList<Double>(), 0.);
         try {
             FXMLLoader root = new FXMLLoader(getClass().getResource(
                     "views/appFXML.fxml"));
