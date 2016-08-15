@@ -21,6 +21,7 @@ package fractureanalysis;
  * @author elidioxg
  */
 
+import fractureanalysis.analysis.FractureIntensity;
 import fractureanalysis.controller.AppController;
 import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;

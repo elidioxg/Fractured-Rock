@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="AnchorPane" 
+    prefHeight="400.0" 
+    prefWidth="600.0" 
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="fractureanalysis.controller.SLVariogramController">
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="4" 
+        GridPane.rowIndex="0" 
+        text="Estimative of cumulative-frequency fracture-size distribution">        
+    </Label>
+    
+    <javafx.scene.chart.ScatterChart 
+        fx:id="scFractureIntensity"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        GridPane.columnSpan="4"
+        GridPane.rowSpan="4">
+        <xAxis >
+            <javafx.scene.chart.NumberAxis label="Aperture"/> 
+        </xAxis>
+        <yAxis> 
+            <javafx.scene.chart.NumberAxis label="Cumulative Fracture Intensity"/>
+        </yAxis>
+    </javafx.scene.chart.ScatterChart>    
+    
+</GridPane>

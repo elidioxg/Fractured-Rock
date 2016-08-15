@@ -17,13 +17,13 @@
 package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
+import fractureanalysis.analysis.Fracture;
 import fractureanalysis.analysis.FractureIntensity;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.plot.PlotFractureVariogram;
-import fractureanalysis.statistics.Average;
+import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
-import fractureanalysis.statistics.StdDeviation;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class SLVariogramController implements Initializable {
     protected ListView lvDistances;
 
     @FXML
-    protected ScatterChart chart;
+    protected ScatterChart chart, scFractureIntensity;
     
     @FXML
     protected TextField tfLenght;
@@ -67,6 +67,9 @@ public class SLVariogramController implements Initializable {
         int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
         int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
         String strLen = tfLenght.getText();
+        if(strLen.isEmpty()){ 
+            strLen="1000";
+        }
         double len = Double.valueOf(strLen);
         FractureAnalysis.getInstance().file.setSLLenght(len);
         String filename = FractureAnalysis.getInstance().file.getFileName();
@@ -94,6 +97,16 @@ public class SLVariogramController implements Initializable {
         lFracInt.setText(String.valueOf(fi.getFractureIntensity()));
         lAvgSpacing.setText(String.valueOf(fi.getAverageSpacing()));
         lScanLen.setText(String.valueOf(FractureAnalysis.getInstance().file.getSLLenght()));
+        //distribution tab
+        scFractureIntensity = (ScatterChart) scene.lookup("#scFractureIntensity");
+        ArrayList<Fracture> al = fi.getArrayDistribution();
+        ArrayList<Double> cumulative = new ArrayList();       
+        ArrayList<Double> aperture = new ArrayList(); 
+        for(Fracture values: al){
+             cumulative.add(Double.valueOf(values.getCumulativeNumber()));
+             aperture.add(values.getAperture());
+        }
+        scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));
     }
 
     @FXML

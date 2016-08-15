@@ -69,7 +69,14 @@
             </content>
         </Tab>
         <Tab text="Variogram">
-            <content><fx:include fx:id="variogram" source="fracture_variogram.fxml"/></content>
+            <content>
+                <fx:include fx:id="variogram" source="fracture_variogram.fxml"/>
+            </content>
+        </Tab>
+        <Tab text="Distribution">
+            <content>
+                <fx:include source="tab_distribution.fxml"/>
+            </content>
         </Tab>
     </TabPane>
     
