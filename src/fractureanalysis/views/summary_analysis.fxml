@@ -7,10 +7,11 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane 
+    xmlns:fx="http://javafx.com/fxml/1" 
     id="AnchorPane" 
     prefHeight="400.0" 
-    prefWidth="600.0" 
-    xmlns:fx="http://javafx.com/fxml/1">
+    prefWidth="600.0"     
+    fx:controller="fractureanalysis.controller.SLVariogramController" >
     
     <Label 
         GridPane.columnIndex="0"
@@ -33,6 +34,7 @@
     >
     </Label> 
     <Label
+        fx:id="lAvgSpacing"
         GridPane.columnIndex="1"
         GridPane.rowIndex="1"
         text="">
@@ -45,7 +47,7 @@
     </Label>  
     <Label 
         fx:id="lScanLen"
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="1"
         GridPane.rowIndex="2"
         text="">
     </Label>  

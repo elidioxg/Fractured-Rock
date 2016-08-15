@@ -14,7 +14,7 @@
           styleClass="mainFxmlClass"             
           fx:controller="fractureanalysis.controller.AppController">
     <stylesheets>
-        <URL value="@histogram.css"/>
+        <URL value="@app_style.css"/>
     </stylesheets>
     
     <Label 

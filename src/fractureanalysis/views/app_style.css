@@ -1,0 +1,13 @@
+.label{
+    -fx-padding: 9;
+    -fx-font: 12px serif; 
+}
+
+.ComboBox{
+    -fx-padding: 9;  
+}
+
+.Button{
+    -fx-padding: 9;
+}
+

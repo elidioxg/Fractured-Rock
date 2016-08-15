@@ -65,8 +65,15 @@
         onAction="#onClick" >
     </Button>     
     
-    <Button 
+    <Button
         GridPane.columnIndex="1"
+        GridPane.rowIndex="5"
+        text="Auto" 
+        onAction="#auto">
+    </Button>
+    
+    <Button 
+        GridPane.columnIndex="2"
         GridPane.rowIndex="5"
         text="Clear"
         onAction="#clear" >
