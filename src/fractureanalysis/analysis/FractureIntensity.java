@@ -1,21 +1,40 @@
 package fractureanalysis.analysis;
 
+import fractureanalysis.model.AnalysisFile;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class FractureIntensity {
     
-    public double getFractureIntensity(int fractures_number, 
-            double scanlineLength){
-        return fractures_number/scanlineLength;
+    private double fractureIntensity=0.;
+    private double averageSpacing=0.;
+    
+    public FractureIntensity(AnalysisFile analysis){
+        setFractureIntensity(analysis.getFracturesCount(),
+                analysis.getSLLenght());
+        setAverageSpacing(analysis.getFracturesCount(), 
+                analysis.getSLLenght());
     }
     
-    public double getAverageSpacing(int fractures_number, 
+    private void setFractureIntensity(int fractures_number, 
             double scanlineLength){
-        return scanlineLength/fractures_number;
+        this.fractureIntensity=fractures_number/scanlineLength;
+    }
+    
+    public double getFractureIntensity(){
+        return this.fractureIntensity;
+    }
+    
+    private void setAverageSpacing(int fractures_number, 
+            double scanlineLength){
+        this.averageSpacing= scanlineLength/fractures_number;
+    }
+    
+    public double getAverageSpacing(){
+        return this.averageSpacing;
     }
 
-    public double getScanlineLength(ArrayList<Double> values, 
+    public static double getScanlineLength(ArrayList<Double> values, 
             boolean hasHeader) {
         double length = 0.;
         int inc = 0;

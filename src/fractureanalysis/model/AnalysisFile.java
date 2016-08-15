@@ -30,18 +30,28 @@ public class AnalysisFile extends CSVFile {
     //This variable defines the distance from first point
     private ArrayList<Double> distances = new ArrayList();
     private double scanLineLenght = 0.;
-    
-    public AnalysisFile(){
+    private int fracturesCount = 0;
+
+    public AnalysisFile() {
         this.ap = new ArrayList();
         this.sp = new ArrayList();
     }
-    
-    public AnalysisFile(ArrayList<Double> ap, ArrayList<Double> sp){
+
+    public AnalysisFile(ArrayList<Double> ap, ArrayList<Double> sp) {
         this.ap = ap;
         this.sp = sp;
         setDistance();
+        setFractureCount(this.sp.size());
     }
 
+    public int getFracturesCount(){
+        return this.fracturesCount;
+    }
+    
+    private void setFractureCount(int count){
+        this.fracturesCount= count;
+    }
+    
     private void setDistance() {
         double distance = 0.;
         for (int i = 0; i < this.sp.size(); i++) {
@@ -49,7 +59,7 @@ public class AnalysisFile extends CSVFile {
                 //this.distances.add(distance);
             } else {
                 for (int j = 0; j < i; j++) {
-                    distance += this.sp.get(j)+this.ap.get(j);
+                    distance += this.sp.get(j) + this.ap.get(j);
                 }
             }
             if (distance != 0) {
@@ -59,8 +69,8 @@ public class AnalysisFile extends CSVFile {
         this.scanLineLenght = distance;
         System.out.println(" **  Distances:    " + this.distances);
     }
-    
-    public double getSLLenght(){
+
+    public double getSLLenght() {
         return this.scanLineLenght;
     }
 
@@ -68,20 +78,19 @@ public class AnalysisFile extends CSVFile {
         return this.distances;
     }
 
-    public void setArrayAp(ArrayList<Double> values) {
-        this.ap = values;
-    }
-
     public ArrayList<Double> getArrayAp() {
         return this.ap;
-    }
-
-    public void setArraySp(ArrayList<Double> values) {
-        this.sp = values;
-        setDistance();
     }
 
     public ArrayList<Double> getArraySp() {
         return this.sp;
     }
+
+    public void setArraysSpAp(ArrayList<Double> ap, ArrayList<Double> sp) {
+        this.ap = ap;
+        this.sp = sp;
+        setDistance();
+        setFractureCount(this.sp.size());
+    }
+
 }
