@@ -14,9 +14,6 @@
     styleClass="mainFxmlClass" 
     xmlns:fx="http://javafx.com/fxml/1" 
     fx:controller="fractureanalysis.controller.AppController">
-    <stylesheets>
-        <URL value="@summary.css"/>
-    </stylesheets>
     
     <Label text="Column: "
            GridPane.columnIndex="0"
