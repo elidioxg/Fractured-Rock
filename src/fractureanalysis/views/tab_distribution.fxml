@@ -20,18 +20,19 @@
         text="Estimative of cumulative-frequency fracture-size distribution">        
     </Label>
     
-    <javafx.scene.chart.ScatterChart 
+    <javafx.scene.chart.LineChart 
         fx:id="scFractureIntensity"
         GridPane.columnIndex="0"
         GridPane.rowIndex="1"
         GridPane.columnSpan="4"
-        GridPane.rowSpan="4">
+        GridPane.rowSpan="4"
+        legendVisible="false" >
         <xAxis >
             <javafx.scene.chart.NumberAxis label="Aperture"/> 
         </xAxis>
         <yAxis> 
             <javafx.scene.chart.NumberAxis label="Cumulative Fracture Intensity"/>
         </yAxis>
-    </javafx.scene.chart.ScatterChart>    
+    </javafx.scene.chart.LineChart>    
     
 </GridPane>

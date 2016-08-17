@@ -11,3 +11,11 @@
     -fx-padding: 9;
 }
 
+#scFractureIntensity .default-color0.chart-series-line {
+    -fx-stroke: transparent;    
+}
+
+#scFractureIntensity .default-color1.chart-line-symbol {
+    -fx-background-color: transparent;
+}
+
