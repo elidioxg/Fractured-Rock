@@ -76,8 +76,7 @@ public class SLVariogramController implements Initializable {
         if (strLen.isEmpty()) {
             strLen = "1000";
         }
-        double len = Double.valueOf(strLen);
-        FractureAnalysis.getInstance().file.setSLLenght(len);
+        double len = Double.valueOf(strLen);        
         String filename = FractureAnalysis.getInstance().file.getFileName();
         String sep = FractureAnalysis.getInstance().file.getSeparator();
         ArrayList<Double> ap = OpenDataset.openCSVFileToDouble(filename, sep, indexAp, true);
@@ -90,7 +89,7 @@ public class SLVariogramController implements Initializable {
             }            
         }
         ScanLine scanline = new ScanLine(fracturesList, Double.valueOf(strLen));
-        FractureAnalysis.getInstance().file.setArraysSpAp(ap, sp);
+        FractureAnalysis.getInstance().file.setScanLine(scanline);
         Scene scene = (Scene) cbApVar.getScene();
         chart = (ScatterChart) scene.lookup("#variogram_chart");
         chart.getData().clear();
@@ -158,7 +157,7 @@ public class SLVariogramController implements Initializable {
 
     @FXML
     protected void auto() {
-        ArrayList<Double> array = FractureAnalysis.getInstance().file.getArrayDistance();
+        ArrayList<Double> array = FractureAnalysis.getInstance().file.getScanLine().getDistanceList();
         double max = MaximumValue.getMaxValue(array);
         double min = MinimumValue.getMinValue(array);
         double step = (max - min) / 10;

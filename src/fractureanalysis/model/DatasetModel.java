@@ -1,77 +1,76 @@
 package fractureanalysis.model;
 
-/**
- * 
- * @author elidioxg
- */
 public class DatasetModel {
+    private String datasetName = "";
+    private String datasetFilename = "";
+    private String separator = ",";
+    private boolean hasHeader = true;
+    private String[] headerStrings;     
+    private int columnsNumber = 0;
     
-    private String name;
-    //public int listIndex;
-    private String filename;
-    private String separator=",";
-    private boolean header = true;
-    private String[] headerStrings;
-    private int currentColumn = 0;
+    public DatasetModel(){
     
+    }
     
-    public DatasetModel(String valueX, String valueY){
+    public DatasetModel(String datasetName, String filename, String separator,
+            boolean hasHeader, String[] headerStrings){
+        this.datasetName=datasetName;
+        this.datasetFilename = filename;
+        this.separator = separator;
+        this.hasHeader = hasHeader;
+        this.headerStrings = headerStrings;
         
     }
     
-    public DatasetModel(String name, String filename, String separator,
-            boolean header, String[] headerStrings){
-        this.name = name;
-        this.filename=filename;   
-        this.separator = separator;
-        this.header = header;
-        this.headerStrings = headerStrings;
-    }      
-    
-    public String getFileName() {
-        return this.filename;
+    public void setDatasetName(String name){
+        this.datasetName = name;
     }
     
-    public String getName(){
-        return this.name;
-    }
-    
-    public void setName(String name){
-        this.name=name;
+    public String getDatasetName(){
+        return this.datasetName;
     }
     
     public void setFilename(String filename){
-        this.filename=filename;
+        this.datasetFilename = filename;
+    }
+   
+    public String getFileName(){
+        return this.datasetFilename;
+    }
+    
+    public void setSeparator(String sep) {
+        this.separator = sep;
     }
     
     public String getSeparator(){
-        return this.separator;               
-    }
-    
-    public void setSeparator(String sep){
-        this.separator  = sep;
-    }
-    
-    public boolean getHeader(){
-        return this.header;               
+        return this.separator;
     }
     
     public void setHeader(boolean header){
-        this.header  = header;
+        this.hasHeader = header;
+    }
+    
+    public boolean getHeader(){
+        return this.hasHeader;
+    }
+    
+    public void setHeaderStrings(String[] strHeader){
+        this.headerStrings = strHeader;
     }
     
     public String[] getHeaderStrings(){
         return this.headerStrings;
     }
     
-    public void setHeaderStrings(String[] header){
-        this.headerStrings = header;
+    public String getHeaderStrings(int colIndex){
+        return this.headerStrings[colIndex];
     }
-    public void setCurrentColumn(int index){
-        this.currentColumn = index;
+    
+    public void setColumnsNumber(int number){
+        this.columnsNumber = number;
     }
-    public int getCurrentColumn(){
-        return this.currentColumn;
+    
+    public int getColumnsNumber(){
+        return this.columnsNumber;
     }
 }
-

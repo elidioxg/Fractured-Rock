@@ -21,7 +21,6 @@ package fractureanalysis;
  * @author elidioxg
  */
 
-import fractureanalysis.analysis.FractureIntensity;
 import fractureanalysis.controller.AppController;
 import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
@@ -82,7 +81,7 @@ public class FractureAnalysis extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {        
-        file = new AnalysisFile(new ArrayList<Double>(), new ArrayList<Double>(), 0.);
+        file = new AnalysisFile();
         try {
             FXMLLoader root = new FXMLLoader(getClass().getResource(
                     "views/appFXML.fxml"));
@@ -100,7 +99,7 @@ public class FractureAnalysis extends Application {
                         protected void updateItem(DatasetModel myObject, boolean b) {
                             super.updateItem(myObject, b);
                             if (myObject != null) {
-                                setText(myObject.getName());
+                                setText(myObject.getDatasetName());
                                 setColumnStatistics(
                                         myObject.getFileName(), myObject.getSeparator(), 0);
                             }
@@ -116,7 +115,7 @@ public class FractureAnalysis extends Application {
                     DatasetModel dm = (DatasetModel) listView.getSelectionModel().getSelectedItem();
                     if (dm != null) {
                         file.setFilename(dm.getFileName());
-                        file.setDatasetName(dm.getName());
+                        file.setDatasetName(dm.getDatasetName());
                         file.setSeparator(dm.getSeparator());
                         file.setHeader(dm.getHeader());
                         file.setHeaderStrings(dm.getHeaderStrings());
