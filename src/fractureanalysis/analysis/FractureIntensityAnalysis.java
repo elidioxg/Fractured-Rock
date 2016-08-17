@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class FractureIntensity {
+public class FractureIntensityAnalysis {
 
     private double fractureIntensity = 0.;
     private double averageSpacing = 0.;
     private ArrayList<Fracture> cumulativeDistribution;
 
-    public FractureIntensity(AnalysisFile analysis) {
-        setFractureIntensity(analysis.getFracturesCount(),
-                analysis.getSLLenght());
-        setAverageSpacing(analysis.getFracturesCount(),
-                analysis.getSLLenght());
-        estimateDistribution(generateFractures(analysis), analysis.getSLLenght());
+    public FractureIntensityAnalysis(ScanLine scanline) {
+        setFractureIntensity(scanline.fracturesCount(),                
+                scanline.getLenght());
+        setAverageSpacing(scanline.fracturesCount(),
+                scanline.getLenght());
+        estimateDistribution(generateFractures(scanline), scanline.getLenght());
     }
 
     private void setFractureIntensity(int fractures_number,
@@ -41,11 +41,11 @@ public class FractureIntensity {
         return this.cumulativeDistribution;
     }
 
-    private ArrayList<Fracture> generateFractures(AnalysisFile file){
-        ArrayList<Double> sp = file.getArraySp();
-        ArrayList<Double> ap = file.getArrayAp();
+    private ArrayList<Fracture> generateFractures(ScanLine scanline){
+        ArrayList<Double> sp = scanline.getSpList();
+        ArrayList<Double> ap = scanline.getApList();
         ArrayList<Fracture> array = new ArrayList();
-        for(int i=0; i< file.getFracturesCount(); i++){
+        for(int i=0; i< scanline.fracturesCount(); i++){
             Fracture frac = new Fracture(ap.get(i), sp.get(i));
             array.add(frac);
         }

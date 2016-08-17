@@ -18,22 +18,25 @@ package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.analysis.Fracture;
-import fractureanalysis.analysis.FractureIntensity;
+import fractureanalysis.analysis.FractureIntensityAnalysis;
+import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.plot.PlotFractureVariogram;
 import fractureanalysis.plot.PlotSeries;
+import fractureanalysis.statistics.LinearRegression.LinearRegression;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -54,8 +57,11 @@ public class SLVariogramController implements Initializable {
     protected ListView lvDistances;
 
     @FXML
-    protected ScatterChart chart, scFractureIntensity;
-    
+    protected ScatterChart chart;
+
+    @FXML
+    protected LineChart scFractureIntensity;
+
     @FXML
     protected TextField tfLenght;
 
@@ -67,8 +73,8 @@ public class SLVariogramController implements Initializable {
         int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
         int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
         String strLen = tfLenght.getText();
-        if(strLen.isEmpty()){ 
-            strLen="1000";
+        if (strLen.isEmpty()) {
+            strLen = "1000";
         }
         double len = Double.valueOf(strLen);
         FractureAnalysis.getInstance().file.setSLLenght(len);
@@ -76,6 +82,14 @@ public class SLVariogramController implements Initializable {
         String sep = FractureAnalysis.getInstance().file.getSeparator();
         ArrayList<Double> ap = OpenDataset.openCSVFileToDouble(filename, sep, indexAp, true);
         ArrayList<Double> sp = OpenDataset.openCSVFileToDouble(filename, sep, indexSp, true);
+        ArrayList<Fracture> fracturesList = new ArrayList();
+        if(ap.size()==sp.size()){
+            for(int i =0; i<ap.size(); i++){
+                Fracture f = new Fracture(ap.get(i), sp.get(i));
+                fracturesList.add(f);
+            }            
+        }
+        ScanLine scanline = new ScanLine(fracturesList, Double.valueOf(strLen));
         FractureAnalysis.getInstance().file.setArraysSpAp(ap, sp);
         Scene scene = (Scene) cbApVar.getScene();
         chart = (ScatterChart) scene.lookup("#variogram_chart");
@@ -88,25 +102,35 @@ public class SLVariogramController implements Initializable {
         ObservableList<Double> ol = FXCollections.observableArrayList(lvDistances.getItems());
         chart.getData().addAll(
                 PlotFractureVariogram.variogram1D(
-                        FractureAnalysis.getInstance().file, ol));
-        FractureIntensity fi = new FractureIntensity(
-                FractureAnalysis.getInstance().file);
+                        scanline, ol));
+        FractureIntensityAnalysis fi = new FractureIntensityAnalysis(
+                scanline);
         lFracInt = (Label) scene.lookup("#lFracInt");
         lAvgSpacing = (Label) scene.lookup("#lAvgSpacing");
         lScanLen = (Label) scene.lookup("#lScanLen");
         lFracInt.setText(String.valueOf(fi.getFractureIntensity()));
         lAvgSpacing.setText(String.valueOf(fi.getAverageSpacing()));
-        lScanLen.setText(String.valueOf(FractureAnalysis.getInstance().file.getSLLenght()));
+        lScanLen.setText(String.valueOf(scanline.getLenght()));
         //distribution tab
-        scFractureIntensity = (ScatterChart) scene.lookup("#scFractureIntensity");
+        scFractureIntensity = (LineChart) scene.lookup("#scFractureIntensity");
         ArrayList<Fracture> al = fi.getArrayDistribution();
-        ArrayList<Double> cumulative = new ArrayList();       
-        ArrayList<Double> aperture = new ArrayList(); 
-        for(Fracture values: al){
-             cumulative.add(Double.valueOf(values.getCumulativeNumber()));
-             aperture.add(values.getAperture());
+        ArrayList<Double> cumulative = new ArrayList();
+        ArrayList<Double> aperture = new ArrayList();
+        for (Fracture values : al) {
+            cumulative.add(Math.log(Double.valueOf(values.getCumulativeNumber())));
+            aperture.add(Math.log(values.getAperture()));
         }
         scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));
+        //add linear regression
+        LinearRegression lr = new LinearRegression(aperture, cumulative);
+        double min = MinimumValue.getMinValue(aperture);
+        double max = MaximumValue.getMaxValue(aperture);
+        double first = lr.getValueAt(min);
+        double last = lr.getValueAt(max);
+        XYChart.Series serieRegression = new XYChart.Series();
+        serieRegression.getData().add(new XYChart.Data<>(min, first));
+        serieRegression.getData().add(new XYChart.Data<>(max, last));
+        scFractureIntensity.getData().add(serieRegression);
     }
 
     @FXML
@@ -129,7 +153,7 @@ public class SLVariogramController implements Initializable {
 
     @FXML
     protected void clear() {
-        lvDistances.getSelectionModel().getSelectedItems().clear();        
+        lvDistances.getSelectionModel().getSelectedItems().clear();
     }
 
     @FXML

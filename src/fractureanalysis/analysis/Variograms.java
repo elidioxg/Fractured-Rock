@@ -31,13 +31,12 @@ public class Variograms {
      * @param maxDistance
      * @return 
      */
-    public static Double variogram1D(AnalysisFile analysisModel, 
+    public static Double variogram1D(ScanLine scanline, 
             double maxDistance){        
         int pairs =0;
-        ArrayList<Double> ap = analysisModel.getArrayAp();
-        ArrayList<Double> dist = analysisModel.getArrayDistance();
-        double sum = 0.;        
-        System.out.println(" ### dist.size: "+dist.size());
+        ArrayList<Double> ap = scanline.getApList();
+        ArrayList<Double> dist = scanline.getDistanceList();
+        double sum = 0.;                
         for(int i=0 ; i<dist.size(); i++){
             for(int j=0; j< dist.size(); j++){
                 if(i!=j){

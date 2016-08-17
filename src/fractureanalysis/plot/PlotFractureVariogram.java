@@ -16,9 +16,8 @@
  */
 package fractureanalysis.plot;
 
+import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.analysis.Variograms;
-import fractureanalysis.data.OpenDataset;
-import fractureanalysis.model.AnalysisFile;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
@@ -30,23 +29,19 @@ import javafx.scene.chart.XYChart;
 public class PlotFractureVariogram {
 
     /**
-     *
-     * @param filename
-     * @param sep
-     * @param indexAp
-     * @param indexSp
+     * 
      * @param distanceList
      * @return
      * @throws Exception
      */
-    public static XYChart.Series variogram1D(AnalysisFile file,
+    public static XYChart.Series variogram1D(ScanLine scanline,
             ObservableList<Double> distanceList) throws Exception {
 
         ArrayList<Double> distance = new ArrayList();
         ArrayList<Double> variogramValue = new ArrayList();
 
         for (int i = 0; i < distanceList.size(); i++) {
-            Double value = Variograms.variogram1D(file, distanceList.get(i).doubleValue());
+            Double value = Variograms.variogram1D(scanline, distanceList.get(i));
             distance.add(distanceList.get(i));
             variogramValue.add(value);
         }
