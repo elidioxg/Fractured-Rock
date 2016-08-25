@@ -23,39 +23,45 @@ import java.util.ArrayList;
  * @author elidioxg
  */
 public class ScanLine {
+
     private ArrayList<Double> ap = new ArrayList();
     private ArrayList<Double> sp = new ArrayList();
     private double lenght = 0.;
     private int fracturesCount = 0;
     private ArrayList<Double> distances = new ArrayList();
-    
-    public ScanLine(ArrayList<Fracture> fractures, double lenght){
-        double dist = 0.;
-        for(int i = 0; i< fractures.size(); i++){
-            ap.add(fractures.get(i).getAperture());
-            sp.add(fractures.get(i).getSpacement());
-            this.lenght = lenght;
-            dist += fractures.get(i).getAperture() + fractures.get(i).getSpacement();
-            this.distances.add(dist);
-            this.fracturesCount += 1;
+
+    public ScanLine(ArrayList<Fracture> fractures, double lenght) {
+        if (fractures != null) {
+            double dist = 0.;
+            for (int i = 0; i < fractures.size(); i++) {
+                ap.add(fractures.get(i).getAperture());
+                sp.add(fractures.get(i).getSpacement());
+                this.lenght = lenght;
+                dist += fractures.get(i).getAperture() + fractures.get(i).getSpacement();
+                this.distances.add(dist);
+                this.fracturesCount += 1;
+            }
         }
     }
-    
-    public double getLenght(){
+
+    public double getLenght() {
         return this.lenght;
     }
-    
-    public ArrayList<Double> getApList(){
+
+    public ArrayList<Double> getApList() {
         return this.ap;
     }
-    public ArrayList<Double> getSpList(){
+
+    public ArrayList<Double> getSpList() {
         return this.sp;
     }
-    public ArrayList<Double> getDistanceList(){
+
+    public ArrayList<Double> getDistanceList() {
         return this.distances;
     }
-    public int fracturesCount(){
+
+    public int fracturesCount() {
         return this.fracturesCount;
     }
-    
+
 }

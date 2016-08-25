@@ -24,7 +24,7 @@ import fractureanalysis.analysis.ScanLine;
  */
 public class AnalysisFile extends DatasetModel {
     
-    private ScanLine scanline;
+    private ScanLine scanline = new ScanLine(null,  0);
     public AnalysisFile(){
         
     }
