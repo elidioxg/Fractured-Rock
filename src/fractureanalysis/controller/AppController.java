@@ -1,11 +1,9 @@
 package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
-import fractureanalysis.analysis.FractureIntensity;
 import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
-import fractureanalysis.stages.BarChartStage;
 import fractureanalysis.stages.EstimateStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
@@ -58,44 +56,12 @@ public class AppController implements Initializable {
     @FXML
     private CheckBox cbHeader;
 
-    @FXML
-    protected ComboBox cbSpValues;
-
-    @FXML
-    protected ComboBox cbApValues;
-
-    @FXML
-    protected TableView tvProcessed;
-
-    @FXML
-    protected void estimate() {
-        int spIndex = cbSpValues.getSelectionModel().getSelectedIndex();
-        int apIndex = cbApValues.getSelectionModel().getSelectedIndex();
-        OpenDataset od = new OpenDataset();
-        ArrayList<Double> spArray;
-        spArray = OpenDataset.openCSVFileToDouble(
-                FractureAnalysis.getInstance().file.getFileName(),
-                FractureAnalysis.getInstance().file.getSeparator(), spIndex,
-                FractureAnalysis.getInstance().file.getHeader());
-        ArrayList<Double> apArray;
-        apArray = OpenDataset.openCSVFileToDouble(
-                FractureAnalysis.getInstance().file.getFileName(),
-                FractureAnalysis.getInstance().file.getSeparator(), apIndex,
-                FractureAnalysis.getInstance().file.getHeader());
-        FractureIntensity fi = new FractureIntensity();
-        ArrayList[][] arraySorted = fi.listAndSort(spArray, true);
-        double scanlineLength = fi.getScanlineLength(apArray,
-                FractureAnalysis.getInstance().file.getHeader());
-        ArrayList[][] arrayNormalized = fi.filterAndNormalize(
-                arraySorted, scanlineLength);
-        TableUtils tu = new TableUtils();
-        tu.AddColumn(tvProcessed, arrayNormalized, "test", 0, 0);
-    }
-
     @FXML//mouse handler for ListView lvDatasets
     protected void onMouseClicked() throws IOException {
         DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();
-        populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
+        if (dm != null) {
+            populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
+        }
     }
 
     @FXML
@@ -227,12 +193,6 @@ public class AppController implements Initializable {
         es.createStage();
     }
 
-    @FXML
-    protected void barChartStage() throws IOException {
-        BarChartStage bcs = new BarChartStage();
-        bcs.createStage();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -247,10 +207,12 @@ public class AppController implements Initializable {
     @FXML
     protected void cbSummaryChange() {
         int colIndex = cbSColumn.getSelectionModel().getSelectedIndex();
-        FractureAnalysis.getInstance().setColumnStatistics(
-                FractureAnalysis.getInstance().file.getFileName(),
-                FractureAnalysis.getInstance().file.getSeparator(),
-                colIndex);
+        if (colIndex >= 0) {
+            FractureAnalysis.getInstance().setColumnStatistics(
+                    FractureAnalysis.getInstance().file.getFileName(),
+                    FractureAnalysis.getInstance().file.getSeparator(),
+                    colIndex);
+        }
     }
 
     @FXML
@@ -262,9 +224,12 @@ public class AppController implements Initializable {
     @FXML
     protected void cbHistogramChange() {
         int index = cbColIndex.getSelectionModel().getSelectedIndex();
-        ArrayList array = OpenDataset.openCSVFileToDouble(
-                FractureAnalysis.getInstance().file.getFileName(),
-                FractureAnalysis.getInstance().file.getSeparator(), index, true);
+        ArrayList array = new ArrayList();
+        if (index >= 0) {
+            array = OpenDataset.openCSVFileToDouble(
+                    FractureAnalysis.getInstance().file.getFileName(),
+                    FractureAnalysis.getInstance().file.getSeparator(), index, true);
+        }
         double amplitude = SampleAmplitude.getAmplitude(array);
         double classIntervals = Frequency.sturgesExpression(amplitude, array.size());
         double min = MinimumValue.getMinValue(array);

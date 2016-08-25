@@ -44,10 +44,7 @@
                 </items>                    
             </Menu>
             <Menu text="Plot">
-                <items>
-                    <MenuItem 
-                        onAction="#barChartStage" 
-                        text="Bar Chart"/>
+                <items>                    
                     <MenuItem 
                         text="Line Chart"
                         onAction="#lineChartStage" />
@@ -73,6 +70,13 @@
              GridPane.rowIndex="3"
              GridPane.columnSpan="1"
              GridPane.rowSpan="2">
+        
+        <Tab
+            text="Dataset">
+            <content>
+                <fx:include fx:id="dataset" source="dataset.fxml"/>
+            </content>
+        </Tab>
         
         <Tab text="Table">
                         
