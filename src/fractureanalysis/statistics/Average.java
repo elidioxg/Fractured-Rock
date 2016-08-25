@@ -27,7 +27,7 @@ public class Average {
      */
     public static double arithmeticAverage(ArrayList<Double> array) {
         double sum = 0.;
-        for (int i = 0; i <= array.size() - 1; i++) {
+        for (int i = 0; i < array.size(); i++) {
             sum += array.get(i);
         }
         return sum / (array.size());

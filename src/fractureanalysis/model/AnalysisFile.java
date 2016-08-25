@@ -17,7 +17,6 @@
 package fractureanalysis.model;
 
 import fractureanalysis.analysis.ScanLine;
-import java.util.ArrayList;
 
 /**
  *

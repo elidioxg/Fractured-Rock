@@ -23,18 +23,24 @@ import java.util.ArrayList;
  * @author elidioxg
  */
 public class MaximumValue {
+
     /**
      * Get maximum value of an ArrayList
+     *
      * @param array
-     * @return 
+     * @return
      */
-    public static double getMaxValue(ArrayList<Double> array){
-        double max = array.get(0);
-        for(int i=0; i<array.size(); i++){
-            if(max < array.get(i)){
-                max = array.get(i);
+    public static double getMaxValue(ArrayList<Double> array) {
+        if (array.size() != 0) {
+            double max = array.get(0);
+            for (int i = 0; i < array.size(); i++) {
+                if (max < array.get(i)) {
+                    max = array.get(i);
+                }
             }
+            return max;
+        } else {
+            return Double.NaN;
         }
-        return max;
     }
 }

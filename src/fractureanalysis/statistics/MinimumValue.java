@@ -23,18 +23,23 @@ import java.util.ArrayList;
  * @author elidioxg
  */
 public class MinimumValue {
+
     /**
-     * 
+     *
      * @param array
-     * @return 
+     * @return
      */
-    public static double getMinValue(ArrayList<Double> array){
-        double min = array.get(0);
-        for(int i = 1; i<array.size(); i++){
-            if(min > array.get(i)){
-                min = array.get(i);
-            } 
+    public static double getMinValue(ArrayList<Double> array) {
+        if (array.size() != 0) {
+            double min = array.get(0);
+            for (int i = 1; i < array.size(); i++) {
+                if (min > array.get(i)) {
+                    min = array.get(i);
+                }
+            }
+            return min;
+        } else {
+            return Double.NaN;
         }
-        return min;
     }
 }
