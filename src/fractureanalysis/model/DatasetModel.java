@@ -6,19 +6,22 @@ public class DatasetModel {
     private String separator = ",";
     private boolean hasHeader = true;
     private String[] headerStrings;     
-    private int columnsNumber = 0;
+    private int columnsCount = 0;
+    private int rowsCount = 0;
     
     public DatasetModel(){
     
     }
     
     public DatasetModel(String datasetName, String filename, String separator,
-            boolean hasHeader, String[] headerStrings){
-        this.datasetName=datasetName;
+            boolean hasHeader, String[] headerStrings, int columns, int rows){
+        this.datasetName = datasetName;
         this.datasetFilename = filename;
         this.separator = separator;
         this.hasHeader = hasHeader;
         this.headerStrings = headerStrings;
+        this.columnsCount = columns;
+        this.rowsCount = rows;
         
     }
     
@@ -66,11 +69,19 @@ public class DatasetModel {
         return this.headerStrings[colIndex];
     }
     
-    public void setColumnsNumber(int number){
-        this.columnsNumber = number;
+    public void setColumnsCount(int number){
+        this.columnsCount = number;
     }
     
-    public int getColumnsNumber(){
-        return this.columnsNumber;
+    public int getColumnsCount(){
+        return this.columnsCount;
+    }
+    
+    public void setRowsCount(int count){
+        this.rowsCount = count;
+    }
+    
+    public int getRowsCount(){
+        return this.rowsCount;
     }
 }

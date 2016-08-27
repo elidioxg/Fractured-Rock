@@ -20,7 +20,6 @@ package fractureanalysis;
  *
  * @author elidioxg
  */
-
 import fractureanalysis.controller.AppController;
 import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
@@ -58,7 +57,7 @@ public class FractureAnalysis extends Application {
     private final String strAppName = "Application Name";
 
     public AnalysisFile file;
-    public Stage stage;   
+    public Stage stage;
 
     public ListView listView;
 
@@ -68,7 +67,7 @@ public class FractureAnalysis extends Application {
     private AppController controller;
 
     private static FractureAnalysis instance;
-    
+
     private GridPane grid;
 
     public FractureAnalysis() {
@@ -80,7 +79,7 @@ public class FractureAnalysis extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {        
+    public void start(Stage primaryStage) throws IOException {
         file = new AnalysisFile();
         try {
             FXMLLoader root = new FXMLLoader(getClass().getResource(
@@ -119,9 +118,12 @@ public class FractureAnalysis extends Application {
                         file.setSeparator(dm.getSeparator());
                         file.setHeader(dm.getHeader());
                         file.setHeaderStrings(dm.getHeaderStrings());
+                        file.setColumnsCount(dm.getColumnsCount());
+                        file.setRowsCount(dm.getRowsCount());
                         controller.populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
-                        setColumnStatistics(dm.getFileName(), dm.getSeparator(), 
+                        setColumnStatistics(dm.getFileName(), dm.getSeparator(),
                                 0/*dm.getCurrentColumn()*/);
+                        setDatasetStatistics(file);
                         try {
                             itemsComboboxes(dm.getFileName(), dm.getSeparator());
                         } catch (IOException ex) {
@@ -144,7 +146,8 @@ public class FractureAnalysis extends Application {
 
     public void updateListView() {
         list.add(new DatasetModel(file.getDatasetName(), file.getFileName(),
-                file.getSeparator(), file.getHeader(), file.getHeaderStrings()));
+                file.getSeparator(), file.getHeader(), file.getHeaderStrings(),
+                file.getColumnsCount(), file.getRowsCount()));
 
         datasets.add(file.getDatasetName());
         ObservableList<DatasetModel> olDatasets
@@ -154,19 +157,20 @@ public class FractureAnalysis extends Application {
         listView.setItems(olDatasets);
 
     }
-    
+
     /**
-     * Set the statistics to selected column on combobox 
+     * Set the statistics to selected column on combobox
+     *
      * @param filename
      * @param separator
-     * @param columnIndex 
+     * @param columnIndex
      */
-    public void setColumnStatistics(String filename, String separator, int columnIndex){
-        if(FractureAnalysis.getInstance().file.getColumnsNumber()>0){
-            ArrayList<Double> array = 
-                    OpenDataset.openCSVFileToDouble(filename, separator, columnIndex, true);
+    public void setColumnStatistics(String filename, String separator, int columnIndex) {
+        if (FractureAnalysis.getInstance().file.getColumnsCount() > 0) {
+            ArrayList<Double> array
+                    = OpenDataset.openCSVFileToDouble(filename, separator, columnIndex, true);
             Label lAvg = (Label) grid.lookup("#lAvgValue");
-            double avg = Average.arithmeticAverage(array);            
+            double avg = Average.arithmeticAverage(array);
             lAvg.setText(String.valueOf(avg));
             Label lMinValue = (Label) grid.lookup("#lMinValue");
             double min = MinimumValue.getMinValue(array);
@@ -178,44 +182,62 @@ public class FractureAnalysis extends Application {
             //double mean = 
             Label lStdDevValue = (Label) grid.lookup("#lStdDevValue");
             double stdDev = StdDeviation.stdDeviation(array);
-            lStdDevValue.setText(String.valueOf(stdDev));  
+            lStdDevValue.setText(String.valueOf(stdDev));
             Label lVariance = (Label) grid.lookup("#lVariance");
             double variance = Variance.variance(array);
             lVariance.setText(String.valueOf(variance));
             Label lVariation = (Label) grid.lookup("#lVariation");
             double variation = VariationCoefficient.variationCoefficient(array);
             lVariation.setText(String.valueOf(variation));
-            Label lGeoAvg = (Label)grid.lookup("#lGeoAvg");
+            Label lGeoAvg = (Label) grid.lookup("#lGeoAvg");
             double geoAvg = Average.geometricAverage(array);
             lGeoAvg.setText(String.valueOf(geoAvg));
-        }        
+            Label lCount = (Label) grid.lookup("#lCount");
+            lCount.setText(String.valueOf(array.size()));
+        }
     }
-    
+
     /**
      * Add the headers to the combobox in summary view
+     *
      * @param filename
      * @param separator
-     * @throws IOException 
+     * @throws IOException
      */
-    private void itemsComboboxes(String filename, String separator) throws IOException{
-        ObservableList<String> ol = 
-                FXCollections.observableList(
+    private void itemsComboboxes(String filename, String separator) throws IOException {
+        ObservableList<String> ol
+                = FXCollections.observableList(
                         DatasetProperties.getHeaders(filename, separator));
-        
-        ComboBox cbSColumn = (ComboBox)grid.lookup("#cbSColumn");
+
+        ComboBox cbSColumn = (ComboBox) grid.lookup("#cbSColumn");
         cbSColumn.setItems(ol);
         cbSColumn.getSelectionModel().selectFirst();
-        ComboBox cbColIndex = (ComboBox)grid.lookup("#cbColIndex");
+        ComboBox cbColIndex = (ComboBox) grid.lookup("#cbColIndex");
         cbColIndex.setItems(ol);
         cbColIndex.getSelectionModel().selectFirst();
-        ComboBox cbVarA = (ComboBox)grid.lookup("#cbVarA");
+        ComboBox cbVarA = (ComboBox) grid.lookup("#cbVarA");
         cbVarA.setItems(ol);
-        ComboBox cbVarB = (ComboBox)grid.lookup("#cbVarB");
+        ComboBox cbVarB = (ComboBox) grid.lookup("#cbVarB");
         cbVarB.setItems(ol);
-        ComboBox cbSpVar = (ComboBox)grid.lookup("#cbSpVar");
+        ComboBox cbSpVar = (ComboBox) grid.lookup("#cbSpVar");
         cbSpVar.setItems(ol);
-        ComboBox cbApVar = (ComboBox)grid.lookup("#cbApVar");
+        ComboBox cbApVar = (ComboBox) grid.lookup("#cbApVar");
         cbApVar.setItems(ol);
+    }
+
+    private void setDatasetStatistics(AnalysisFile file) {
+        Label lFilename = (Label) grid.lookup("#lFilename");
+        lFilename.setText(file.getFileName());
+        Label lSeparator = (Label) grid.lookup("#lSeparator");
+        lSeparator.setText(file.getSeparator());
+        Label lColumns = (Label) grid.lookup("#lColumns");
+        lColumns.setText(String.valueOf(file.getColumnsCount()));
+        Label lRows = (Label) grid.lookup("#lRows");
+        lRows.setText(String.valueOf(file.getRowsCount()));
+        Label lApColumn = (Label) grid.lookup("#lApColumn");
+        lApColumn.setText("");
+        Label lSpColumn = (Label) grid.lookup("#lSpColumn");
+        lSpColumn.setText("");
     }
 
     /**

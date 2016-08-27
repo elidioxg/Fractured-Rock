@@ -27,7 +27,7 @@ public class Variograms {
     
     /**
      * Defines value of variogram for maximum distance
-     * @param analysisModel
+     * @param scanline     
      * @param maxDistance
      * @return 
      */
@@ -53,4 +53,5 @@ public class Variograms {
             return sum/(2*pairs);
         }
     }
+    
 }

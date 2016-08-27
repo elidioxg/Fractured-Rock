@@ -141,12 +141,15 @@ public class AppController implements Initializable {
         }
 
         String sep = tfSeparator.getCharacters().toString();
-        int columnCount = DatasetProperties.getColumnsCount(
-                FractureAnalysis.getInstance().file.getFileName(), sep);
+        String filename = FractureAnalysis.getInstance().file.getFileName(); 
+        
+        int columnCount = DatasetProperties.getColumnsCount(filename, sep);        
         FractureAnalysis.getInstance().file.setSeparator(sep);
-        FractureAnalysis.getInstance().file.setColumnsNumber(
+        FractureAnalysis.getInstance().file.setColumnsCount(
                 columnCount);
-        if (FractureAnalysis.getInstance().file.getColumnsNumber() > 1) {
+        int rowCount = DatasetProperties.getRowCount(filename, sep);
+         FractureAnalysis.getInstance().file.setRowsCount(rowCount);        
+        if (FractureAnalysis.getInstance().file.getColumnsCount() > 1) {
             //FractureAnalysis.getInstance().file.setColumnAp(0);
             //FractureAnalysis.getInstance().file.setColumnSp(1);
         }

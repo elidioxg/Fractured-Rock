@@ -19,6 +19,7 @@ package fractureanalysis.controller;
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.statistics.Correlation;
+import fractureanalysis.statistics.Covariance;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -37,7 +38,7 @@ public class CorrelationController implements Initializable{
     protected ComboBox cbVarA,cbVarB;
     
     @FXML 
-    protected Label lPearson;
+    protected Label lCovariance, lPearson;
             
     @FXML
     protected void comboboxChange() throws Exception{
@@ -50,6 +51,8 @@ public class CorrelationController implements Initializable{
                     filename, sep, indexA, true);
             ArrayList<Double> arrayB = OpenDataset.openCSVFileToDouble(
                     filename, sep, indexB, true);
+            double covariance = Covariance.covariance(arrayA, arrayB);
+            lCovariance.setText(String.valueOf(covariance));
             double pearson = Correlation.pearsonCoeff(arrayA, arrayB);
             lPearson.setText(String.valueOf(pearson));
         }

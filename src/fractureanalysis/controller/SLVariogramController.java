@@ -76,17 +76,17 @@ public class SLVariogramController implements Initializable {
         if (strLen.isEmpty()) {
             strLen = "1000";
         }
-        double len = Double.valueOf(strLen);        
+        double len = Double.valueOf(strLen);
         String filename = FractureAnalysis.getInstance().file.getFileName();
         String sep = FractureAnalysis.getInstance().file.getSeparator();
         ArrayList<Double> ap = OpenDataset.openCSVFileToDouble(filename, sep, indexAp, true);
         ArrayList<Double> sp = OpenDataset.openCSVFileToDouble(filename, sep, indexSp, true);
         ArrayList<Fracture> fracturesList = new ArrayList();
-        if(ap.size()==sp.size()){
-            for(int i =0; i<ap.size(); i++){
+        if (ap.size() == sp.size()) {
+            for (int i = 0; i < ap.size(); i++) {
                 Fracture f = new Fracture(ap.get(i), sp.get(i));
                 fracturesList.add(f);
-            }            
+            }
         }
         ScanLine scanline = new ScanLine(fracturesList, Double.valueOf(strLen));
         FractureAnalysis.getInstance().file.setScanLine(scanline);
@@ -97,7 +97,7 @@ public class SLVariogramController implements Initializable {
         //add distances to listview, if is empty
         if (lvDistances.getItems().isEmpty()) {
             auto();
-        }
+        }        
         ObservableList<Double> ol = FXCollections.observableArrayList(lvDistances.getItems());
         chart.getData().addAll(
                 PlotFractureVariogram.variogram1D(
@@ -140,14 +140,19 @@ public class SLVariogramController implements Initializable {
 
     @FXML
     protected void bAddClick() {
-        String strDist = taDist.getText();
-        lvDistances.getItems().addAll(FXCollections.singletonObservableList(strDist));
+        ArrayList<Double> al = new ArrayList();
+        double dist = Double.parseDouble(taDist.getText());
+        al.add(dist);
+        ObservableList<Double> ol = FXCollections.observableArrayList(al);
+        lvDistances.getItems().addAll(ol);
     }
 
     @FXML
     protected void bRmClick() {
         int rmIndex = lvDistances.getSelectionModel().getSelectedIndex();
-        lvDistances.getItems().remove(rmIndex);
+        if (rmIndex >= 0) {
+            lvDistances.getItems().remove(rmIndex);
+        }
     }
 
     @FXML
@@ -162,7 +167,7 @@ public class SLVariogramController implements Initializable {
         double min = MinimumValue.getMinValue(array);
         double step = (max - min) / 10;
         ArrayList<Double> listDistances = new ArrayList();
-        for (int i = 3; i <= 8; i++) {
+        for (int i = 1; i <= 8; i++) {
             listDistances.add(min + (step * i));
         }
         ObservableList<Double> ol = FXCollections.observableArrayList(listDistances);
