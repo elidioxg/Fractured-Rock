@@ -37,15 +37,27 @@
         onAction="#comboboxChange" >
     </ComboBox>    
     
-    <Label 
+    <Label
         GridPane.columnIndex="0"
         GridPane.rowIndex="2"
+        text="Covariance">
+    </Label> 
+    <Label 
+        fx:id="lCovariance"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="2"
+        text="">
+    </Label>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3"
         text="Pearson Coefficient">
     </Label> 
     <Label
         fx:id="lPearson"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="2">
+        GridPane.rowIndex="3">
     </Label>
     
 </GridPane>
