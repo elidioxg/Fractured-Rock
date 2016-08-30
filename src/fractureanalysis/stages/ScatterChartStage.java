@@ -18,8 +18,7 @@ public class ScatterChartStage {
         if(!FractureAnalysis.getInstance().file.getFileName().trim().isEmpty()) {
             FXMLLoader loader = new FXMLLoader(
                     FractureAnalysis.getInstance().getClass().getResource(
-                            "views/scatter_chart_stage.fxml")
-            );
+                            "views/scatter_chart_stage.fxml"));
             Parent parent = (Parent) loader.load();
             
             //get the dataset list to put on combobox
@@ -43,9 +42,7 @@ public class ScatterChartStage {
             Scene scene = new Scene(parent);
             stageLine.setTitle("Scatter Chart");
             stageLine.setScene(scene);
-            stageLine.show();
-            
-        
+            stageLine.show();                    
         }
     }
     

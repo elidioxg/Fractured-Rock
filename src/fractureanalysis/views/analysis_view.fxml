@@ -77,12 +77,7 @@
             <content>
                 <fx:include source="tab_distribution.fxml"/>
             </content>
-        </Tab>
-        <Tab text="Estimative">
-            <content>
-                <fx:include source="tab_estimative.fxml"/>
-            </content>
-        </Tab>
+        </Tab>       
             
     </TabPane>
     

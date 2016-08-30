@@ -67,7 +67,7 @@ public class SLVariogramController implements Initializable {
 
     @FXML
     protected Label lFracInt, lAvgSpacing, lScanLen;
-
+   
     @FXML
     protected void onClick() throws Exception {
         int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
@@ -97,7 +97,7 @@ public class SLVariogramController implements Initializable {
         //add distances to listview, if is empty
         if (lvDistances.getItems().isEmpty()) {
             auto();
-        }        
+        }
         ObservableList<Double> ol = FXCollections.observableArrayList(lvDistances.getItems());
         chart.getData().addAll(
                 PlotFractureVariogram.variogram1D(
@@ -130,6 +130,23 @@ public class SLVariogramController implements Initializable {
         serieRegression.getData().add(new XYChart.Data<>(min, first));
         serieRegression.getData().add(new XYChart.Data<>(max, last));
         scFractureIntensity.getData().add(serieRegression);
+    }
+
+    @FXML
+    protected TextField tfApValueAt;
+
+    @FXML
+    protected Label lValue;
+
+    @FXML
+    protected void estimate() {
+        /*if (lr != null) {
+            if ((lr.getInitialValue() != 0) & (lr.getInclination() != 0)) {
+                double value = Double.parseDouble(tfApValueAt.getText());
+                lr.getValueAt(value);
+                lValue.setText(String.valueOf(value));
+            }
+        }*/
     }
 
     @FXML

@@ -30,6 +30,7 @@ public class PlotFractureVariogram {
 
     /**
      * 
+     * @param scanline
      * @param distanceList
      * @return
      * @throws Exception
@@ -40,12 +41,11 @@ public class PlotFractureVariogram {
         ArrayList<Double> distance = new ArrayList();
         ArrayList<Double> variogramValue = new ArrayList();
 
-        for (int i = 0; i < distanceList.size(); i++) {
+        for (int i = 0; i < distanceList.size(); i++) {      
             Double value = Variograms.variogram1D(scanline, distanceList.get(i));
             distance.add(distanceList.get(i));
             variogramValue.add(value);
         }
-
         return PlotSeries.plotLineSeries(distance, variogramValue);
-    }
+    }    
 }

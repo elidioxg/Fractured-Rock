@@ -10,7 +10,7 @@
 <GridPane 
     xmlns:fx="http://javafx.com/fxml/1"  
     id="gridLinePane" 
-    prefHeight="400.0" 
+    prefHeight="600.0" 
     prefWidth="800.0"     
     fx:controller="fractureanalysis.controller.LineChartController" 
     alignment="CENTER"
@@ -20,11 +20,19 @@
         <javafx.geometry.Insets ></javafx.geometry.Insets>
     </padding>
     
+    <stylesheets>
+        <URL value="@app_style.css"/>
+    </stylesheets>
+    
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="0" 
         text="Dataset:"/>
-    <ComboBox fx:id="cbDataset"></ComboBox>
+    <ComboBox 
+        fx:id="cbDataset"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0">
+    </ComboBox>
     
     <Label 
         GridPane.columnIndex="0"
@@ -33,7 +41,8 @@
     <TextField 
         fx:id="tfGraphLabel"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="1" >
+        GridPane.rowIndex="1" 
+        GridPane.columnSpan="2" >
     </TextField>
     
     <Label 
@@ -43,7 +52,9 @@
     <TextField 
         fx:id="tfXLabel"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="2" />
+        GridPane.rowIndex="2"
+        GridPane.columnSpan="2"
+    />
     
     <Label 
         GridPane.columnIndex="0"
@@ -52,7 +63,8 @@
     <TextField         
         fx:id="tfYLabel"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="3" /> 
+        GridPane.rowIndex="3" 
+        GridPane.columnSpan="2"/> 
 
     <Label 
         GridPane.columnIndex="0"
@@ -65,47 +77,48 @@
     </ComboBox>
     
     <CheckBox fx:id="cbXSorted" 
-              GridPane.columnIndex="0"
-              GridPane.rowIndex="5" 
+              GridPane.columnIndex="2"
+              GridPane.rowIndex="4" 
               selected="false" >
     </CheckBox>
     <Label 
-        GridPane.columnIndex="1"
+        GridPane.columnIndex="3"
+        GridPane.rowIndex="4" 
+        text="Sorted" />
+
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="5" 
+        text="Y field data:"/>
+    <ComboBox fx:id="comboBoxY"
+              GridPane.columnIndex="1"
+              GridPane.rowIndex="5" >
+    </ComboBox>
+    
+    <CheckBox 
+        fx:id="cbYSorted" 
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="5" 
+        selected="true" >
+    </CheckBox>
+    <Label 
+        GridPane.columnIndex="3"
         GridPane.rowIndex="5" 
         text="Sorted" />
 
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="6" 
-        text="Y field data:"/>
-    <ComboBox fx:id="comboBoxY"
-              GridPane.columnIndex="1"
-              GridPane.rowIndex="6" >
-    </ComboBox>
-    
-    <CheckBox 
-        fx:id="cbYSorted" 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="7" 
-        selected="true" >
-    </CheckBox>
-    <Label 
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="7" 
-        text="Sorted" />
-
-    <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="8" 
         text="Serie Name:"/>
     <TextField         
         fx:id="tfSerieLabel"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="8" >
+        GridPane.rowIndex="6"
+        GridPane.columnSpan="2"    >
     </TextField>
 
     <ButtonBar GridPane.columnIndex="0"
-               GridPane.rowIndex="9"
+               GridPane.rowIndex="7"
                GridPane.columnSpan="2">  
         <buttons>
             <Button         
@@ -123,10 +136,10 @@
     
     <javafx.scene.chart.LineChart 
         fx:id="lineChart"
-        GridPane.columnIndex="2"
+        GridPane.columnIndex="4"
         GridPane.rowIndex="0"
-        GridPane.columnSpan="4"
-        GridPane.rowSpan="4" 
+        GridPane.columnSpan="7"
+        GridPane.rowSpan="7" 
     >
         <xAxis>
             <javafx.scene.chart.CategoryAxis 

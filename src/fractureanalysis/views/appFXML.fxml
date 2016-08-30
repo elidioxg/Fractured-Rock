@@ -45,7 +45,7 @@
                         onAction="#lineChartStage" />
                     <MenuItem 
                         text="Scatter Chart"
-                       
+                        onAction="#scatterChartStage"
                     />
                 </items>
             </Menu>            
@@ -91,7 +91,7 @@
         
         <Tab text="Histogram">
             <content>
-                <fx:include fx:id="histogramView" source="histogram.fxml"/>
+                <fx:include fx:id="histogramView" source="tab_histogram.fxml"/>
             </content>
         </Tab>
         

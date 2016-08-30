@@ -7,6 +7,7 @@ import fractureanalysis.model.DatasetModel;
 import fractureanalysis.stages.EstimateStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
+import fractureanalysis.stages.ScatterChartStage;
 import fractureanalysis.statistics.ClassInterval;
 import fractureanalysis.statistics.Frequency;
 import fractureanalysis.statistics.MaximumValue;
@@ -188,6 +189,12 @@ public class AppController implements Initializable {
     protected void lineChartStage() throws IOException {
         LineChartStage lcs = new LineChartStage();
         lcs.createStage();
+    }
+    
+    @FXML
+    protected void scatterChartStage() throws IOException {
+        ScatterChartStage scs = new ScatterChartStage();
+        scs.createStage();
     }
 
     @FXML
