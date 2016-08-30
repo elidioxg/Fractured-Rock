@@ -79,13 +79,10 @@
     <CheckBox fx:id="cbXSorted" 
               GridPane.columnIndex="2"
               GridPane.rowIndex="4" 
-              selected="false" >
+              selected="false"
+              text="Sorted"    >
     </CheckBox>
-    <Label 
-        GridPane.columnIndex="3"
-        GridPane.rowIndex="4" 
-        text="Sorted" />
-
+    
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="5" 
@@ -99,13 +96,10 @@
         fx:id="cbYSorted" 
         GridPane.columnIndex="2"
         GridPane.rowIndex="5" 
-        selected="true" >
+        selected="true"
+        text="Sorted"    >
     </CheckBox>
-    <Label 
-        GridPane.columnIndex="3"
-        GridPane.rowIndex="5" 
-        text="Sorted" />
-
+    
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="6" 

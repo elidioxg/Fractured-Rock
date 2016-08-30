@@ -20,6 +20,8 @@ public class LineChartStage {
                     FractureAnalysis.getInstance().getClass().getResource(
                             "views/line_chart_stage.fxml"));
             Parent parent = (Parent) loader.load();
+            
+            //get the dataset list to put on combobox
             List list = new ArrayList();
             for (int i = 0; i < FractureAnalysis.getInstance().file.getHeaderStrings().length; i++) {
                 list.add(FractureAnalysis.getInstance().file.getHeaderStrings(i));
