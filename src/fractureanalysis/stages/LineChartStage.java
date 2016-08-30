@@ -18,7 +18,7 @@ public class LineChartStage {
         if (!FractureAnalysis.getInstance().file.getFileName().trim().isEmpty()) {
             FXMLLoader loader = new FXMLLoader(
                     FractureAnalysis.getInstance().getClass().getResource(
-                            "views/LineChartStage.fxml"));
+                            "views/line_chart_stage.fxml"));
             Parent parent = (Parent) loader.load();
             List list = new ArrayList();
             for (int i = 0; i < FractureAnalysis.getInstance().file.getHeaderStrings().length; i++) {
