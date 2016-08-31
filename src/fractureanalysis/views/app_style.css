@@ -19,3 +19,7 @@
     -fx-background-color: transparent;
 }
 
+#chartHistogram {
+    -fx-bar-gap: 0;
+    -fx-category-gap: 0;
+}

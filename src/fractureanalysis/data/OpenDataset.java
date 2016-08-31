@@ -21,7 +21,7 @@ public class OpenDataset {
             }
             while ((line = br.readLine()) != null) {
                 String[] lineValues = line.split(separator);
-                values.add(Double.valueOf(lineValues[column]));
+                values.add(Double.valueOf(lineValues[column].trim()));
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
@@ -54,11 +54,11 @@ public class OpenDataset {
             while ((line = br.readLine()) != null) {
                 String[] lineValues = line.split(separator);
                 array[count][0] = new ArrayList();
-                array[count][0].add(lineValues[indexId]);
+                array[count][0].add(lineValues[indexId].trim());
                 array[count][1] = new ArrayList();
-                array[count][1].add(lineValues[indexSp]);
+                array[count][1].add(lineValues[indexSp].trim());
                 array[count][2] = new ArrayList();
-                array[count][2].add(lineValues[indexAp]);
+                array[count][2].add(lineValues[indexAp].trim());
                 count++;
             }
         } catch (FileNotFoundException e) {

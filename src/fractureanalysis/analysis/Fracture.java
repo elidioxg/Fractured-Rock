@@ -23,6 +23,8 @@ package fractureanalysis.analysis;
 public class Fracture {
     final private double aperture;
     final private double spacement;
+    
+    //variables for statistical analysis
     private int cumulativeNumber;
     private double normalizedValue;
     

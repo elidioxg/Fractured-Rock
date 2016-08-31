@@ -26,19 +26,24 @@ public class ScanLine {
 
     private ArrayList<Double> ap = new ArrayList();
     private ArrayList<Double> sp = new ArrayList();
-    private double lenght = 0.;
+    private double lenght = Double.NaN;
     private int fracturesCount = 0;
-    private ArrayList<Double> distances = new ArrayList();
+    //distance from scanline origin:
+    private ArrayList<Double> distance = new ArrayList();
 
-    public ScanLine(ArrayList<Fracture> fractures, double lenght) {
+    /**
+     * 
+     * @param fractures 
+     */
+    public ScanLine(ArrayList<Fracture> fractures) {
         if (fractures != null) {
-            double dist = 0.;
+            this.lenght = 0.;
             for (int i = 0; i < fractures.size(); i++) {
                 ap.add(fractures.get(i).getAperture());
-                sp.add(fractures.get(i).getSpacement());
-                this.lenght = lenght;
-                dist += fractures.get(i).getAperture() + fractures.get(i).getSpacement();
-                this.distances.add(dist);
+                sp.add(fractures.get(i).getSpacement());                
+                this.lenght += fractures.get(i).getAperture() +
+                        fractures.get(i).getSpacement();
+                this.distance.add(this.lenght);
                 this.fracturesCount += 1;
             }
         }
@@ -57,7 +62,7 @@ public class ScanLine {
     }
 
     public ArrayList<Double> getDistanceList() {
-        return this.distances;
+        return this.distance;
     }
 
     public int fracturesCount() {

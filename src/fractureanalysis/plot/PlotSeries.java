@@ -25,6 +25,13 @@ import javafx.scene.chart.XYChart;
 
 public class PlotSeries {
     
+    /**
+     * 
+     * @param columnX
+     * @param columnY
+     * @return
+     * @throws Exception 
+     */
     public static XYChart.Series plotLineSeries(ArrayList<Double> columnX, 
             ArrayList<Double> columnY) throws Exception{
         if(columnX.size()!=columnY.size()){
@@ -50,6 +57,15 @@ public class PlotSeries {
         return series;        
     }
     
+    /**
+     * 
+     * @param filename
+     * @param separator
+     * @param serieLabel
+     * @param columnX
+     * @param columnY
+     * @return 
+     */
     public XYChart.Series plotLineSeries(String filename, String separator,
             String serieLabel, int columnX, int columnY) {
         
