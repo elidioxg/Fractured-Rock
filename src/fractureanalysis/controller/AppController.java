@@ -36,9 +36,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -125,6 +128,24 @@ public class AppController implements Initializable {
     protected TextField tfSeparator;
 
     @FXML
+    protected RadioButton rbTab, rbComma, rbSemicolon, rbOther;
+
+    @FXML
+    protected void rbTabAction() {
+
+    }
+
+    @FXML
+    protected void rbCommaAction() {
+
+    }
+
+    @FXML
+    protected void rbSemicolonAction() {
+
+    }
+
+    @FXML
     protected ScrollPane spProperties;
     @FXML
     protected GridPane paneProperties;
@@ -140,16 +161,30 @@ public class AppController implements Initializable {
         } else {
             FractureAnalysis.getInstance().file.setHeader(false);
         }
-
-        String sep = tfSeparator.getCharacters().toString();
-        String filename = FractureAnalysis.getInstance().file.getFileName(); 
-        
-        int columnCount = DatasetProperties.getColumnsCount(filename, sep);        
+        String sep;
+        if (rbTab.isSelected()) {
+            sep = "\t";
+        } else {
+            if (rbComma.isSelected()) {
+                sep = ",";
+            } else {
+                if (rbSemicolon.isSelected()) {
+                    sep = ";";
+                } else {
+                    sep = tfSeparator.getCharacters().toString();
+                    if (sep.length() <= 0) {
+                        sep = " ";
+                    }
+                }
+            }
+        }
+        String filename = FractureAnalysis.getInstance().file.getFileName();
+        int columnCount = DatasetProperties.getColumnsCount(filename, sep);
         FractureAnalysis.getInstance().file.setSeparator(sep);
         FractureAnalysis.getInstance().file.setColumnsCount(
                 columnCount);
         int rowCount = DatasetProperties.getRowCount(filename, sep);
-         FractureAnalysis.getInstance().file.setRowsCount(rowCount);        
+        FractureAnalysis.getInstance().file.setRowsCount(rowCount);
         if (FractureAnalysis.getInstance().file.getColumnsCount() > 1) {
             //FractureAnalysis.getInstance().file.setColumnAp(0);
             //FractureAnalysis.getInstance().file.setColumnSp(1);
@@ -190,7 +225,7 @@ public class AppController implements Initializable {
         LineChartStage lcs = new LineChartStage();
         lcs.createStage();
     }
-    
+
     @FXML
     protected void scatterChartStage() throws IOException {
         ScatterChartStage scs = new ScatterChartStage();

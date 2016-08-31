@@ -14,7 +14,7 @@ public class OpenDataStage {
 
     public Stage createWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().getClass()
-                .getResource("views/openFileFXML.fxml"));
+                .getResource("views/stage_open_file.fxml"));
         Stage stage = new Stage();
         GridPane parent = loader.load();
         Scene scene = new Scene(parent);
