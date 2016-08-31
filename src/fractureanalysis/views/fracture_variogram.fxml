@@ -62,7 +62,7 @@
         GridPane.columnIndex="0"
         GridPane.rowIndex="5"
         text="Plot"
-        onAction="#onClick" >
+         >
     </Button>     
     
     <Button

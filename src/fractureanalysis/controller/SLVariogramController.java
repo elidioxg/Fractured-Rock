@@ -21,7 +21,7 @@ import fractureanalysis.analysis.Fracture;
 import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.data.OpenDataset;
-import fractureanalysis.plot.PlotFractureVariogram;
+import fractureanalysis.plot.PlotVariogramSeries;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.statistics.LinearRegression.LinearRegression;
 import fractureanalysis.statistics.MaximumValue;
@@ -63,20 +63,32 @@ public class SLVariogramController implements Initializable {
     protected LineChart scFractureIntensity;
 
     @FXML
-    protected TextField tfLenght;
+    protected Label lFracInt, lAvgSpacing, lScanLen;
 
     @FXML
-    protected Label lFracInt, lAvgSpacing, lScanLen;
-   
-    @FXML
-    protected void onClick() throws Exception {
-        int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
+    protected void cbApAction() throws Exception {
         int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
-        String strLen = tfLenght.getText();
-        if (strLen.isEmpty()) {
-            strLen = "1000";
+        if (indexAp >= 0) {
+            int indexSp = FractureAnalysis.getInstance().file.getSpColumn();
+            if (indexSp >= 0) {
+                estimateFractures(indexAp, indexSp);
+            }
         }
-        double len = Double.valueOf(strLen);
+    }
+
+    @FXML
+    protected void cbSpAction() throws Exception {
+        int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
+        if (indexSp >= 0) {
+            int indexAp = FractureAnalysis.getInstance().file.getApColumn();
+            if (indexAp >= 0) {
+                estimateFractures(indexAp, indexSp);
+            }
+        }
+    }
+
+    private void estimateFractures(int indexAp, int indexSp) throws Exception {
+
         String filename = FractureAnalysis.getInstance().file.getFileName();
         String sep = FractureAnalysis.getInstance().file.getSeparator();
         ArrayList<Double> ap = OpenDataset.openCSVFileToDouble(filename, sep, indexAp, true);
@@ -88,7 +100,7 @@ public class SLVariogramController implements Initializable {
                 fracturesList.add(f);
             }
         }
-        ScanLine scanline = new ScanLine(fracturesList, Double.valueOf(strLen));
+        ScanLine scanline = new ScanLine(fracturesList);
         FractureAnalysis.getInstance().file.setScanLine(scanline);
         Scene scene = (Scene) cbApVar.getScene();
         chart = (ScatterChart) scene.lookup("#variogram_chart");
@@ -99,9 +111,8 @@ public class SLVariogramController implements Initializable {
             auto();
         }
         ObservableList<Double> ol = FXCollections.observableArrayList(lvDistances.getItems());
-        chart.getData().addAll(
-                PlotFractureVariogram.variogram1D(
-                        scanline, ol));
+        chart.getData().addAll(PlotVariogramSeries.variogram1D(
+                scanline, ol));
         FractureIntensityAnalysis fi = new FractureIntensityAnalysis(
                 scanline);
         lFracInt = (Label) scene.lookup("#lFracInt");

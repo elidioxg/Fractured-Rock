@@ -13,9 +13,21 @@
           prefWidth="600.0" 
           styleClass="mainFxmlClass"             
           fx:controller="fractureanalysis.controller.AppController">
+    
+    
     <stylesheets>
         <URL value="@app_style.css"/>
     </stylesheets>
+    
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints percentWidth="90" />
+    </columnConstraints>
+    
+    <rowConstraints>
+        <RowConstraints percentHeight="10" />
+        <RowConstraints percentHeight="90" />
+    </rowConstraints>
     
     <Label 
         GridPane.columnIndex="0"

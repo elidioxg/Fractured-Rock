@@ -88,7 +88,7 @@ public class FractureAnalysis extends Application {
             controller = root.getController();
             Scene scene = new Scene(grid);
             list = new ArrayList();
-            listView = new ListView();
+            listView = (ListView)grid.lookup("#lvDatasets");
 
             listView.setCellFactory(new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
                 @Override
@@ -133,7 +133,7 @@ public class FractureAnalysis extends Application {
                 }
             });
 
-            grid.add(listView, 1, 3);
+            //grid.add(listView, 0, 2);
             primaryStage.setOnCloseRequest(e -> Platform.exit());
             primaryStage.setTitle(strAppName);
             primaryStage.setScene(scene);
@@ -221,8 +221,10 @@ public class FractureAnalysis extends Application {
         cbVarB.setItems(ol);
         ComboBox cbSpVar = (ComboBox) grid.lookup("#cbSpVar");
         cbSpVar.setItems(ol);
+        cbSpVar.getSelectionModel().select(file.getSpColumn());
         ComboBox cbApVar = (ComboBox) grid.lookup("#cbApVar");
         cbApVar.setItems(ol);
+        cbApVar.getSelectionModel().select(file.getApColumn());
     }
 
     private void setDatasetStatistics(AnalysisFile file) {

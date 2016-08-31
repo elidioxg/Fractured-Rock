@@ -11,20 +11,29 @@
     xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="fractureanalysis.controller.AppController"     
     id="gridPane" 
-    prefHeight="600.0" 
-    prefWidth="800.0"     
-    alignment="CENTER"
+    prefHeight="768.0" 
+    prefWidth="1024.0"     
 >
     <stylesheets>
         <URL value="@app_style.css"/>
     </stylesheets>
     
-    <!--<gridLinesVisible>true</gridLinesVisible> -->
+    <columnConstraints>
+        <ColumnConstraints percentWidth="20"  /> 
+        <ColumnConstraints percentWidth="80" hgrow="ALWAYS" fillWidth="true"></ColumnConstraints>        
+    </columnConstraints>
     
+    <rowConstraints>
+        <RowConstraints minHeight="50"/> 
+        <RowConstraints minHeight="50"/>
+        <RowConstraints percentHeight="80" vgrow="ALWAYS" fillHeight="true"></RowConstraints>
+        <RowConstraints minHeight="50"/>
+    </rowConstraints> 
+   
     <MenuBar 
         fx:id="menuBar"
         GridPane.columnIndex="0"
-        GridPane.columnSpan="3"
+        GridPane.columnSpan="4"
         GridPane.rowIndex="0">
         <menus>
             <Menu text="File">
@@ -54,17 +63,16 @@
     
     <ListView 
         fx:id="lvDatasets"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="3" 
-        GridPane.rowSpan="3" 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"         
         onMouseClicked="#onMouseClicked"        
     >                
     </ListView>
     
-    <TabPane GridPane.columnIndex="2"
-             GridPane.rowIndex="3"
-             GridPane.columnSpan="1"
-             GridPane.rowSpan="2">
+    <TabPane           
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="2"
+    >
         
         <Tab
             text="Dataset">
@@ -104,7 +112,9 @@
         <Tab text="Fracture Analysis">
             <content>
                 <ScrollPane >
-                    <content><fx:include fx:id="analysisView" source="analysis_view.fxml"/></content>
+                    <content>
+                        <fx:include fx:id="analysisView" source="analysis_view.fxml"/>
+                    </content>
                 </ScrollPane>                
             </content>
         </Tab>
@@ -113,14 +123,21 @@
     
     <Label
         text="Datasets"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="2">
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1">
     </Label>   
     
     <Label 
-        text="Data"
-        GridPane.columnIndex="2"
-        GridPane.rowIndex="2">
-    </Label>                     
+        text="Data Properties"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1">
+    </Label>       
+    
+    <HBox
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="3"  
+    >
+    </HBox>                            
                                                                                 
 </GridPane>

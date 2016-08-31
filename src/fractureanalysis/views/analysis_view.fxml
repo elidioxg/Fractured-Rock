@@ -9,9 +9,23 @@
 <GridPane 
     xmlns:fx="http://javafx.com/fxml/1" 
     id="GridPane" 
-    prefHeight="400.0" 
-    prefWidth="600.0"
+    prefHeight="700.0" 
+    prefWidth="900.0"
     fx:controller="fractureanalysis.controller.SLVariogramController">
+    
+    
+    
+    <columnConstraints>
+        <ColumnConstraints minWidth="30"  />
+        <ColumnConstraints minWidth="60"/>
+        <ColumnConstraints minWidth="30"/>
+        <ColumnConstraints minWidth="60"/>
+    </columnConstraints>
+    
+    <rowConstraints>
+        <RowConstraints percentHeight="5" />
+        <RowConstraints percentHeight="90" />
+    </rowConstraints>
     
     <Label 
         GridPane.columnIndex="0"
@@ -22,7 +36,7 @@
         fx:id="cbSpVar"
         GridPane.columnIndex="1"
         GridPane.rowIndex="0"
-    >
+        onAction="#cbSpAction">
     </ComboBox>
     <Label 
         GridPane.columnIndex="2"
@@ -33,35 +47,13 @@
         fx:id="cbApVar"
         GridPane.columnIndex="3"
         GridPane.rowIndex="0"
-    >
+        onAction="#cbApAction">        
     </ComboBox>
-    
-    <Label
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="1"
-        text="Scanline lenght">
-    </Label>
-    <TextField 
-        fx:id="tfLenght"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="1"
-        GridPane.rowSpan="2"     >
-    </TextField>
-    
-    <Button 
-        GridPane.columnIndex="4"
-        GridPane.rowIndex="1"
-        text="Update"
-        onAction="#onClick" 
-    >
-        
-    </Button>
     
     <TabPane 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="2"
-        GridPane.columnSpan="5"
-        GridPane.rowSpan="5"  
+        GridPane.rowIndex="1"  
+        GridPane.columnSpan="4"         
     >
         <Tab text="Summary">
             <content>

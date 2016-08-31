@@ -26,7 +26,7 @@ import javafx.scene.chart.XYChart;
  *
  * @author elidioxg
  */
-public class PlotFractureVariogram {
+public class PlotVariogramSeries {
 
     /**
      * 
