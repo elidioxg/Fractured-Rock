@@ -40,8 +40,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -87,11 +85,19 @@ public class AppController implements Initializable {
                             @Override
                             public void run() {
                                 TableUtils tu = new TableUtils();
-                                for (int column = 0; column < headerValues.length; column++) {
+                                for (int i = 0; i < headerValues.length; i++) {
                                     tvDataset.getColumns().add(
-                                            tu.createColumn(column, headerValues[column]));
+                                            tu.createColumn(i, headerValues[i]));
                                 }
                             }
+                        });
+                    } else {                        
+                        Platform.runLater(() -> {
+                            TableUtils tu = new TableUtils();
+                            for(int i = 0; i < headerValues.length; i++){                                
+                                tvDataset.getColumns().add(
+                                            tu.createColumn(i, "Column "+String.valueOf(i+1)));
+                            }                            
                         });
                     }
                     String dataLine;
@@ -161,33 +167,31 @@ public class AppController implements Initializable {
         } else {
             FractureAnalysis.getInstance().file.setHeader(false);
         }
-        String sep;
+        String sep = " ";
         if (rbTab.isSelected()) {
             sep = "\t";
+        } else if (rbComma.isSelected()) {
+            sep = ",";
+        } else if (rbSemicolon.isSelected()) {
+            sep = ";";
         } else {
-            if (rbComma.isSelected()) {
-                sep = ",";
-            } else {
-                if (rbSemicolon.isSelected()) {
-                    sep = ";";
-                } else {
-                    sep = tfSeparator.getCharacters().toString();
-                    if (sep.length() <= 0) {
-                        sep = " ";
-                    }
-                }
+            String aux = tfSeparator.getCharacters().toString();
+            if (aux.length() != 0) {
+                sep = aux;
             }
         }
-        String filename = FractureAnalysis.getInstance().file.getFileName();
-        int columnCount = DatasetProperties.getColumnsCount(filename, sep);
+        File file = new File(tfFilename.getText());
+        FractureAnalysis.getInstance().file.setFilename(file.getAbsolutePath());
+        FractureAnalysis.getInstance().file.setDatasetName(file.getName());
+        int columnCount = DatasetProperties.getColumnsCount(file.getAbsolutePath(), sep);
         FractureAnalysis.getInstance().file.setSeparator(sep);
         FractureAnalysis.getInstance().file.setColumnsCount(
                 columnCount);
-        int rowCount = DatasetProperties.getRowCount(filename, sep);
+        int rowCount = DatasetProperties.getRowCount(file.getAbsolutePath(), sep);
         FractureAnalysis.getInstance().file.setRowsCount(rowCount);
         if (FractureAnalysis.getInstance().file.getColumnsCount() > 1) {
-            //FractureAnalysis.getInstance().file.setColumnAp(0);
-            //FractureAnalysis.getInstance().file.setColumnSp(1);
+            FractureAnalysis.getInstance().file.setApColumn(0);
+            FractureAnalysis.getInstance().file.setSpColumn(1);
         }
         FractureAnalysis.getInstance().updateListView();
     }
@@ -198,10 +202,7 @@ public class AppController implements Initializable {
         File file = fileChooser.showOpenDialog(
                 FractureAnalysis.getInstance().stage);
         if (file.getAbsolutePath() != null) {
-
-            tfFilename.setText(file.getAbsolutePath());
-            FractureAnalysis.getInstance().file.setDatasetName(file.getName());
-            FractureAnalysis.getInstance().file.setFilename(file.getAbsolutePath());
+            tfFilename.setText(file.getAbsolutePath());            
         }
     }
 

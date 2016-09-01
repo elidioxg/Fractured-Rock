@@ -14,7 +14,6 @@ import java.util.Arrays;
 public class DatasetProperties {
 
     //TODO: um único procedimento para pegar todas as propriedades
-    
     /**
      *
      * @param filename
@@ -40,7 +39,11 @@ public class DatasetProperties {
                 }
             }
         }
-        return lineValues.length;
+        if (lineValues != null) {
+            return lineValues.length;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -67,9 +70,9 @@ public class DatasetProperties {
         String line = null;
         try {
             br = new BufferedReader(new FileReader(filename));
-            while((line = br.readLine())!=null){
-                count+=1;
-            }            
+            while ((line = br.readLine()) != null) {
+                count += 1;
+            }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         } finally {
