@@ -16,43 +16,44 @@
  */
 package fractureanalysis.statistics;
 
+import fractureanalysis.Matrices.Vector;
 import java.util.ArrayList;
 
 public class StdDeviation {
     
     /**
-     * Standard Deviation  
-     * @param array
+     * 
+     * @param vector
      * @return 
      */
-    public static double stdDeviation(ArrayList<Double> array){        
-        double averageValue = Average.arithmeticAverage(array);
+    public static double stdDeviation(Vector vector){        
+        double averageValue = Average.arithmeticAverage(vector);
         double sum = 0.;
-        for(int i= 0; i<=array.size()-1; i++){
-            sum += Math.pow((averageValue - array.get(i)), 2);
+        for(int i= 0; i<vector.size(); i++){
+            sum += Math.pow((averageValue - vector.get(i).doubleValue()), 2);
         }
-        double result = Math.sqrt(sum/(array.size()-1));
+        double result = Math.sqrt(sum/(vector.size()-1));
         return result;
     }
     
-    //TODO: stdDeviation for frequency table
-        
     /**
-     * Logaritmic Standard Deviation 
-     * @param array
+     * 
+     * @param vector
      * @param baseLog
      * @return 
      */
-    public static double logStdDeviation(ArrayList<Double> array, int baseLog){        
-        double avrValue = Average.arithmeticAverage(array);
+    public static double logStdDeviation(Vector vector, int baseLog){        
+        double avrValue = Average.arithmeticAverage(vector);
         double sum = 0.;
-        for(int i = 0; i<= array.size()-1; i++){
+        for(int i = 0; i< vector.size(); i++){
             sum += Math.pow ((Math.log(sum) - Math.log(avrValue) ), 2);
         }
-        double sqrtValue = Math.sqrt(sum/(array.size()-1));
+        double sqrtValue = Math.sqrt(sum/(vector.size()-1));
         double result = Math.pow(baseLog, sqrtValue);
         return result;
     }
+       
+    //TODO: stdDeviation for frequency table            
     
     //TODO: Logaritmic Standard Deviation with frequency tables
    

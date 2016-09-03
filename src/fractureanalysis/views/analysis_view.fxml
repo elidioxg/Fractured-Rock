@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane 
-    xmlns:fx="http://javafx.com/fxml/1" 
+    xmlns:fx="http://javafx.com/fxml/1"
     id="GridPane" 
     prefHeight="700.0" 
     prefWidth="900.0"
@@ -69,7 +69,12 @@
             <content>
                 <fx:include source="tab_distribution.fxml"/>
             </content>
-        </Tab>       
+        </Tab>     
+        <Tab text="2D View">
+            <content>
+                <fx:include source="tab_2dview.fxml"/>
+            </content>
+        </Tab>  
             
     </TabPane>
     

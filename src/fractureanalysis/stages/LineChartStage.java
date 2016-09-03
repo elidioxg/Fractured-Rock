@@ -23,7 +23,7 @@ public class LineChartStage {
             
             //get the dataset list to put on combobox
             List list = new ArrayList();
-            for (int i = 0; i < FractureAnalysis.getInstance().file.getHeaderStrings().length; i++) {
+            for (int i = 0; i < FractureAnalysis.getInstance().file.getHeaderArray().size(); i++) {
                 list.add(FractureAnalysis.getInstance().file.getHeaderStrings(i));
             }
             ObservableList ol = FXCollections.observableArrayList(list);

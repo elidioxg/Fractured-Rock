@@ -21,8 +21,8 @@ public class EstimateStage {
         Parent parent = (Parent) loader.load();
 
         List list = new ArrayList();
-        if (FractureAnalysis.getInstance().file.getHeaderStrings() != null) {
-            for (int i = 0; i < FractureAnalysis.getInstance().file.getHeaderStrings().length; i++) {
+        if (FractureAnalysis.getInstance().file.getHeaderArray().size() > 0) {
+            for (int i = 0; i < FractureAnalysis.getInstance().file.getHeaderArray().size(); i++) {
                 list.add(FractureAnalysis.getInstance().file.getHeaderStrings(i));
             }
         }

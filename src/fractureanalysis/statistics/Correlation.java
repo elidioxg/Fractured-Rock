@@ -16,22 +16,15 @@
  */
 package fractureanalysis.statistics;
 
-import java.util.ArrayList;
+import fractureanalysis.Matrices.Vector;
 
 public class Correlation {
     
-    /**
-     * Pearson coefficient
-     * @param array1
-     * @param array2
-     * @return
-     * @throws Exception 
-     */
-    public static double pearsonCoeff(ArrayList<Double> array1, 
-            ArrayList<Double> array2) throws Exception{        
-        double var1 = Variance.variance(array1);
-        double var2 = Variance.variance(array2);
-        double cov = Covariance.covariance(array1, array2);
+    
+    public static double pearsonCoeff(Vector vector1, Vector vector2) throws Exception{        
+        double var1 = Variance.variance(vector1);
+        double var2 = Variance.variance(vector2);
+        double cov = Covariance.covariance(vector1, vector2);
         return cov/(Math.sqrt(var1*var2));        
     }
     

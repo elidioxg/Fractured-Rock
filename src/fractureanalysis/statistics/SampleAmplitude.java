@@ -1,30 +1,29 @@
 package fractureanalysis.statistics;
 
-import java.util.ArrayList;
+import fractureanalysis.Matrices.Vector;
 
 public class SampleAmplitude {
     
     /**     
-     * @param array
+     * @param vector
      * @return Difference(Maximum Value - Minimum Value)
      */
     
-    public static double getAmplitude(ArrayList<Double> array){
+    public static double getAmplitude(Vector vector){
         double minValue=0.;
         double maxValue=0.;
-        for(int i = 0; i<array.size(); i++){
+        for(int i = 0; i<vector.size(); i++){
             if(i ==0){
-                minValue = array.get(i);
-                maxValue = array.get(i);
+                minValue = vector.get(i).doubleValue();
+                maxValue = vector.get(i).doubleValue();
             } else {
-                if(minValue>array.get(i)){
-                    minValue = array.get(i);
+                if(minValue>vector.get(i).doubleValue()){
+                    minValue = vector.get(i).doubleValue();
                 }
-                if(maxValue<array.get(i)){
-                    maxValue = array.get(i);
+                if(maxValue<vector.get(i).doubleValue()){
+                    maxValue = vector.get(i).doubleValue();
                 }
-            }
-            
+            }            
         }
         return (maxValue - minValue);
     }

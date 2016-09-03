@@ -17,11 +17,11 @@
 package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
+import fractureanalysis.Matrices.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.statistics.Correlation;
 import fractureanalysis.statistics.Covariance;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,9 +47,9 @@ public class CorrelationController implements Initializable{
         String filename = FractureAnalysis.getInstance().file.getFileName();
         String sep = FractureAnalysis.getInstance().file.getSeparator();
         if(indexA>=0 & indexB>=0){
-            ArrayList<Double> arrayA = OpenDataset.openCSVFileToDouble(
+            Vector arrayA = OpenDataset.openCSVFileToVector(
                     filename, sep, indexA, true);
-            ArrayList<Double> arrayB = OpenDataset.openCSVFileToDouble(
+            Vector arrayB = OpenDataset.openCSVFileToVector(
                     filename, sep, indexB, true);
             double covariance = Covariance.covariance(arrayA, arrayB);
             lCovariance.setText(String.valueOf(covariance));

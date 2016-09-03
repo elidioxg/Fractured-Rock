@@ -1,34 +1,37 @@
 package fractureanalysis.statistics;
 
+import fractureanalysis.Matrices.Vector;
 import java.util.ArrayList;
 
 public class Variance {
+    
+    /**
+     * 
+     * @param vector
+     * @return 
+     */
+    public static double variance(Vector vector){
+        double result = 0.;
+        Average avg = new Average();
+        double averageValue = avg.arithmeticAverage(vector);
+        for(int i = 0; i <vector.size(); i++){
+            result += Math.pow(vector.get(i).doubleValue() - averageValue, 2);
+        }
+        return result/vector.size();
+    }
+    
     /**
      * 
      * @param array
      * @param average
      * @return 
      */
-    public static double variance(ArrayList<Double> array, double average){
+    public static double variance(Vector vector, double average){
         double result = 0.;
-        for(int i = 0; i <array.size()-1; i++){
-            result += Math.pow(array.get(i) - average, 2);
+        for(int i = 0; i <vector.size(); i++){
+            result += Math.pow(vector.get(i).doubleValue() - average, 2);
         }
-        return result/array.size();
-    }
-    /**
-     * 
-     * @param array
-     * @return 
-     */
-    public static double variance(ArrayList<Double> array){
-        double result = 0.;
-        Average avg = new Average();
-        double averageValue = avg.arithmeticAverage(array);
-        for(int i = 0; i <array.size()-1; i++){
-            result += Math.pow(array.get(i) - averageValue, 2);
-        }
-        return result/array.size();
+        return result/vector.size();
     }
     
 }

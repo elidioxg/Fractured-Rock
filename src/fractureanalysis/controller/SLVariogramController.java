@@ -17,6 +17,7 @@
 package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
+import fractureanalysis.Matrices.Vector;
 import fractureanalysis.analysis.Fracture;
 import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.analysis.ScanLine;
@@ -124,8 +125,8 @@ public class SLVariogramController implements Initializable {
         //distribution tab
         scFractureIntensity = (LineChart) scene.lookup("#scFractureIntensity");
         ArrayList<Fracture> al = fi.getArrayDistribution();
-        ArrayList<Double> cumulative = new ArrayList();
-        ArrayList<Double> aperture = new ArrayList();
+        ArrayList<Double> cumulative = new ArrayList<>();
+        ArrayList<Double> aperture = new ArrayList<>();
         for (Fracture values : al) {
             cumulative.add(Math.log(Double.valueOf(values.getCumulativeNumber())));
             aperture.add(Math.log(values.getAperture()));

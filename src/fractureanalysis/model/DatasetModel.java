@@ -1,12 +1,15 @@
 package fractureanalysis.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class DatasetModel {
 
     private String datasetName = "";
     private String datasetFilename = "";
     private String separator = ",";
     private boolean hasHeader = true;
-    private String[] headerStrings;
+    private ArrayList<String> headerStrings;
     private int columnsCount = 0;
     private int rowsCount = 0;
     private int spColumn = -1;
@@ -17,7 +20,7 @@ public class DatasetModel {
     }
 
     public DatasetModel(String datasetName, String filename, String separator,
-            boolean hasHeader, String[] headerStrings, int columns, int rows) {
+            boolean hasHeader, ArrayList<String> headerStrings, int columns, int rows) {
         this.datasetName = datasetName;
         this.datasetFilename = filename;
         this.separator = separator;
@@ -76,16 +79,16 @@ public class DatasetModel {
         return this.hasHeader;
     }
 
-    public void setHeaderStrings(String[] strHeader) {
+    public void setHeaderStrings(ArrayList<String> strHeader) {
         this.headerStrings = strHeader;
-    }
-
-    public String[] getHeaderStrings() {
+    }   
+    
+    public ArrayList<String> getHeaderArray(){
         return this.headerStrings;
     }
 
-    public String getHeaderStrings(int colIndex) {
-        return this.headerStrings[colIndex];
+    public String getHeaderArray(int colIndex) {
+        return this.headerStrings.get(colIndex);
     }
 
     public void setColumnsCount(int number) {

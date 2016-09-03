@@ -20,8 +20,8 @@ package fractureanalysis;
  *
  * @author elidioxg
  */
+import fractureanalysis.Matrices.Vector;
 import fractureanalysis.controller.AppController;
-import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
@@ -31,11 +31,10 @@ import fractureanalysis.statistics.MinimumValue;
 import fractureanalysis.statistics.StdDeviation;
 import fractureanalysis.statistics.Variance;
 import fractureanalysis.statistics.VariationCoefficient;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -78,17 +77,41 @@ public class FractureAnalysis extends Application {
         return instance;
     }
 
+    private void test() {
+        File file = new File("/home/elidioxg/Desenvolvimento/FracGen/FracGen/src/main/resources/data.dat");
+        DatasetModel dm = new DatasetModel();
+        dm.setDatasetName(file.getPath());
+        dm.setFilename(file.getAbsolutePath());
+        dm.setHeader(false);
+        dm.setApColumn(1);
+        dm.setSpColumn(0);
+        dm.setSeparator("\t");
+        ArrayList<String> string = new ArrayList();        
+        string.add("SP");        
+        string.add("AP");
+        dm.setHeaderStrings(string);
+        dm.setRowsCount(23);
+        dm.setColumnsCount(2);
+        List<DatasetModel> list = new ArrayList();
+        list.add(dm);
+        ObservableList<DatasetModel> ol = FXCollections.observableArrayList(list);
+        listView.setItems(ol);
+        list.add(dm);
+        datasets.add(dm.getDatasetName());
+
+    }
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         file = new AnalysisFile();
         try {
             FXMLLoader root = new FXMLLoader(getClass().getResource(
-                    "views/appFXML.fxml"));
+                    "views/stage_main.fxml"));
             grid = root.load();
             controller = root.getController();
             Scene scene = new Scene(grid);
             list = new ArrayList();
-            listView = (ListView)grid.lookup("#lvDatasets");
+            listView = (ListView) grid.lookup("#lvDatasets");
 
             listView.setCellFactory(new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
                 @Override
@@ -117,18 +140,15 @@ public class FractureAnalysis extends Application {
                         file.setDatasetName(dm.getDatasetName());
                         file.setSeparator(dm.getSeparator());
                         file.setHeader(dm.getHeader());
-                        file.setHeaderStrings(dm.getHeaderStrings());
+                        file.setHeaderStrings(dm.getHeaderArray());
                         file.setColumnsCount(dm.getColumnsCount());
                         file.setRowsCount(dm.getRowsCount());
                         controller.populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
                         setColumnStatistics(dm.getFileName(), dm.getSeparator(),
                                 0/*dm.getCurrentColumn()*/);
                         setDatasetStatistics(file);
-                        try {
-                            itemsComboboxes(dm.getFileName(), dm.getSeparator());
-                        } catch (IOException ex) {
-                            Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        itemsComboboxes();
+
                     }
                 }
             });
@@ -138,7 +158,7 @@ public class FractureAnalysis extends Application {
             primaryStage.setTitle(strAppName);
             primaryStage.setScene(scene);
             primaryStage.show();
-
+            test();
         } catch (IOException e) {
             throw new IOException(e);
         }
@@ -146,7 +166,7 @@ public class FractureAnalysis extends Application {
 
     public void updateListView() {
         list.add(new DatasetModel(file.getDatasetName(), file.getFileName(),
-                file.getSeparator(), file.getHeader(), file.getHeaderStrings(),
+                file.getSeparator(), file.getHeader(), file.getHeaderArray(),
                 file.getColumnsCount(), file.getRowsCount()));
 
         datasets.add(file.getDatasetName());
@@ -167,8 +187,8 @@ public class FractureAnalysis extends Application {
      */
     public void setColumnStatistics(String filename, String separator, int columnIndex) {
         if (FractureAnalysis.getInstance().file.getColumnsCount() > 0) {
-            ArrayList<Double> array
-                    = OpenDataset.openCSVFileToDouble(filename, separator, columnIndex, true);
+            Vector array
+                    = OpenDataset.openCSVFileToVector(filename, separator, columnIndex, true);
             Label lAvg = (Label) grid.lookup("#lAvgValue");
             double avg = Average.arithmeticAverage(array);
             lAvg.setText(String.valueOf(avg));
@@ -204,10 +224,12 @@ public class FractureAnalysis extends Application {
      * @param separator
      * @throws IOException
      */
-    private void itemsComboboxes(String filename, String separator) throws IOException {
+    private void itemsComboboxes() {
         ObservableList<String> ol
                 = FXCollections.observableList(
-                        DatasetProperties.getHeaders(filename, separator));
+                        FractureAnalysis.getInstance().file.getHeaderArray()
+                //DatasetProperties.getHeaders(filename, separator)
+                );
 
         ComboBox cbSColumn = (ComboBox) grid.lookup("#cbSColumn");
         cbSColumn.setItems(ol);

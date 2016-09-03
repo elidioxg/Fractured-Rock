@@ -1,5 +1,6 @@
 package fractureanalysis.statistics;
 
+import fractureanalysis.Matrices.Vector;
 import java.util.ArrayList;
 
 public class Estimative {
@@ -50,11 +51,11 @@ public class Estimative {
      * @param studentConstant
      * @return 
      */
-    public static double samplingPrecisionGaussian(ArrayList<Double> arrayX,
+    public static double samplingPrecisionGaussian(Vector vectorX,
             double studentConstant){
-        double avg = Average.arithmeticAverage(arrayX);
-        double std = StdDeviation.stdDeviation(arrayX);        
-        double result = (avg) + (  (studentConstant * std)/Math.sqrt(arrayX.size()-1) );
+        double avg = Average.arithmeticAverage(vectorX);
+        double std = StdDeviation.stdDeviation(vectorX);        
+        double result = (avg) + (  (studentConstant * std)/Math.sqrt(vectorX.size()-1) );
         return result;
     }
 }

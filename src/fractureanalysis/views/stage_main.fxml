@@ -92,7 +92,7 @@
         
         <Tab text="Summary">
             <content>
-                <fx:include fx:id="summaryView" source="summary.fxml"/>
+                <fx:include fx:id="summaryView" source="tab_summary.fxml"/>
             </content>
             
         </Tab> 
@@ -138,6 +138,11 @@
         GridPane.columnSpan="2"
         GridPane.rowIndex="3"  
     >
+        <ProgressBar 
+            fx:id="pbStatus"
+            progress="0">
+            
+        </ProgressBar> 
     </HBox>                            
                                                                                 
 </GridPane>

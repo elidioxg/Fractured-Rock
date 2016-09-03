@@ -16,6 +16,7 @@
  */
 package fractureanalysis.statistics;
 
+import fractureanalysis.Matrices.Vector;
 import java.util.ArrayList;
 
 /**
@@ -53,11 +54,11 @@ public class Frequency {
     }
     
     public static ArrayList<ClassInterval> countObsFrequency(
-            ArrayList<Double> values, ArrayList<ClassInterval> classes){        
+            Vector values, ArrayList<ClassInterval> classes){        
         for(int i=0; i<values.size(); i++){
             for(int j = 0; j<classes.size(); j++){
-                if(values.get(i)>classes.get(j).getInferiorValue()){
-                    if(values.get(i)<classes.get(j).getSuperiorValue()){
+                if(values.get(i).doubleValue()>classes.get(j).getInferiorValue()){
+                    if(values.get(i).doubleValue()<classes.get(j).getSuperiorValue()){
                         classes.get(j).addFrequency();
                     }
                 }

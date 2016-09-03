@@ -16,6 +16,7 @@
  */
 package fractureanalysis.plot;
 
+import fractureanalysis.Matrices.Vector;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -32,6 +33,31 @@ public class PlotSeries {
      * @return
      * @throws Exception 
      */
+    public static XYChart.Series plotLineSeries(Vector columnX, 
+            Vector columnY) throws Exception{
+        if(columnX.size()!=columnY.size()){
+            throw new Exception("Columns X and Y must have same size.");            
+        }
+        XYChart.Series<Number, Number> series = new XYChart.Series();
+        Task<List<XYChart.Data<Number, Number>>> task;
+        task = new Task<List<XYChart.Data<Number, Number>>>(){
+            @Override
+            protected List<XYChart.Data<Number, Number>> call() throws Exception {
+                List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
+                for(int i =0; i<=columnX.size()-1; i++){
+                    chartData.add(new XYChart.Data(columnX.get(i).doubleValue(),
+                            columnY.get(i).doubleValue()));
+                }
+                return chartData;
+            }
+        };        
+        task.setOnSucceeded(e -> series.getData().addAll(task.getValue()));
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+        return series;        
+    }
+    
     public static XYChart.Series plotLineSeries(ArrayList<Double> columnX, 
             ArrayList<Double> columnY) throws Exception{
         if(columnX.size()!=columnY.size()){

@@ -16,6 +16,7 @@
  */
 package fractureanalysis.statistics;
 
+import fractureanalysis.Matrices.Vector;
 import java.util.ArrayList;
 
 /**
@@ -25,14 +26,32 @@ import java.util.ArrayList;
 public class MaximumValue {
 
     /**
-     * Get maximum value of an ArrayList
-     *
+     * 
+     * @param vector
+     * @return 
+     */
+    public static double getMaxValue(Vector vector) {
+        if (vector.size() != 0) {
+            double max = vector.get(0).doubleValue();
+            for (int i = 0; i < vector.size(); i++) {
+                if (max < vector.get(i).doubleValue()) {
+                    max = vector.get(i).doubleValue();
+                }
+            }
+            return max;
+        } else {
+            return Double.NaN;
+        }
+    }
+     
+    /**
+     * 
      * @param array
-     * @return
+     * @return 
      */
     public static double getMaxValue(ArrayList<Double> array) {
         if (array.size() != 0) {
-            double max = array.get(0);
+            double max = array.get(0).doubleValue();
             for (int i = 0; i < array.size(); i++) {
                 if (max < array.get(i)) {
                     max = array.get(i);

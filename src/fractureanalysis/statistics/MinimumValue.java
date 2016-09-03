@@ -16,6 +16,7 @@
  */
 package fractureanalysis.statistics;
 
+import fractureanalysis.Matrices.Vector;
 import java.util.ArrayList;
 
 /**
@@ -25,16 +26,16 @@ import java.util.ArrayList;
 public class MinimumValue {
 
     /**
-     *
-     * @param array
-     * @return
+     * 
+     * @param vector
+     * @return 
      */
-    public static double getMinValue(ArrayList<Double> array) {
-        if (array.size() != 0) {
-            double min = array.get(0);
-            for (int i = 1; i < array.size(); i++) {
-                if (min > array.get(i)) {
-                    min = array.get(i);
+    public static double getMinValue(Vector vector) {
+        if (vector.size() != 0) {
+            double min = vector.get(0).doubleValue();
+            for (int i = 1; i < vector.size(); i++) {
+                if (min > vector.get(i).doubleValue()) {
+                    min = vector.get(i).doubleValue();
                 }
             }
             return min;
@@ -42,4 +43,19 @@ public class MinimumValue {
             return Double.NaN;
         }
     }
+    
+    public static double getMinValue(ArrayList<Double> array) {
+        if (array.size() != 0) {
+            double min = array.get(0);
+            for (int i = 1; i < array.size(); i++) {
+                if (min > array.get(i).doubleValue()) {
+                    min = array.get(i).doubleValue();
+                }
+            }
+            return min;
+        } else {
+            return Double.NaN;
+        }
+    }
+    
 }
