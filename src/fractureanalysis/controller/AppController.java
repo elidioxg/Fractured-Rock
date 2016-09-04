@@ -6,9 +6,11 @@ import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.stages.EstimateStage;
+import fractureanalysis.stages.HistogramStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
 import fractureanalysis.stages.ScatterChartStage;
+import fractureanalysis.stages.VariogramStage;
 import fractureanalysis.statistics.ClassInterval;
 import fractureanalysis.statistics.Frequency;
 import fractureanalysis.statistics.MaximumValue;
@@ -267,6 +269,18 @@ public class AppController implements Initializable {
     }
 
     @FXML
+    protected void histogramStage() throws IOException {
+        HistogramStage hs = new HistogramStage();
+        hs.createStage();
+    }
+
+    @FXML
+    protected void variogramStage() throws IOException {
+        VariogramStage vs = new VariogramStage();
+        vs.createStage();
+    }
+
+    @FXML
     protected void estimateStage() throws IOException {
         EstimateStage es = new EstimateStage();
         es.createStage();
@@ -285,7 +299,7 @@ public class AppController implements Initializable {
             FractureAnalysis.getInstance().setColumnStatistics(
                     FractureAnalysis.getInstance().file.getFileName(),
                     FractureAnalysis.getInstance().file.getSeparator(),
-                    colIndex,FractureAnalysis.getInstance().file.getHeader());
+                    colIndex, FractureAnalysis.getInstance().file.getHeader());
         }
     }
 

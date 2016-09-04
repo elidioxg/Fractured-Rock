@@ -56,6 +56,14 @@
                         text="Scatter Chart"
                         onAction="#scatterChartStage"
                     />
+                    <MenuItem
+                        text="Custom Histogram"
+                        onAction="#histogramStage" >
+                    </MenuItem>
+                    <MenuItem 
+                        text="2D Variogram"
+                        onAction="#variogramStage" >
+                    </MenuItem>    
                 </items>
             </Menu>            
         </menus>    

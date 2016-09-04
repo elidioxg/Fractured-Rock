@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="AnchorPane" 
+    prefHeight="600.0" 
+    prefWidth="800.0" 
+    styleClass="mainFxmlClass" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="fractureanalysis.views.Stage_variogramController">
+    <stylesheets>
+        <URL value="@app_style.css"/>
+    </stylesheets>
+    
+    <columnConstraints>
+        <ColumnConstraints percentWidth="20"/>
+        <ColumnConstraints percentWidth="20"/>
+        <ColumnConstraints percentWidth="60"/>   
+    </columnConstraints>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"  
+        text="Dataset">
+    </Label>
+    <ComboBox 
+        fx:id="cbDatasets"
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="0"  
+    >
+    </ComboBox>
+    
+    <Label
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="1" 
+        text="Column X">
+    </Label>
+    <ComboBox 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="1"
+    >
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="2"
+        text="Column Y">
+    </Label>
+    <ComboBox 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="2"
+    >
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="3"
+        text="Column content">        
+    </Label>
+    <ComboBox 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="3"
+    >
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="4"
+        text="Initial value">
+    </Label>
+    <TextField
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="4"
+    >
+    </TextField>
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="5"
+        text="Step size">
+    </Label>
+    <TextField 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="5"
+    >
+    </TextField>
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="6"
+        text="Maximum distance">
+    </Label>
+    <TextField 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="6"
+    >
+    </TextField>
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="7"
+        text="Min angle tolerance">
+    </Label>
+    <TextField 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="7"
+    >
+    </TextField>
+    
+    <Label
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="8"
+        text="Max angle tolerance">
+    </Label>
+    <TextField 
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="8"
+    >
+    </TextField>
+    
+    <ButtonBar 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="9"
+        GridPane.columnSpan="2" 
+    >
+        <buttons>
+            <Button 
+                ButtonBar.buttonData="APPLY"
+                text="Plot">
+            </Button> 
+            <Button 
+                ButtonBar.buttonData="CANCEL_CLOSE"
+                text="Cancel">
+            </Button>             
+        </buttons>
+    </ButtonBar>
+    
+    <javafx.scene.chart.LineChart 
+        GridPane.columnIndex="3" 
+        GridPane.rowIndex="0"
+        GridPane.rowSpan="10">
+        <xAxis>
+            <javafx.scene.chart.CategoryAxis ></javafx.scene.chart.CategoryAxis>
+        </xAxis>
+        <yAxis>
+            <javafx.scene.chart.CategoryAxis ></javafx.scene.chart.CategoryAxis>
+        </yAxis>
+    </javafx.scene.chart.LineChart>
+    
+</GridPane>
