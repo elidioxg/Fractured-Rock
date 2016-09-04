@@ -78,11 +78,14 @@
         </children>                                           
         <children>
             <HBox >
-                <RadioButton fx:id="rbOther" text="Other:"/>
+                <RadioButton 
+                    fx:id="rbOther" 
+                    text="Other:" 
+                    onAction="#rbOtherAction" />
                 <TextField 
                     fx:id="tfSeparator"
-                    text=""
-                    disable="true" >                   
+                    text="  "
+                    >                   
                 </TextField>        
             </HBox>
         </children>     

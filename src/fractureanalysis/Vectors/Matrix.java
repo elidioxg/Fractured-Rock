@@ -62,6 +62,10 @@ public class Matrix {
             }
         }
     }
+    
+    public void set(int column, int line, Number value){
+        this.data[column][line] = value;
+    }
 
     public void fillZeros(int size) {
         for (int i = 0; i < lines; i++) {
@@ -101,7 +105,7 @@ public class Matrix {
         this.columns = columns;
     }
     
-    public Number getValue(int column, int line){
+    public Number get(int column, int line){
         return this.data[column][line];
     }
 

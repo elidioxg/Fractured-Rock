@@ -92,14 +92,18 @@ public class SLVariogramController implements Initializable {
 
         String filename = FractureAnalysis.getInstance().file.getFileName();
         String sep = FractureAnalysis.getInstance().file.getSeparator();
-        ArrayList<Double> ap = OpenDataset.openCSVFileToDouble(filename, sep, indexAp, true);
-        ArrayList<Double> sp = OpenDataset.openCSVFileToDouble(filename, sep, indexSp, true);
+        boolean header = FractureAnalysis.getInstance().file.getHeader();
+        Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
+        Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);       
         ArrayList<Fracture> fracturesList = new ArrayList();
-        if (ap.size() == sp.size()) {
-            for (int i = 0; i < ap.size(); i++) {
-                Fracture f = new Fracture(ap.get(i), sp.get(i));
+        if (vectorAp.size() == vectorSp.size()) {
+            for (int i = 0; i < vectorAp.size(); i++) {
+                Fracture f = new Fracture(vectorAp.get(i).doubleValue(), 
+                        vectorSp.get(i).doubleValue());
                 fracturesList.add(f);
             }
+        } else {
+            throw new Exception("Vector Ap must have same size of Vector Sp");
         }
         ScanLine scanline = new ScanLine(fracturesList);
         FractureAnalysis.getInstance().file.setScanLine(scanline);

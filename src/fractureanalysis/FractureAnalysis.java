@@ -77,7 +77,7 @@ public class FractureAnalysis extends Application {
         return instance;
     }
 
-    private void test() {
+    /*private void test() {
         File file = new File("/home/elidioxg/Desenvolvimento/FracGen/FracGen/src/main/resources/data.dat");
         DatasetModel dm = new DatasetModel();
         dm.setDatasetName(file.getPath());
@@ -99,7 +99,7 @@ public class FractureAnalysis extends Application {
         list.add(dm);
         datasets.add(dm.getDatasetName());
 
-    }
+    }*/
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -123,7 +123,9 @@ public class FractureAnalysis extends Application {
                             if (myObject != null) {
                                 setText(myObject.getDatasetName());
                                 setColumnStatistics(
-                                        myObject.getFileName(), myObject.getSeparator(), 0);
+                                        myObject.getFileName(), 
+                                        myObject.getSeparator(), 0, 
+                                        myObject.getHeader());
                             }
                         }
                     };
@@ -145,7 +147,7 @@ public class FractureAnalysis extends Application {
                         file.setRowsCount(dm.getRowsCount());
                         controller.populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
                         setColumnStatistics(dm.getFileName(), dm.getSeparator(),
-                                0/*dm.getCurrentColumn()*/);
+                                0/*dm.getCurrentColumn()*/,dm.getHeader());
                         setDatasetStatistics(file);
                         itemsComboboxes();
 
@@ -158,7 +160,7 @@ public class FractureAnalysis extends Application {
             primaryStage.setTitle(strAppName);
             primaryStage.setScene(scene);
             primaryStage.show();
-            test();
+            //test();
         } catch (IOException e) {
             throw new IOException(e);
         }
@@ -185,10 +187,12 @@ public class FractureAnalysis extends Application {
      * @param separator
      * @param columnIndex
      */
-    public void setColumnStatistics(String filename, String separator, int columnIndex) {
+    public void setColumnStatistics(String filename, String separator, 
+            int columnIndex, boolean header) {
         if (FractureAnalysis.getInstance().file.getColumnsCount() > 0) {
             Vector array
-                    = OpenDataset.openCSVFileToVector(filename, separator, columnIndex, true);
+                    = OpenDataset.openCSVFileToVector(filename, separator, 
+                            columnIndex, header);
             Label lAvg = (Label) grid.lookup("#lAvgValue");
             double avg = Average.arithmeticAverage(array);
             lAvg.setText(String.valueOf(avg));
