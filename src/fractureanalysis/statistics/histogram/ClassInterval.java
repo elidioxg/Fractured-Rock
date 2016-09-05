@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fractureanalysis.statistics;
+package fractureanalysis.statistics.histogram;
 
 /**
  *
@@ -34,7 +34,8 @@ public class ClassInterval {
         this.inferior=inferior;
         this.superior=superior;
         this.centralTeor = (superior - inferior);
-        this.label= String.valueOf(superior);
+        this.label= String.format("%.1f", inferior)+" - "+
+                String.format("%.1f", superior);
     }
     
     public void addFrequency(){

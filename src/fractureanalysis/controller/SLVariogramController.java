@@ -61,7 +61,7 @@ public class SLVariogramController implements Initializable {
     protected ScatterChart chart;
 
     @FXML
-    protected LineChart scFractureIntensity;
+    protected LineChart scFractureIntensity, lcAux;
 
     @FXML
     protected Label lFracInt, lAvgSpacing, lScanLen;
@@ -93,12 +93,12 @@ public class SLVariogramController implements Initializable {
         String filename = FractureAnalysis.getInstance().file.getFileName();
         String sep = FractureAnalysis.getInstance().file.getSeparator();
         boolean header = FractureAnalysis.getInstance().file.getHeader();
-        Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
-        Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);       
+        Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexAp, header);
+        Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
         ArrayList<Fracture> fracturesList = new ArrayList();
         if (vectorAp.size() == vectorSp.size()) {
             for (int i = 0; i < vectorAp.size(); i++) {
-                Fracture f = new Fracture(vectorAp.get(i).doubleValue(), 
+                Fracture f = new Fracture(vectorAp.get(i).doubleValue(),
                         vectorSp.get(i).doubleValue());
                 fracturesList.add(f);
             }
@@ -128,24 +128,32 @@ public class SLVariogramController implements Initializable {
         lScanLen.setText(String.valueOf(scanline.getLenght()));
         //distribution tab
         scFractureIntensity = (LineChart) scene.lookup("#scFractureIntensity");
+        lcAux = (LineChart) scene.lookup("#lcAux");
         ArrayList<Fracture> al = fi.getArrayDistribution();
         ArrayList<Double> cumulative = new ArrayList<>();
         ArrayList<Double> aperture = new ArrayList<>();
         for (Fracture values : al) {
-            cumulative.add(Math.log(Double.valueOf(values.getCumulativeNumber())));
-            aperture.add(Math.log(values.getAperture()));
+            cumulative.add(Math.log10(Double.valueOf(values.getCumulativeNumber())));
+            aperture.add(Math.log10(values.getAperture()));
+//            cumulative.add(Double.valueOf(values.getCumulativeNumber()));
+//            aperture.add(values.getAperture());
         }
         scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));
         //add linear regression
         LinearRegression lr = new LinearRegression(aperture, cumulative);
-        double min = MinimumValue.getMinValue(aperture);
-        double max = MaximumValue.getMaxValue(aperture);
-        double first = lr.getValueAt(min);
-        double last = lr.getValueAt(max);
+//        double min = MinimumValue.getMinValue(aperture);
+//        double max = MaximumValue.getMaxValue(aperture);
+//        double first = lr.getValueAt(min);
+//        double last = lr.getValueAt(max);
+        double min = 0.001;
+        double max = 10;
+        double first = lr.getValueAt(0.001);
+        double last = lr.getValueAt(10);
         XYChart.Series serieRegression = new XYChart.Series();
         serieRegression.getData().add(new XYChart.Data<>(min, first));
         serieRegression.getData().add(new XYChart.Data<>(max, last));
         scFractureIntensity.getData().add(serieRegression);
+        lcAux.getData().add(serieRegression);
     }
 
     @FXML

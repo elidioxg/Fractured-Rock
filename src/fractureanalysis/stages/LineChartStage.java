@@ -18,7 +18,7 @@ public class LineChartStage {
         if (!FractureAnalysis.getInstance().file.getFileName().trim().isEmpty()) {
             FXMLLoader loader = new FXMLLoader(
                     FractureAnalysis.getInstance().getClass().getResource(
-                            "views/line_chart_stage.fxml"));
+                            "views/stage_line_chart.fxml"));
             Parent parent = (Parent) loader.load();
             
             //get the dataset list to put on combobox
@@ -28,7 +28,7 @@ public class LineChartStage {
             }
             ObservableList ol = FXCollections.observableArrayList(list);
             ObservableList olDatasets = FXCollections.observableArrayList(
-                    FractureAnalysis.getInstance().datasets);
+                    FractureAnalysis.getInstance().getDatasetList());
 
             ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDataset");
             cbDatasets.setItems(olDatasets);

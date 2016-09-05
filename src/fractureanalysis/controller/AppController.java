@@ -11,8 +11,8 @@ import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
 import fractureanalysis.stages.ScatterChartStage;
 import fractureanalysis.stages.VariogramStage;
-import fractureanalysis.statistics.ClassInterval;
-import fractureanalysis.statistics.Frequency;
+import fractureanalysis.statistics.histogram.ClassInterval;
+import fractureanalysis.statistics.histogram.Frequency;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
 import fractureanalysis.statistics.SampleAmplitude;
@@ -270,7 +270,8 @@ public class AppController implements Initializable {
 
     @FXML
     protected void histogramStage() throws IOException {
-        HistogramStage hs = new HistogramStage();
+        HistogramStage hs = new HistogramStage(
+                FractureAnalysis.getInstance().getDatasetList());
         hs.createStage();
     }
 
@@ -324,7 +325,7 @@ public class AppController implements Initializable {
         double min = MinimumValue.getMinValue(vector);
         double max = MaximumValue.getMaxValue(vector);
         ArrayList<ClassInterval> intervals = Frequency.classIntervals(min, max, classIntervals);
-        intervals = Frequency.countObsFrequency(vector, intervals);
+        Frequency.countObsFrequency(vector, intervals);
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Histogram");

@@ -22,6 +22,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.concurrent.Task;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 public class PlotSeries {
@@ -44,7 +46,7 @@ public class PlotSeries {
             @Override
             protected List<XYChart.Data<Number, Number>> call() throws Exception {
                 List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
-                for(int i =0; i<=columnX.size()-1; i++){
+                for(int i =0; i<columnX.size(); i++){
                     chartData.add(new XYChart.Data(columnX.get(i).doubleValue(),
                             columnY.get(i).doubleValue()));
                 }
@@ -63,13 +65,13 @@ public class PlotSeries {
         if(columnX.size()!=columnY.size()){
             throw new Exception("Columns X and Y must have same size.");            
         }
-        XYChart.Series<Number, Number> series = new XYChart.Series();
+        XYChart.Series<Number, Number> series = new XYChart.Series();        
         Task<List<XYChart.Data<Number, Number>>> task;
         task = new Task<List<XYChart.Data<Number, Number>>>(){
             @Override
             protected List<XYChart.Data<Number, Number>> call() throws Exception {
                 List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
-                for(int i =0; i<=columnX.size()-1; i++){
+                for(int i =0; i<columnX.size(); i++){
                     chartData.add(new XYChart.Data(columnX.get(i),
                             columnY.get(i)));
                 }
@@ -107,8 +109,8 @@ public class PlotSeries {
                 String dataLine;
                 while ((dataLine = br.readLine()) != null) {
                     final String[] dataValues = dataLine.split(separator);
-                    chartData.add(new XYChart.Data(dataValues[columnX],
-                            dataValues[columnY]));
+                    chartData.add(new XYChart.Data(dataValues[columnX].trim(),
+                            dataValues[columnY].trim()));
                 }
                 return chartData;
             }

@@ -27,6 +27,7 @@
         fx:id="cbDatasets"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="0"  
+        onAction="#cbDatasetAction" 
     >
     </ComboBox>
     
@@ -39,6 +40,7 @@
         fx:id="cbColumnIndex"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="1"  
+        onAction="#cbColumnAction" 
     >
     </ComboBox>
     
@@ -51,24 +53,20 @@
     <TextField 
         fx:id="tfIntervals"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="2" >
+        GridPane.rowIndex="2"
+        text="10"    >
     </TextField>
     
-    <Label 
+    <Label
         GridPane.columnIndex="0"
         GridPane.rowIndex="3" 
-        text="Minumum value">
+        text="Data cutoff values:">
     </Label>
-    <TextField 
-        fx:id="tfMaxValue"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="3" >
-    </TextField>
     
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="4" 
-        text="Maximum value">
+        text="Minimum value">
     </Label>
     <TextField 
         fx:id="tfMinValue"
@@ -76,15 +74,32 @@
         GridPane.rowIndex="4" >
     </TextField>
     
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="5" 
+        text="Maximum value">
+    </Label>
+    <TextField 
+        fx:id="tfMaxValue"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="5" >
+    </TextField>
+    
     <ButtonBar 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="5"
+        GridPane.rowIndex="6"
         GridPane.columnSpan="2">
         
         <buttons>
             <Button 
                 ButtonBar.buttonData="APPLY"
-                text="Plot">
+                text="Plot"
+                onAction="#plot" >
+            </Button> 
+            <Button 
+                ButtonBar.buttonData="BACK_PREVIOUS"
+                text="Clear"
+                onAction="#clear">
             </Button> 
             <Button 
                 ButtonBar.buttonData="CANCEL_CLOSE"
@@ -94,9 +109,10 @@
     </ButtonBar>   
     
     <javafx.scene.chart.BarChart 
+        fx:id="bcHistogram"
         GridPane.columnIndex="2"
         GridPane.rowIndex="0"
-        GridPane.rowSpan="6" >
+        GridPane.rowSpan="7" >
         <xAxis>
             <javafx.scene.chart.CategoryAxis />
         </xAxis>

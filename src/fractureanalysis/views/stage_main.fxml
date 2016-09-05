@@ -121,7 +121,7 @@
             <content>
                 <ScrollPane >
                     <content>
-                        <fx:include fx:id="analysisView" source="analysis_view.fxml"/>
+                        <fx:include fx:id="analysisView" source="tab_analysis_view.fxml"/>
                     </content>
                 </ScrollPane>                
             </content>
@@ -148,7 +148,8 @@
     >
         <ProgressBar 
             fx:id="pbStatus"
-            progress="0">
+            progress="0"
+        prefWidth="400" >
             
         </ProgressBar> 
     </HBox>                            

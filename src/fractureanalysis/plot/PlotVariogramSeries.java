@@ -16,7 +16,6 @@
  */
 package fractureanalysis.plot;
 
-import fractureanalysis.Matrices.Vector;
 import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.analysis.Variograms;
 import java.util.ArrayList;
@@ -43,8 +42,8 @@ public class PlotVariogramSeries {
         ArrayList<Double> variogramValue = new ArrayList();
 
         for (int i = 0; i < distanceList.size(); i++) {      
-            Double value = Variograms.variogram1D(scanline, distanceList.get(i).doubleValue());
-            distance.add(distanceList.get(i).doubleValue());
+            Double value = Variograms.variogram1D(scanline, distanceList.get(i));
+            distance.add(distanceList.get(i));
             variogramValue.add(value);
         }
         return PlotSeries.plotLineSeries(distance, variogramValue);

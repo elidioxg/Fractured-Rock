@@ -24,12 +24,12 @@ import java.util.ArrayList;
  */
 public class ScanLine {
 
-    private ArrayList<Double> ap = new ArrayList();
-    private ArrayList<Double> sp = new ArrayList();
+    private final ArrayList<Double> ap = new ArrayList();
+    private final ArrayList<Double> sp = new ArrayList();
     private double lenght = Double.NaN;
     private int fracturesCount = 0;
     //distance from scanline origin:
-    private ArrayList<Double> distance = new ArrayList();
+    private final ArrayList<Double> distance = new ArrayList();
 
     /**
      * 

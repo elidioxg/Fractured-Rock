@@ -16,9 +16,26 @@
  */
 package fractureanalysis.controller;
 
+import fractureanalysis.FractureAnalysis;
+import fractureanalysis.Matrices.Vector;
+import fractureanalysis.data.DatasetProperties;
+import fractureanalysis.data.OpenDataset;
+import fractureanalysis.model.DatasetModel;
+import fractureanalysis.stages.HistogramStage;
+import fractureanalysis.statistics.histogram.ClassInterval;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
+import fractureanalysis.statistics.histogram.Frequency;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -27,12 +44,98 @@ import javafx.fxml.Initializable;
  */
 public class Stage_histogramController implements Initializable {
 
+    @FXML
+    protected ComboBox cbDatasets, cbColumnIndex;
+
+    @FXML
+    protected TextField tfIntervals, tfMaxValue, tfMinValue;
+
+    @FXML
+    protected BarChart bcHistogram;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
+    @FXML
+    protected void cbDatasetAction() throws Exception {
+        if (!cbDatasets.getEditor().getText().isEmpty()) {
+            int index = cbDatasets.getSelectionModel().getSelectedIndex();
+            cbColumnIndex.setItems(
+                    FXCollections.observableArrayList(
+                            DatasetProperties.getHeaders(
+                                    FractureAnalysis.getInstance().getDatasetList().
+                                            get(index).getFileName(),
+                                    FractureAnalysis.getInstance().getDatasetList().
+                                            get(index).getSeparator()
+                            )));
+        } else {
+            throw new Exception("Combobox empty");
+        }
+    }
+
+    @FXML
+    protected void cbColumnAction() throws Exception {
+        if (cbColumnIndex.getSelectionModel().getSelectedIndex()>=0) {
+            int datasetIndex = cbDatasets.getSelectionModel().getSelectedIndex();
+            int columnIndex = cbColumnIndex.getSelectionModel().getSelectedIndex();
+            DatasetModel dm;
+            dm = HistogramStage.getInstance().getDatasets().get(datasetIndex);
+            Vector vector = OpenDataset.openCSVFileToVector(
+                    dm.getFileName(),
+                    dm.getSeparator(), columnIndex, dm.getHeader());
+            double min = MinimumValue.getMinValue(vector);
+            System.out.println("Minimum: "+min);
+            double max = MaximumValue.getMaxValue(vector);
+            tfMinValue.setText(String.valueOf(min));
+            tfMaxValue.setText(String.valueOf(max));
+        } else {
+            throw new Exception("Combobox selected index < 0");
+        }
+    }
+
+    @FXML
+    protected void plot() throws Exception {
+        if (cbColumnIndex.getSelectionModel().getSelectedIndex()>=0) {
+
+            if (!tfIntervals.getText().isEmpty()) {
+                int datasetIndex = cbDatasets.getSelectionModel().getSelectedIndex();
+                int columnIndex = cbColumnIndex.getSelectionModel().getSelectedIndex();
+                DatasetModel dm;
+                dm = HistogramStage.getInstance().getDatasets().get(datasetIndex);
+                Vector vector = OpenDataset.openCSVFileToVector(
+                        dm.getFileName(),
+                        dm.getSeparator(), columnIndex, dm.getHeader());
+                double min = Double.valueOf(tfMinValue.getText());
+                double max = Double.valueOf(tfMaxValue.getText());
+                int intervals = Integer.valueOf(tfIntervals.getText());
+                ArrayList<ClassInterval> list = Frequency.classIntervals(min, max, intervals);
+                Frequency.countObsFrequency(vector, list);
+                XYChart.Series series = new XYChart.Series();
+                series.setName(cbColumnIndex.getEditor().getText());
+                for (int i = 0; i < list.size(); i++) {
+                    series.getData().add(
+                            new XYChart.Data(list.get(i).getLabel(), 
+                                    list.get(i).getObsFrequency()));
+                }
+                bcHistogram.getData().clear();
+                bcHistogram.getData().addAll(series);
+
+            } else {
+                throw new Exception("TextField empty");
+            }
+        } else {
+            throw new Exception("Combobox selected index < 0");
+        }
+    }
     
+    @FXML
+    protected void clear(){
+    
+    }
+
 }

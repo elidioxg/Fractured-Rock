@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fractureanalysis.statistics;
+package fractureanalysis.statistics.histogram;
 
+import fractureanalysis.statistics.histogram.ClassInterval;
 import fractureanalysis.Matrices.Vector;
 import java.util.ArrayList;
 
@@ -53,7 +54,31 @@ public class Frequency {
         return array;
     }
     
-    public static ArrayList<ClassInterval> countObsFrequency(
+    /**
+     * 
+     * @param minValue
+     * @param maxValue
+     * @param classesNumber
+     * @return 
+     */
+    public static ArrayList<ClassInterval> classIntervals(double minValue, 
+            double maxValue, int classesNumber){
+        ArrayList<ClassInterval> array = new ArrayList<>();        
+        double classInterval = ((maxValue-minValue)/classesNumber);        
+        for(int i = 0; i<classesNumber ; i++){
+            double min = minValue+(i*classInterval);
+            ClassInterval ci = new ClassInterval(i, min, min+classInterval);
+            array.add(ci);
+        }
+        return array;
+    }
+    
+    /**
+     * 
+     * @param values
+     * @param classes 
+     */
+    public static void countObsFrequency(
             Vector values, ArrayList<ClassInterval> classes){        
         for(int i=0; i<values.size(); i++){
             for(int j = 0; j<classes.size(); j++){
@@ -64,6 +89,5 @@ public class Frequency {
                 }
             }            
         }
-        return classes;
     }
 }

@@ -9,11 +9,9 @@
 <GridPane 
     xmlns:fx="http://javafx.com/fxml/1"
     id="GridPane" 
-    prefHeight="700.0" 
-    prefWidth="900.0"
-    fx:controller="fractureanalysis.controller.SLVariogramController">
-    
-    
+    prefHeight="850.0" 
+    prefWidth="800.0"
+    fx:controller="fractureanalysis.controller.SLVariogramController">        
     
     <columnConstraints>
         <ColumnConstraints minWidth="30"  />
@@ -24,7 +22,7 @@
     
     <rowConstraints>
         <RowConstraints percentHeight="5" />
-        <RowConstraints percentHeight="90" />
+        <RowConstraints percentHeight="95" />
     </rowConstraints>
     
     <Label 
@@ -57,12 +55,12 @@
     >
         <Tab text="Summary">
             <content>
-                <fx:include source="summary_analysis.fxml"/>
+                <fx:include source="tab_summary_analysis.fxml"/>
             </content>
         </Tab>
         <Tab text="Variogram">
             <content>
-                <fx:include fx:id="variogram" source="fracture_variogram.fxml"/>
+                <fx:include fx:id="variogram" source="tab_fracture_variogram.fxml"/>
             </content>
         </Tab>
         <Tab text="Distribution">

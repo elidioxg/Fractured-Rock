@@ -112,15 +112,11 @@ public class OpenDataset {
                     public double doubleValue() {
                         return (double) number[ii];
                     }
-                };                                
-                if (lineValues[column].trim().isEmpty()) {                    
+                };
+                if (lineValues[column].trim().isEmpty()) {
                     number[i] = Double.NaN;
                 } else {
-                    try {
-                        number[i] = NumberFormat.getInstance().parse(lineValues[column].trim());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    number[i] = Double.parseDouble(lineValues[column].trim());
                 }
                 i++;
             }
@@ -214,11 +210,7 @@ public class OpenDataset {
                     if (lineValues[j].trim().isEmpty()) {
                         number[j][i] = Double.NaN;
                     } else {
-                        try {
-                            number[j][i] = NumberFormat.getInstance().parse(lineValues[j].trim());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        number[j][i] = Double.parseDouble(lineValues[j].trim());
                     }
                 }
                 i++;
@@ -265,7 +257,7 @@ public class OpenDataset {
         return values;
     }
      */
-    public ArrayList[][] openCSVFileToArray(String fileName, String separator,
+    /*public ArrayList[][] openCSVFileToArray(String fileName, String separator,
             int indexId, int indexSp, int indexAp) {
         ArrayList[][] array = null;
         BufferedReader br = null;
@@ -301,5 +293,5 @@ public class OpenDataset {
             }
         }
         return array;
-    }
+    }*/
 }

@@ -69,11 +69,11 @@
     <Label
         GridPane.columnIndex="0"
         GridPane.rowIndex="5"   
-        text="Mean Value: ">
+        text="Mode: ">
     </Label>
     
     <Label
-        fx:id="lMeanValue"
+        fx:id="lModeValue"
         GridPane.columnIndex="1"
         GridPane.rowIndex="5"   
         text="">

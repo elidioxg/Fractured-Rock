@@ -60,8 +60,8 @@ public class FractureAnalysis extends Application {
 
     public ListView listView;
 
+    //TODO substituir por List<AnalysisFile>
     private List<DatasetModel> list;
-    public ArrayList<String> datasets = new ArrayList<>();
 
     private AppController controller;
 
@@ -75,6 +75,10 @@ public class FractureAnalysis extends Application {
 
     public static FractureAnalysis getInstance() {
         return instance;
+    }
+    
+    public List<DatasetModel> getDatasetList(){
+        return this.list;
     }
 
     /*private void test() {
@@ -170,8 +174,7 @@ public class FractureAnalysis extends Application {
         list.add(new DatasetModel(file.getDatasetName(), file.getFileName(),
                 file.getSeparator(), file.getHeader(), file.getHeaderArray(),
                 file.getColumnsCount(), file.getRowsCount()));
-
-        datasets.add(file.getDatasetName());
+        
         ObservableList<DatasetModel> olDatasets
                 = FXCollections.observableList(list);
 
