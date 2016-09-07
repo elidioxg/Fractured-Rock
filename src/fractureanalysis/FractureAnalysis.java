@@ -31,7 +31,6 @@ import fractureanalysis.statistics.MinimumValue;
 import fractureanalysis.statistics.StdDeviation;
 import fractureanalysis.statistics.Variance;
 import fractureanalysis.statistics.VariationCoefficient;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,12 +105,12 @@ public class FractureAnalysis extends Application {
     }*/
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        file = new AnalysisFile();
+    public void start(Stage primaryStage) throws IOException {        
+        file = new AnalysisFile();       
         try {
             FXMLLoader root = new FXMLLoader(getClass().getResource(
                     "views/stage_main.fxml"));
-            grid = root.load();
+            grid = root.load(); 
             controller = root.getController();
             Scene scene = new Scene(grid);
             list = new ArrayList();
@@ -266,9 +265,9 @@ public class FractureAnalysis extends Application {
         Label lRows = (Label) grid.lookup("#lRows");
         lRows.setText(String.valueOf(file.getRowsCount()));
         Label lApColumn = (Label) grid.lookup("#lApColumn");
-        lApColumn.setText("");
+        lApColumn.setText(String.valueOf(file.getApColumn()));
         Label lSpColumn = (Label) grid.lookup("#lSpColumn");
-        lSpColumn.setText("");
+        lSpColumn.setText(String.valueOf(file.getSpColumn()));
     }
 
     /**

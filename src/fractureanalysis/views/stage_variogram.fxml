@@ -13,7 +13,7 @@
     prefWidth="800.0" 
     styleClass="mainFxmlClass" 
     xmlns:fx="http://javafx.com/fxml/1" 
-    fx:controller="fractureanalysis.views.Stage_variogramController">
+    fx:controller="fractureanalysis.controller.Stage_variogramController">
     <stylesheets>
         <URL value="@app_style.css"/>
     </stylesheets>
@@ -42,6 +42,7 @@
         text="Column X">
     </Label>
     <ComboBox 
+        fx:id="cbX"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="1"
     >
@@ -53,6 +54,7 @@
         text="Column Y">
     </Label>
     <ComboBox 
+        fx:id="cbY"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="2"
     >
@@ -64,6 +66,7 @@
         text="Column content">        
     </Label>
     <ComboBox 
+        fx:id="cbContent"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="3"
     >
@@ -75,6 +78,7 @@
         text="Initial value">
     </Label>
     <TextField
+        fx:id="tfInitial"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="4"
     >
@@ -86,6 +90,7 @@
         text="Step size">
     </Label>
     <TextField 
+        fx:id="tfStep"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="5"
     >
@@ -97,6 +102,7 @@
         text="Maximum distance">
     </Label>
     <TextField 
+        fx:id="tfMax"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="6"
     >
@@ -108,6 +114,7 @@
         text="Min angle tolerance">
     </Label>
     <TextField 
+        fx:id="tfMinAngle"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="7"
     >
@@ -119,6 +126,7 @@
         text="Max angle tolerance">
     </Label>
     <TextField 
+        fx:id="tfMaxAngle"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="8"
     >
@@ -132,6 +140,7 @@
         <buttons>
             <Button 
                 ButtonBar.buttonData="APPLY"
+                onAction="#plot" 
                 text="Plot">
             </Button> 
             <Button 
@@ -142,14 +151,19 @@
     </ButtonBar>
     
     <javafx.scene.chart.LineChart 
-        GridPane.columnIndex="3" 
+        fx:id="lcVariogram"
+        GridPane.columnIndex="2" 
         GridPane.rowIndex="0"
         GridPane.rowSpan="10">
         <xAxis>
-            <javafx.scene.chart.CategoryAxis ></javafx.scene.chart.CategoryAxis>
+            <javafx.scene.chart.NumberAxis 
+                label="Distance">
+            </javafx.scene.chart.NumberAxis>
         </xAxis>
         <yAxis>
-            <javafx.scene.chart.CategoryAxis ></javafx.scene.chart.CategoryAxis>
+            <javafx.scene.chart.NumberAxis 
+            label="Semivariance" >
+            </javafx.scene.chart.NumberAxis>
         </yAxis>
     </javafx.scene.chart.LineChart>
     

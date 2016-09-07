@@ -17,10 +17,15 @@
 package fractureanalysis.stages;
 
 import fractureanalysis.FractureAnalysis;
+import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 /**
@@ -29,13 +34,51 @@ import javafx.stage.Stage;
  */
 public class VariogramStage {
     
+    private static VariogramStage instance;
+    
+    public static VariogramStage getInstance(){        
+        return instance;
+    }
+    
+    public VariogramStage(List<DatasetModel> datasets){
+        instance = this;
+        this.datasets = datasets;
+    }
+    
+    public List<DatasetModel> datasets;
+    
+    public List<DatasetModel> getDatasets(){
+        return this.datasets;
+    }
+    
+    public void setDatasets(List<DatasetModel> datasets){
+        this.datasets = datasets;
+    }
+    
     public void createStage() throws IOException {
-        if (!FractureAnalysis.getInstance().file.getFileName().trim().isEmpty()) {
+        if (FractureAnalysis.getInstance().getDatasetList().size()>0) {
             FXMLLoader loader = new FXMLLoader(
                     FractureAnalysis.getInstance().getClass().getResource(
                             "views/stage_variogram.fxml"));
             Parent parent = (Parent) loader.load();                        
 
+            ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");
+            ArrayList<String> datasetNames = new ArrayList();
+            for (int i = 0; i < datasets.size(); i++) {
+                datasetNames.add(datasets.get(i).getDatasetName());
+            }
+            cbDatasets.setItems(FXCollections.observableArrayList(datasetNames));
+            cbDatasets.getSelectionModel().selectFirst();
+            ComboBox cbXColumn = (ComboBox) parent.lookup("#cbX");
+            cbXColumn.setItems(FXCollections.observableArrayList(
+                    datasets.get(0).getHeaderArray()));
+            ComboBox cbYColumn = (ComboBox) parent.lookup("#cbY");
+            cbYColumn.setItems(FXCollections.observableArrayList(
+                    datasets.get(0).getHeaderArray()));
+            ComboBox cbContentColumn = (ComboBox) parent.lookup("#cbContent");
+            cbContentColumn.setItems(FXCollections.observableArrayList(
+                    datasets.get(0).getHeaderArray()));
+            
             Stage stageLine = new Stage();
             Scene scene = new Scene(parent);
             stageLine.setTitle("2D Variogram");

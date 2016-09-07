@@ -27,8 +27,8 @@ import java.util.ArrayList;
 public class Variogram {
 
     /**
-     * 
-     * @param array
+     *
+     * @param matrix
      * @param initialDistance
      * @param stepSize
      * @param maxDistance
@@ -36,52 +36,51 @@ public class Variogram {
      * @param columnY
      * @param columnContent
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-    public Matrix variogram2D(Matrix array, double initialDistance, 
-            double stepSize, double maxDistance, int columnX, int columnY, 
+    public static Matrix variogram2D(Matrix matrix, double initialDistance,
+            double stepSize, double maxDistance, int columnX, int columnY,
             int columnContent) throws Exception {
         double aux = ((maxDistance - initialDistance) / stepSize);
         int linesNumber = (int) aux;
         Matrix result = new Matrix(3, linesNumber);
-        if (array.getColumnsCount() != array.getLinesCount()) {
+        if (matrix.getColumnsCount() != matrix.getLinesCount()) {
             throw new Exception("Must be a square matrix");
         } else {
 
             for (int currentLine = 0; currentLine < linesNumber; currentLine++) {
                 double value = 0.;
                 int pairsNumber = 0;
-                for (int i = 0; i < array.getLinesCount(); i++) {
-                    for (int j = i + 1; j < array.getColumnsCount(); j++) {
+                for (int i = 0; i < matrix.getLinesCount(); i++) {
+                    for (int j = i + 1; j < matrix.getColumnsCount(); j++) {
                         double distanceX
-                                = array.get(columnX, i).doubleValue()
-                                - array.get(columnX, j).doubleValue();
+                                = matrix.get(columnX, i).doubleValue()
+                                - matrix.get(columnX, j).doubleValue();
                         double distanceY
-                                = array.get(columnY, i).doubleValue()
-                                - array.get(columnY, j).doubleValue();
+                                = matrix.get(columnY, i).doubleValue()
+                                - matrix.get(columnY, j).doubleValue();
                         double distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
                         if (distance >= initialDistance
                                 && distance <= initialDistance + stepSize) {
-                            value += Math.pow(
-                                    array.get(columnContent, i).doubleValue()
-                                    - array.get(columnContent, j).doubleValue(),
+                            value += Math.pow(matrix.get(columnContent, i).doubleValue()
+                                    - matrix.get(columnContent, j).doubleValue(),
                                     2);
                             pairsNumber++;
                         }
                     }
-                }                
-                result.set(0, currentLine, initialDistance + stepSize);                
+                }
+                result.set(0, currentLine, initialDistance + stepSize);
                 initialDistance += stepSize;
                 value /= 2 * pairsNumber;
                 result.set(1, currentLine, value);
-                result.set(2, currentLine, pairsNumber);                                
+                result.set(2, currentLine, pairsNumber);
             }
         }
         return result;
     }
-    
+
     /**
-     * 
+     *
      * @param xData
      * @param yData
      * @param contentData
@@ -89,43 +88,48 @@ public class Variogram {
      * @param stepSize
      * @param maxDistance
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-    public Matrix variogram2D(Vector xData, Vector yData, Vector contentData,
+    public static Matrix variogram2D(Vector xData, Vector yData, Vector contentData,
             double initialDistance, double stepSize, double maxDistance)
             throws Exception {
-
+        Matrix result;
         if (xData.size() != yData.size()) {
             throw new Exception("Values of X and Y must have same size.");
-        }
-        double aux = ((maxDistance - initialDistance) / stepSize);
-        int linesNumber = (int) aux;
-        Matrix result = new Matrix(3, linesNumber);        
-        for (int currentLine = 0; currentLine < linesNumber; currentLine++) {
-            double value = 0.;
-            int pairsNumber = 0;
-            for (int i = 0; i < xData.size(); i++) {
-                for (int j = i + 1; j < xData.size(); j++) {
-                    double distanceX
-                            = xData.get(i).doubleValue() - xData.get(j).doubleValue();
-                    double distanceY
-                            = yData.get(i).doubleValue() - yData.get(j).doubleValue();
-                    double distance
-                            = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
-                    if (distance >= initialDistance
-                            && distance <= initialDistance + stepSize) {
+        } else {
+            double aux = ((maxDistance - initialDistance) / stepSize);
+            int linesNumber = (int) aux;
+            if (linesNumber <= 0) {
+                throw new Exception("Invalid Values");
+            } else {
+                result = new Matrix(3, linesNumber);
+                for (int currentLine = 0; currentLine < linesNumber; currentLine++) {
+                    double value = 0.;
+                    int pairsNumber = 0;
+                    for (int i = 0; i < xData.size(); i++) {
+                        for (int j = i + 1; j < xData.size(); j++) {
+                            double distanceX
+                                    = xData.get(i).doubleValue() - xData.get(j).doubleValue();
+                            double distanceY
+                                    = yData.get(i).doubleValue() - yData.get(j).doubleValue();
+                            double distance
+                                    = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+                            if (distance >= initialDistance
+                                    && distance <= initialDistance + stepSize) {
 
-                        value += Math.pow(contentData.get(i).doubleValue()
-                                - contentData.get(j).doubleValue(), 2);
-                        pairsNumber++;
+                                value += Math.pow(contentData.get(i).doubleValue()
+                                        - contentData.get(j).doubleValue(), 2);
+                                pairsNumber++;
+                            }
+                        }
                     }
+                    result.set(0, currentLine, initialDistance + stepSize);
+                    initialDistance += stepSize;
+                    value /= 2 * pairsNumber;
+                    result.set(1, currentLine, value);
+                    result.set(2, currentLine, pairsNumber);
                 }
             }
-            result.set(0, currentLine, initialDistance + stepSize);
-            initialDistance += stepSize;
-            value /= 2 * pairsNumber;
-            result.set(1, currentLine, value);
-            result.set(2, currentLine, pairsNumber);            
         }
         return result;
     }

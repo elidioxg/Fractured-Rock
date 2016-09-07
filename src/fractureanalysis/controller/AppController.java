@@ -277,7 +277,8 @@ public class AppController implements Initializable {
 
     @FXML
     protected void variogramStage() throws IOException {
-        VariogramStage vs = new VariogramStage();
+        VariogramStage vs = new VariogramStage(
+                FractureAnalysis.getInstance().getDatasetList());
         vs.createStage();
     }
 

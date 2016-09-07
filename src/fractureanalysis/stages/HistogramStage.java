@@ -52,7 +52,7 @@ public class HistogramStage {
     }
 
     public void createStage() throws IOException {
-        if (!FractureAnalysis.getInstance().file.getFileName().trim().isEmpty()) {
+        if (FractureAnalysis.getInstance().getDatasetList().size()>0) {
             FXMLLoader loader = new FXMLLoader(
                     FractureAnalysis.getInstance().getClass().getResource(
                             "views/stage_histogram.fxml"));

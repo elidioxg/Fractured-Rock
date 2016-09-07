@@ -22,8 +22,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.concurrent.Task;
-import javafx.scene.chart.Axis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 public class PlotSeries {

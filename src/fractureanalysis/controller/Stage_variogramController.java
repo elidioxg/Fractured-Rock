@@ -16,9 +16,21 @@
  */
 package fractureanalysis.controller;
 
+import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Matrix;
+import fractureanalysis.data.OpenDataset;
+import fractureanalysis.model.DatasetModel;
+import fractureanalysis.plot.PlotSeries;
+import fractureanalysis.stages.VariogramStage;
+import fractureanalysis.statistics.Variogram;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -34,5 +46,52 @@ public class Stage_variogramController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    @FXML 
+    protected ComboBox cbDatasets, cbContent, cbX, cbY;
+    
+    @FXML 
+    protected TextField tfInitial, tfStep, tfMax, tfMinAngle, tfMaxAngle;
+            
+    @FXML
+    protected LineChart lcVariogram;
+    
+    @FXML
+    protected void plot() throws Exception{
+        int index = cbDatasets.getSelectionModel().getSelectedIndex();
+        DatasetModel dm = (DatasetModel)VariogramStage.getInstance().getDatasets().get(index);
+        //Matrix matrix = OpenDataset.openCSVFileToMatrix(dm.getFileName(), 
+          //      dm.getSeparator(), dm.getHeader());
+        
+        int xIndex = cbX.getSelectionModel().getSelectedIndex();
+        Vector x = OpenDataset.openCSVFileToVector(dm.getFileName(), 
+                dm.getSeparator(), xIndex,dm.getHeader());
+        int yIndex = cbY.getSelectionModel().getSelectedIndex();
+        Vector y = OpenDataset.openCSVFileToVector(dm.getFileName(), 
+                dm.getSeparator(), yIndex, dm.getHeader());        
+        int contentIndex = cbContent.getSelectionModel().getSelectedIndex();        
+        Vector content = OpenDataset.openCSVFileToVector(dm.getFileName(), 
+                dm.getSeparator(), contentIndex,dm.getHeader());
+        
+        double initDist = Double.valueOf(tfInitial.getText().trim());
+        double stepSize = Double.valueOf(tfStep.getText().trim());
+        double maxDist = Double.valueOf(tfMax.getText().trim());
+        //double minAngle = Double.valueOf(tfMinAngle.getText().trim());
+        //double maxAngle = Double.valueOf(tfMaxAngle.getText().trim());        
+        Matrix result = Variogram.variogram2D(x, y, content, initDist, 
+                stepSize, maxDist);
+        
+        
+        //Matrix result = Variogram.variogram2D(matrix, initDist, stepSize, 
+          //      maxDist, xIndex, yIndex, contentIndex);
+          ArrayList<Double> alX = new ArrayList<>();
+          ArrayList<Double> alY = new ArrayList<>();
+        for(int i=0; i<result.getLinesCount(); i++){
+            alX.add(result.get(0, i).doubleValue());
+            alY.add(result.get(1, i).doubleValue());            
+        }        
+        lcVariogram.getData().addAll(PlotSeries.plotLineSeries(alX, alY));
+        
+    }
     
 }
