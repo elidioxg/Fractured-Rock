@@ -17,7 +17,8 @@
     fx:controller="fractureanalysis.controller.ViewController">
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="100."/> 
+        <ColumnConstraints percentWidth="50."/> 
+        <ColumnConstraints percentWidth="50."/> 
     </columnConstraints>
     
     <rowConstraints>
@@ -33,9 +34,18 @@
         onAction="#view" >
     </Button>
     
+    <Button 
+        fx:id="bView3d"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0" 
+        text="3D View" 
+        onAction="#view3d" >
+    </Button>
+    
     <Group 
         fx:id="group"
         GridPane.columnIndex="0"
+        GridPane.columnSpan="2"
         GridPane.rowIndex="1"     
     >
         <children>

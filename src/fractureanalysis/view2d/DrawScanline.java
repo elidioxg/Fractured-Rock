@@ -14,9 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fractureanalysis.view3d;
+package fractureanalysis.view2d;
 
 import fractureanalysis.analysis.ScanLine;
+import fractureanalysis.scene.MaterialProperties;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.shape.Box;

@@ -17,19 +17,16 @@
 package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
-import fractureanalysis.view3d.DrawScanline;
-import fractureanalysis.view3d.LightProperties;
-import fractureanalysis.view3d.MaterialProperties;
+import fractureanalysis.view2d.DrawScanline;
+import fractureanalysis.scene.LightProperties;
+import fractureanalysis.stages.View3DStage;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Line;
 
 /**
  *
@@ -47,9 +44,15 @@ public class ViewController implements Initializable{
         group.getChildren().addAll(LightProperties.setAmbientLight(Color.WHITE));
         group.getChildren().addAll(LightProperties.setPointLight(Color.WHITE, 50, 50));
         group.getScene().setFill(Color.WHITE);        
-        group.getChildren().addAll(DrawScanline.drawPlane());
+        //group.getChildren().addAll(DrawScanline.drawPlane());
         group.getChildren().addAll(DrawScanline.drawFractures(
         FractureAnalysis.getInstance().file.getScanLine()));                
+    }
+    
+    @FXML
+    protected void view3d(){
+        View3DStage stage = new View3DStage();
+        stage.createStage();
     }
     
     @Override

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fractureanalysis.view3d;
+package fractureanalysis.scene;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -24,26 +24,45 @@ import javafx.scene.paint.PhongMaterial;
  * @author elidioxg
  */
 public class MaterialProperties {
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public static PhongMaterial setPlaneMaterial(){
+    public static PhongMaterial setPlaneMaterial() {
         final PhongMaterial material = new PhongMaterial();
         material.setDiffuseColor(Color.WHITE);
-        material.setSpecularColor(Color.WHITE);        
+        material.setSpecularColor(Color.WHITE);
         return material;
-    }        
-    
+    }
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public static PhongMaterial setFractureMaterial(){
+    public static PhongMaterial setFractureMaterial() {
         final PhongMaterial material = new PhongMaterial();
-        material.setDiffuseColor(Color.BLACK);
-        material.setSpecularColor(Color.BLACK);        
+        material.setDiffuseColor(Color.BLUE);
+        material.setSpecularColor(Color.GREEN);
         return material;
-    }        
+    }
+
+    public static PhongMaterial setAxisMaterial(int index) {
+        final PhongMaterial axis = new PhongMaterial();
+        switch (index) {
+            case 0:
+                axis.setDiffuseColor(Color.DARKRED);
+                axis.setSpecularColor(Color.RED);
+                break;
+            case 1:
+                axis.setDiffuseColor(Color.DARKGREEN);
+                axis.setSpecularColor(Color.GREEN);
+                break;
+            case 2:
+                axis.setDiffuseColor(Color.DARKBLUE);
+                axis.setSpecularColor(Color.BLUE);
+                break;
+        }
+        return axis;
+    }
 }
