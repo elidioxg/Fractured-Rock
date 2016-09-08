@@ -5,7 +5,6 @@ import fractureanalysis.Matrices.Vector;
 import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
-import fractureanalysis.stages.EstimateStage;
 import fractureanalysis.stages.HistogramStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
@@ -258,13 +257,15 @@ public class AppController implements Initializable {
 
     @FXML
     protected void lineChartStage() throws IOException {
-        LineChartStage lcs = new LineChartStage();
+        LineChartStage lcs = new LineChartStage(
+                FractureAnalysis.getInstance().getDatasetList());
         lcs.createStage();
     }
 
     @FXML
     protected void scatterChartStage() throws IOException {
-        ScatterChartStage scs = new ScatterChartStage();
+        ScatterChartStage scs = new ScatterChartStage(
+                FractureAnalysis.getInstance().getDatasetList());
         scs.createStage();
     }
 
@@ -280,12 +281,6 @@ public class AppController implements Initializable {
         VariogramStage vs = new VariogramStage(
                 FractureAnalysis.getInstance().getDatasetList());
         vs.createStage();
-    }
-
-    @FXML
-    protected void estimateStage() throws IOException {
-        EstimateStage es = new EstimateStage();
-        es.createStage();
     }
 
     @FXML

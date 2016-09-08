@@ -1,6 +1,7 @@
 package fractureanalysis.stages;
 
 import fractureanalysis.FractureAnalysis;
+import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,41 @@ import javafx.stage.Stage;
 
 public class ScatterChartStage {
     
+    private static ScatterChartStage instance;
+    
+    private final List<DatasetModel> datasets;
+    
+    /**
+     * 
+     * @param datasets 
+     */
+    public ScatterChartStage(List<DatasetModel> datasets){
+        this.datasets = datasets;
+        instance = this;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public static ScatterChartStage getInstance(){
+        return instance;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<DatasetModel> getDatasets(){
+        return this.datasets;
+    }
+    
+    /**
+     * 
+     * @throws IOException 
+     */
     public void createStage() throws IOException {
-        if(!FractureAnalysis.getInstance().file.getFileName().trim().isEmpty()) {
+        if(!getDatasets().isEmpty()) {
             FXMLLoader loader = new FXMLLoader(
                     FractureAnalysis.getInstance().getClass().getResource(
                             "views/stage_scatter_chart.fxml"));
@@ -23,16 +57,19 @@ public class ScatterChartStage {
             
             //get the dataset list to put on combobox
             List list = new ArrayList();
-            for (int i = 0; i < FractureAnalysis.getInstance().file.getHeaderArray().size(); i++) {
-                list.add(FractureAnalysis.getInstance().file.getHeaderArray(i));
+            for (int i = 0; i < getDatasets().get(0).getHeaderArray().size(); i++) {
+                list.add(getDatasets().get(0).getHeaderArray(i));                
+            }
+            List datasetList = new ArrayList();
+            for (int i = 0; i < getDatasets().size(); i++) {                
+                datasetList.add(getDatasets().get(i).getDatasetName());
             }
             ObservableList ol = FXCollections.observableArrayList(list);
             ObservableList olDatasets = FXCollections.observableArrayList(
-                    FractureAnalysis.getInstance().getDatasetList());            
+                    datasetList);            
             ComboBox cbDatasets =  (ComboBox) parent.lookup("#cbDatasets");
             cbDatasets.setItems(olDatasets);
-            cbDatasets.getSelectionModel().select(
-                    FractureAnalysis.getInstance().file.getDatasetName());
+            cbDatasets.getSelectionModel().selectFirst();
             ComboBox comboBoxX = (ComboBox) parent.lookup("#cbX");
             ComboBox comboBoxY = (ComboBox) parent.lookup("#cbY");
             comboBoxX.setItems(ol);

@@ -1,7 +1,9 @@
 package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
+import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
+import fractureanalysis.stages.LineChartStage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,11 +21,8 @@ public class LineChartController implements Initializable{
     protected TextField tfGraphLabel, tfXLabel, tfYLabel, tfSerieLabel;
 
     @FXML
-    private ComboBox comboBoxX;
+    private ComboBox cbDatasets, comboBoxX, comboBoxY;
 
-    @FXML
-    private ComboBox comboBoxY;
-    
     @FXML
     protected LineChart lineChart;
     
@@ -38,17 +37,16 @@ public class LineChartController implements Initializable{
     
     @FXML
     protected void plotLine() {
+        int datasetIndex = cbDatasets.getSelectionModel().getSelectedIndex();
+        DatasetModel dm = LineChartStage.getInstance().getDatasets().get(datasetIndex);
         int indexX = comboBoxX.getSelectionModel().getSelectedIndex();
         int indexY = comboBoxY.getSelectionModel().getSelectedIndex();
         lineChart.setTitle(tfGraphLabel.getText());
         lineChart.getXAxis().setLabel(tfXLabel.getText());
         lineChart.getYAxis().setLabel(tfYLabel.getText());
         PlotSeries plot = new PlotSeries();
-        lineChart.getData().add(plot.plotLineSeries(
-                FractureAnalysis.getInstance().file.getFileName(),
-                FractureAnalysis.getInstance().file.getSeparator(),
-                tfSerieLabel.getText(),
-                indexX, indexY));
+        lineChart.getData().add(plot.plotLineSeries(dm.getFileName(),
+                dm.getSeparator(), tfSerieLabel.getText(), indexX, indexY));
     }
     
     @FXML
