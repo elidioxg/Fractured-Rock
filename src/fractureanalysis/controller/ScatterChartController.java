@@ -1,6 +1,6 @@
 package fractureanalysis.controller;
 
-import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;

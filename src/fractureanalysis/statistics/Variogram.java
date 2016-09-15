@@ -16,8 +16,8 @@
  */
 package fractureanalysis.statistics;
 
-import fractureanalysis.Matrices.Vector;
-import fractureanalysis.Vectors.Matrix;
+import fractureanalysis.Vectors.Vector;
+import fractureanalysis.Matrices.Matrix;
 import java.util.ArrayList;
 
 /**

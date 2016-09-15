@@ -16,7 +16,7 @@
  */
 package fractureanalysis.statistics.LinearRegression;
 
-import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Vector;
 import fractureanalysis.statistics.Average;
 import java.util.ArrayList;
 

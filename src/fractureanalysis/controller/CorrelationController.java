@@ -17,7 +17,7 @@
 package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
-import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.statistics.Correlation;
 import fractureanalysis.statistics.Covariance;

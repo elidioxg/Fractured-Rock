@@ -47,6 +47,11 @@ public class MaterialProperties {
         return material;
     }
 
+    /**
+     * 
+     * @param index
+     * @return 
+     */
     public static PhongMaterial setAxisMaterial(int index) {
         final PhongMaterial axis = new PhongMaterial();
         switch (index) {

@@ -20,7 +20,7 @@ package fractureanalysis;
  *
  * @author elidioxg
  */
-import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Vector;
 import fractureanalysis.controller.AppController;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.AnalysisFile;

@@ -16,7 +16,7 @@
  */
 package fractureanalysis.plot;
 
-import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Vector;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;

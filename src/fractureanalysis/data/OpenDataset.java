@@ -1,7 +1,7 @@
 package fractureanalysis.data;
 
-import fractureanalysis.Matrices.Vector;
-import fractureanalysis.Vectors.Matrix;
+import fractureanalysis.Vectors.Vector;
+import fractureanalysis.Matrices.Matrix;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

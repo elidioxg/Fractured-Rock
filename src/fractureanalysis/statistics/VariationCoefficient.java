@@ -1,6 +1,6 @@
 package fractureanalysis.statistics;
 
-import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Vector;
 import java.util.ArrayList;
 
 public class VariationCoefficient {

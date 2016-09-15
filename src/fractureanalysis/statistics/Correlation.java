@@ -16,7 +16,7 @@
  */
 package fractureanalysis.statistics;
 
-import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Vector;
 
 public class Correlation {
     

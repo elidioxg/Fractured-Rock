@@ -17,7 +17,7 @@
 package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
-import fractureanalysis.Matrices.Vector;
+import fractureanalysis.Vectors.Vector;
 import fractureanalysis.analysis.Fracture;
 import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.analysis.ScanLine;

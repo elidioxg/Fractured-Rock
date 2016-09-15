@@ -17,7 +17,6 @@
 package fractureanalysis.view3d;
 
 import fractureanalysis.scene.MaterialProperties;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.transform.Rotate;
 
@@ -36,15 +35,15 @@ public class Axis {
     public static Cylinder[] addAxis(){    
         Cylinder[] c = new Cylinder[3];
         c[0] = new Cylinder(defaultWidth, defaultLenght);
-        c[0].getTransforms().add(new Rotate(90., Rotate.X_AXIS));
+        c[0].getTransforms().add(new Rotate(0, Rotate.X_AXIS));
         c[0].setMaterial(MaterialProperties.setAxisMaterial(0));
         
         c[1] = new Cylinder(defaultWidth, defaultLenght);
-        c[1].getTransforms().add(new Rotate(90., Rotate.Y_AXIS));
+        c[1].getTransforms().add(new Rotate(0, Rotate.Y_AXIS));
         c[1].setMaterial(MaterialProperties.setAxisMaterial(1));
         
         c[2] = new Cylinder(defaultWidth, defaultLenght);
-        c[2].getTransforms().add(new Rotate(90., Rotate.Z_AXIS));
+        c[2].getTransforms().add(new Rotate(0, Rotate.Z_AXIS));
         c[2].setMaterial(MaterialProperties.setAxisMaterial(2));
         return c;
     }
