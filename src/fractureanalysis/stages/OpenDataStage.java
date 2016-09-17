@@ -20,7 +20,7 @@ public class OpenDataStage {
         Scene scene = new Scene(parent);
         stage.setTitle("Open Dataset");
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
         return stage;
     }
 

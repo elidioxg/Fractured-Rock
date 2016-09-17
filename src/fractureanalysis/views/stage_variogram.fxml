@@ -132,9 +132,41 @@
     >
     </TextField>
     
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="9"
+        GridPane.columnSpan="2"
+        text="Cutoff values">
+        
+    </Label>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="10"
+        text="min"    >        
+    </Label>
+    <TextField 
+        fx:id="tfMinValue"
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="10"
+    >        
+    </TextField>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="11"
+        text="max">
+    </Label>
+    <TextField 
+        fx:id="tfMaxValue"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="11"  >
+        
+    </TextField>
+    
     <ButtonBar 
         GridPane.columnIndex="0" 
-        GridPane.rowIndex="9"
+        GridPane.rowIndex="12"
         GridPane.columnSpan="2" 
     >
         <buttons>
@@ -154,7 +186,7 @@
         fx:id="lcVariogram"
         GridPane.columnIndex="2" 
         GridPane.rowIndex="0"
-        GridPane.rowSpan="10">
+        GridPane.rowSpan="12">
         <xAxis>
             <javafx.scene.chart.NumberAxis 
                 label="Distance">
@@ -162,7 +194,7 @@
         </xAxis>
         <yAxis>
             <javafx.scene.chart.NumberAxis 
-            label="Semivariance" >
+                label="Semivariance" >
             </javafx.scene.chart.NumberAxis>
         </yAxis>
     </javafx.scene.chart.LineChart>

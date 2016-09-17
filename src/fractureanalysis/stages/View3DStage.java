@@ -36,21 +36,18 @@ import javafx.stage.Stage;
 public class View3DStage {
 
     /**
-     * Default Scene Parameters
-     */
-    private final double defaultXRotate = 270.;
-    private final double defaultYRotate = 0.;
-    private final double defaultZRotate = 0.;
-    private final double defaultXTranslate = -350.;
-    private final double defaultYTranslate = -350.;
-    private final double defaultZTranslate = -1350.;
-
-    /**
      * Default Camera Parameters
      */
     private final int defaultFarClip = 10000;
     private final double defaultNearClip = 0.01;
-    private final double defaultFieldOfView = 10.;
+    private final double defaultFieldOfView = 25.;
+    private final double defaultXRotate = 180.;
+    private final double defaultYRotate = 0.;
+    private final double defaultZRotate = 0.;
+    private final double defaultXTranslate = 500;
+    private final double defaultYTranslate = -350.;
+    private final double defaultZTranslate = -2000.;
+    
 
     public void createStage() {        
         final Group root = new Group();

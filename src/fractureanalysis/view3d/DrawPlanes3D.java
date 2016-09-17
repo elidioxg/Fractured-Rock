@@ -26,23 +26,32 @@ import javafx.scene.shape.DrawMode;
  */
 public class DrawPlanes3D {
     
-    private static double defaultViewSize = 700;
+    private static double viewSize = 1000;
+    private static double defaultPlaneMinWidth = 1.;
+    
+    public static void setViewSize(double size){
+        viewSize = size;
+    }
     
     public static double getViewSize(){
-        return defaultViewSize;
+        return viewSize;
     }
     
     public static FracturePlane3D[] drawPlanes(ScanLine scanline) {
         FracturePlane3D[] planes = new FracturePlane3D[scanline.fracturesCount()];
+        setViewSize(scanline.getLenght());
+        System.out.println("Scanline lenght: "+scanline.getLenght());
+        System.out.println("View Size: "+getViewSize());
         double distance = 0.;       
         for (int i = 0; i < scanline.fracturesCount(); i++) {                                                       
             distance+= scanline.getSpList().get(i);
-            double position = distance/defaultViewSize;
-            double width = scanline.getApList().get(i)/defaultViewSize;
-            if(width<1){ width = 10.;}
-            planes[i] = new FracturePlane3D(width, position);          
-            System.out.println("Distance: "+distance);                                   
-            System.out.println("Ap: "+scanline.getApList().get(i));
+            double position = distance;
+            double width = scanline.getApList().get(i);
+            System.out.println();
+            System.out.println("Plane Position: "+position);
+            System.out.println("Plane width: "+width);
+            if(width<defaultPlaneMinWidth){ width = defaultPlaneMinWidth;}
+            planes[i] = new FracturePlane3D(width, position);               
             distance+=scanline.getApList().get(i);                                   
             planes[i].setMaterial(MaterialProperties.setFractureMaterial());
             planes[i].setDrawMode(DrawMode.FILL);          

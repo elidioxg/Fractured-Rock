@@ -25,7 +25,7 @@ import javafx.scene.shape.Box;
 public class FracturePlane3D extends Box {
     
     private Azimuth az = new Azimuth();    
-    private double lenght = 10;
+    private double lenght = 200;
     private double deepIntensity; 
     private Position3D position = new Position3D();
     
@@ -34,9 +34,9 @@ public class FracturePlane3D extends Box {
     public FracturePlane3D(double ap, double distance){
         this.az.setAz(0);
         this.deepIntensity = 0.;
-        this.position.setZ(distance);
+        this.setPosX(distance);
         this.lenght = ap;
-        this.setDepth(height);
+        this.setDepth(lenght);
         this.setWidth(lenght);
         this.setHeight(height);
     }
@@ -73,6 +73,7 @@ public class FracturePlane3D extends Box {
     
     public void setPosX(double position){
         this.position.setX(position);
+        this.setTranslateX(position);
     }
     
     public double getPosX(){
@@ -81,6 +82,7 @@ public class FracturePlane3D extends Box {
     
     public void setPosY(double position){
         this.position.setY(position);
+        setTranslateY(position);
     }
     
     public double getPosY(){
@@ -89,6 +91,7 @@ public class FracturePlane3D extends Box {
     
     public void setPosZ(double position){
         this.position.setZ(position);
+        setTranslateZ(position);
     }
     
     public double getPosZ(){
