@@ -46,10 +46,10 @@ public class View3DStage {
     private final double defaultZRotate = 0.;
     private final double defaultXTranslate = 500;
     private final double defaultYTranslate = -350.;
-    private final double defaultZTranslate = -2000.;
+    private final double defaultZTranslate = -3000.;
     
 
-    public void createStage() {        
+    public void createStage() throws Exception {        
         final Group root = new Group();
         root.getChildren().addAll(LightProperties.setScene3DLight());
         root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
