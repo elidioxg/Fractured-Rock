@@ -22,11 +22,11 @@ package fractureanalysis.view3d;
  */
 public class Position3D {
     private final double minX = 0.;
-    private final double maxX = 1000.;    
+    private final double maxX = 10000.;    
     private final double minY = 0.;
-    private final double maxY = 1000.;
+    private final double maxY = 10000.;
     private final double minZ = 0.;
-    private final double maxZ = 1000.;
+    private final double maxZ = 10000.;
 
     private double X = 0.;
     private double Y = 0.;
@@ -36,27 +36,33 @@ public class Position3D {
     
     }
     
-    public void setXYZ(double x, double y , double z){
+    public void setXYZ(double x, double y , double z) throws Exception{
         setX(x);
         setY(y);
         setZ(z);
     }
 
-    public void setX(double x) {
+    public void setX(double x) throws Exception {
         if (x >= minX && x <= maxX) {
             this.X = x;
+        } else {
+            throw new Exception("Value 'X' out of range");
         }
     }
 
-    public void setY(double y) {
+    public void setY(double y) throws Exception {
         if (y >= minY && y <= maxY) {
             this.Y = y;
+        } else {
+            throw new Exception("Value 'Y' out of range");
         }
     }
 
-    public void setZ(double z) {
+    public void setZ(double z) throws Exception {
         if (z >= minZ && z <= maxZ) {
             this.Z = z;
+        } else {
+            throw new Exception("Value 'Z' out of range");
         }
     }
     
