@@ -27,7 +27,7 @@ import javafx.scene.shape.DrawMode;
 public class DrawPlanes3D {
     
     private static double viewSize = 1000;
-    private static double defaultPlaneMinWidth = 1.;
+    private static double defaultPlaneMinWidth = 20.;
     
     public static void setViewSize(double size){
         viewSize = size;
@@ -37,12 +37,17 @@ public class DrawPlanes3D {
         return viewSize;
     }
     
-    public static FracturePlane3D[] drawPlanes(ScanLine scanline) {
+    /**
+     * 
+     * @param scanline
+     * @return 
+     */
+    public static FracturePlane3D[] drawPlanes(ScanLine scanline) throws Exception {
         FracturePlane3D[] planes = new FracturePlane3D[scanline.fracturesCount()];
         setViewSize(scanline.getLenght());
         System.out.println("Scanline lenght: "+scanline.getLenght());
         System.out.println("View Size: "+getViewSize());
-        double distance = 0.;       
+        double distance = 0.;              
         for (int i = 0; i < scanline.fracturesCount(); i++) {                                                       
             distance+= scanline.getSpList().get(i);
             double position = distance;

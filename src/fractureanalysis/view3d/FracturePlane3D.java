@@ -25,30 +25,30 @@ import javafx.scene.shape.Box;
 public class FracturePlane3D extends Box {
     
     private Azimuth az = new Azimuth();    
-    private double lenght = 200;
+    private double aperture = 200;
     private double deepIntensity; 
     private Position3D position = new Position3D();
     
-    private double height = 200.;
+    private double planeHeight = 200.;
     
-    public FracturePlane3D(double ap, double distance){
+    public FracturePlane3D(double ap, double distance) throws Exception{
         this.az.setAz(0);
         this.deepIntensity = 0.;
         this.setPosX(distance);
-        this.lenght = ap;
-        this.setDepth(lenght);
-        this.setWidth(lenght);
-        this.setHeight(height);
+        this.aperture = ap;
+        this.setDepth(aperture);
+        this.setWidth(aperture);
+        this.setHeight(planeHeight);
     }
     
     public FracturePlane3D(double lenght, double direction, double deepIntensity, 
-            double posX, double posY, double posZ){
-        this.lenght = lenght;
+            double posX, double posY, double posZ) throws Exception{
+        this.aperture = lenght;
         this.az.setAz(direction);       
-        this.deepIntensity = deepIntensity;        
-        this.position.setXYZ(posX, posY, posZ);
+        this.deepIntensity = deepIntensity;   
+        this.setPosXYZ(posX, posY, posZ);        
         this.setDepth(lenght);
-        this.setHeight(height);
+        this.setHeight(planeHeight);
     }
 
     public void setDirection(double direction){        
@@ -71,7 +71,7 @@ public class FracturePlane3D extends Box {
         return this.deepIntensity;
     }    
     
-    public void setPosX(double position){
+    public void setPosX(double position) throws Exception{
         this.position.setX(position);
         this.setTranslateX(position);
     }
@@ -80,7 +80,7 @@ public class FracturePlane3D extends Box {
         return this.position.getX();
     }
     
-    public void setPosY(double position){
+    public void setPosY(double position) throws Exception{
         this.position.setY(position);
         setTranslateY(position);
     }
@@ -89,7 +89,7 @@ public class FracturePlane3D extends Box {
         return this.position.getY();
     }
     
-    public void setPosZ(double position){
+    public void setPosZ(double position) throws Exception{
         this.position.setZ(position);
         setTranslateZ(position);
     }
@@ -97,4 +97,11 @@ public class FracturePlane3D extends Box {
     public double getPosZ(){
         return this.position.getZ();
     }
+    
+    public void setPosXYZ(double x, double y, double z) throws Exception{
+        this.setPosX(x);
+        this.setPosY(y);
+        this.setPosZ(z);
+    }    
+    
 }
