@@ -16,95 +16,99 @@
  */
 package fractureanalysis.Vectors;
 
-import java.text.NumberFormat;
+import javafx.concurrent.Task;
 
 /**
  *
  * @author elidioxg
  */
 public class Vector {
-    
+
     private int size = 0;
     private Number[] data = null;
-    
-    public Vector(){
-        
+
+    public Vector() {
+
     }
-    
-    public Vector(Number[] data, int size){
+
+    public Vector(Number[] data, int size) {
         this.data = data;
         this.size = size;
     }
-    
-    public Vector(int size){
-        for(int i = 0; i <size ; i++){
-            final int ii = 1; 
-            data[i] = new Number() {
-                @Override
-                public int intValue() {
-                    return (int) data[ii];
-                }
 
-                @Override
-                public long longValue() {
-                    return (long) data[ii];
-                }
+    public Vector(int size) {
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                for (int i = 0; i < size; i++) {
+                    final int ii = 1;
+                    data[i] = new Number() {
+                        @Override
+                        public int intValue() {
+                            return (int) data[ii];
+                        }
 
-                @Override
-                public float floatValue() {
-                    return (float) data[ii];
-                }
+                        @Override
+                        public long longValue() {
+                            return (long) data[ii];
+                        }
 
-                @Override
-                public double doubleValue() {
-                    return (double) data[ii];
+                        @Override
+                        public float floatValue() {
+                            return (float) data[ii];
+                        }
+
+                        @Override
+                        public double doubleValue() {
+                            return (double) data[ii];
+                        }
+                    };
                 }
-            };
-        }        
-        
+                return null;
+            }
+        };    
     }
-    
-    public void setData(Number[] data, int size){
+
+    public void setData(Number[] data, int size) {
         this.data = data;
         this.size = size;
     }
-    
-    public Number get(int index){        
+
+    public Number get(int index) {
         return this.data[index];
     }
-    
-    public int size(){
+
+    public int size() {
         return this.size;
     }
-    
-    public void add(double value){
+
+    public void add(double value) {
         Number[] vector = new Number[this.size++];
-        System.arraycopy(this.data, 0, vector, 0, this.size-2);
+        System.arraycopy(this.data, 0, vector, 0, this.size - 2);
         final int ii = this.size;
         vector[this.size] = new Number() {
             @Override
             public int intValue() {
-                return (int)vector[ii];
+                return (int) vector[ii];
             }
 
             @Override
             public long longValue() {
-                return (long)vector[ii];
+                return (long) vector[ii];
             }
 
             @Override
             public float floatValue() {
-                return (float)vector[ii];
+                return (float) vector[ii];
             }
 
             @Override
             public double doubleValue() {
-                return (double)vector[ii];
+                return (double) vector[ii];
             }
         };
         vector[this.size] = value;
         this.data = vector;
     }
-    
-}
 
+}
