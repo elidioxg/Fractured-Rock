@@ -37,36 +37,31 @@ public class Vector {
     }
 
     public Vector(int size) {
-        Task<Void> task = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                for (int i = 0; i < size; i++) {
-                    final int ii = 1;
-                    data[i] = new Number() {
-                        @Override
-                        public int intValue() {
-                            return (int) data[ii];
-                        }
 
-                        @Override
-                        public long longValue() {
-                            return (long) data[ii];
-                        }
-
-                        @Override
-                        public float floatValue() {
-                            return (float) data[ii];
-                        }
-
-                        @Override
-                        public double doubleValue() {
-                            return (double) data[ii];
-                        }
-                    };
+        for (int i = 0; i < size; i++) {
+            final int ii = 1;
+            data[i] = new Number() {
+                @Override
+                public int intValue() {
+                    return (int) data[ii];
                 }
-                return null;
-            }
-        };    
+
+                @Override
+                public long longValue() {
+                    return (long) data[ii];
+                }
+
+                @Override
+                public float floatValue() {
+                    return (float) data[ii];
+                }
+
+                @Override
+                public double doubleValue() {
+                    return (double) data[ii];
+                }
+            };
+        }
     }
 
     public void setData(Number[] data, int size) {

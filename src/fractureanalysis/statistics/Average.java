@@ -18,89 +18,48 @@ package fractureanalysis.statistics;
 
 import fractureanalysis.Vectors.Vector;
 import java.util.ArrayList;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 
 public class Average {
-
-    private static Double result = Double.NaN;
-
+    
     /**
      * Arithmetic Average
-     *
      * @param vector
-     * @return
+     * @return 
      */
-    public static double arithmeticAverage(final Vector vector) {
-        Task<Double> task = new Task<Double>() {
-            @Override
-            protected Double call() throws Exception {
-                double sum = 0.;
-                for (int i = 0; i <= vector.size() - 1; i++) {
-                    sum += vector.get(i).doubleValue();
-                }
-                return sum;
-            }
-        };
-        task.run();
-        task.setOnSucceeded((WorkerStateEvent event) -> {
-            result = task.getValue();
-        });
-        Thread thread = new Thread(task);
-        thread.setDaemon(true);
-        thread.start();
-        return result / (vector.size());
+    public static double arithmeticAverage(Vector vector) {
+        double sum = 0.;
+        for (int i = 0; i <= vector.size() - 1; i++) {
+            sum += vector.get(i).doubleValue();
+        }
+        return sum / (vector.size());
     }
 
     //TODO: function for arithmetic average using Frequency Table    
     /**
-     *
+     * 
      * @param vector
-     * @return
+     * @return 
      */
     public static double geometricAverage(Vector vector) {
-        Task<Double> task = new Task<Double>() {
-            @Override
-            protected Double call() throws Exception {
-                double prod = 1.;
-                for (int i = 0; i <= vector.size() - 1; i++) {
-                    prod *= vector.get(i).doubleValue();
-                }
-                return prod;
-            }
-
-        };
-        task.setOnSucceeded((WorkerStateEvent event) -> {
-            result = task.getValue();
-        });
-        Thread thread = new Thread(task);
-        thread.setDaemon(true);
-        thread.start();
-
-        return Math.pow(result, (1.0 / vector.size()));
+        double prod = 1.;
+        for (int i = 0; i <= vector.size() - 1; i++) {
+            prod *= vector.get(i).doubleValue();
+        }        
+        return Math.pow(prod, (1.0 / vector.size()));
     }
 
     //TODO: function for geometric average using Frequency Table   
+    
     /**
-     *
+     * 
      * @param vector
-     * @return
+     * @return 
      */
     public static double arithmeticAverage(ArrayList<Double> vector) {
-        Task<Double> task = new Task<Double>() {
-            @Override
-            protected Double call() throws Exception {
-                double sum = 0.;
-                for (int i = 0; i <= vector.size() - 1; i++) {
-                    sum += vector.get(i).doubleValue();
-                }
-                return sum;
-            }
-        };
-        task.setOnSucceeded((WorkerStateEvent event) -> {
-            result = task.getValue();
-        });
-        return result / (vector.size());
+        double sum = 0.;
+        for (int i = 0; i <= vector.size() - 1; i++) {
+            sum += vector.get(i).doubleValue();
+        }
+        return sum / (vector.size());
     }
 }

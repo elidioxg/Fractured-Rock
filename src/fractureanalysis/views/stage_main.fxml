@@ -144,12 +144,21 @@
     <HBox
         GridPane.columnIndex="0"
         GridPane.columnSpan="2"
-        GridPane.rowIndex="3"  
+        GridPane.rowIndex="3"                           
     >
+        <Label
+            fx:id="lTask"
+            text="Task"
+            visible="false">
+        </Label>
         <ProgressBar 
             fx:id="pbStatus"
             progress="0"
-        prefWidth="400" >
+            prefWidth="800"
+            HBox.hgrow="ALWAYS"
+            GridPane.halignment="CENTER" 
+            visible="false" 
+        >
             
         </ProgressBar> 
     </HBox>                            

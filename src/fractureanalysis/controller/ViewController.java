@@ -50,7 +50,7 @@ public class ViewController implements Initializable{
     }
     
     @FXML
-    protected void view3d(){
+    protected void view3d() throws Exception{
         View3DStage stage = new View3DStage();
         stage.createStage();
     }

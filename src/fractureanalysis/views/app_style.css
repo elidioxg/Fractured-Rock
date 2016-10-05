@@ -28,3 +28,8 @@
     -fx-bar-gap: 0;
     -fx-category-gap: 0;
 }
+
+#pbStatus {
+    -fx-padding: 10 10 10 10;    
+    -fx-fill-width: true;
+}
