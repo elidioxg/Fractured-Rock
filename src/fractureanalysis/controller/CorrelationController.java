@@ -21,7 +21,9 @@ import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.statistics.Correlation;
 import fractureanalysis.statistics.Covariance;
+import fractureanalysis.statistics.Spearman;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,7 +40,7 @@ public class CorrelationController implements Initializable{
     protected ComboBox cbVarA,cbVarB;
     
     @FXML 
-    protected Label lCovariance, lPearson;
+    protected Label lCovariance, lPearson, lSpearman;
             
     @FXML
     protected void comboboxChange() throws Exception{
@@ -55,6 +57,10 @@ public class CorrelationController implements Initializable{
             lCovariance.setText(String.valueOf(covariance));
             double pearson = Correlation.pearsonCoeff(arrayA, arrayB);
             lPearson.setText(String.valueOf(pearson));
+            ArrayList<Double> a = OpenDataset.openCSVFileToDouble(filename, sep, indexA, true);
+            ArrayList<Double> b = OpenDataset.openCSVFileToDouble(filename, sep, indexB, true);
+            double spearman = Spearman.calc(a, b);
+            lSpearman.setText(String.valueOf(spearman));
         }
     }
 

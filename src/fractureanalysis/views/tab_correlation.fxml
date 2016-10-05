@@ -60,4 +60,15 @@
         GridPane.rowIndex="3">
     </Label>
     
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="4"
+        text="Spearman Coefficient">
+    </Label>
+    <Label
+        fx:id="lSpearman"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="4">
+    </Label> 
+    
 </GridPane>

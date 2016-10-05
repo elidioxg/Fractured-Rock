@@ -35,7 +35,7 @@ public class Spearman {
      * @return
      * @throws Exception
      */
-    public double calc(ArrayList<Double> a, ArrayList<Double> b) throws Exception {
+    public static double calc(ArrayList<Double> a, ArrayList<Double> b) throws Exception {
         double result = Double.NaN;
         if (a.size() != b.size()) {
             throw new Exception("Arrays must have same size.");
@@ -80,7 +80,7 @@ public class Spearman {
         return result;
     }
 
-    private class Row {
+    private static class Row {
 
         private Double xValue;
         private Double yValue;
