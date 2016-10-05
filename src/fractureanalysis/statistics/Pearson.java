@@ -18,7 +18,7 @@ package fractureanalysis.statistics;
 
 import fractureanalysis.Vectors.Vector;
 
-public class Correlation {
+public class Pearson {
     
     
     public static double pearsonCoeff(Vector vector1, Vector vector2) throws Exception{        

@@ -19,7 +19,7 @@ package fractureanalysis.controller;
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
-import fractureanalysis.statistics.Correlation;
+import fractureanalysis.statistics.Pearson;
 import fractureanalysis.statistics.Covariance;
 import fractureanalysis.statistics.Spearman;
 import java.net.URL;
@@ -55,7 +55,7 @@ public class CorrelationController implements Initializable{
                     filename, sep, indexB, true);
             double covariance = Covariance.covariance(arrayA, arrayB);
             lCovariance.setText(String.valueOf(covariance));
-            double pearson = Correlation.pearsonCoeff(arrayA, arrayB);
+            double pearson = Pearson.pearsonCoeff(arrayA, arrayB);
             lPearson.setText(String.valueOf(pearson));
             ArrayList<Double> a = OpenDataset.openCSVFileToDouble(filename, sep, indexA, true);
             ArrayList<Double> b = OpenDataset.openCSVFileToDouble(filename, sep, indexB, true);
