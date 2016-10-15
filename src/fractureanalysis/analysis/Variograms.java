@@ -16,7 +16,6 @@
  */
 package fractureanalysis.analysis;
 
-import fractureanalysis.model.AnalysisFile;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +25,9 @@ import java.util.ArrayList;
 public class Variograms {
     
     /**
-     * Defines value of variogram for maximum distance
+     * Defines value of variogram for maximum distance. 
+     * Variogram for scanline(unidimensional).
+     * 
      * @param scanline     
      * @param maxDistance
      * @return 

@@ -32,7 +32,7 @@
         GridPane.columnSpan="3" 
         GridPane.rowIndex="0" 
         text="Estimative of cumulative-frequency fracture-size distribution">        
-    </Label>        
+    </Label>                   
         
     <javafx.scene.chart.LineChart         
         fx:id="lcAux"

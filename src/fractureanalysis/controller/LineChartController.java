@@ -1,6 +1,5 @@
 package fractureanalysis.controller;
 
-import fractureanalysis.FractureAnalysis;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.stages.LineChartStage;
@@ -35,6 +34,10 @@ public class LineChartController implements Initializable{
        
     }
     
+    /**
+     * Plot in Line Chart using the parameter defined by the user on
+     * Line Chart Stage.
+     */
     @FXML
     protected void plotLine() {
         int datasetIndex = cbDatasets.getSelectionModel().getSelectedIndex();
@@ -49,10 +52,18 @@ public class LineChartController implements Initializable{
                 dm.getSeparator(), tfSerieLabel.getText(), indexX, indexY));
     }
     
+    /**
+     * Clear the Line Chart. This procedure is used for the button 'clear'.
+     */
     @FXML
     protected void clearLineChart() {
         lineChart.getData().clear();
     }
+    
+    /**
+     * Close the Line Chart Stage.
+     * @throws IOException 
+     */
     @FXML
     protected void closeLineStage() throws IOException {
         Stage stageLine = (Stage) btnCloseLine.getScene().getWindow();

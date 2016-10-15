@@ -16,7 +16,6 @@
  */
 package fractureanalysis.statistics;
 
-import fractureanalysis.Matrices.Matrix;
 import java.util.ArrayList;
 import java.util.Objects;
 import javafx.collections.FXCollections;
@@ -27,7 +26,7 @@ import javafx.collections.ObservableList;
  * @author elidioxg
  */
 public class Spearman {
-
+    //TODO: eliminate ArrayList and ObservableList, substitute for vector, use Comparator
     /**
      *
      * @param a

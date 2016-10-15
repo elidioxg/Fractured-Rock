@@ -171,6 +171,13 @@ public class Matrix {
         };
     }
 
+    /**
+     * Change one value in the matrix
+     * 
+     * @param column
+     * @param line
+     * @param value
+     */
     public void set(int column, int line, Number value) {
         this.data[column][line] = value;
     }

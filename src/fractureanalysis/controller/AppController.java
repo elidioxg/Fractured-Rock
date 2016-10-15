@@ -66,7 +66,12 @@ public class AppController implements Initializable {
     @FXML
     private CheckBox cbHeader;
 
-    @FXML//mouse handler for ListView lvDatasets
+    /**
+     * Mouse handler for datasets listview on main stage
+     * 
+     * @throws IOException 
+     */
+    @FXML
     protected void onMouseClicked() throws IOException {
         DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();
         if (dm != null) {
@@ -74,6 +79,13 @@ public class AppController implements Initializable {
         }
     }
 
+    /**
+     * Populates the table on main stage. This table is used to view dataset
+     * values.
+     * @param filename
+     * @param separator
+     * @param hasHeader 
+     */
     @FXML
     public void populateTable(final String filename, final String separator,
             final boolean hasHeader) {
@@ -186,6 +198,12 @@ public class AppController implements Initializable {
     @FXML
     protected ComboBox cbColumnSp;
 
+    /**
+     * Add a dataset to the list of datasets on main form and update the
+     * datasets listview.     
+     * 
+     * @throws IOException 
+     */
     @FXML
     protected void addToList() throws IOException {
         if (cbHeader.isSelected()) {
@@ -228,6 +246,10 @@ public class AppController implements Initializable {
         }
     }
 
+    /**
+     * Open a dialog for choose the file to be opened as dataset.
+     * @throws IOException 
+     */
     @FXML
     protected void dialogOpen() throws IOException {
         final FileChooser fileChooser = new FileChooser();
@@ -240,6 +262,11 @@ public class AppController implements Initializable {
         }
     }
 
+    /**
+     * Create the stage for choosing the dataset file to add to program.
+     * 
+     * @throws IOException 
+     */
     @FXML
     protected void openFileStage() throws IOException {
         OpenDataStage od = new OpenDataStage();
@@ -248,13 +275,17 @@ public class AppController implements Initializable {
 
     @FXML
     Button btnClose;
-
+    
     @FXML
     public void closeOpenFileStage() throws IOException {
         Stage stageOpenWindow = (Stage) btnClose.getScene().getWindow();
         stageOpenWindow.close();
     }
 
+    /**
+     * Create a stage for line chart plotting.
+     * @throws IOException 
+     */
     @FXML
     protected void lineChartStage() throws IOException {
         LineChartStage lcs = new LineChartStage(
@@ -306,6 +337,11 @@ public class AppController implements Initializable {
     @FXML
     protected ComboBox cbColIndex;
 
+    /**
+     * When the combobox representing the column of dataset in current use is
+     * changed, this procedure is executed. This procedure will clear
+     * and generate the Histogram of one column of dataset.
+     */
     @FXML
     protected void cbHistogramChange() {
         int index = cbColIndex.getSelectionModel().getSelectedIndex();
@@ -333,6 +369,9 @@ public class AppController implements Initializable {
         chartHistogram.getData().addAll(series);
     }
 
+    /**
+     * Finish the program.
+     */
     @FXML
     protected void close() {
         Platform.exit();

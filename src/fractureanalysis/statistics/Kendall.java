@@ -19,6 +19,7 @@ package fractureanalysis.statistics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -50,7 +51,7 @@ public class Kendall {
             FXCollections.sort(olA);
             for (int i = 0; i < a.size(); i++) {
                 for (int j = 0; j < a.size(); j++) {
-                    if (a.get(i) == olA.get(j)) {
+                    if (Objects.equals(a.get(i), olA.get(j))) {
                         table.get(i).setXRank(a.size() - (j));
                         break;
                     }
@@ -59,23 +60,20 @@ public class Kendall {
             FXCollections.sort(olB);
             for (int i = 0; i < b.size(); i++) {
                 for (int j = 0; j < b.size(); j++) {
-                    if (b.get(i) == olB.get(j)) {
+                    if (Objects.equals(b.get(i), olB.get(j))) {
                         table.get(i).setYRank(b.size() - (j));
                         break;
                     }
                 }
             }
-            Collections.sort(table, new Comparator<Row>() {
-                @Override
-                public int compare(Row o1, Row o2) {
-                    if (o1.getXRank() > o2.getXRank()) {
-                        return 1;
-                    }
-                    if (o1.getXRank() < o2.getXRank()) {
-                        return -1;
-                    }
-                    return 0;
+            Collections.sort(table, (Row o1, Row o2) -> {
+                if (o1.getXRank() > o2.getXRank()) {
+                    return 1;
                 }
+                if (o1.getXRank() < o2.getXRank()) {
+                    return -1;
+                }
+                return 0;
             });
 
             for (int k = 0; k < a.size(); k++) {
@@ -105,8 +103,8 @@ public class Kendall {
     private class Row {
 
         private int index;
-        private Double x;
-        private Double y;
+        private final Double x;
+        private final Double y;
         private int xRank;
         private int yRank;
 

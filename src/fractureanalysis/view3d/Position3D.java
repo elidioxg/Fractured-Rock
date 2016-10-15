@@ -22,11 +22,11 @@ package fractureanalysis.view3d;
  */
 public class Position3D {
     private final double minX = 0.;
-    private final double maxX = 10000.;    
+    private final double maxX = 1000000.;    
     private final double minY = 0.;
-    private final double maxY = 10000.;
+    private final double maxY = 1000000.;
     private final double minZ = 0.;
-    private final double maxZ = 10000.;
+    private final double maxZ = 1000000.;
 
     private double X = 0.;
     private double Y = 0.;

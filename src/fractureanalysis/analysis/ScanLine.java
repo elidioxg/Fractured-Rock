@@ -32,6 +32,9 @@ public class ScanLine {
     private final ArrayList<Double> distance = new ArrayList();
 
     /**
+     * The constructor creates a scanline with a list of fractures.
+     * The scanline data file must have the fields of Aperture and Spacement
+     * representing the value measured from each fracture.
      * 
      * @param fractures 
      */
@@ -49,22 +52,50 @@ public class ScanLine {
         }
     }
 
+    /**
+     * Get the lenght of the scanline. The lenght of scanline is the
+     * sum of all aperture and spacement values measured from the fractures.
+     * 
+     * @return 
+     */
     public double getLenght() {
         return this.lenght;
     }
 
+    /**
+     * Get a list of all aperture values of the fractures used as parameter
+     * on constructor of this class.
+     * 
+     * @return 
+     */
     public ArrayList<Double> getApList() {
         return this.ap;
     }
 
+    /**
+     * Get a list with all spacement values from scanline.
+     * @return 
+     */
     public ArrayList<Double> getSpList() {
         return this.sp;
     }
 
+    /**
+     * In some cases it's usefull have a list with the X value of each fractures.
+     * X beeing the first point from origin the scanline 'touches' the fracture.
+     * 
+     * @return 
+     */
     public ArrayList<Double> getDistanceList() {
         return this.distance;
     }
 
+    /**
+     * Get the number of fractures in the scanline. The fractures list is
+     * used as parameter for contruction of this class.
+     * 
+     * @return 
+     */
     public int fracturesCount() {
         return this.fracturesCount;
     }

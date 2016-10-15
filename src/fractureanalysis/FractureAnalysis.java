@@ -80,30 +80,6 @@ public class FractureAnalysis extends Application {
         return this.list;
     }
 
-    /*private void test() {
-        File file = new File("/home/elidioxg/Desenvolvimento/FracGen/FracGen/src/main/resources/data.dat");
-        DatasetModel dm = new DatasetModel();
-        dm.setDatasetName(file.getPath());
-        dm.setFilename(file.getAbsolutePath());
-        dm.setHeader(false);
-        dm.setApColumn(1);
-        dm.setSpColumn(0);
-        dm.setSeparator("\t");
-        ArrayList<String> string = new ArrayList();        
-        string.add("SP");        
-        string.add("AP");
-        dm.setHeaderStrings(string);
-        dm.setRowsCount(23);
-        dm.setColumnsCount(2);
-        List<DatasetModel> list = new ArrayList();
-        list.add(dm);
-        ObservableList<DatasetModel> ol = FXCollections.observableArrayList(list);
-        listView.setItems(ol);
-        list.add(dm);
-        datasets.add(dm.getDatasetName());
-
-    }*/
-
     @Override
     public void start(Stage primaryStage) throws IOException {        
         file = new AnalysisFile();       
@@ -255,6 +231,11 @@ public class FractureAnalysis extends Application {
         cbApVar.getSelectionModel().select(file.getApColumn());
     }
 
+    /**
+     * This function is used to change the labels texts on a Tab Pane in main stage.
+     *
+     * @param file 
+     */
     private void setDatasetStatistics(AnalysisFile file) {
         Label lFilename = (Label) grid.lookup("#lFilename");
         lFilename.setText(file.getFileName());
