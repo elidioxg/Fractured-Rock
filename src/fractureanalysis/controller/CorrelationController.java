@@ -21,6 +21,7 @@ import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.statistics.Pearson;
 import fractureanalysis.statistics.Covariance;
+import fractureanalysis.statistics.Kendall;
 import fractureanalysis.statistics.Spearman;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,11 +37,15 @@ import javafx.scene.control.Label;
  */
 public class CorrelationController implements Initializable{
     
+    /**
+     * Handle actions for Tab Correlation on Main Stage
+     */
+    
     @FXML 
     protected ComboBox cbVarA,cbVarB;
     
     @FXML 
-    protected Label lCovariance, lPearson, lSpearman;
+    protected Label lCovariance, lPearson, lSpearman, lKendall;
            
     /**
      * When the user change some of the combobox on tab correlation(main stage),
@@ -67,6 +72,8 @@ public class CorrelationController implements Initializable{
             ArrayList<Double> b = OpenDataset.openCSVFileToDouble(filename, sep, indexB, true);
             double spearman = Spearman.calc(a, b);
             lSpearman.setText(String.valueOf(spearman));
+            double kendall = Kendall.calc(a, b);
+            lKendall.setText(String.valueOf(kendall));
         }
     }
 

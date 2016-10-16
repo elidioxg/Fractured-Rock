@@ -36,7 +36,7 @@ public class Kendall {
      * @return
      * @throws Exception 
      */
-    public double calc(ArrayList<Double> a, ArrayList<Double> b) throws Exception {
+    public static double calc(ArrayList<Double> a, ArrayList<Double> b) throws Exception {
         double result = Double.NaN;
         if (a.size() != b.size()) {
             throw new Exception("Arrays must have same size.");
@@ -100,7 +100,7 @@ public class Kendall {
         return result;
     }
 
-    private class Row {
+    private static class Row {
     /**
      * This class is used for handle ranks and values used for calculate
      * the correlation coefficient.

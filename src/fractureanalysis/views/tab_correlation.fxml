@@ -71,4 +71,14 @@
         GridPane.rowIndex="4">
     </Label> 
     
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="5"
+        text="Kendall Tau ">
+    </Label>
+    <Label
+        fx:id="lKendall"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="5">
+    </Label> 
 </GridPane>
