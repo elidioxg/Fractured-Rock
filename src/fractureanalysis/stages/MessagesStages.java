@@ -16,10 +16,28 @@
  */
 package fractureanalysis.stages;
 
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 /**
  *
  * @author elidioxg
  */
 public class MessagesStages {
+    
+    public void createStage() throws IOException{
+        FXMLLoader loader  = new FXMLLoader(getClass().getResource(
+                "views/stage_messages.fxml"));
+        Parent parent = (Parent) loader.load();
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        //stage.setTitle(value);
+        stage.setScene(scene);
+        stage.show();
+        
+    }
     
 }
