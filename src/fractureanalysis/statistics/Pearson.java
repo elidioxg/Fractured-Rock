@@ -20,7 +20,13 @@ import fractureanalysis.Vectors.Vector;
 
 public class Pearson {
     
-    
+    /**
+     * Pearson correlation coefficient
+     * @param vector1
+     * @param vector2
+     * @return
+     * @throws Exception 
+     */
     public static double pearsonCoeff(Vector vector1, Vector vector2) throws Exception{        
         double var1 = Variance.variance(vector1);
         double var2 = Variance.variance(vector2);
@@ -29,7 +35,7 @@ public class Pearson {
     }
     
     /**
-     * Pearson coefficient
+     * Pearson coefficient using already known values of variance and covariance.
      * @param variance1
      * @param variance2
      * @param covariance

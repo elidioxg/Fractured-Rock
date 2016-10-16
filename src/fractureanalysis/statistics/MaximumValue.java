@@ -26,9 +26,10 @@ import java.util.ArrayList;
 public class MaximumValue {
 
     /**
-     * 
+     * Get the highest value of a vector
+     *
      * @param vector
-     * @return 
+     * @return
      */
     public static double getMaxValue(Vector vector) {
         if (vector.size() != 0) {
@@ -43,15 +44,16 @@ public class MaximumValue {
             return Double.NaN;
         }
     }
-     
+
     /**
-     * 
+     * Get the highest value of a ArrayList with Double values
+     *
      * @param array
-     * @return 
+     * @return
      */
     public static double getMaxValue(ArrayList<Double> array) {
-        if (array.size() != 0) {
-            double max = array.get(0).doubleValue();
+        if (!array.isEmpty()) {
+            double max = array.get(0);
             for (int i = 0; i < array.size(); i++) {
                 if (max < array.get(i)) {
                     max = array.get(i);

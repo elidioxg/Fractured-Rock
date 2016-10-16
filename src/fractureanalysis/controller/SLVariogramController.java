@@ -66,6 +66,10 @@ public class SLVariogramController implements Initializable {
     @FXML
     protected Label lFracInt, lAvgSpacing, lScanLen;
 
+    /**
+     * Handle actions for aperture column index combobox 
+     * @throws Exception 
+     */
     @FXML
     protected void cbApAction() throws Exception {
         int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
@@ -77,6 +81,10 @@ public class SLVariogramController implements Initializable {
         }
     }
 
+    /**
+     * Handle actions for spacement column index combobox 
+     * @throws Exception 
+     */
     @FXML
     protected void cbSpAction() throws Exception {
         int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();

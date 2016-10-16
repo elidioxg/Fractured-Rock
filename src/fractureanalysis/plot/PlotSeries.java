@@ -27,7 +27,7 @@ import javafx.scene.chart.XYChart;
 public class PlotSeries {
     
     /**
-     * 
+     * Return a serie of two vectors representing X and Y axis.
      * @param columnX
      * @param columnY
      * @return
@@ -58,6 +58,14 @@ public class PlotSeries {
         return series;        
     }
     
+    /**
+     * Return a line chart serie for two vectors represented as ArrayLists 
+     * with Double value.
+     * @param columnX
+     * @param columnY
+     * @return
+     * @throws Exception 
+     */
     public static XYChart.Series plotLineSeries(ArrayList<Double> columnX, 
             ArrayList<Double> columnY) throws Exception{
         if(columnX.size()!=columnY.size()){

@@ -9,7 +9,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class OpenDataStage {
+    /**
+     * The Open Data Stage is used for add datasets to the ListView on main
+     * stage
+     */
 
+    /**
+     * This textfield handles the full path and name of dataset
+     */
     public TextField tfFilename;
 
     public Stage createWindow() throws IOException {

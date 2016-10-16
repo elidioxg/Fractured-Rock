@@ -18,7 +18,6 @@ package fractureanalysis.statistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +29,8 @@ import javafx.collections.ObservableList;
 public class Kendall {
 //TODO: determine the standard error for the equation
     /**
-     * 
+     * Calculate the Kendall Tau correlation coefficient for two ArrayLists
+     * representing vectors with Double value.
      * @param a
      * @param b
      * @return
@@ -101,6 +101,10 @@ public class Kendall {
     }
 
     private class Row {
+    /**
+     * This class is used for handle ranks and values used for calculate
+     * the correlation coefficient.
+     */
 
         private int index;
         private final Double x;

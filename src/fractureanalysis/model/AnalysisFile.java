@@ -24,11 +24,25 @@ import fractureanalysis.analysis.ScanLine;
  */
 public class AnalysisFile extends DatasetModel {
     
+    /**
+     * The AnalysisFile works with a Scanline class. The Scanline is represented
+     * as a list of fractures and their properties. 
+     * This class extends the DatasetModel class, that is a handler of a
+     * specific dataset file, with all their properties.
+     */
     private ScanLine scanline = new ScanLine(null);
+    
+    /**
+     * Creates a null scanline.
+     */
     public AnalysisFile(){
         
     }
     
+    /**
+     * Set the scanline for this class
+     * @param scanline 
+     */
     public void setScanLine(ScanLine scanline){
         this.scanline = scanline;
     }

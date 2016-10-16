@@ -15,6 +15,12 @@ import javafx.util.Callback;
 
 public class TableUtils {
 
+    /**
+     * Create a column for a TableView
+     * @param columnIndex
+     * @param columnTitle
+     * @return 
+     */
     public TableColumn<ObservableList<StringProperty>, String> createColumn(
             final int columnIndex, String columnTitle) {
         TableColumn<ObservableList<StringProperty>, String> column = new TableColumn<>();

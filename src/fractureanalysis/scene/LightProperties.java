@@ -51,8 +51,17 @@ public class LightProperties {
         return l;
     }
 
+    /**
+     * Deafult position of light on 3D views
+     */
     static int lightPosition3d = 400;
+    /**
+     * Default scale of light on 3D views
+     */
     static int lightScale3d = 200;
+    /**
+     * Default ambient color
+     */
     static Color ambientLight = Color.GREEN;
     public static PointLight[] setScene3DLight(){
         PointLight[] l = new PointLight[8];

@@ -48,7 +48,7 @@ public class OpenDataset {
      *
      */
     /**
-     *
+     * Open data file as a vector
      * @param fileName
      * @param separator
      * @param column
@@ -136,7 +136,7 @@ public class OpenDataset {
     }
 
     /**
-     *
+     * Open data file as a matrix
      * @param fileName
      * @param separator
      * @param hasHeader
@@ -230,6 +230,14 @@ public class OpenDataset {
         return matrix;
     }
 
+    /**
+     * Open a data file as a ArrayList with Double values
+     * @param fileName
+     * @param separator
+     * @param column
+     * @param hasHeader
+     * @return 
+     */
     public static ArrayList<Double> openCSVFileToDouble(String fileName, String separator,
             int column, boolean hasHeader) {
         BufferedReader br = null;

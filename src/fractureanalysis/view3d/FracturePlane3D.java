@@ -31,6 +31,16 @@ public class FracturePlane3D extends Box {
     
     private double planeHeight = 200.;
     
+    /**
+     * Draw a plane of fracture. The plane will have azimuth equals to zero, and 
+     * deep intensity equals to 90.
+     * If need draw a plane with different azimuth and other values of Y and Z
+     * use the next function.
+     * @param ap
+     * @param distance
+     * @throws Exception 
+     */
+    //todo: fix deep intensity of plane, o padrao é 90
     public FracturePlane3D(double ap, double distance) throws Exception{
         this.az.setAz(0);
         this.deepIntensity = 0.;
@@ -41,6 +51,17 @@ public class FracturePlane3D extends Box {
         this.setHeight(planeHeight);
     }
     
+    /**
+     * Draw a plane of fracture with custom azimuth, deep intensity and position.
+     * 
+     * @param lenght
+     * @param direction
+     * @param deepIntensity
+     * @param posX
+     * @param posY
+     * @param posZ
+     * @throws Exception 
+     */
     public FracturePlane3D(double lenght, double direction, double deepIntensity, 
             double posX, double posY, double posZ) throws Exception{
         this.aperture = lenght;

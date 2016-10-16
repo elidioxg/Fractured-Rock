@@ -36,7 +36,7 @@ public class Average {
 
     //TODO: function for arithmetic average using Frequency Table    
     /**
-     * 
+     * Calculate geometric average of a vector.
      * @param vector
      * @return 
      */
@@ -51,7 +51,7 @@ public class Average {
     //TODO: function for geometric average using Frequency Table   
     
     /**
-     * 
+     * Calculate arithmetic average of a ArrayList with Double values.
      * @param vector
      * @return 
      */

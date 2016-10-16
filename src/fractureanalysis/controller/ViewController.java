@@ -33,12 +33,18 @@ import javafx.scene.paint.Color;
  * @author elidioxg
  */
 public class ViewController implements Initializable{   
+    /**
+     * This controller handle actions for scanline 2D and 3D views
+     */
     
     @FXML 
     protected Button button;    
     @FXML 
     protected Group group;
     
+    /**
+     * Draw fractures of scanline on 2D view
+     */
     @FXML
     protected void view(){
         group.getChildren().addAll(LightProperties.setAmbientLight(Color.WHITE));
@@ -49,6 +55,10 @@ public class ViewController implements Initializable{
         FractureAnalysis.getInstance().file.getScanLine()));                
     }
     
+    /**
+     * Draw a 3D representation of the fractures from scanline
+     * @throws Exception 
+     */
     @FXML
     protected void view3d() throws Exception{
         View3DStage stage = new View3DStage();

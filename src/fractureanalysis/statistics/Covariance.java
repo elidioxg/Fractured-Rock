@@ -5,7 +5,7 @@ import fractureanalysis.Vectors.Vector;
 public class Covariance {
     
     /**
-     * 
+     * Calculate covariance of two vectors
      * @param vector1
      * @param vector2
      * @return

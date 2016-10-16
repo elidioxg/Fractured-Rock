@@ -29,6 +29,10 @@ public class ScatterChartController implements Initializable {
     @FXML
     protected ScatterChart scatterChart;
 
+    /**
+     * Plot a chart serie on Scatter Chart Stage
+     * @throws Exception 
+     */
     @FXML
     protected void plot() throws Exception {
         int datasetIndex = cbDatasets.getSelectionModel().getSelectedIndex();
@@ -46,11 +50,17 @@ public class ScatterChartController implements Initializable {
         scatterChart.getData().add(PlotSeries.plotLineSeries(x, y));
     }
 
+    /**
+     * Clear all series from chart
+     */
     @FXML
     protected void clear() {
         scatterChart.getData().clear();
     }
 
+    /**
+     * Close the Scatter Chart Stage
+     */
     @FXML
     protected void close() {
         Stage stage = (Stage) btnCloseLine.getScene().getWindow();

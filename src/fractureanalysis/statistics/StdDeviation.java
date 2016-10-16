@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class StdDeviation {
     
     /**
-     * 
+     * Calculate standard deviation for a vector.
      * @param vector
      * @return 
      */
@@ -37,9 +37,10 @@ public class StdDeviation {
     }
     
     /**
-     * 
+     * Calculate logarithmic standard deviation for a vector.
+     * The variable baseLog usually receives 10 as input. 
      * @param vector
-     * @param baseLog
+     * @param baseLog 
      * @return 
      */
     public static double logStdDeviation(Vector vector, int baseLog){        

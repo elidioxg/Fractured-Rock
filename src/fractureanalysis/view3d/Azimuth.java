@@ -21,8 +21,18 @@ package fractureanalysis.view3d;
  * @author elidioxg
  */
 public class Azimuth {
+    /**
+     * This class should make work with azimuths easier.
+     * Automatically defines the short and long quadrants according with
+     * azimuth value.
+     */
     private final double maxAz = 360.;    
     
+    /**
+     * Eight kinds of sector
+     * 
+     */
+    //TODO: aumentar o numero de setores
     private enum Sector {
         N, S, E, W, NE, NW, SE, SW;
     }        
@@ -49,7 +59,9 @@ public class Azimuth {
         return this.longAz;
     }
     /**
-     * shortSector always will be closer to N than longSector
+     * Define the short and long sector according to azimuth
+     * Obs: shortSector always will be closer to N than longSector
+     * 
      * @param az 
      */
     private void setSector(double az){
@@ -88,7 +100,8 @@ public class Azimuth {
         if(az>270 && az<360){
             this.shortSector = Sector.NW;
             this.longSector = Sector.SE;
-        }        
+        }       
+        //TODO: if az>360 make smaller than 360
     }
     
     public Sector getShortSector(){

@@ -29,7 +29,7 @@ import javafx.scene.chart.XYChart;
 public class PlotVariogramSeries {
 
     /**
-     * 
+     * This function returns a chart serie representing the variogram of fractures
      * @param scanline
      * @param distanceList
      * @return

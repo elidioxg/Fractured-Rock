@@ -25,11 +25,20 @@ import javafx.scene.transform.Rotate;
  * @author elidioxg
  */
 public class Axis {
+    /**
+     * This class is responsible for drawing axis on 2D and 3D views
+     */
+    /**
+     * Deafult width of axis
+     */
     static int defaultWidth = 5;
+    /**
+     * Default lenght of axis
+     */
     static int defaultLenght = 1000;
     
     /**
-     * 
+     * Add the X, Y and Z axis.
      * @return 
      */
     public static Cylinder[] addAxis(){    

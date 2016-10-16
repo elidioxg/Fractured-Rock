@@ -56,6 +56,15 @@ public class Stage_variogramController implements Initializable {
     @FXML
     protected LineChart lcVariogram;
     
+    /**
+     * Plot the a variogram serie on Variogram Stage using the defined 
+     * properties by the user. 
+     * The properties the user can define are: which columns represent the
+     * vectors X and Y, minimum and maximum angle of tolerance, 
+     * the step size, initial distance and maximum distance.
+     * 
+     * @throws Exception 
+     */
     @FXML
     protected void plot() throws Exception{
         int index = cbDatasets.getSelectionModel().getSelectedIndex();

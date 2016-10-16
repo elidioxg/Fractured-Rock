@@ -45,6 +45,7 @@ public class CorrelationController implements Initializable{
     /**
      * When the user change some of the combobox on tab correlation(main stage),
      * this procedure is executed.
+     * 
      * @throws Exception 
      */
     @FXML

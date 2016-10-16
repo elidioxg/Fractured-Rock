@@ -34,6 +34,10 @@ public class DrawScanline {
 
     }
 
+    /**
+     * Draw a background plane for the scanline view.
+     * @return 
+     */
     public static Box drawPlane() {
         ScanlineView view = new ScanlineView();
         Box box = new Box();
@@ -43,6 +47,11 @@ public class DrawScanline {
         return box;
     }
 
+    /**
+     * Draw a 2D view reprsenting a scanline
+     * @param scanline
+     * @return 
+     */
     public static Box[] drawFractures(ScanLine scanline) {
         ScanlineView view = new ScanlineView();
         Box[] box = new Box[scanline.fracturesCount()];

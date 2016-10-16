@@ -21,6 +21,10 @@ package fractureanalysis.view2d;
  * @author elidioxg
  */
 public class ScanlineView {
+    /**
+     * This class represents the field of view of a 2D representation of
+     * a scanline.
+     */
 
     private double viewWidth = 1000;
     private double viewHeight = 200;

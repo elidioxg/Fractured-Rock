@@ -61,6 +61,13 @@ public class Stage_histogramController implements Initializable {
         // TODO
     }
 
+    /**
+     * Handle action for Dataset Combobox. When the Dataset Combobox is changed,
+     * the Column Index Combobox must be updated, and that is what this
+     * procedure does.
+     *
+     * @throws Exception
+     */
     @FXML
     protected void cbDatasetAction() throws Exception {
         if (!cbDatasets.getEditor().getText().isEmpty()) {
@@ -69,18 +76,24 @@ public class Stage_histogramController implements Initializable {
                     FXCollections.observableArrayList(
                             DatasetProperties.getHeaders(
                                     FractureAnalysis.getInstance().getDatasetList().
-                                            get(index).getFileName(),
+                                    get(index).getFileName(),
                                     FractureAnalysis.getInstance().getDatasetList().
-                                            get(index).getSeparator()
+                                    get(index).getSeparator()
                             )));
         } else {
             throw new Exception("Combobox empty");
         }
     }
 
+    /**
+     * Handle action for Column Index ComboBox. When this combobox is changed
+     * the TextView with cutoff values must be updated. The cutoff values
+     * limit the maximum and minimum values used for the histogram ploting.
+     * @throws Exception 
+     */
     @FXML
     protected void cbColumnAction() throws Exception {
-        if (cbColumnIndex.getSelectionModel().getSelectedIndex()>=0) {
+        if (cbColumnIndex.getSelectionModel().getSelectedIndex() >= 0) {
             int datasetIndex = cbDatasets.getSelectionModel().getSelectedIndex();
             int columnIndex = cbColumnIndex.getSelectionModel().getSelectedIndex();
             DatasetModel dm;
@@ -89,7 +102,7 @@ public class Stage_histogramController implements Initializable {
                     dm.getFileName(),
                     dm.getSeparator(), columnIndex, dm.getHeader());
             double min = MinimumValue.getMinValue(vector);
-            System.out.println("Minimum: "+min);
+            System.out.println("Minimum: " + min);
             double max = MaximumValue.getMaxValue(vector);
             tfMinValue.setText(String.valueOf(min));
             tfMaxValue.setText(String.valueOf(max));
@@ -98,9 +111,14 @@ public class Stage_histogramController implements Initializable {
         }
     }
 
+    /**
+     * Handle action for Plot Button on Histogram Stage
+     * 
+     * @throws Exception 
+     */
     @FXML
     protected void plot() throws Exception {
-        if (cbColumnIndex.getSelectionModel().getSelectedIndex()>=0) {
+        if (cbColumnIndex.getSelectionModel().getSelectedIndex() >= 0) {
 
             if (!tfIntervals.getText().isEmpty()) {
                 int datasetIndex = cbDatasets.getSelectionModel().getSelectedIndex();
@@ -119,7 +137,7 @@ public class Stage_histogramController implements Initializable {
                 series.setName(cbColumnIndex.getEditor().getText());
                 for (int i = 0; i < list.size(); i++) {
                     series.getData().add(
-                            new XYChart.Data(list.get(i).getLabel(), 
+                            new XYChart.Data(list.get(i).getLabel(),
                                     list.get(i).getObsFrequency()));
                 }
                 bcHistogram.getData().clear();
@@ -132,10 +150,13 @@ public class Stage_histogramController implements Initializable {
             throw new Exception("Combobox selected index < 0");
         }
     }
-    
+
+    /**
+     * Clear all data from the chart on Histogram Stage.
+     */
     @FXML
-    protected void clear(){
-    
+    protected void clear() {
+
     }
 
 }

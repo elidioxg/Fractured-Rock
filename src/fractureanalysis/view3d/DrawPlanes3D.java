@@ -38,7 +38,7 @@ public class DrawPlanes3D {
     }
     
     /**
-     * 
+     * Receives a scanline data to make a 3D plot of the fractures. 
      * @param scanline
      * @return 
      */
