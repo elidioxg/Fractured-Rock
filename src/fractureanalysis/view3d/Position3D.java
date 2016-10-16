@@ -21,6 +21,9 @@ package fractureanalysis.view3d;
  * @author elidioxg
  */
 public class Position3D {
+    /**
+     * This variables limit the range of values used for 3D plot.
+     */
     private final double minX = 0.;
     private final double maxX = 1000000.;    
     private final double minY = 0.;

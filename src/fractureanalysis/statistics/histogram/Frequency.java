@@ -26,6 +26,8 @@ import java.util.ArrayList;
  */
 public class Frequency {
     /**
+     * Define the value of class interval following Sturges expression.
+     * The value is equal to (Superior limit of class interval)-(Inferior limit of class interval)
      * 
      * @param amplitude
      * @param numberOfSamples
@@ -55,6 +57,8 @@ public class Frequency {
     }
     
     /**
+     * This function is used for custom histograms, which the user defines
+     * the number of classes and the cutoff values.
      * 
      * @param minValue
      * @param maxValue
@@ -74,7 +78,7 @@ public class Frequency {
     }
     
     /**
-     * 
+     * Count observed frequency of a interval class.
      * @param values
      * @param classes 
      */

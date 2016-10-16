@@ -25,6 +25,12 @@ import java.util.ArrayList;
  */
 
 public class LinearRegression {
+    /**
+     * This class handle the Linear Regression analysis.
+     * The class receives the vectors X and Y on constructor and handle the
+     * properties of Linear Regression analysis as two variables: 'initialValue'
+     * and 'inclination'.
+     */
 
     private double initialValue = 0.;
     private double inclination = 0.;   
@@ -69,8 +75,8 @@ public class LinearRegression {
     }
 
     /**
-     *
-     * @param valueAt
+     * Estimate the value of Y at specific value of X.
+     * @param valueAt Value of X
      * @return
      */
     public double getValueAt(double valueAt) {        

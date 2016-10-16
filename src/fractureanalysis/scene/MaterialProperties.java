@@ -26,7 +26,8 @@ import javafx.scene.paint.PhongMaterial;
 public class MaterialProperties {
 
     /**
-     *
+     *Define the material of the background plane on 2D view.
+     * 
      * @return
      */
     public static PhongMaterial setPlaneMaterial() {
@@ -37,7 +38,7 @@ public class MaterialProperties {
     }
 
     /**
-     *
+     *Define the material of fractures
      * @return
      */
     public static PhongMaterial setFractureMaterial() {
@@ -48,9 +49,9 @@ public class MaterialProperties {
     }
 
     /**
-     * 
+     * Define the material for the axis on 3D view
      * @param index
-     * @return 
+     * @return
      */
     public static PhongMaterial setAxisMaterial(int index) {
         final PhongMaterial axis = new PhongMaterial();
