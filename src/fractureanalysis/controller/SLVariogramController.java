@@ -51,6 +51,9 @@ import javafx.scene.control.TextField;
  */
 public class SLVariogramController implements Initializable {
 
+    /**
+     * Views: views/tab_distribution.fxml
+     */
     @FXML
     protected ComboBox cbSpVar, cbApVar;
 
@@ -96,6 +99,20 @@ public class SLVariogramController implements Initializable {
         }
     }
 
+    /**
+     * Estimate the variogram of fractures.
+     * 
+     * If there is already defined values of distance on the ListView, 
+     * this procedure will use them. If the ListView is empty, this
+     * procedure will create a list of distances to plot according 
+     * to minimum and maximum values on dataset.
+     * 
+     * The last step is plot a linear regression line to the chart.
+     * 
+     * @param indexAp
+     * @param indexSp
+     * @throws Exception 
+     */
     private void estimateFractures(int indexAp, int indexSp) throws Exception {
 
         String filename = FractureAnalysis.getInstance().file.getFileName();
@@ -146,8 +163,10 @@ public class SLVariogramController implements Initializable {
 //            cumulative.add(Double.valueOf(values.getCumulativeNumber()));
 //            aperture.add(values.getAperture());
         }
-        scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));
-        //add linear regression
+        scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));        
+        /**
+         * Add linear regression
+         */ 
         LinearRegression lr = new LinearRegression(aperture, cumulative);
 //        double min = MinimumValue.getMinValue(aperture);
 //        double max = MaximumValue.getMaxValue(aperture);
@@ -209,6 +228,9 @@ public class SLVariogramController implements Initializable {
         lvDistances.getSelectionModel().getSelectedItems().clear();
     }
 
+    /**
+     * Create a list of distances to be plotted on the variogram chart.
+     */
     @FXML
     protected void auto() {
         ArrayList<Double> array = FractureAnalysis.getInstance().file.getScanLine().getDistanceList();

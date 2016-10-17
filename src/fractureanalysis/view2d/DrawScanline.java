@@ -48,7 +48,7 @@ public class DrawScanline {
     }
 
     /**
-     * Draw a 2D view reprsenting a scanline
+     * Draw a 2D view representing a scanline
      * @param scanline
      * @return 
      */

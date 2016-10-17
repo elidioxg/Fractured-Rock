@@ -39,6 +39,8 @@ public class Axis {
     
     /**
      * Add the X, Y and Z axis.
+     * The axis consists on three cylinders with width and height defined
+     * by constants.
      * @return 
      */
     public static Cylinder[] addAxis(){    

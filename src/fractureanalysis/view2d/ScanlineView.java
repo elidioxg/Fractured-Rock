@@ -24,13 +24,38 @@ public class ScanlineView {
     /**
      * This class represents the field of view of a 2D representation of
      * a scanline.
+     * 
+     * The scanline view basically consists in a rectangular plane with
+     * lines representing each fracture. 
+     * The line width is defined as the aperture value.
+     * 
      */
 
+    /**
+     * The width of the scanline view.
+     */
     private double viewWidth = 1000;
-    private double viewHeight = 200;
+    /**
+     * Height of the scanline view.
+     */
+    private double viewHeight = 200;    
+    /**
+     * Scale of the aperture value (fracture width).          
+     */
     private double apMult = 1;
+    /**
+     * Scale of the spacement value.          
+     */
     private double spMult = 1;
+    /**
+     * The height of the fracture
+     */
     private double fractureSize = 100;
+    /**
+     * In some cases depending the viewWidth, the line representing a 
+     * fracture can be smaller than one pixel. This constants is for
+     * line be drawn anyway.
+     */
     private double fracMinWidth = 1;
 
     public void setViewWidth(double value){

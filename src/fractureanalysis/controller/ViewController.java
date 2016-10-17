@@ -34,7 +34,9 @@ import javafx.scene.paint.Color;
  */
 public class ViewController implements Initializable{   
     /**
-     * This controller handle actions for scanline 2D and 3D views
+     * This controller handle actions for scanline 2D and 3D views.
+     * 
+     * See views/tab_2dview.fxml
      */
     
     @FXML 

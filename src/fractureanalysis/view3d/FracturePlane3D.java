@@ -26,7 +26,13 @@ public class FracturePlane3D extends Box {
     
     private Azimuth az = new Azimuth();    
     private double aperture = 200;
+    /**
+     * Deep intensity of the fracture
+     */
     private double deepIntensity; 
+    /**
+     * Position of the plane on scene
+     */
     private Position3D position = new Position3D();
     
     private double planeHeight = 200.;

@@ -21,11 +21,16 @@ package fractureanalysis.view3d;
  * @author elidioxg
  */
 public class Position3D {
+
+    /**
+     * Position3D represents a point on 3D scene. 
+     */
+    
     /**
      * This variables limit the range of values used for 3D plot.
      */
     private final double minX = 0.;
-    private final double maxX = 1000000.;    
+    private final double maxX = 1000000.;
     private final double minY = 0.;
     private final double maxY = 1000000.;
     private final double minZ = 0.;
@@ -34,12 +39,38 @@ public class Position3D {
     private double X = 0.;
     private double Y = 0.;
     private double Z = 0.;
-    
-    public Position3D(){
-    
+
+    /**
+     * If X, Y, Z is not defined on constructor, the default position will be 0,
+     * 0, 0
+     */
+    public Position3D() {
+
     }
-    
-    public void setXYZ(double x, double y , double z) throws Exception{
+
+    /**
+     * Constructor with the X, Y, Z values defined
+     * 
+     * @param x
+     * @param y
+     * @param z
+     * @throws Exception If x, y or z exceeds the minimum or maximum value constants
+     */
+    public Position3D(double x, double y, double z) throws Exception {
+        setX(x);
+        setY(y);
+        setZ(z);
+    }
+
+    /**
+     * Define X, Y and Z values for this position
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @throws Exception
+     */
+    public void setXYZ(double x, double y, double z) throws Exception {
         setX(x);
         setY(y);
         setZ(z);
@@ -68,16 +99,16 @@ public class Position3D {
             throw new Exception("Value 'Z' out of range");
         }
     }
-    
-    public double getX(){
+
+    public double getX() {
         return this.X;
     }
-    
-    public double getY(){
+
+    public double getY() {
         return this.Y;
     }
-    
-    public double getZ(){
+
+    public double getZ() {
         return this.Z;
     }
 

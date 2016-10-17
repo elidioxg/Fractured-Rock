@@ -39,6 +39,8 @@ public class CorrelationController implements Initializable{
     
     /**
      * Handle actions for Tab Correlation on Main Stage
+     * 
+     * See views/tab_correlation.fxml
      */
     
     @FXML 
@@ -68,6 +70,7 @@ public class CorrelationController implements Initializable{
             lCovariance.setText(String.valueOf(covariance));
             double pearson = Pearson.pearsonCoeff(arrayA, arrayB);
             lPearson.setText(String.valueOf(pearson));
+            //TODO: if dataset has header or not
             ArrayList<Double> a = OpenDataset.openCSVFileToDouble(filename, sep, indexA, true);
             ArrayList<Double> b = OpenDataset.openCSVFileToDouble(filename, sep, indexB, true);
             double spearman = Spearman.calc(a, b);

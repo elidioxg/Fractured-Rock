@@ -33,6 +33,15 @@ import javafx.stage.Stage;
  * @author elidioxg
  */
 public class HistogramStage {
+    /**
+     * Custom Histogram Stage
+     * 
+     * This stage is used for plotting a histogram with many properties
+     * defined by the user(cutoff values, number of classes, etc);
+     * 
+     * View: views/stage_histogram.fxml
+     * Controller: controller/Stage_histogramController.java
+     */
 
     private static HistogramStage instance;
 
@@ -51,10 +60,14 @@ public class HistogramStage {
         return this.datasets;
     }
 
+    /**
+     * Create a stage for plotting custom histogram.
+     * 
+     * @throws IOException 
+     */
     public void createStage() throws IOException {
         if (FractureAnalysis.getInstance().getDatasetList().size()>0) {
-            FXMLLoader loader = new FXMLLoader(
-                    FractureAnalysis.getInstance().getClass().getResource(
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
                             "views/stage_histogram.fxml"));
             Parent parent = (Parent) loader.load();
             ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");

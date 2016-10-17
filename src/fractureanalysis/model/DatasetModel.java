@@ -31,14 +31,26 @@ public class DatasetModel {
 
     }
 
+    /**
+     * Set the index of aperture column
+     * @param column 
+     */
     public void setApColumn(int column) {
         this.apColumn = column;
     }
     
+    /**
+     * Get the index of aperture column
+     * @return 
+     */
     public int getApColumn(){
         return this.apColumn;
     }
     
+    /**
+     * Set the spacement index column of the dataset 
+     * @param column 
+     */
     public void setSpColumn(int column) {
         this.spColumn = column;
     }

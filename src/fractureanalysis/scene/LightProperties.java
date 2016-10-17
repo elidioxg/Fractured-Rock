@@ -26,9 +26,23 @@ import javafx.scene.paint.Color;
  */
 public class LightProperties {
 
-    static int lightPosition = 500;
+    /**
+     * This is the default position for Ambient Light.
+     */
+    static int lightPosition = -500;
+    /**
+     * Scale of the light
+     */
     static int lightScale = 10;
 
+    /**
+     * Add one single point line on scene.
+     * 
+     * @param color
+     * @param posX
+     * @param posY
+     * @return 
+     */
     public static PointLight setPointLight(Color color,
             double posX, double posY) {
         PointLight l = new PointLight();
@@ -39,6 +53,12 @@ public class LightProperties {
         return l;
     }
 
+    /**
+     * Add a ambient light to the scene.
+     * 
+     * @param color
+     * @return 
+     */
     public static AmbientLight setAmbientLight(Color color) {
         AmbientLight l = new AmbientLight();
         l.setColor(color);
@@ -46,7 +66,7 @@ public class LightProperties {
         //l.setLayoutY(lightScale);
         //l.setTranslateX(lightPosition);
         //l.setTranslateY(lightPosition);
-        l.setTranslateZ(-lightPosition);
+        l.setTranslateZ(lightPosition);
         l.setVisible(true);
         return l;
     }
@@ -63,6 +83,11 @@ public class LightProperties {
      * Default ambient color
      */
     static Color ambientLight = Color.GREEN;
+    /**
+     * Add eight point lights to the scene
+     * 
+     * @return 
+     */
     public static PointLight[] setScene3DLight(){
         PointLight[] l = new PointLight[8];
         l[0] = new PointLight();
@@ -131,6 +156,11 @@ public class LightProperties {
         return l;
     }
     
+    /**
+     * Add ambient light to 3d view
+     * 
+     * @return 
+     */
     public static AmbientLight[] setScene3DAmbientLight(){
         AmbientLight[] l = new AmbientLight[8];
         l[0] = new AmbientLight();
