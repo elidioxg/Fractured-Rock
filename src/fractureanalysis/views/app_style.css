@@ -19,6 +19,14 @@
     -fx-background-color: transparent;
 }
 
+#lcLine .default-color0.chart-series-line {
+    -fx-stroke: transparent;    
+}
+
+#lcLine .default-color1.chart-line-symbol {
+    -fx-background-color: transparent;    
+}
+
 #chartHistogram {
     -fx-bar-gap: 0;
     -fx-category-gap: 0;

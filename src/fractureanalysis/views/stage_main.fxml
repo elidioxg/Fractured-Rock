@@ -111,6 +111,12 @@
             </content>
         </Tab>
         
+        <Tab text="Cumulative Frequency">
+            <content>
+                <fx:include source="tab_cumulative_freq.fxml"/>
+            </content>
+        </Tab>
+        
         <Tab text="Correlation">
             <content>
                 <fx:include source="tab_correlation.fxml"/>

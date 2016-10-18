@@ -221,6 +221,9 @@ public class FractureAnalysis extends Application {
         ComboBox cbColIndex = (ComboBox) grid.lookup("#cbColIndex");
         cbColIndex.setItems(ol);
         cbColIndex.getSelectionModel().selectFirst();
+        ComboBox cbColumn = (ComboBox) grid.lookup("#cbColumn");
+        cbColumn.setItems(ol);
+        cbColumn.getSelectionModel().selectFirst();        
         ComboBox cbVarA = (ComboBox) grid.lookup("#cbVarA");
         cbVarA.setItems(ol);
         ComboBox cbVarB = (ComboBox) grid.lookup("#cbVarB");

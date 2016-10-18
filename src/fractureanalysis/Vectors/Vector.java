@@ -35,9 +35,9 @@ public class Vector {
     }
 
     public Vector(int size) {
-
+        this.data = new Number[size];
         for (int i = 0; i < size; i++) {
-            final int ii = 1;
+            final int ii = i;
             data[i] = new Number() {
                 @Override
                 public int intValue() {
@@ -65,6 +65,19 @@ public class Vector {
     public void setData(Number[] data, int size) {
         this.data = data;
         this.size = size;
+    }
+    
+    public void set(int index, double value) throws Exception{
+        if(!this.data.equals(null)){
+            if(index<this.data.length){
+                this.data[index] = value;
+            } else {
+                throw new Exception("Index higher than vector size");
+            }
+        } else {
+            throw new Exception("Null vector data");
+        }
+        
     }
 
     public Number get(int index) {
@@ -120,6 +133,14 @@ public class Vector {
                 finished = true;
             }
         }
+    }
+    
+    public double sum(){
+        double result = 0.;
+        for(int i=0; i< this.data.length; i++){
+            result+=this.data[i].doubleValue();
+        }
+        return result;
     }
 
 }
