@@ -16,8 +16,6 @@
  */
 package fractureanalysis.Vectors;
 
-import javafx.concurrent.Task;
-
 /**
  *
  * @author elidioxg
@@ -104,6 +102,24 @@ public class Vector {
         };
         vector[this.size] = value;
         this.data = vector;
+    }
+
+    public void sort() {        
+        boolean finished = false;        
+        while (!finished) {
+            int counter = 0;
+            for (int i = 1; i < this.data.length; i++) {
+                if (this.data[i-1].doubleValue()<this.data[i].doubleValue()) {
+                    Double temp = this.data[i-1].doubleValue();
+                    this.data[i-1] = this.data[i].doubleValue();
+                    this.data[i] = temp;
+                    counter++;
+                }
+            }
+            if(counter == 0){
+                finished = true;
+            }
+        }
     }
 
 }

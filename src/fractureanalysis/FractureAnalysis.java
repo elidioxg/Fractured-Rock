@@ -28,6 +28,7 @@ import fractureanalysis.model.DatasetModel;
 import fractureanalysis.statistics.Average;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
+import fractureanalysis.statistics.Mode;
 import fractureanalysis.statistics.StdDeviation;
 import fractureanalysis.statistics.Variance;
 import fractureanalysis.statistics.VariationCoefficient;
@@ -180,8 +181,9 @@ public class FractureAnalysis extends Application {
             Label lMaxValue = (Label) grid.lookup("#lMaxValue");
             double max = MaximumValue.getMaxValue(array);
             lMaxValue.setText(String.valueOf(max));
-            Label lMeanValue = (Label) grid.lookup("#lMeanValue");
-            //double mean = 
+            Label lModeValue = (Label) grid.lookup("#lModeValue");
+            double mode = Mode.getMode(array);
+            lModeValue.setText(String.valueOf(mode));
             Label lStdDevValue = (Label) grid.lookup("#lStdDevValue");
             double stdDev = StdDeviation.stdDeviation(array);
             lStdDevValue.setText(String.valueOf(stdDev));
