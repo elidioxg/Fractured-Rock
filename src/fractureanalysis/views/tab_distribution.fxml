@@ -9,22 +9,25 @@
 <GridPane 
     id="AnchorPane"     
     prefHeight="700.0" 
-    prefWidth="800.0" 
+    prefWidth="900.0" 
     xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="fractureanalysis.controller.SLVariogramController">
     
+    <gridLinesVisible>true</gridLinesVisible>
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="33" />
-        <ColumnConstraints percentWidth="33"/>
-        <ColumnConstraints percentWidth="33"/>
+        <ColumnConstraints percentWidth="30" />
+        <ColumnConstraints percentWidth="30"/>
+        <ColumnConstraints percentWidth="30"/>
+        <ColumnConstraints percentWidth="10"/>
         
     </columnConstraints>
     <rowConstraints>
         <RowConstraints percentHeight="5"/>
         <RowConstraints percentHeight="5"/>
         <RowConstraints percentHeight="5"/>
-        <RowConstraints percentHeight="85"/>
+        <RowConstraints percentHeight="80"/>
+        <RowConstraints percentHeight="5"/>
     </rowConstraints>
     
     <Label 
@@ -84,14 +87,14 @@
                 autoRanging="false"                
                 side="TOP"/> 
         </xAxis>
-        <yAxis> 
+        <yAxis>             
             <javafx.scene.chart.NumberAxis 
                 label="Cumulative Fracture Intensity"
                 lowerBound="10"
                 upperBound="0.001"
                 tickUnit="0.1"
                 autoRanging="false"
-                side="RIGHT"                             
+                side="RIGHT"                                             
             />
         </yAxis>
     </javafx.scene.chart.LineChart>            
