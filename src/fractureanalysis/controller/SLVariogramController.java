@@ -22,27 +22,18 @@ import fractureanalysis.analysis.Fracture;
 import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.data.OpenDataset;
-import fractureanalysis.plot.PlotVariogramSeries;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.statistics.LinearRegression.LinearRegression;
-import fractureanalysis.statistics.MaximumValue;
-import fractureanalysis.statistics.MinimumValue;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -55,13 +46,7 @@ public class SLVariogramController implements Initializable {
      * Views: views/tab_distribution.fxml
      */
     @FXML
-    protected ComboBox cbSpVar, cbApVar;
-
-    @FXML
-    protected ListView lvDistances;
-
-    @FXML
-    protected ScatterChart chart;
+    protected ComboBox cbSpVar, cbApVar;    
 
     @FXML
     protected LineChart scFractureIntensity, lcAux;
@@ -116,7 +101,7 @@ public class SLVariogramController implements Initializable {
     private void estimateFractures(int indexAp, int indexSp) throws Exception {
 
         String filename = FractureAnalysis.getInstance().file.getFileName();
-        String sep = FractureAnalysis.getInstance().file.getSeparator().getSep();
+        String sep = FractureAnalysis.getInstance().file.getSeparator().getChar();
         boolean header = FractureAnalysis.getInstance().file.getHeader();
         Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexAp, header);
         Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
@@ -132,17 +117,8 @@ public class SLVariogramController implements Initializable {
         }
         ScanLine scanline = new ScanLine(fracturesList);
         FractureAnalysis.getInstance().file.setScanLine(scanline);
-        Scene scene = (Scene) cbApVar.getScene();
-        chart = (ScatterChart) scene.lookup("#variogram_chart");
-        chart.getData().clear();
-        lvDistances = (ListView) scene.lookup("#lvDistances");
-        //add distances to listview, if is empty
-        if (lvDistances.getItems().isEmpty()) {
-            auto();
-        }
-        ObservableList<Double> ol = FXCollections.observableArrayList(lvDistances.getItems());
-        chart.getData().addAll(PlotVariogramSeries.variogram1D(
-                scanline, ol));
+        Scene scene = (Scene) cbApVar.getScene();                
+        
         FractureIntensityAnalysis fi = new FractureIntensityAnalysis(
                 scanline);
         lFracInt = (Label) scene.lookup("#lFracInt");
@@ -198,52 +174,7 @@ public class SLVariogramController implements Initializable {
                 lValue.setText(String.valueOf(value));
             }
         }*/
-    }
-
-    @FXML
-    protected Button bAddDist, bRmDist;
-
-    @FXML
-    protected TextArea taDist;
-
-    @FXML
-    protected void bAddClick() {
-        ArrayList<Double> al = new ArrayList();
-        double dist = Double.parseDouble(taDist.getText());
-        al.add(dist);
-        ObservableList<Double> ol = FXCollections.observableArrayList(al);
-        lvDistances.getItems().addAll(ol);
-    }
-
-    @FXML
-    protected void bRmClick() {
-        int rmIndex = lvDistances.getSelectionModel().getSelectedIndex();
-        if (rmIndex >= 0) {
-            lvDistances.getItems().remove(rmIndex);
-        }
-    }
-
-    @FXML
-    protected void clear() {
-        lvDistances.getSelectionModel().getSelectedItems().clear();
-    }
-
-    /**
-     * Create a list of distances to be plotted on the variogram chart.
-     */
-    @FXML
-    protected void auto() {
-        ArrayList<Double> array = FractureAnalysis.getInstance().file.getScanLine().getDistanceList();
-        double max = MaximumValue.getMaxValue(array);
-        double min = MinimumValue.getMinValue(array);
-        double step = (max - min) / 10;
-        ArrayList<Double> listDistances = new ArrayList();
-        for (int i = 1; i <= 8; i++) {
-            listDistances.add(min + (step * i));
-        }
-        ObservableList<Double> ol = FXCollections.observableArrayList(listDistances);
-        lvDistances.getItems().addAll(ol);
-    }
+    }    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -67,13 +67,7 @@
             <content>
                 <fx:include source="tab_2dview.fxml"/>
             </content>
-        </Tab>  
-        <Tab text="Variogram">
-            <content>
-                <fx:include fx:id="variogram" source="tab_fracture_variogram.fxml"/>
-            </content>
-        </Tab>
-            
+        </Tab>                      
     </TabPane>
     
 </GridPane>

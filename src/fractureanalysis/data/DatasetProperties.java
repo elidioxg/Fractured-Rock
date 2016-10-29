@@ -61,7 +61,7 @@ public class DatasetProperties {
         try {
             br = new BufferedReader(new FileReader(filename));
             line = br.readLine();
-            lineValues = line.split(separator.getSep());
+            lineValues = line.split(separator.getChar());
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         } finally {
@@ -101,7 +101,7 @@ public class DatasetProperties {
             throws FileNotFoundException, IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         final String headerLine = br.readLine();
-        final String[] headerValues = headerLine.split(separator.getSep());
+        final String[] headerValues = headerLine.split(separator.getChar());
         ArrayList<String> result = new ArrayList();
         result.addAll(Arrays.asList(headerValues));
         return result;

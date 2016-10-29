@@ -49,7 +49,7 @@ public class LineChartController implements Initializable{
         lineChart.getYAxis().setLabel(tfYLabel.getText());
         PlotSeries plot = new PlotSeries();
         lineChart.getData().add(plot.plotLineSeries(dm.getFileName(),
-                dm.getSeparator().getSep(), tfSerieLabel.getText(), indexX, indexY));
+                dm.getSeparator().getChar(), tfSerieLabel.getText(), indexX, indexY));
     }
     
     /**

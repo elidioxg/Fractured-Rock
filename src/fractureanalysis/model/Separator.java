@@ -16,68 +16,75 @@
  */
 package fractureanalysis.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author elidioxg
  */
 public class Separator {
 
-    private String[] strSep = {"colon", "semicolon", "TAB", "Blank space"};
-    private String[] sep = {"\t", ";", ",", " "};
-    private final int defaultSep = 2;
+    private String[] strSep = {"Tab", "semicolon", "colon", "Blank space"};
+    private final String[] sep = {"\t",";",","," "};
+    private final int defaultSep = 0;
     private String current;
-    //private int currentIndex;
+    private int currentIndex;
 
     public Separator() {
-        this.current = strSep[defaultSep];
-        //this.currentIndex = defaultSep;
+        this.current = sep[defaultSep];
+        this.currentIndex = defaultSep;
     }
 
     public Separator(int index) {
-        this.current = strSep[index];
-        //this.currentIndex = index;
+        this.current = sep[index];
+        this.currentIndex = index;
     }
 
     /**
      * Add a custom separator
      *
-     * @param sep
+     * @param separator
      */
-    public Separator(String sep) {
-        boolean found = false;
+    public Separator(String separator) {
+        
+        boolean found = false;                
+        String aux = sep[defaultSep];
         for (int i = 0; i < 4; i++) {
-            if (sep.trim() == strSep[i]) {
-                this.current = strSep[i];
+            if (separator== sep[i]) {                
                 found = true;
-                //this.currentIndex = i;
+                this.current = sep[i];
+                this.currentIndex = i;
                 break;
             }
-            if (!found) {
-                this.current = "sep";
-                //this.currentIndex = -1;
+            if (!found) {                
+                this.currentIndex = -1;
             }
         }
+        this.current = aux;
     }
 
-    public void setSep(String sep) {
-        boolean found = false;
-        for (int i = 0; i < 4; i++) {
-            if (sep.trim() == strSep[i]) {
-                this.current = strSep[i];
-                found = true;
-                //this.currentIndex = i;
-                break;
-            }
-            if (!found) {
-                this.current = "sep";
-                //this.currentIndex = -1;
-            }
-        }
-
-    }
-
-    public String getSep() {
+    /**
+     * Get the chars representing the separator
+     * @return 
+     */
+    public String getChar() {
+        System.out.println("***Current Separator:  "+this.current);
         return this.current;
+    }
+
+    /**
+     * Get the name of separator(eg: Tab, semicolon) or the chars representing
+     * the separator.
+     * @return 
+     */
+    public String getString() {
+        if (currentIndex >= 0) {
+            return strSep[currentIndex];
+        } else {
+            return current;
+        }
     }
 
 }

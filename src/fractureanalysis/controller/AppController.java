@@ -10,6 +10,7 @@ import fractureanalysis.stages.HistogramStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
 import fractureanalysis.stages.ScatterChartStage;
+import fractureanalysis.stages.Variogram1DStage;
 import fractureanalysis.stages.VariogramStage;
 import fractureanalysis.statistics.histogram.ClassInterval;
 import fractureanalysis.statistics.histogram.Frequency;
@@ -69,26 +70,27 @@ public class AppController implements Initializable {
 
     /**
      * Mouse handler for datasets listview on main stage
-     * 
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     @FXML
     protected void onMouseClicked() throws IOException {
         DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();
         if (dm != null) {
-            populateTable(dm.getFileName(), dm.getSepString(), dm.getHeader());
+            populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
         }
     }
 
     /**
      * Populates the table on main stage. This table is used to view dataset
      * values.
+     *
      * @param filename
      * @param separator
-     * @param hasHeader 
+     * @param hasHeader
      */
     @FXML
-    public void populateTable(final String filename, final String separator,
+    public void populateTable(final String filename, final Separator separator,
             final boolean hasHeader) {
         tvDataset.getItems().clear();
         tvDataset.getColumns().clear();
@@ -99,7 +101,7 @@ public class AppController implements Initializable {
                 protected Void call() throws Exception {
                     BufferedReader br = new BufferedReader(new FileReader(filename));
                     final String headerLine = br.readLine();
-                    final String[] headerValues = headerLine.split(separator);
+                    final String[] headerValues = headerLine.split(separator.getChar());
                     ArrayList<String> array = new ArrayList<>(Arrays.asList(headerValues));
                     if (hasHeader) {
                         FractureAnalysis.getInstance().file.setHeaderStrings(array);
@@ -124,7 +126,7 @@ public class AppController implements Initializable {
                     }
                     String dataLine;
                     while ((dataLine = br.readLine()) != null) {
-                        final String[] dataValues = dataLine.split(separator);
+                        final String[] dataValues = dataLine.split(separator.getChar());
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
@@ -201,9 +203,9 @@ public class AppController implements Initializable {
 
     /**
      * Add a dataset to the list of datasets on main form and update the
-     * datasets listview.     
-     * 
-     * @throws IOException 
+     * datasets listview.
+     *
+     * @throws IOException
      */
     @FXML
     protected void addToList() throws IOException, Exception {
@@ -252,24 +254,27 @@ public class AppController implements Initializable {
 
     /**
      * Open a dialog for choose the file to be opened as dataset.
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     @FXML
     protected void dialogOpen() throws IOException {
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(
                 FractureAnalysis.getInstance().stage);
-        if (file.exists()) {
-            if (file.getAbsolutePath() != null) {
-                tfFilename.setText(file.getAbsolutePath());
+        if (file != null) {
+            if (file.exists()) {
+                if (file.getAbsolutePath() != null) {
+                    tfFilename.setText(file.getAbsolutePath());
+                }
             }
         }
     }
 
     /**
      * Create the stage for choosing the dataset file to add to program.
-     * 
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     @FXML
     protected void openFileStage() throws IOException {
@@ -279,7 +284,7 @@ public class AppController implements Initializable {
 
     @FXML
     Button btnClose;
-    
+
     @FXML
     public void closeOpenFileStage() throws IOException {
         Stage stageOpenWindow = (Stage) btnClose.getScene().getWindow();
@@ -288,7 +293,8 @@ public class AppController implements Initializable {
 
     /**
      * Create a stage for line chart plotting.
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     @FXML
     protected void lineChartStage() throws IOException {
@@ -319,6 +325,13 @@ public class AppController implements Initializable {
     }
 
     @FXML
+    protected void variogram1DStage() throws IOException {
+        Variogram1DStage stage = new Variogram1DStage(
+                FractureAnalysis.getInstance().getDatasetList());
+        stage.createStage();
+    }
+
+    @FXML
     protected Label lMinValue, lMaxValue, lStdDevValue, lAvgValue;
 
     @FXML
@@ -330,7 +343,7 @@ public class AppController implements Initializable {
         if (colIndex >= 0) {
             FractureAnalysis.getInstance().setColumnStatistics(
                     FractureAnalysis.getInstance().file.getFileName(),
-                    FractureAnalysis.getInstance().file.getSeparator().getSep(),
+                    FractureAnalysis.getInstance().file.getSeparator(),
                     colIndex, FractureAnalysis.getInstance().file.getHeader());
         }
     }
@@ -343,8 +356,8 @@ public class AppController implements Initializable {
 
     /**
      * When the combobox representing the column of dataset in current use is
-     * changed, this procedure is executed. This procedure will clear
-     * and generate the Histogram of one column of dataset.
+     * changed, this procedure is executed. This procedure will clear and
+     * generate the Histogram of one column of dataset.
      */
     @FXML
     protected void cbHistogramChange() {
@@ -354,7 +367,7 @@ public class AppController implements Initializable {
         if (index >= 0) {
             vector = OpenDataset.openCSVFileToVector(
                     FractureAnalysis.getInstance().file.getFileName(),
-                    FractureAnalysis.getInstance().file.getSeparator().getSep(), index, header);
+                    FractureAnalysis.getInstance().file.getSeparator().getChar(), index, header);
         }
         double amplitude = SampleAmplitude.getAmplitude(vector);
         double classIntervals = Frequency.sturgesExpression(amplitude, vector.size());

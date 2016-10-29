@@ -44,9 +44,9 @@ public class ScatterChartController implements Initializable {
         scatterChart.getYAxis().setLabel(tfYLabel.getText());    
         
         Vector x = OpenDataset.openCSVFileToVector(dm.getFileName(), 
-                dm.getSeparator().getSep(), indexX, dm.getHeader());
+                dm.getSeparator().getChar(), indexX, dm.getHeader());
         Vector y = OpenDataset.openCSVFileToVector(dm.getFileName(), 
-                dm.getSeparator().getSep(), indexY, dm.getHeader());
+                dm.getSeparator().getChar(), indexY, dm.getHeader());
         scatterChart.getData().add(PlotSeries.plotLineSeries(x, y));
     }
 

@@ -11,11 +11,50 @@
     prefHeight="600.0" 
     prefWidth="800.0" 
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="fractureanalysis.controller.SLVariogramController">
+    fx:controller="fractureanalysis.controller.Stage_variogram1DController">
     
     <Label 
         GridPane.columnIndex="0"
+        GridPane.rowIndex="0"  
+        text="Dataset">
+    </Label>
+    <ComboBox   
+        GridPane.columnIndex="1"
         GridPane.rowIndex="0"
+        fx:id="cbDataset"      
+    >        
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        text="Column with distances">
+        
+    </Label>
+    <ComboBox 
+        fx:id="cbDistances"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1">
+        
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"
+        text="Column with values">
+        
+    </Label>
+    <ComboBox 
+        fx:id="cbValues"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="2">
+        
+    </ComboBox>
+    
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3"
         GridPane.columnSpan="2"
         text="List of distances">
     </Label>    
@@ -23,7 +62,7 @@
     <ListView 
         fx:id="lvDistances"
         GridPane.columnIndex="0"
-        GridPane.rowIndex="1"
+        GridPane.rowIndex="4"
         GridPane.columnSpan="3"
         GridPane.rowSpan="2"
         orientation="VERTICAL" 
@@ -36,7 +75,7 @@
     <TextArea 
         fx:id="taDist"
         GridPane.columnIndex="0"
-        GridPane.rowIndex="4"
+        GridPane.rowIndex="7"
         prefRowCount="1"
         prefColumnCount="6"  
     >
@@ -45,7 +84,7 @@
     <Button 
         fx:id="bAddDist"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="4"
+        GridPane.rowIndex="7"
         text="Add"
         onAction="#bAddClick" >
     </Button>
@@ -53,28 +92,28 @@
     <Button 
         fx:id="bRmDist"
         GridPane.columnIndex="2"
-        GridPane.rowIndex="4"
+        GridPane.rowIndex="7"
         text="Remove"
         onAction="#bRmClick" >
     </Button>
    
     <Button 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="5"
+        GridPane.rowIndex="8"
         text="Plot"
-         >
+    >
     </Button>     
     
     <Button
         GridPane.columnIndex="1"
-        GridPane.rowIndex="5"
+        GridPane.rowIndex="8"
         text="Auto" 
         onAction="#auto">
     </Button>
     
     <Button 
         GridPane.columnIndex="2"
-        GridPane.rowIndex="5"
+        GridPane.rowIndex="8"
         text="Clear"
         onAction="#clear" >
     </Button>     
@@ -82,7 +121,7 @@
     <javafx.scene.chart.ScatterChart 
         fx:id="variogram_chart" 
         GridPane.columnIndex="5"
-        GridPane.rowIndex="0"    
+        GridPane.rowIndex="3"    
         GridPane.columnSpan="6"
         GridPane.rowSpan="6">
         <xAxis>

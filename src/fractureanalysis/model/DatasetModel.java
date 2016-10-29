@@ -87,11 +87,11 @@ public class DatasetModel {
     }
 
     public void setSepString(String sep) {
-        this.separator.getSep();
+        this.separator.getChar();
     }
 
     public String getSepString() {
-        return this.separator.getSep();
+        return this.separator.getChar();
     }
 
     public void setHeader(boolean header) {

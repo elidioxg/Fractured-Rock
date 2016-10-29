@@ -54,7 +54,7 @@ public class Tab_cumulative_freqController implements Initializable {
         int selected = cbColumn.getSelectionModel().getSelectedIndex();
         if (selected >= 0) {
             String filename = FractureAnalysis.getInstance().file.getFileName();
-            String sep = FractureAnalysis.getInstance().file.getSeparator().getSep();
+            String sep = FractureAnalysis.getInstance().file.getSeparator().getChar();
             boolean header = FractureAnalysis.getInstance().file.getHeader();
             Vector vector = OpenDataset.openCSVFileToVector(filename, sep, selected, header);
             double sum = vector.sum();
