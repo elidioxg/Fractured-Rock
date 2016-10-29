@@ -1,5 +1,6 @@
 package fractureanalysis.data;
 
+import fractureanalysis.model.Separator;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,7 +16,7 @@ public class DatasetProperties {
 
     //TODO: um único procedimento para pegar todas as propriedades
     /**
-     *
+     * Get the number of columns on the dataset
      * @param filename
      * @param separator
      * @return Number of columns in dataset file
@@ -47,6 +48,38 @@ public class DatasetProperties {
     }
 
     /**
+     * Get the number of columns 
+     * @param filename
+     * @param separator 
+     * @return 
+     */
+    public static int getColumnsCount(String filename, Separator separator) {
+        BufferedReader br = null;
+        ArrayList<Double> values = new ArrayList<>();
+        String line = null;
+        String[] lineValues = null;
+        try {
+            br = new BufferedReader(new FileReader(filename));
+            line = br.readLine();
+            lineValues = line.split(separator.getSep());
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+        if (lineValues != null) {
+            return lineValues.length;
+        } else {
+            return 0;
+        }
+    }
+    
+    /**
      *
      * @param filename
      * @param separator
@@ -64,7 +97,22 @@ public class DatasetProperties {
         return result;
     }
 
-    public static int getRowCount(String filename, String separator) {
+    public static ArrayList<String> getHeaders(String filename, Separator separator)
+            throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        final String headerLine = br.readLine();
+        final String[] headerValues = headerLine.split(separator.getSep());
+        ArrayList<String> result = new ArrayList();
+        result.addAll(Arrays.asList(headerValues));
+        return result;
+    }
+    
+    /**
+     * Get the number of rows on dataset
+     * @param filename
+     * @return 
+     */
+    public static int getRowCount(String filename) {
         BufferedReader br = null;
         int count = 0;
         String line = null;
@@ -85,4 +133,5 @@ public class DatasetProperties {
         }
         return count;
     }
+    
 }

@@ -41,3 +41,10 @@
     -fx-padding: 10 10 10 10;    
     -fx-fill-width: true;
 }
+
+.tab{
+    -fx-background-color: white;
+}
+#AnchorPane{
+    -fx-background-color: white;
+}

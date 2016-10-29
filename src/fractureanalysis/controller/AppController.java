@@ -5,6 +5,7 @@ import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
+import fractureanalysis.model.Separator;
 import fractureanalysis.stages.HistogramStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
@@ -75,7 +76,7 @@ public class AppController implements Initializable {
     protected void onMouseClicked() throws IOException {
         DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();
         if (dm != null) {
-            populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
+            populateTable(dm.getFileName(), dm.getSepString(), dm.getHeader());
         }
     }
 
@@ -205,23 +206,26 @@ public class AppController implements Initializable {
      * @throws IOException 
      */
     @FXML
-    protected void addToList() throws IOException {
+    protected void addToList() throws IOException, Exception {
         if (cbHeader.isSelected()) {
             FractureAnalysis.getInstance().file.setHeader(true);
         } else {
             FractureAnalysis.getInstance().file.setHeader(false);
         }
-        String sep = " ";
+        Separator sep;
         if (rbTab.isSelected()) {
-            sep = "\t";
-        } else if (rbComma.isSelected()) {
-            sep = ",";
+            sep = new Separator(0);
         } else if (rbSemicolon.isSelected()) {
-            sep = ";";
+            sep = new Separator(1);
+        } else if (rbComma.isSelected()) {
+            sep = new Separator(2);;
         } else {
             String aux = tfSeparator.getCharacters().toString();
             if (aux.length() != 0) {
-                sep = aux;
+                sep = new Separator(aux);
+            } else {
+                sep = new Separator();
+                throw new Exception("Invalid Separator");
             }
         }
         if (!tfFilename.getText().trim().isEmpty()) {
@@ -234,7 +238,7 @@ public class AppController implements Initializable {
             FractureAnalysis.getInstance().file.setSeparator(sep);
             FractureAnalysis.getInstance().file.setColumnsCount(
                     columnCount);
-            int rowCount = DatasetProperties.getRowCount(file.getAbsolutePath(), sep);
+            int rowCount = DatasetProperties.getRowCount(file.getAbsolutePath());
             FractureAnalysis.getInstance().file.setRowsCount(rowCount);
             if (FractureAnalysis.getInstance().file.getColumnsCount() > 1) {
                 FractureAnalysis.getInstance().file.setApColumn(1);
@@ -326,7 +330,7 @@ public class AppController implements Initializable {
         if (colIndex >= 0) {
             FractureAnalysis.getInstance().setColumnStatistics(
                     FractureAnalysis.getInstance().file.getFileName(),
-                    FractureAnalysis.getInstance().file.getSeparator(),
+                    FractureAnalysis.getInstance().file.getSeparator().getSep(),
                     colIndex, FractureAnalysis.getInstance().file.getHeader());
         }
     }
@@ -350,7 +354,7 @@ public class AppController implements Initializable {
         if (index >= 0) {
             vector = OpenDataset.openCSVFileToVector(
                     FractureAnalysis.getInstance().file.getFileName(),
-                    FractureAnalysis.getInstance().file.getSeparator(), index, header);
+                    FractureAnalysis.getInstance().file.getSeparator().getSep(), index, header);
         }
         double amplitude = SampleAmplitude.getAmplitude(vector);
         double classIntervals = Frequency.sturgesExpression(amplitude, vector.size());

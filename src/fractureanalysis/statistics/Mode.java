@@ -18,7 +18,6 @@ package fractureanalysis.statistics;
 
 import fractureanalysis.Vectors.Vector;
 import java.util.ArrayList;
-import java.util.Comparator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -29,8 +28,9 @@ import javafx.collections.ObservableList;
 public class Mode {
 
     /**
-     * Get the number repeated more in the list
-     *
+     * Get the number repeated more in the list     
+     * Returns Double.NaN if there is not repeated values
+     * 
      * @param array
      * @return
      */
@@ -55,7 +55,8 @@ public class Mode {
     }
 
     /**
-     * Get the most repeated number of a vector
+     * Get the most repeated number of a vector.
+     * Returns Double.NaN if there is not repeated values
      *
      * @param vector
      * @return

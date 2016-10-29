@@ -60,7 +60,7 @@ public class CorrelationController implements Initializable{
         int indexA = cbVarA.getSelectionModel().getSelectedIndex();
         int indexB = cbVarB.getSelectionModel().getSelectedIndex();
         String filename = FractureAnalysis.getInstance().file.getFileName();
-        String sep = FractureAnalysis.getInstance().file.getSeparator();
+        String sep = FractureAnalysis.getInstance().file.getSeparator().getSep();
         if(indexA>=0 & indexB>=0){
             Vector arrayA = OpenDataset.openCSVFileToVector(
                     filename, sep, indexA, true);

@@ -7,7 +7,7 @@ public class DatasetModel {
 
     private String datasetName = "";
     private String datasetFilename = "";
-    private String separator = ",";
+    private Separator separator;
     private boolean hasHeader = true;
     private ArrayList<String> headerStrings;
     private int columnsCount = 0;
@@ -19,7 +19,7 @@ public class DatasetModel {
 
     }
 
-    public DatasetModel(String datasetName, String filename, String separator,
+    public DatasetModel(String datasetName, String filename, Separator separator,
             boolean hasHeader, ArrayList<String> headerStrings, int columns, int rows) {
         this.datasetName = datasetName;
         this.datasetFilename = filename;
@@ -33,29 +33,32 @@ public class DatasetModel {
 
     /**
      * Set the index of aperture column
-     * @param column 
+     *
+     * @param column
      */
     public void setApColumn(int column) {
         this.apColumn = column;
     }
-    
+
     /**
      * Get the index of aperture column
-     * @return 
+     *
+     * @return
      */
-    public int getApColumn(){
+    public int getApColumn() {
         return this.apColumn;
     }
-    
+
     /**
-     * Set the spacement index column of the dataset 
-     * @param column 
+     * Set the spacement index column of the dataset
+     *
+     * @param column
      */
     public void setSpColumn(int column) {
         this.spColumn = column;
     }
-    
-    public int getSpColumn(){
+
+    public int getSpColumn() {
         return this.spColumn;
     }
 
@@ -75,12 +78,20 @@ public class DatasetModel {
         return this.datasetFilename;
     }
 
-    public void setSeparator(String sep) {
+    public void setSeparator(Separator sep) {
         this.separator = sep;
     }
 
-    public String getSeparator() {
+    public Separator getSeparator() {
         return this.separator;
+    }
+
+    public void setSepString(String sep) {
+        this.separator.getSep();
+    }
+
+    public String getSepString() {
+        return this.separator.getSep();
     }
 
     public void setHeader(boolean header) {
@@ -93,9 +104,9 @@ public class DatasetModel {
 
     public void setHeaderStrings(ArrayList<String> strHeader) {
         this.headerStrings = strHeader;
-    }   
-    
-    public ArrayList<String> getHeaderArray(){
+    }
+
+    public ArrayList<String> getHeaderArray() {
         return this.headerStrings;
     }
 
@@ -118,4 +129,5 @@ public class DatasetModel {
     public int getRowsCount() {
         return this.rowsCount;
     }
+    
 }

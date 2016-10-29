@@ -104,7 +104,7 @@ public class FractureAnalysis extends Application {
                                 setText(myObject.getDatasetName());
                                 setColumnStatistics(
                                         myObject.getFileName(), 
-                                        myObject.getSeparator(), 0, 
+                                        myObject.getSeparator().getSep(), 0, 
                                         myObject.getHeader());
                             }
                         }
@@ -125,8 +125,9 @@ public class FractureAnalysis extends Application {
                         file.setHeaderStrings(dm.getHeaderArray());
                         file.setColumnsCount(dm.getColumnsCount());
                         file.setRowsCount(dm.getRowsCount());
-                        controller.populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
-                        setColumnStatistics(dm.getFileName(), dm.getSeparator(),
+                        controller.populateTable(dm.getFileName(), 
+                                dm.getSeparator().getSep(), dm.getHeader());
+                        setColumnStatistics(dm.getFileName(), dm.getSeparator().getSep(),
                                 0/*dm.getCurrentColumn()*/,dm.getHeader());
                         setDatasetStatistics(file);
                         itemsComboboxes();
@@ -245,7 +246,7 @@ public class FractureAnalysis extends Application {
         Label lFilename = (Label) grid.lookup("#lFilename");
         lFilename.setText(file.getFileName());
         Label lSeparator = (Label) grid.lookup("#lSeparator");
-        lSeparator.setText(file.getSeparator());
+        lSeparator.setText(file.getSeparator().getSep());
         Label lColumns = (Label) grid.lookup("#lColumns");
         lColumns.setText(String.valueOf(file.getColumnsCount()));
         Label lRows = (Label) grid.lookup("#lRows");

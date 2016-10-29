@@ -49,6 +49,10 @@ public class View3DStage {
     private final double defaultZTranslate = -3000.;
     
 
+    /**
+     * Create a Stage for 3D fractures representation
+     * @throws Exception 
+     */
     public void createStage() throws Exception {        
         final Group root = new Group();
         root.getChildren().addAll(LightProperties.setScene3DLight());

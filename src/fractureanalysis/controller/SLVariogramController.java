@@ -116,7 +116,7 @@ public class SLVariogramController implements Initializable {
     private void estimateFractures(int indexAp, int indexSp) throws Exception {
 
         String filename = FractureAnalysis.getInstance().file.getFileName();
-        String sep = FractureAnalysis.getInstance().file.getSeparator();
+        String sep = FractureAnalysis.getInstance().file.getSeparator().getSep();
         boolean header = FractureAnalysis.getInstance().file.getHeader();
         Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexAp, header);
         Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);

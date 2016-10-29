@@ -74,13 +74,13 @@ public class Stage_variogramController implements Initializable {
         
         int xIndex = cbX.getSelectionModel().getSelectedIndex();
         Vector x = OpenDataset.openCSVFileToVector(dm.getFileName(), 
-                dm.getSeparator(), xIndex,dm.getHeader());
+                dm.getSeparator().getSep(), xIndex,dm.getHeader());
         int yIndex = cbY.getSelectionModel().getSelectedIndex();
         Vector y = OpenDataset.openCSVFileToVector(dm.getFileName(), 
-                dm.getSeparator(), yIndex, dm.getHeader());        
+                dm.getSeparator().getSep(), yIndex, dm.getHeader());        
         int contentIndex = cbContent.getSelectionModel().getSelectedIndex();        
         Vector content = OpenDataset.openCSVFileToVector(dm.getFileName(), 
-                dm.getSeparator(), contentIndex,dm.getHeader());
+                dm.getSeparator().getSep(), contentIndex,dm.getHeader());
         
         double initDist = Double.valueOf(tfInitial.getText().trim());
         double stepSize = Double.valueOf(tfStep.getText().trim());

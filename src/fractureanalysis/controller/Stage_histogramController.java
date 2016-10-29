@@ -100,7 +100,7 @@ public class Stage_histogramController implements Initializable {
             dm = HistogramStage.getInstance().getDatasets().get(datasetIndex);
             Vector vector = OpenDataset.openCSVFileToVector(
                     dm.getFileName(),
-                    dm.getSeparator(), columnIndex, dm.getHeader());
+                    dm.getSeparator().getSep(), columnIndex, dm.getHeader());
             double min = MinimumValue.getMinValue(vector);
             System.out.println("Minimum: " + min);
             double max = MaximumValue.getMaxValue(vector);
@@ -127,7 +127,7 @@ public class Stage_histogramController implements Initializable {
                 dm = HistogramStage.getInstance().getDatasets().get(datasetIndex);
                 Vector vector = OpenDataset.openCSVFileToVector(
                         dm.getFileName(),
-                        dm.getSeparator(), columnIndex, dm.getHeader());
+                        dm.getSeparator().getSep(), columnIndex, dm.getHeader());
                 double min = Double.valueOf(tfMinValue.getText());
                 double max = Double.valueOf(tfMaxValue.getText());
                 int intervals = Integer.valueOf(tfIntervals.getText());
