@@ -67,7 +67,8 @@ public class HistogramStage {
      */
     public void createStage() throws IOException {
         if (FractureAnalysis.getInstance().getDatasetList().size()>0) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+            FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().
+                    getClass().getResource(
                             "views/stage_histogram.fxml"));
             Parent parent = (Parent) loader.load();
             ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");

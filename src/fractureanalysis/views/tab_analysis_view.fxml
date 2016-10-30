@@ -53,17 +53,20 @@
         GridPane.rowIndex="1"  
         GridPane.columnSpan="4"         
     >
-        <Tab text="Summary">
+        <Tab text="Summary"
+             closable="false">
             <content>
                 <fx:include source="tab_summary_analysis.fxml"/>
             </content>
         </Tab>
-        <Tab text="Distribution">
+        <Tab text="Distribution"
+             closable="false">
             <content>
                 <fx:include source="tab_distribution.fxml"/>
             </content>
         </Tab>     
-        <Tab text="2D View">
+        <Tab text="2D View"
+             closable="false">
             <content>
                 <fx:include source="tab_2dview.fxml"/>
             </content>

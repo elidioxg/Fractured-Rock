@@ -89,13 +89,15 @@
     >
         
         <Tab
-            text="Dataset">
+            text="Dataset"
+        closable="false" >
             <content>
                 <fx:include fx:id="dataset" source="tab_dataset.fxml"/>
             </content>
         </Tab>
         
-        <Tab text="Table">
+        <Tab text="Table"
+        closable="false">
                         
             <TableView 
                 fx:id="tvDataset"                
@@ -104,32 +106,37 @@
             
         </Tab>
         
-        <Tab text="Summary">
+        <Tab text="Summary"
+        closable="false">
             <content>
                 <fx:include fx:id="summaryView" source="tab_summary.fxml"/>
             </content>
             
         </Tab> 
         
-        <Tab text="Histogram">
+        <Tab text="Histogram"
+        closable="false">
             <content>
                 <fx:include fx:id="histogramView" source="tab_histogram.fxml"/>
             </content>
         </Tab>
         
-        <Tab text="Cumulative Frequency">
+        <Tab text="Cumulative Frequency"
+        closable="false">
             <content>
                 <fx:include source="tab_cumulative_freq.fxml"/>
             </content>
         </Tab>
         
-        <Tab text="Correlation">
+        <Tab text="Correlation"
+        closable="false">
             <content>
                 <fx:include source="tab_correlation.fxml"/>
             </content>
         </Tab>
         
-        <Tab text="Fracture Analysis">
+        <Tab text="Fracture Analysis"
+        closable="false">
             <content>
                 <ScrollPane >
                     <content>

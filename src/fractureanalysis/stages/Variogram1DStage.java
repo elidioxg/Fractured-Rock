@@ -57,7 +57,8 @@ public class Variogram1DStage {
 
     public void createStage() throws IOException {
         FXMLLoader loader = 
-                new FXMLLoader(getClass().getResource("views/stage_variogram1D.fxml"));
+                new FXMLLoader(FractureAnalysis.getInstance().
+                        getClass().getResource("views/stage_variogram1D.fxml"));
         
         Parent root = (Parent) loader.load();
         

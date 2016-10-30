@@ -84,7 +84,9 @@ public class AppController implements Initializable {
     /**
      * Populates the table on main stage. This table is used to view dataset
      * values.
-     *
+     * 
+     * TODO: Tirar esse procedimento daqui 
+     * 
      * @param filename
      * @param separator
      * @param hasHeader

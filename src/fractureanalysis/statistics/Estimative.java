@@ -1,7 +1,6 @@
 package fractureanalysis.statistics;
 
 import fractureanalysis.Vectors.Vector;
-import java.util.ArrayList;
 
 public class Estimative {
     
@@ -38,6 +37,7 @@ public class Estimative {
      * @param arithmeticAverage
      * @param stdDeviation
      * @param confiabilityConstant
+     * @return 
      */ 
     public static double samplingPrecisionNormal(int samplesNumber, 
             double arithmeticAverage, double stdDeviation, 
@@ -47,7 +47,7 @@ public class Estimative {
     }
     /**
      * Gaussian Distribution
-     * @param arrayX
+     * @param vectorX
      * @param studentConstant
      * @return 
      */

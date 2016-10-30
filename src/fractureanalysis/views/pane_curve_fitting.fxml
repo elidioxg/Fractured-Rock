@@ -20,8 +20,8 @@
     </stylesheets>
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="50"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="50"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="80"></ColumnConstraints> 
     </columnConstraints>
     
     <Label 
