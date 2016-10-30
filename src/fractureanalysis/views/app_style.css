@@ -1,3 +1,15 @@
+.check-box{
+    -fx-padding: 9;
+}
+
+.radio-button{
+    -fx-padding: 9;
+}
+
+.text-field{
+    
+}
+
 .label{
     -fx-padding: 9;
     -fx-font: 12px serif; 
@@ -7,7 +19,7 @@
     -fx-padding: 9;  
 }
 
-.Button{
+.button{
     -fx-padding: 9;
 }
 
@@ -45,6 +57,6 @@
 .tab{
     -fx-background-color: white;
 }
-#AnchorPane{
+#WhitePane{
     -fx-background-color: white;
 }
