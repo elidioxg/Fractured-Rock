@@ -56,7 +56,7 @@
         text="Sill">        
     </Label>
     <TextField 
-        fx:id="tfSill"
+        fx:id="tfFitSill"
         GridPane.columnIndex="1"
         GridPane.rowIndex="2"        
     >   
@@ -68,7 +68,7 @@
         text="Range">        
     </Label>
     <TextField 
-        fx:id="tfRange"
+        fx:id="tfFitRange"
         GridPane.columnIndex="1"
         GridPane.rowIndex="3"        
     >   
@@ -80,7 +80,7 @@
         text="Step">        
     </Label>
     <TextField 
-        fx:id="tfStep"
+        fx:id="tfFitStep"
         GridPane.columnIndex="1"
         GridPane.rowIndex="4"        
     >   
@@ -93,6 +93,7 @@
         <buttons>
             <Button 
                 ButtonBar.buttonData="APPLY" 
+                onAction="#plotModel" 
                 text="Plot">
                 
             </Button>  

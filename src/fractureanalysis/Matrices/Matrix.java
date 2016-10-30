@@ -17,7 +17,6 @@
 package fractureanalysis.Matrices;
 
 import fractureanalysis.Vectors.Vector;
-import javafx.concurrent.Task;
 
 /**
  *
@@ -43,42 +42,34 @@ public class Matrix {
         this.lines = lines;
         this.columns = columns;
         data = new Number[columns][lines];
-        Task<Void> task = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                for (int i = 0; i < lines; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        final int ii = i;
-                        final int jj = j;
-                        data[j][i] = new Number() {
-                            @Override
-                            public int intValue() {
-                                return (int) data[jj][ii];
-                            }
-
-                            @Override
-                            public long longValue() {
-                                return (long) data[jj][ii];
-                            }
-
-                            @Override
-                            public float floatValue() {
-                                return (float) data[jj][ii];
-                            }
-
-                            @Override
-                            public double doubleValue() {
-                                return (double) data[jj][ii];
-                            }
-                        };
-                        data[jj][ii] = 0.;
+        for (int i = 0; i < lines; i++) {
+            for (int j = 0; j < columns; j++) {
+                final int ii = i;
+                final int jj = j;
+                data[j][i] = new Number() {
+                    @Override
+                    public int intValue() {
+                        return (int) data[jj][ii];
                     }
-                }
-                return null;
+
+                    @Override
+                    public long longValue() {
+                        return (long) data[jj][ii];
+                    }
+
+                    @Override
+                    public float floatValue() {
+                        return (float) data[jj][ii];
+                    }
+
+                    @Override
+                    public double doubleValue() {
+                        return (double) data[jj][ii];
+                    }
+                };
+                data[jj][ii] = 0.;
             }
-
-        };
-
+        }
     }
 
     /**
@@ -92,40 +83,34 @@ public class Matrix {
         this.lines = lines;
         this.columns = columns;
         data = new Number[columns][lines];
-        Task<Void> task = new Task() {
-            @Override
-            protected Void call() throws Exception {
-                for (int i = 0; i < lines; i++) {
-                    for (int j = 0; j < columns; j++) {
-                        final int ii = i;
-                        final int jj = j;
-                        data[j][i] = new Number() {
-                            @Override
-                            public int intValue() {
-                                return (int) data[jj][ii];
-                            }
-
-                            @Override
-                            public long longValue() {
-                                return (long) data[jj][ii];
-                            }
-
-                            @Override
-                            public float floatValue() {
-                                return (float) data[jj][ii];
-                            }
-
-                            @Override
-                            public double doubleValue() {
-                                return (double) data[jj][ii];
-                            }
-                        };
-                        data[jj][ii] = value;
+        for (int i = 0; i < lines; i++) {
+            for (int j = 0; j < columns; j++) {
+                final int ii = i;
+                final int jj = j;
+                data[j][i] = new Number() {
+                    @Override
+                    public int intValue() {
+                        return (int) data[jj][ii];
                     }
-                }
-                return null;
+
+                    @Override
+                    public long longValue() {
+                        return (long) data[jj][ii];
+                    }
+
+                    @Override
+                    public float floatValue() {
+                        return (float) data[jj][ii];
+                    }
+
+                    @Override
+                    public double doubleValue() {
+                        return (double) data[jj][ii];
+                    }
+                };
+                data[jj][ii] = value;
             }
-        };
+        }
     }
 
     /**
@@ -135,51 +120,59 @@ public class Matrix {
      */
     public Matrix(int size) {
         data = new Number[columns][lines];
-        Task<Void> task = new Task() {
-            @Override
-            protected Void call() throws Exception {
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < size; j++) {
-                        final int ii = i;
-                        final int jj = j;
-                        data[i][j] = new Number() {
-                            @Override
-                            public int intValue() {
-                                return (int) data[jj][ii];
-                            }
-
-                            @Override
-                            public long longValue() {
-                                return (long) data[jj][ii];
-                            }
-
-                            @Override
-                            public float floatValue() {
-                                return (float) data[jj][ii];
-                            }
-
-                            @Override
-                            public double doubleValue() {
-                                return (double) data[jj][ii];
-                            }
-                        };
-                        data[j][i] = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                final int ii = i;
+                final int jj = j;
+                data[i][j] = new Number() {
+                    @Override
+                    public int intValue() {
+                        return (int) data[jj][ii];
                     }
-                }
-                return null;
+
+                    @Override
+                    public long longValue() {
+                        return (long) data[jj][ii];
+                    }
+
+                    @Override
+                    public float floatValue() {
+                        return (float) data[jj][ii];
+                    }
+
+                    @Override
+                    public double doubleValue() {
+                        return (double) data[jj][ii];
+                    }
+                };
+                data[j][i] = 0;
             }
-        };
+        }
     }
 
     /**
      * Change one value in the matrix
-     * 
+     *
      * @param column
      * @param line
      * @param value
+     * @throws java.lang.Exception
      */
-    public void set(int column, int line, Number value) {
-        this.data[column][line] = value;
+    public void set(int column, int line, Number value) throws Exception {
+        if (!this.data.equals(null)) {
+            if (column < this.columns) {
+                if (line < this.lines) {
+                    this.data[column][line] = value;
+                } else {
+                    throw new Exception("Line index higher than columns number");
+                }
+            } else {
+                throw new Exception("Column index higher than columns number");
+            }
+        } else {
+            throw new Exception("Null Matrix");
+        }
+
     }
 
     public void setData(Number[][] data, int columns, int lines) {

@@ -7,12 +7,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" 
-          id="AnchorPane" 
-          prefHeight="400.0" 
-          prefWidth="600.0" 
-          styleClass="mainFxmlClass"             
-          fx:controller="fractureanalysis.controller.AppController">
+<GridPane 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    id="WhitePane" 
+    prefHeight="400.0" 
+    prefWidth="600.0" 
+    styleClass="mainFxmlClass"             
+    fx:controller="fractureanalysis.controller.AppController">
     
     
     <stylesheets>

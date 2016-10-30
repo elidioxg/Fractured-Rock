@@ -16,8 +16,10 @@
  */
 package fractureanalysis.plot;
 
+import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.analysis.Variograms;
+import fractureanalysis.statistics.variogram.Models;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
@@ -48,4 +50,11 @@ public class PlotVariogramSeries {
         }
         return PlotSeries.plotLineSeries(distance, variogramValue);
     }    
+    
+    public static XYChart.Series plotModel(Matrix matrix, int colX, int colY,
+            String serieName) throws Exception{
+        XYChart.Series serie = PlotSeries.plotLineSeries(matrix, colX, colY);
+        serie.setName(serieName);
+        return serie;
+    }
 }

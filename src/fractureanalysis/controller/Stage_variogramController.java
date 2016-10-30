@@ -21,7 +21,9 @@ import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
+import fractureanalysis.plot.PlotVariogramSeries;
 import fractureanalysis.stages.VariogramStage;
+import fractureanalysis.statistics.variogram.Models;
 import fractureanalysis.statistics.variogram.Variogram;
 import java.net.URL;
 import java.util.ArrayList;
@@ -100,6 +102,49 @@ public class Stage_variogramController implements Initializable {
             alY.add(result.get(1, i).doubleValue());            
         }        
         lcVariogram.getData().addAll(PlotSeries.plotLineSeries(alX, alY));
+        
+    }
+    
+    @FXML
+    protected ComboBox cbModel;
+    
+    @FXML
+    protected TextField tfFitSill, tfFitRange, tfFitStep;    
+    
+    @FXML
+    protected void plotModel() throws Exception{
+        if(cbModel.getSelectionModel().getSelectedIndex()>=0){
+            if(!tfFitSill.getText().isEmpty()){
+                if(!tfFitRange.getText().isEmpty()){
+                    if(!tfFitStep.getText().isEmpty()){
+                        double vSill = Double.valueOf(tfFitSill.getText());
+                        double vRange = Double.valueOf(tfFitRange.getText());
+                        double vStep = Double.valueOf(tfFitStep.getText());
+                        Matrix matrix =null;
+                        String serieName = "";
+                        switch(cbModel.getSelectionModel().getSelectedIndex()){
+                            case 0:
+                                matrix = Models.spherical(vSill, vRange, vStep);
+                                serieName = "Spherical";
+                                break;
+                            case 1:
+                                matrix = Models.exponential(vSill, vRange, vStep);
+                                serieName = "Exponential";
+                                break;
+                            case 2:
+                                matrix = Models.gaussian(vSill, vRange, vStep);
+                                serieName = "Gaussian";
+                                break;
+                            default:
+                                break;
+                        }
+                        lcVariogram  = (LineChart) cbModel.getScene().lookup("#lcVariogram");                                
+                        lcVariogram.getData().add(
+                                PlotVariogramSeries.plotModel(matrix, 0, 1, serieName));
+                    }
+                }
+            }
+        }
         
     }
     

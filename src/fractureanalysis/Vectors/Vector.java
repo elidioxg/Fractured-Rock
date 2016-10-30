@@ -36,6 +36,7 @@ public class Vector {
 
     public Vector(int size) {
         this.data = new Number[size];
+        this.size = size;
         for (int i = 0; i < size; i++) {
             final int ii = i;
             data[i] = new Number() {

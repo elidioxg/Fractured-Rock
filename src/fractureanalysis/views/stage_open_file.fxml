@@ -9,7 +9,7 @@
 
 <GridPane 
     xmlns:fx="http://javafx.com/fxml/1"
-    id="gridPaneOpen" 
+    id="WhitePane" 
     prefHeight="250.0" 
     prefWidth="350.0" 
     fx:controller="fractureanalysis.controller.AppController" 

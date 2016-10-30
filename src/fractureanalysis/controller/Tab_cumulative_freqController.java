@@ -64,12 +64,12 @@ public class Tab_cumulative_freqController implements Initializable {
             Vector y = new Vector(vector.size());
             for (int i = 0; i < vector.size(); i++) {
                 cumulative+=vector.get(i).doubleValue();
-                System.out.println("Cum: "+cumulative);
+                //System.out.println("Cum: "+cumulative);
                 x.set(i,i);
                 //x.add(i);
                 y.set(i, cumulative/sum*100);
                 //y.add(cumulative/sum*100);
-                System.out.println("vector y value: "+y.get(i).doubleValue());
+                //System.out.println("vector y value: "+y.get(i).doubleValue());
             }
             lcPoints.getData().addAll(PlotSeries.plotLineSeries(x, y));
             lcLine.getData().addAll(PlotSeries.plotLineSeries(x, y));

@@ -57,8 +57,7 @@ public class OpenDataset {
      */
     public static Vector openCSVFileToVector(String fileName, String separator,
             int column, boolean hasHeader) {
-        BufferedReader br = null;
-        Vector vector = new Vector();
+        BufferedReader br = null;        
         String line = null;
         int size = 0;
         try {
@@ -79,6 +78,7 @@ public class OpenDataset {
                 }
             }
         }
+        Vector vector = new Vector();
         Number[] number = new Number[size];
         line = null;
         String[] lineValues;
@@ -131,7 +131,6 @@ public class OpenDataset {
                 }
             }
         }
-
         return vector;
     }
 

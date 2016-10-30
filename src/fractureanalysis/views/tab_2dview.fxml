@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.Color?>
 
 <GridPane 
-    id="AnchorPane" 
+    id="WhitePane" 
     prefHeight="600.0" 
     prefWidth="800.0" 
     xmlns:fx="http://javafx.com/fxml/1"
