@@ -14,6 +14,8 @@
     styleClass="mainFxmlClass" 
     xmlns:fx="http://javafx.com/fxml/1" 
     fx:controller="fractureanalysis.controller.Stage_variogramController">
+    <gridLinesVisible>true</gridLinesVisible>
+    
     <stylesheets>
         <URL value="@app_style.css"/>
     </stylesheets>
@@ -198,5 +200,13 @@
             </javafx.scene.chart.NumberAxis>
         </yAxis>
     </javafx.scene.chart.LineChart>
+    
+    <ScrollPane 
+        GridPane.columnIndex="2" 
+        GridPane.rowIndex="12"
+    >
+        <fx:include source="pane_curve_fitting.fxml"/>
+        
+    </ScrollPane>
     
 </GridPane>

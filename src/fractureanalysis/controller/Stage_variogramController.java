@@ -22,7 +22,7 @@ import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.stages.VariogramStage;
-import fractureanalysis.statistics.Variogram;
+import fractureanalysis.statistics.variogram.Variogram;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
