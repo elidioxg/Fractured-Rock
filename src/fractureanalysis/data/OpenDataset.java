@@ -6,10 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class OpenDataset {
 
@@ -116,7 +113,8 @@ public class OpenDataset {
                 if (lineValues[column].trim().isEmpty()) {
                     number[i] = Double.NaN;
                 } else {
-                    number[i] = Double.parseDouble(lineValues[column].trim());
+                    number[i] = Double.parseDouble(lineValues[column].trim().
+                            replace(",", ".").replace("\"", ""));
                 }
                 i++;
             }
@@ -209,7 +207,8 @@ public class OpenDataset {
                     if (lineValues[j].trim().isEmpty()) {
                         number[j][i] = Double.NaN;
                     } else {
-                        number[j][i] = Double.parseDouble(lineValues[j].trim());
+                        number[j][i] = Double.parseDouble(lineValues[j].trim().
+                                replace(",", ".").replace("\"", ""));
                     }
                 }
                 i++;
@@ -249,7 +248,8 @@ public class OpenDataset {
             }
             while ((line = br.readLine()) != null) {
                 String[] lineValues = line.split(separator);
-                values.add(Double.valueOf(lineValues[column].trim()));
+                values.add(Double.valueOf(lineValues[column].trim().
+                        replace(",", ".").replace("\"", "")));
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {

@@ -47,7 +47,11 @@
             <javafx.scene.chart.NumberAxis ></javafx.scene.chart.NumberAxis>
         </xAxis>
         <yAxis>
-            <javafx.scene.chart.NumberAxis ></javafx.scene.chart.NumberAxis>
+            <javafx.scene.chart.NumberAxis
+                lowerBound="0" 
+                upperBound="100"
+                autoRanging="false"              >
+            </javafx.scene.chart.NumberAxis>
         </yAxis>
         
     </javafx.scene.chart.LineChart>
@@ -58,13 +62,18 @@
         GridPane.columnSpan="4"
         legendVisible="false"
         verticalGridLinesVisible="false" 
-        horizontalGridLinesVisible="false">
+        horizontalGridLinesVisible="false"
+    >
         
         <xAxis>
             <javafx.scene.chart.NumberAxis ></javafx.scene.chart.NumberAxis>
         </xAxis>
         <yAxis>
-            <javafx.scene.chart.NumberAxis ></javafx.scene.chart.NumberAxis>
+            <javafx.scene.chart.NumberAxis 
+                lowerBound="0" 
+                upperBound="100"
+                autoRanging="false"  >
+            </javafx.scene.chart.NumberAxis>
         </yAxis>
         
     </javafx.scene.chart.LineChart>
