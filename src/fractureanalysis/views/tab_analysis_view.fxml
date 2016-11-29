@@ -11,7 +11,7 @@
     id="GridPane" 
     prefHeight="850.0" 
     prefWidth="900.0"
-    fx:controller="fractureanalysis.controller.SLVariogramController">        
+    fx:controller="fractureanalysis.controller.ScanlineController">        
     
     <columnConstraints>
         <ColumnConstraints minWidth="30"  />

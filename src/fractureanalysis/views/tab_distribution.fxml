@@ -11,7 +11,7 @@
     prefHeight="700.0" 
     prefWidth="900.0" 
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="fractureanalysis.controller.SLVariogramController">
+    fx:controller="fractureanalysis.controller.ScanlineController">
     
     <gridLinesVisible>true</gridLinesVisible>
     
@@ -84,7 +84,7 @@
                 lowerBound="0.01"
                 upperBound="10"
                 tickUnit="1"
-                autoRanging="false"                
+                autoRanging="true"                
                 side="TOP"/> 
         </xAxis>
         <yAxis>             
@@ -93,7 +93,7 @@
                 lowerBound="10"
                 upperBound="0.001"
                 tickUnit="0.1"
-                autoRanging="false"
+                autoRanging="true"
                 side="RIGHT"                                             
             />
         </yAxis>
