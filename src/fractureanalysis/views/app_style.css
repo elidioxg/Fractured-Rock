@@ -44,6 +44,13 @@
     -fx-category-gap: 0;
 }
 
+#scDispersion .default-color5.chart-symbol { /* hollow circle */
+    -fx-background-color: #860061, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
 #bcHistogram {
     -fx-bar-gap: 0;
     -fx-category-gap: 0;

@@ -34,7 +34,7 @@ public class Models {
      */
     public static Matrix spherical(double c, double a, double h) throws Exception {
         if (h > a) {
-            throw new Exception("'h' must be smaller than 'a'");
+            throw new Exception("'h' (step) must be smaller than 'a' (range)");
         }
         int nSteps = (int) (a / h) + 5;
         Matrix result = new Matrix(2, nSteps + 1);
@@ -66,7 +66,7 @@ public class Models {
      */
     public static Matrix exponential(double c, double a, double h) throws Exception {
         if (h > a) {
-            throw new Exception("'h' must be smaller than 'a'");
+            throw new Exception("'h' (step) must be smaller than 'a' (range)");
         }
         int nSteps = (int) (a / h) + 5;
         Matrix result = new Matrix(2, nSteps + 1);
@@ -85,7 +85,7 @@ public class Models {
 
     public static Matrix gaussian(double c, double a, double h) throws Exception {
         if (h > a) {
-            throw new Exception("'h' must be smaller than 'a'");
+            throw new Exception("'h' (step) must be smaller than 'a' (range)");
         }
         int nSteps = (int) (a / h) + 5;
         Matrix result = new Matrix(2, nSteps + 1);
@@ -93,7 +93,7 @@ public class Models {
         int index = 0;
         while (index <= nSteps) {
             double value = c * (1 - Math.exp(-Math.pow(aux, 2) / Math.pow(a, 2)));
-            result.set(1, index, aux);
+            result.set(0, index, aux);
             result.set(1, index, value);
             aux += h;
             index++;

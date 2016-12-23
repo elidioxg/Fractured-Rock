@@ -23,7 +23,7 @@ package fractureanalysis.model;
 public class Separator {
 
     private String[] strSep = {"Tab", "semicolon", "colon", "Blank space"};
-    private final String[] sep = {"\t",";",","," "};
+    private final String[] sep = {"\t", ";", ",", " "};
     private final int defaultSep = 0;
     private String current;
     private int currentIndex;
@@ -44,17 +44,17 @@ public class Separator {
      * @param separator
      */
     public Separator(String separator) {
-        
-        boolean found = false;                
+
+        boolean found = false;
         String aux = sep[defaultSep];
         for (int i = 0; i < 4; i++) {
-            if (separator== sep[i]) {                
+            if (separator == sep[i]) {
                 found = true;
                 this.current = sep[i];
                 this.currentIndex = i;
                 break;
             }
-            if (!found) {                
+            if (!found) {
                 this.currentIndex = -1;
             }
         }
@@ -63,17 +63,18 @@ public class Separator {
 
     /**
      * Get the chars representing the separator
-     * @return 
+     *
+     * @return
      */
     public String getChar() {
-        System.out.println("***Current Separator:  "+this.current);
         return this.current;
     }
 
     /**
      * Get the name of separator(eg: Tab, semicolon) or the chars representing
      * the separator.
-     * @return 
+     *
+     * @return
      */
     public String getString() {
         if (currentIndex >= 0) {

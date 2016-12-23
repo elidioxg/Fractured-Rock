@@ -32,9 +32,11 @@
     </ComboBox>
     
     <CheckBox 
+        fx:id="cbSorted"
         GridPane.columnIndex="3"
         GridPane.rowIndex="0"
-        text="Sorted">
+        text="Sorted"
+        onAction="#cbAction" >
     </CheckBox>  
     
     <javafx.scene.chart.LineChart 
