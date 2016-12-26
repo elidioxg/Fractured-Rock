@@ -67,10 +67,10 @@ public class Vector {
         this.data = data;
         this.size = size;
     }
-    
-    public void set(int index, double value) throws Exception{
-        if(!this.data.equals(null)){
-            if(index<this.data.length){
+
+    public void set(int index, double value) throws Exception {
+        if (!this.data.equals(null)) {
+            if (index < this.data.length) {
                 this.data[index] = value;
             } else {
                 throw new Exception("Index higher than vector size");
@@ -78,7 +78,7 @@ public class Vector {
         } else {
             throw new Exception("Null vector data");
         }
-        
+
     }
 
     public Number get(int index) {
@@ -118,28 +118,36 @@ public class Vector {
         this.data = vector;
     }
 
-    public void sort() {        
-        boolean finished = false;        
+    public void sort() {
+        boolean finished = false;
         while (!finished) {
             int counter = 0;
             for (int i = 1; i < this.data.length; i++) {
-                if (this.data[i-1].doubleValue()<this.data[i].doubleValue()) {
-                    Double temp = this.data[i-1].doubleValue();
-                    this.data[i-1] = this.data[i].doubleValue();
+                if (this.data[i - 1].doubleValue() < this.data[i].doubleValue()) {
+                    Double temp = this.data[i - 1].doubleValue();
+                    this.data[i - 1] = this.data[i].doubleValue();
                     this.data[i] = temp;
                     counter++;
                 }
             }
-            if(counter == 0){
+            if (counter == 0) {
                 finished = true;
             }
         }
     }
-    
-    public double sum(){
+
+    public void print() {
+        System.out.println();
+        System.out.print("Vector: ");
+        for(int i = 0; i< this.size(); i++){
+            System.out.print(this.get(i)+" ");
+        }
+    }
+
+    public double sum() {
         double result = 0.;
-        for(int i=0; i< this.data.length; i++){
-            result+=this.data[i].doubleValue();
+        for (int i = 0; i < this.data.length; i++) {
+            result += this.data[i].doubleValue();
         }
         return result;
     }

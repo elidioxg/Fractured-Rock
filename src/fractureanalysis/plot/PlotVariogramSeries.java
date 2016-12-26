@@ -19,7 +19,6 @@ package fractureanalysis.plot;
 import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.analysis.Variograms;
-import fractureanalysis.statistics.variogram.Models;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;

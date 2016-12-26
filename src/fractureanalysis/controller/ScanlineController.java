@@ -24,6 +24,8 @@ import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.statistics.LinearRegression.LinearRegression;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -40,7 +42,7 @@ import javafx.scene.control.TextField;
  *
  * @author elidioxg
  */
-public class SLVariogramController implements Initializable {
+public class ScanlineController implements Initializable {
 
     /**
      * Views: views/tab_distribution.fxml
@@ -144,14 +146,14 @@ public class SLVariogramController implements Initializable {
          * Add linear regression
          */ 
         LinearRegression lr = new LinearRegression(aperture, cumulative);
-//        double min = MinimumValue.getMinValue(aperture);
-//        double max = MaximumValue.getMaxValue(aperture);
-//        double first = lr.getValueAt(min);
-//        double last = lr.getValueAt(max);
-        double min = 0.001;
-        double max = 10;
-        double first = lr.getValueAt(0.001);
-        double last = lr.getValueAt(10);
+        double min = MinimumValue.getMinValue(aperture);
+        double max = MaximumValue.getMaxValue(aperture);
+        double first = lr.getValueAt(min);
+        double last = lr.getValueAt(max);
+        //double min = 0.001;
+        //double max = 10;
+        //double first = lr.getValueAt(0.001);
+       // double last = lr.getValueAt(10);
         XYChart.Series serieRegression = new XYChart.Series();
         serieRegression.getData().add(new XYChart.Data<>(min, first));
         serieRegression.getData().add(new XYChart.Data<>(max, last));

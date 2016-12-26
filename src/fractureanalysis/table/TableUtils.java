@@ -2,7 +2,6 @@ package fractureanalysis.table;
 
 import java.util.ArrayList;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;

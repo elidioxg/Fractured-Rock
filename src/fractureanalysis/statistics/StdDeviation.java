@@ -17,7 +17,6 @@
 package fractureanalysis.statistics;
 
 import fractureanalysis.Vectors.Vector;
-import java.util.ArrayList;
 
 public class StdDeviation {
     

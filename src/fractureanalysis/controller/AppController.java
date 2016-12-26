@@ -91,7 +91,7 @@ public class AppController implements Initializable {
      * @param separator
      * @param hasHeader
      */
-    @FXML
+    
     public void populateTable(final String filename, final Separator separator,
             final boolean hasHeader) {
         tvDataset.getItems().clear();

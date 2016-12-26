@@ -92,8 +92,8 @@ public class Inclination {
         double sumX2 = 0.;
         double sumXY = 0.;
         for (int i = 0; i < arrayX.size(); i++) {
-            sumX2 += Math.pow(arrayX.get(i).doubleValue(), 2);
-            sumXY += arrayX.get(i).doubleValue()* arrayY.get(i).doubleValue();
+            sumX2 += Math.pow(arrayX.get(i), 2);
+            sumXY += arrayX.get(i)* arrayY.get(i);
         }        
         double avgX = Average.arithmeticAverage(arrayX);
         double avgY = Average.arithmeticAverage(arrayY);

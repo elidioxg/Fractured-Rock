@@ -11,41 +11,8 @@ import java.util.ArrayList;
 public class OpenDataset {
 
     /**
-     *
-     * @param fileName
-     * @param separator
-     * @param column
-     * @param hasHeader
-     * @param size
-     * @return
-     */
-    /**
-     * public static Vector openCSVFileToVector(String fileName, String
-     * separator, int column, boolean hasHeader, int size) { BufferedReader br =
-     * null; Vector vector = new Vector(); Number[] number = new Number[size];
-     * String line = null; try { br = new BufferedReader(new
-     * FileReader(fileName)); if (hasHeader) { br.readLine(); } int i = 0; while
-     * ((line = br.readLine()) != null) { String[] lineValues =
-     * line.split(separator); final int ii = i; number[i] = new Number() {
-     *
-     * @Override public int intValue() { return (int) number[ii]; }
-     *
-     * @Override public long longValue() { return (long) number[ii]; }
-     *
-     * @Override public float floatValue() { return (float) number[ii]; }
-     *
-     * @Override public double doubleValue() { return (double) number[ii]; } };
-     * try { number[i] = NumberFormat.getInstance().parse(lineValues[column]); }
-     * catch (ParseException e) { e.printStackTrace(); } i++; }
-     * vector.setData(number, i); } catch (FileNotFoundException e) { } catch
-     * (IOException e) { } finally { if (br != null) { try { br.close(); } catch
-     * (IOException e) { } } }
-     *
-     * return vector; }
-     *
-     */
-    /**
      * Open data file as a vector
+     *
      * @param fileName
      * @param separator
      * @param column
@@ -54,7 +21,7 @@ public class OpenDataset {
      */
     public static Vector openCSVFileToVector(String fileName, String separator,
             int column, boolean hasHeader) {
-        BufferedReader br = null;        
+        BufferedReader br = null;
         String line = null;
         int size = 0;
         try {
@@ -134,6 +101,7 @@ public class OpenDataset {
 
     /**
      * Open data file as a matrix
+     *
      * @param fileName
      * @param separator
      * @param hasHeader
@@ -230,11 +198,12 @@ public class OpenDataset {
 
     /**
      * Open a data file as a ArrayList with Double values
+     *
      * @param fileName
      * @param separator
      * @param column
      * @param hasHeader
-     * @return 
+     * @return
      */
     public static ArrayList<Double> openCSVFileToDouble(String fileName, String separator,
             int column, boolean hasHeader) {
@@ -263,42 +232,5 @@ public class OpenDataset {
         }
         return values;
     }
-     
-    /*public ArrayList[][] openCSVFileToArray(String fileName, String separator,
-            int indexId, int indexSp, int indexAp) {
-        ArrayList[][] array = null;
-        BufferedReader br = null;
-        List<Double> values = new ArrayList<>();
-        String line = null;
-        try {
-            br = new BufferedReader(new FileReader(fileName));
-            int countLines = 0;
-            while (br.readLine() != null) {
-                countLines++;
-            }
-            array = new ArrayList[countLines][];
-            br.reset();
-            int count = 0;
-            while ((line = br.readLine()) != null) {
-                String[] lineValues = line.split(separator);
-                array[count][0] = new ArrayList();
-                array[count][0].add(lineValues[indexId].trim());
-                array[count][1] = new ArrayList();
-                array[count][1].add(lineValues[indexSp].trim());
-                array[count][2] = new ArrayList();
-                array[count][2].add(lineValues[indexAp].trim());
-                count++;
-            }
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                }
-            }
-        }
-        return array;
-    }*/
+
 }

@@ -138,7 +138,7 @@ public class Stage_variogramController implements Initializable {
                             default:
                                 break;
                         }
-                        lcVariogram  = (LineChart) cbModel.getScene().lookup("#lcVariogram");                                
+                        lcVariogram  = (LineChart) cbModel.getScene().lookup("#lcVariogram");                                       
                         lcVariogram.getData().add(
                                 PlotVariogramSeries.plotModel(matrix, 0, 1, serieName));
                     }

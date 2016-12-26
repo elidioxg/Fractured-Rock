@@ -46,7 +46,7 @@ public class LinearRegression {
         } catch (Exception e) {
 
         }
-        this.initialValue = InitialValue.getInitialValue(arrayX, arrayY, inclination);
+        this.initialValue = InitialValue.getInitialValue(arrayX, arrayY, inclination);        
     }
     
     public LinearRegression(ArrayList<Double> arrayX, ArrayList<Double> arrayY) {        
@@ -55,7 +55,7 @@ public class LinearRegression {
         } catch (Exception e) {
 
         }
-        this.initialValue = InitialValue.getInitialValue(arrayX, arrayY, inclination);
+        this.initialValue = InitialValue.getInitialValue(arrayX, arrayY, inclination);        
     }
 
     /**
