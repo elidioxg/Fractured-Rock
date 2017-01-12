@@ -18,6 +18,8 @@ package fractureanalysis.statistics.variogram;
 
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.Matrices.Matrix;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +27,79 @@ import java.util.ArrayList;
  * @author elidioxg
  */
 public class Variogram {
+
+    /**
+     * Create a variogram matrix considering angles of tolerance. The matrix is
+     * returned represents
+     *
+     *
+     *
+     * @param xData
+     * @param yData
+     * @param contentData
+     * @param stepSize
+     * @param toleranceDistance
+     * @param angleDirection
+     * @param angleTolerance
+     * @return
+     * @throws Exception
+     */
+    public static Matrix variogram2D(Vector xData, Vector yData, Vector contentData,
+            double stepSize, double toleranceDistance, double angleDirection,
+            double angleTolerance) throws Exception {
+        Matrix result;
+        if (xData.size() != yData.size()) {
+            throw new Exception("Vectors X and Y must have same size.");
+        } else {
+            /**
+             * Define the number of points on variogram using the Step value
+             * and the distances X and Y
+             */
+            double distX = MaximumValue.getMaxValue(xData) - MinimumValue.getMinValue(xData); 
+            double distY  = MaximumValue.getMaxValue(yData) - MinimumValue.getMinValue(yData); 
+            double linesNumber;
+            if(distX > distY){
+                linesNumber =  distX/stepSize;
+            } else {
+                linesNumber =  distY/stepSize;
+            }
+            ArrayList<Double> steps = new ArrayList();
+            ArrayList<Double> values = new ArrayList();
+            ArrayList<Integer> pairs = new ArrayList();
+            for (int currentLine = 0; currentLine < linesNumber; currentLine++) {
+                double value = 0.;
+                int pairsNumber = 0;
+                for (int i = 0; i < xData.size(); i++) {
+                    SearchWindow search = new SearchWindow(
+                            xData.get(i).doubleValue(), yData.get(i).doubleValue(),
+                            angleDirection, angleTolerance,
+                            stepSize, stepSize, true);
+                    for (int j = i + 1; j < xData.size(); j++) {
+                        if (SearchTools.isInside(search, xData.get(j).doubleValue(),
+                                yData.get(j).doubleValue())) {
+                            value += Math.pow(contentData.get(i).doubleValue()
+                                    - contentData.get(j).doubleValue(), 2);
+
+                            pairsNumber++;
+                        }
+
+                    }
+                }
+                steps.add(stepSize);
+                stepSize += stepSize;
+                value /= 2 * pairsNumber;
+                values.add(value);
+                pairs.add(pairsNumber);
+            }
+            result = new Matrix(3, values.size());
+            for(int i = 0; i< values.size(); i++){                
+                result.set(0, i, steps.get(i));
+                result.set(1, i, values.get(i));
+                result.set(2, i, pairs.get(i));
+            }
+            return result;
+        }
+    }
 
     /**
      *
