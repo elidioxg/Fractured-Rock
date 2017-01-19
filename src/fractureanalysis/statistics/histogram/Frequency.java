@@ -16,7 +16,6 @@
  */
 package fractureanalysis.statistics.histogram;
 
-import fractureanalysis.statistics.histogram.ClassInterval;
 import fractureanalysis.Vectors.Vector;
 import java.util.ArrayList;
 

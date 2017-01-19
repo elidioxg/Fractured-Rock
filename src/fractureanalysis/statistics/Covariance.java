@@ -1,5 +1,6 @@
 package fractureanalysis.statistics;
 
+import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.Vectors.Vector;
 
 public class Covariance {
@@ -25,5 +26,19 @@ public class Covariance {
         }               
         return result/vector1.size();
     }    
+    
+    /**
+     * Calculate covariance for matrix with x, y and z columns
+     * @param matrix
+     * @param xcolumn 
+     * @param ycolumn
+     * @param contentcolumn
+     * @return 
+     */
+    public static Matrix covariance(Matrix matrix, int xcolumn, int ycolumn,
+            int contentcolumn){
+        Matrix result  = new Matrix();
+        return result;
+    }
     
 }

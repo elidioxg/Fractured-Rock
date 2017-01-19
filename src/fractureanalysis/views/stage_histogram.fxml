@@ -18,76 +18,94 @@
         <URL value="@app_style.css"/>
     </stylesheets>
     
-    <Label 
+    <columnConstraints>
+        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
+    </columnConstraints>
+    
+    <MenuBar 
         GridPane.columnIndex="0"
         GridPane.rowIndex="0"  
+        GridPane.columnSpan="4">        
+        <menus>
+            <Menu 
+                text="Export to JPG">
+            </Menu>
+        </menus>
+    </MenuBar> 
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"  
         text="Dataset">
     </Label>
     <ComboBox 
         fx:id="cbDatasets"
         GridPane.columnIndex="1" 
-        GridPane.rowIndex="0"  
+        GridPane.rowIndex="1"  
         onAction="#cbDatasetAction" 
     >
     </ComboBox>
     
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="1"  
+        GridPane.rowIndex="2"  
         text="Column">
     </Label>
     <ComboBox 
         fx:id="cbColumnIndex"
         GridPane.columnIndex="1" 
-        GridPane.rowIndex="1"  
+        GridPane.rowIndex="2"  
         onAction="#cbColumnAction" 
     >
     </ComboBox>
     
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="2" 
+        GridPane.rowIndex="3" 
         text="Number of class intervals"
     >        
     </Label>
     <TextField 
         fx:id="tfIntervals"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="2"
+        GridPane.rowIndex="3"
         text="10"    >
     </TextField>
     
     <Label
         GridPane.columnIndex="0"
-        GridPane.rowIndex="3" 
+        GridPane.rowIndex="4" 
         text="Data cutoff values:">
     </Label>
     
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="4" 
+        GridPane.rowIndex="5" 
         text="Minimum value">
     </Label>
     <TextField 
         fx:id="tfMinValue"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="4" >
+        GridPane.rowIndex="5" >
     </TextField>
     
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="5" 
+        GridPane.rowIndex="6" 
         text="Maximum value">
     </Label>
     <TextField 
         fx:id="tfMaxValue"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="5" >
+        GridPane.rowIndex="6" >
     </TextField>
     
     <ButtonBar 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="6"
+        GridPane.rowIndex="7"
         GridPane.columnSpan="2">
         
         <buttons>
@@ -111,7 +129,8 @@
     <javafx.scene.chart.BarChart 
         fx:id="bcHistogram"
         GridPane.columnIndex="2"
-        GridPane.rowIndex="0"
+        GridPane.columnSpan="2" 
+        GridPane.rowIndex="1"
         GridPane.rowSpan="7" >
         <xAxis>
             <javafx.scene.chart.CategoryAxis />

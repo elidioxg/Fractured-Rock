@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane 
+    fx:id="gpStage"
     id="WhitePane" 
     prefHeight="600.0" 
     prefWidth="800.0" 
@@ -25,94 +26,169 @@
         <ColumnConstraints percentWidth="55" ></ColumnConstraints>
     </columnConstraints>   
     
+    <MenuBar 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"  
+        GridPane.columnSpan="4">        
+        <menus>
+            <Menu 
+                text="Export to JPG">
+            </Menu>
+        </menus>
+    </MenuBar>
+    
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="0"
+        GridPane.rowIndex="1"
         text="Datasets">
     </Label>
     <ComboBox 
         fx:id="cbDatasets"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="0">
+        GridPane.rowIndex="1">
     </ComboBox> 
         
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="1" 
+        GridPane.rowIndex="2" 
         text="Graph label:"/>
     <TextField 
         fx:id="tfGraphLabel"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="1">
+        GridPane.rowIndex="2">
     </TextField>
     
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="2" 
+        GridPane.rowIndex="3" 
         text="X Axis label:" />
     <TextField 
         fx:id="tfXLabel"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="2"            
+        GridPane.rowIndex="3"            
     />
     
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="3" 
+        GridPane.rowIndex="4" 
         text="Y Axis label:"/>
     <TextField         
         fx:id="tfYLabel"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="3" 
+        GridPane.rowIndex="4" 
     /> 
 
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="4" 
+        GridPane.rowIndex="5" 
         text="X field data:"/>
     <ComboBox 
         fx:id="cbX"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="4" >
-    </ComboBox>
-    
-    <CheckBox fx:id="cbXSorted" 
-                  GridPane.columnIndex="2"
-                  GridPane.rowIndex="4" 
-                  selected="false"
-                  text="Sorted"        >
-    </CheckBox>
-        
-    <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="5" 
-        text="Y field data:"/>
-    <ComboBox fx:id="cbY"
-                  GridPane.columnIndex="1"
-                  GridPane.rowIndex="5" >
-    </ComboBox>
-    
+        GridPane.rowIndex="5" >
+    </ComboBox>   
     <CheckBox 
-        fx:id="cbYSorted" 
+        fx:id="cbXSorted" 
         GridPane.columnIndex="2"
         GridPane.rowIndex="5" 
-        selected="true"
+        selected="false"
         text="Sorted"        >
     </CheckBox>
         
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="6" 
+        text="Y field data:"/>
+    <ComboBox 
+        fx:id="cbY"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="6" >
+    </ComboBox>    
+    <CheckBox 
+        fx:id="cbYSorted" 
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="6" 
+        selected="true"
+        text="Sorted"        >
+    </CheckBox>
+        
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="7" 
         text="Serie Name:"/>
     <TextField         
         fx:id="tfSerieLabel"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="6">
+        GridPane.rowIndex="7">
+    </TextField>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="8"
+        text="Axis Properties">
+    </Label> 
+    
+    <CheckBox 
+        fx:id="cbAutoAxis"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="9"
+        text="Auto range"
+        selected="true"
+        onAction="#cbAxisChange">
+    </CheckBox> 
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="10"
+        text="Min X">
+    </Label>
+    <TextField 
+        fx:id="tfMinX"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="10"
+        disable="true" >
+    </TextField>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="11"
+        text="Max X">
+    </Label>
+    <TextField 
+        fx:id="tfMaxX"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="11"
+        disable="true">
     </TextField>
 
-    <ButtonBar GridPane.columnIndex="0"
-                   GridPane.rowIndex="7"
-                   GridPane.columnSpan="2">  
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="12"
+        text="Min Y">
+    </Label>
+    <TextField 
+        fx:id="tfMinY"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="12"
+        disable="true" >
+    </TextField>
+
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="13"
+        text="Max Y">
+    </Label>
+    <TextField 
+        fx:id="tfMaxY"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="13"
+        disable="true">
+    </TextField>
+
+    <ButtonBar 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="14"
+        GridPane.columnSpan="2">  
         <buttons>
             <Button         
                 text="Add"
@@ -133,9 +209,8 @@
     <javafx.scene.chart.ScatterChart 
         fx:id="scatterChart"
         GridPane.columnIndex="3"
-        GridPane.rowIndex="0" 
-        GridPane.columnSpan="7"
-        GridPane.rowSpan="8"
+        GridPane.rowIndex="1"         
+        GridPane.rowSpan="13"
     >
         <xAxis>
             <javafx.scene.chart.NumberAxis 

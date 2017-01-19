@@ -61,17 +61,27 @@
                     <MenuItem
                         text="Custom Histogram"
                         onAction="#histogramStage" >
-                    </MenuItem>
-                    <MenuItem 
-                        text="1D Variogram"
-                        onAction="#variogram1DStage">
-                    </MenuItem>
+                    </MenuItem>                    
                     <MenuItem 
                         text="2D Variogram"
                         onAction="#variogramStage" >
+                    </MenuItem>
+                    <MenuItem 
+                        text="2D Variogram"
+                        onAction="#variogramStage2" >
                     </MenuItem>    
                 </items>
-            </Menu>            
+            </Menu>   
+            <Menu text="Analysis">
+                <items>
+                    <MenuItem 
+                        text="Fracture Intensity" 
+                        onAction="#fractureStage" 
+                        >
+                    </MenuItem>
+                </items>
+            </Menu>
+                         
         </menus>    
     </MenuBar>   
     
@@ -132,17 +142,6 @@
         closable="false">
             <content>
                 <fx:include source="tab_correlation.fxml"/>
-            </content>
-        </Tab>
-        
-        <Tab text="Fracture Analysis"
-        closable="false">
-            <content>
-                <ScrollPane >
-                    <content>
-                        <fx:include fx:id="analysisView" source="tab_analysis_view.fxml"/>
-                    </content>
-                </ScrollPane>                
             </content>
         </Tab>
         

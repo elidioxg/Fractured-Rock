@@ -46,6 +46,7 @@
                 <String fx:value="Spherical" />
                 <String fx:value="Exponential" />
                 <String fx:value="Gaussian" />
+                <String fx:value="Power"/>
             </FXCollections>                  
         </items>        
     </ComboBox>

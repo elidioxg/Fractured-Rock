@@ -239,4 +239,14 @@ public class Matrix {
     public Vector getLine(int index) {
         return null;
     }
+    
+    public void print(){
+        System.out.println("Matrix data:");
+        for(int i=0; i< this.getColumnsCount(); i++){
+            for(int j=0 ; j <this.getLinesCount(); j++){
+                System.out.print(this.data[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
 }

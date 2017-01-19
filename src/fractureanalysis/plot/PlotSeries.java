@@ -42,18 +42,54 @@ public class PlotSeries {
         if(columnX.size()==0 || columnY.size()==0){
             throw new Exception("Vectors of size 0");
         }
-        XYChart.Series<Number, Number> series = new XYChart.Series();
+        XYChart.Series<Number, Number> series = new XYChart.Series();                
         Task<List<XYChart.Data<Number, Number>>> task;
         task = new Task<List<XYChart.Data<Number, Number>>>(){
             @Override
             protected List<XYChart.Data<Number, Number>> call() throws Exception {
-                List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
-                System.out.println("****ColumnX.size(): "+columnX.size());
-                System.out.println("****ColumnY.size(): "+columnY.size());
+                List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();                
                 for(int i =0; i<columnX.size(); i++){
                     chartData.add(new XYChart.Data(columnX.get(i).doubleValue(),
                             columnY.get(i).doubleValue()));
-                }
+                }                
+                return chartData;
+            }
+        };        
+        task.setOnSucceeded(e -> series.getData().addAll(task.getValue()));
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+        return series;        
+    }
+    
+    /**
+     * Return a serie of two vectors representing X and Y axis 
+     * and a label naming the serie
+     * @param serieName
+     * @param columnX
+     * @param columnY
+     * @return
+     * @throws Exception 
+     */
+    public static XYChart.Series plotLineSeries(String serieName, Vector columnX, 
+            Vector columnY) throws Exception{
+        if(columnX.size()!=columnY.size()){
+            throw new Exception("Columns X and Y must have same size.");            
+        }
+        if(columnX.size()==0 || columnY.size()==0){
+            throw new Exception("Vectors of size 0");
+        }
+        XYChart.Series<Number, Number> series = new XYChart.Series();                
+        series.setName(serieName);
+        Task<List<XYChart.Data<Number, Number>>> task;
+        task = new Task<List<XYChart.Data<Number, Number>>>(){
+            @Override
+            protected List<XYChart.Data<Number, Number>> call() throws Exception {
+                List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();                
+                for(int i =0; i<columnX.size(); i++){
+                    chartData.add(new XYChart.Data(columnX.get(i).doubleValue(),
+                            columnY.get(i).doubleValue()));
+                }                
                 return chartData;
             }
         };        

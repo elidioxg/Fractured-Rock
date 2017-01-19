@@ -6,6 +6,7 @@ import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.model.Separator;
+import fractureanalysis.stages.FractureAnalysisStage;
 import fractureanalysis.stages.HistogramStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.OpenDataStage;
@@ -325,10 +326,24 @@ public class AppController implements Initializable {
                 FractureAnalysis.getInstance().getDatasetList());
         vs.createStage();
     }
-
+    
+    @FXML
+    protected void variogramStage2() throws IOException {
+        VariogramStage vs = new VariogramStage(
+                FractureAnalysis.getInstance().getDatasetList());
+        vs.createStage2();
+    }
+    
     @FXML
     protected void variogram1DStage() throws IOException {
         Variogram1DStage stage = new Variogram1DStage(
+                FractureAnalysis.getInstance().getDatasetList());
+        stage.createStage();
+    }
+    
+    @FXML
+    protected void fractureStage() throws IOException{
+        FractureAnalysisStage stage = new FractureAnalysisStage(
                 FractureAnalysis.getInstance().getDatasetList());
         stage.createStage();
     }
@@ -340,7 +355,7 @@ public class AppController implements Initializable {
     protected ComboBox cbSColumn;
 
     @FXML
-    protected void cbSummaryChange() {
+    protected void cbSummaryChange() throws Exception {
         int colIndex = cbSColumn.getSelectionModel().getSelectedIndex();
         if (colIndex >= 0) {
             FractureAnalysis.getInstance().setColumnStatistics(
@@ -362,7 +377,7 @@ public class AppController implements Initializable {
      * generate the Histogram of one column of dataset.
      */
     @FXML
-    protected void cbHistogramChange() {
+    protected void cbHistogramChange() throws Exception {
         int index = cbColIndex.getSelectionModel().getSelectedIndex();
         boolean header = FractureAnalysis.getInstance().file.getHeader();
         Vector vector = new Vector();

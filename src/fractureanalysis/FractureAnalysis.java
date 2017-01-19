@@ -36,6 +36,8 @@ import fractureanalysis.statistics.VariationCoefficient;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -103,10 +105,14 @@ public class FractureAnalysis extends Application {
                             super.updateItem(myObject, b);
                             if (myObject != null) {
                                 setText(myObject.getDatasetName());
-                                setColumnStatistics(
-                                        myObject.getFileName(), 
-                                        myObject.getSeparator(), 0, 
-                                        myObject.getHeader());
+                                try {
+                                    setColumnStatistics(
+                                            myObject.getFileName(),
+                                            myObject.getSeparator(), 0,
+                                            myObject.getHeader());
+                                } catch (Exception ex) {
+                                    Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                         }
                     };
@@ -128,8 +134,12 @@ public class FractureAnalysis extends Application {
                         file.setRowsCount(dm.getRowsCount());
                         controller.populateTable(dm.getFileName(), 
                                 dm.getSeparator(), dm.getHeader());
-                        setColumnStatistics(dm.getFileName(), dm.getSeparator(),
-                                0/*dm.getCurrentColumn()*/,dm.getHeader());
+                        try {
+                            setColumnStatistics(dm.getFileName(), dm.getSeparator(),
+                                    0/*dm.getCurrentColumn()*/,dm.getHeader());
+                        } catch (Exception ex) {
+                            Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         setDatasetStatistics(file);
                         itemsComboboxes();
 
@@ -169,7 +179,7 @@ public class FractureAnalysis extends Application {
      * @param columnIndex
      */
     public void setColumnStatistics(String filename, Separator separator, 
-            int columnIndex, boolean header) {
+            int columnIndex, boolean header) throws Exception {
         if (FractureAnalysis.getInstance().file.getColumnsCount() > 0) {
             Vector array
                     = OpenDataset.openCSVFileToVector(filename, separator.getChar(), 
@@ -230,12 +240,12 @@ public class FractureAnalysis extends Application {
         cbVarA.setItems(ol);
         ComboBox cbVarB = (ComboBox) grid.lookup("#cbVarB");
         cbVarB.setItems(ol);
-        ComboBox cbSpVar = (ComboBox) grid.lookup("#cbSpVar");
-        cbSpVar.setItems(ol);
-        cbSpVar.getSelectionModel().select(file.getSpColumn());
-        ComboBox cbApVar = (ComboBox) grid.lookup("#cbApVar");
-        cbApVar.setItems(ol);
-        cbApVar.getSelectionModel().select(file.getApColumn());
+        //ComboBox cbSpVar = (ComboBox) grid.lookup("#cbSpVar");
+        //cbSpVar.setItems(ol);
+        //cbSpVar.getSelectionModel().select(file.getSpColumn());
+        //ComboBox cbApVar = (ComboBox) grid.lookup("#cbApVar");
+        //cbApVar.setItems(ol);
+        //cbApVar.getSelectionModel().select(file.getApColumn());
     }
 
     /**

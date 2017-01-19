@@ -20,7 +20,8 @@ public class LineChartStage {
     private static List<DatasetModel> datasets;
     
     /**
-     * 
+     * Constructor
+     * Create a Stage with defined list of datasets
      * @param datasets 
      */
     public LineChartStage(List<DatasetModel> datasets){
@@ -28,16 +29,12 @@ public class LineChartStage {
         instance = this;
     }
     
-    /**
-     * 
-     * @return 
-     */
     public static LineChartStage getInstance(){
         return instance;
     }
     
     /**
-     * 
+     * Get datasets created with stage
      * @return 
      */
     public static List<DatasetModel> getDatasets(){
@@ -45,6 +42,7 @@ public class LineChartStage {
     }
 
     /**
+     * Create a new Stage with Fracture Analysis Parameters
      * 
      * @throws IOException 
      */

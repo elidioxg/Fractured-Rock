@@ -18,7 +18,7 @@ public class ScatterChartStage {
     private static ScatterChartStage instance;
     
     private final List<DatasetModel> datasets;
-    
+          
     /**
      * 
      * @param datasets 

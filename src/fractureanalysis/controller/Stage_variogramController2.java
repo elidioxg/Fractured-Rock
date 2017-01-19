@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 elidioxg
+ * Copyright (C) 2017 elidioxg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,8 @@
  */
 package fractureanalysis.controller;
 
-import fractureanalysis.Vectors.Vector;
 import fractureanalysis.Matrices.Matrix;
+import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
@@ -31,15 +31,15 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 /**
- * FXML Controller class
  *
  * @author elidioxg
  */
-public class Stage_variogramController implements Initializable {
+public class Stage_variogramController2 implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -53,10 +53,18 @@ public class Stage_variogramController implements Initializable {
     protected ComboBox cbDatasets, cbContent, cbX, cbY;
     
     @FXML 
-    protected TextField tfInitial, tfStep, tfMax, tfMinAngle, tfMaxAngle;
+    protected TextField tfStep, tfDistTol, tfAngle, tfAngleTol;
+    
+    @FXML
+    protected CheckBox cbReflect;
             
     @FXML
     protected LineChart lcVariogram;
+    
+    @FXML
+    protected void clear(){
+        lcVariogram.getData().clear();
+    }
     
     /**
      * Plot the a variogram serie on Variogram Stage using the defined 
@@ -82,24 +90,22 @@ public class Stage_variogramController implements Initializable {
                 dm.getSeparator().getChar(), yIndex, dm.getHeader());        
         int contentIndex = cbContent.getSelectionModel().getSelectedIndex();        
         Vector content = OpenDataset.openCSVFileToVector(dm.getFileName(), 
-                dm.getSeparator().getChar(), contentIndex,dm.getHeader());
-        
-        double initDist = Double.valueOf(tfInitial.getText().trim());
+                dm.getSeparator().getChar(), contentIndex, dm.getHeader());
+                
         double stepSize = Double.valueOf(tfStep.getText().trim());
-        double maxDist = Double.valueOf(tfMax.getText().trim());
-        //double minAngle = Double.valueOf(tfMinAngle.getText().trim());
-        //double maxAngle = Double.valueOf(tfMaxAngle.getText().trim());        
-        Matrix result = Variogram.variogram2D(x, y, content, initDist, 
-                stepSize, maxDist);
+        double distTol = Double.valueOf(tfDistTol.getText().trim());
+        double angle = Double.valueOf(tfAngle.getText().trim());
+        double angleTol = Double.valueOf(tfAngleTol.getText().trim());
+       // boolean ref = cbReflect.isSelected();
         
+        Matrix variogram = Variogram.variogram2D(x, y, content, stepSize, 
+                distTol, angle, angleTol);        
         
-        //Matrix result = Variogram.variogram2D(matrix, initDist, stepSize, 
-          //      maxDist, xIndex, yIndex, contentIndex);
           ArrayList<Double> alX = new ArrayList<>();
           ArrayList<Double> alY = new ArrayList<>();
-        for(int i=0; i<result.getLinesCount(); i++){
-            alX.add(result.get(0, i).doubleValue());
-            alY.add(result.get(1, i).doubleValue());            
+        for(int i=0; i<variogram.getLinesCount(); i++){
+            alX.add(variogram.get(0, i).doubleValue());
+            alY.add(variogram.get(1, i).doubleValue());            
         }        
         lcVariogram.getData().addAll(PlotSeries.plotLineSeries(alX, alY));
         
@@ -150,5 +156,4 @@ public class Stage_variogramController implements Initializable {
         }
         
     }
-    
 }

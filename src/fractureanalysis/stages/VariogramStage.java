@@ -87,4 +87,36 @@ public class VariogramStage {
         }
     }
     
+    public void createStage2() throws IOException {
+        if (FractureAnalysis.getInstance().getDatasetList().size()>0) {
+            FXMLLoader loader = new FXMLLoader(
+                    FractureAnalysis.getInstance().getClass().getResource(
+                            "views/stage_variogram2.fxml"));
+            Parent parent = (Parent) loader.load();                        
+
+            ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");
+            ArrayList<String> datasetNames = new ArrayList();
+            for (int i = 0; i < datasets.size(); i++) {
+                datasetNames.add(datasets.get(i).getDatasetName());
+            }
+            cbDatasets.setItems(FXCollections.observableArrayList(datasetNames));
+            cbDatasets.getSelectionModel().selectFirst();
+            ComboBox cbXColumn = (ComboBox) parent.lookup("#cbX");
+            cbXColumn.setItems(FXCollections.observableArrayList(
+                    datasets.get(0).getHeaderArray()));
+            ComboBox cbYColumn = (ComboBox) parent.lookup("#cbY");
+            cbYColumn.setItems(FXCollections.observableArrayList(
+                    datasets.get(0).getHeaderArray()));
+            ComboBox cbContentColumn = (ComboBox) parent.lookup("#cbContent");
+            cbContentColumn.setItems(FXCollections.observableArrayList(
+                    datasets.get(0).getHeaderArray()));
+            
+            Stage stageLine = new Stage();
+            Scene scene = new Scene(parent);
+            stageLine.setTitle("2D Variogram");
+            stageLine.setScene(scene);
+            stageLine.show();
+        }
+    }
+    
 }
