@@ -76,25 +76,4 @@
         
     </Label>
     
-    <Label 
-        fx:id="lApColumn"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="4"
-        text="">
-    </Label>
-    
-    <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="5" 
-        text="Sp column">
-        
-    </Label>        
-    
-    <Label 
-        fx:id="lSpColumn"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="5"
-        text="">
-    </Label>
-    
 </GridPane>

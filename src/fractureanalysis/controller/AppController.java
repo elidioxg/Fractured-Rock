@@ -43,10 +43,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -194,15 +192,6 @@ public class AppController implements Initializable {
         rbSemicolon.setSelected(false);
         rbOther.setSelected(true);
     }
-
-    @FXML
-    protected ScrollPane spProperties;
-    @FXML
-    protected GridPane paneProperties;
-    @FXML
-    protected ComboBox cbColumnAp;
-    @FXML
-    protected ComboBox cbColumnSp;
 
     /**
      * Add a dataset to the list of datasets on main form and update the

@@ -11,7 +11,13 @@
     id="WhitePane" 
     prefHeight="400.0" 
     prefWidth="600.0"     
-    fx:controller="fractureanalysis.controller.ScanlineController" >
+    fx:controller="fractureanalysis.controller.Stage_analysisController" >        
+    
+    <columnConstraints>
+        <ColumnConstraints percentWidth="10"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="10"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="80"></ColumnConstraints> 
+    </columnConstraints>
     
     <Label 
         GridPane.columnIndex="0"
@@ -51,5 +57,32 @@
         GridPane.rowIndex="2"
         text="">
     </Label>  
+    
+    <javafx.scene.chart.ScatterChart 
+        fx:id="scScanline"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="1"
+        GridPane.rowSpan="4"   
+    >
+        <xAxis>
+            <javafx.scene.chart.NumberAxis 
+                label="" 
+                side="BOTTOM"
+                lowerBound="-1" 
+                upperBound="1"
+                autoRanging="false"
+                visible="false"
+                tickLabelsVisible="false">
+                
+            </javafx.scene.chart.NumberAxis>
+        </xAxis>
+        <yAxis>
+            <javafx.scene.chart.NumberAxis 
+                label="Y" 
+                side="LEFT" >
+                
+            </javafx.scene.chart.NumberAxis>
+        </yAxis>
+    </javafx.scene.chart.ScatterChart>
     
 </GridPane>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 elidioxg
+ * Copyright (C) 2017 elidioxg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -42,13 +43,16 @@ import javafx.scene.control.TextField;
  *
  * @author elidioxg
  */
-public class ScanlineController implements Initializable {
+public class Stage_analysisController implements Initializable {
 
     /**
-     * Views: views/tab_distribution.fxml
+     * Views: views/tab_distribution.fxml , tab_summary_analysis.fxml
      */
     @FXML
-    protected ComboBox cbSpVar, cbApVar;    
+    protected ScatterChart scScanline;
+
+    @FXML
+    protected ComboBox cbSpVar, cbApVar;
 
     @FXML
     protected LineChart scFractureIntensity, lcAux;
@@ -57,8 +61,9 @@ public class ScanlineController implements Initializable {
     protected Label lFracInt, lAvgSpacing, lScanLen;
 
     /**
-     * Handle actions for aperture column index combobox 
-     * @throws Exception 
+     * Handle actions for aperture column index combobox
+     *
+     * @throws Exception
      */
     @FXML
     protected void cbApAction() throws Exception {
@@ -72,8 +77,9 @@ public class ScanlineController implements Initializable {
     }
 
     /**
-     * Handle actions for spacement column index combobox 
-     * @throws Exception 
+     * Handle actions for spacement column index combobox
+     *
+     * @throws Exception
      */
     @FXML
     protected void cbSpAction() throws Exception {
@@ -88,17 +94,17 @@ public class ScanlineController implements Initializable {
 
     /**
      * Estimate the variogram of fractures.
-     * 
-     * If there is already defined values of distance on the ListView, 
-     * this procedure will use them. If the ListView is empty, this
-     * procedure will create a list of distances to plot according 
-     * to minimum and maximum values on dataset.
-     * 
+     *
+     * If there is already defined values of distance on the ListView, this
+     * procedure will use them. If the ListView is empty, this procedure will
+     * create a list of distances to plot according to minimum and maximum
+     * values on dataset.
+     *
      * The last step is plot a linear regression line to the chart.
-     * 
+     *
      * @param indexAp
      * @param indexSp
-     * @throws Exception 
+     * @throws Exception
      */
     private void estimateFractures(int indexAp, int indexSp) throws Exception {
 
@@ -119,8 +125,8 @@ public class ScanlineController implements Initializable {
         }
         ScanLine scanline = new ScanLine(fracturesList);
         FractureAnalysis.getInstance().file.setScanLine(scanline);
-        Scene scene = (Scene) cbApVar.getScene();                
-        
+        Scene scene = (Scene) cbApVar.getScene();
+
         FractureIntensityAnalysis fi = new FractureIntensityAnalysis(
                 scanline);
         lFracInt = (Label) scene.lookup("#lFracInt");
@@ -141,10 +147,10 @@ public class ScanlineController implements Initializable {
 //            cumulative.add(Double.valueOf(values.getCumulativeNumber()));
 //            aperture.add(values.getAperture());
         }
-        scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));        
+        scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));
         /**
          * Add linear regression
-         */ 
+         */
         LinearRegression lr = new LinearRegression(aperture, cumulative);
         double min = MinimumValue.getMinValue(aperture);
         double max = MaximumValue.getMaxValue(aperture);
@@ -153,12 +159,18 @@ public class ScanlineController implements Initializable {
         //double min = 0.001;
         //double max = 10;
         //double first = lr.getValueAt(0.001);
-       // double last = lr.getValueAt(10);
+        // double last = lr.getValueAt(10);
         XYChart.Series serieRegression = new XYChart.Series();
         serieRegression.getData().add(new XYChart.Data<>(min, first));
         serieRegression.getData().add(new XYChart.Data<>(max, last));
         scFractureIntensity.getData().add(serieRegression);
         lcAux.getData().add(serieRegression);
+        /**
+         * Plot Scanline on Scatter Chart
+         */
+        scScanline = (ScatterChart) scene.lookup("#scScanline");
+        scScanline.getData().add(
+                PlotSeries.plotLineSeries(0, scanline.getDistanceList()));
     }
 
     @FXML
@@ -176,7 +188,7 @@ public class ScanlineController implements Initializable {
                 lValue.setText(String.valueOf(value));
             }
         }*/
-    }    
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

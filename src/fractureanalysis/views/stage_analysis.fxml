@@ -5,13 +5,18 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.*?>
 
 <GridPane 
     xmlns:fx="http://javafx.com/fxml/1"
-    id="GridPane" 
+    id="WhitePane" 
     prefHeight="850.0" 
     prefWidth="900.0"
-    fx:controller="fractureanalysis.controller.ScanlineController">        
+    fx:controller="fractureanalysis.controller.Stage_analysisController">        
+    
+     <stylesheets>
+        <URL value="@app_style.css"/>
+    </stylesheets>
     
     <columnConstraints>
         <ColumnConstraints minWidth="30"  />

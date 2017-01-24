@@ -18,10 +18,13 @@ package fractureanalysis.stages;
 
 import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 /**
@@ -29,48 +32,62 @@ import javafx.stage.Stage;
  * @author elidioxg
  */
 public class FractureAnalysisStage {
-    
+
     private static FractureAnalysisStage instance;
-    
+
     private static List<DatasetModel> datasets;
-    
-    public FractureAnalysisStage(List<DatasetModel> datasets){
+
+    public FractureAnalysisStage(List<DatasetModel> datasets) {
         this.datasets = datasets;
         instance = this;
     }
-    
-    public static FractureAnalysisStage getInstance(){
+
+    public static FractureAnalysisStage getInstance() {
         return instance;
     }
-    
-    public static List<DatasetModel> getDatasets(){
+
+    public static List<DatasetModel> getDatasets() {
         return datasets;
     }
-    
-    public void createStage() throws IOException{
-        if(!getDatasets().isEmpty()){
+
+    public void createStage() throws IOException {
+        if (!getDatasets().isEmpty()) {
             FXMLLoader loader = new FXMLLoader(
                     fractureanalysis.FractureAnalysis.getInstance().getClass()
-                            .getResource("views/tab_analysis_view.fxml")
+                    .getResource("views/stage_analysis.fxml")
             );
             Parent parent = (Parent) loader.load();
-            /*
+            Scene scene = new Scene(parent);
+//            List datasetList = new ArrayList();
+//            for (int i = 0; i < getDatasets().size(); i++) {                
+//                datasetList.add(getDatasets().get(i).getDatasetName());
+//            }
+            /**
+             * Get the headers of dataset
+             */
             List list = new ArrayList();
-            for(int i = 0; i < getDatasets().get(0).getHeaderArray().size(); i++){
+            for (int i = 0; i < getDatasets().get(0).getHeaderArray().size(); i++) {
                 list.add(getDatasets().get(0).getHeaderArray(i));
             }
-            List datasetList = new ArrayList();
-            for (int i = 0; i < getDatasets().size(); i++) {                
-                datasetList.add(getDatasets().get(i).getDatasetName());
-            }
-            */
-            Stage stageLine = new Stage();
-            Scene scene = new Scene(parent);
-            stageLine.setTitle("Fracture Intensity Analysis");
-            stageLine.setScene(scene);
-            stageLine.show();
+            /**
+             * Add the headers of dataset to comboboxes
+             */
+            ComboBox cbSpVar = (ComboBox) parent.getScene().getRoot().lookup("#cbSpVar");
+            ComboBox cbApVar = (ComboBox) parent.getScene().getRoot().lookup("#cbApVar");
+            cbApVar.setItems(FXCollections.observableArrayList(list));
+            cbApVar.getSelectionModel().select(0);
+            cbSpVar.setItems(FXCollections.observableArrayList(list));
+            cbSpVar.getSelectionModel().select(1);
             
+            Stage stage = new Stage();            
+            stage.setTitle("Fracture Intensity Analysis");
+            stage.setScene(scene);
+            stage.show();
         }
     }
     
+    public void refresh(){
+    
+    }
+
 }

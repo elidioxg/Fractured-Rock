@@ -262,10 +262,10 @@ public class FractureAnalysis extends Application {
         lColumns.setText(String.valueOf(file.getColumnsCount()));
         Label lRows = (Label) grid.lookup("#lRows");
         lRows.setText(String.valueOf(file.getRowsCount()));
-        Label lApColumn = (Label) grid.lookup("#lApColumn");
-        lApColumn.setText(String.valueOf(file.getApColumn()));
-        Label lSpColumn = (Label) grid.lookup("#lSpColumn");
-        lSpColumn.setText(String.valueOf(file.getSpColumn()));
+//        Label lApColumn = (Label) grid.lookup("#lApColumn");
+//        lApColumn.setText(String.valueOf(file.getApColumn()));
+//        Label lSpColumn = (Label) grid.lookup("#lSpColumn");
+//        lSpColumn.setText(String.valueOf(file.getSpColumn()));
     }
 
     /**
