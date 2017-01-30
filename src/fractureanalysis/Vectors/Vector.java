@@ -136,6 +136,35 @@ public class Vector {
         }
     }
 
+    /**
+     * 
+     * @param reverse If true than the order is from smaller value to highest
+     */
+    public void sort(boolean reverse) {
+        boolean finished = false;
+        while (!finished) {
+            int counter = 0;
+            for (int i = 1; i < this.data.length; i++) {
+                if (!reverse) {
+                    if (this.data[i - 1].doubleValue() < this.data[i].doubleValue()) {
+                        Double temp = this.data[i - 1].doubleValue();
+                        this.data[i - 1] = this.data[i].doubleValue();
+                        this.data[i] = temp;
+                        counter++;
+                    }
+                } else if (this.data[i - 1].doubleValue() > this.data[i].doubleValue()) {
+                    Double temp = this.data[i - 1].doubleValue();
+                    this.data[i - 1] = this.data[i].doubleValue();
+                    this.data[i] = temp;
+                    counter++;
+                }
+            }
+            if (counter == 0) {
+                finished = true;
+            }
+        }
+    }
+    
     public void print() {
         System.out.println();
         System.out.print("Vector: ");

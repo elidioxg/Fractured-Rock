@@ -130,15 +130,59 @@
         text="">
     </Label> 
     
-    <Label 
+    <Label
         GridPane.columnIndex="0"
         GridPane.rowIndex="10"
+        text="First Quartile" 
+    >
+    </Label>
+    <Label 
+        fx:id="lFirstQ"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="10"
+        text=""
+    >
+        
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="11" 
+        text="Second Quartile"
+    >
+    </Label>
+    <Label 
+        fx:id="lSecQ"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="11"
+        text=""
+    >        
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="12" 
+        text="Third Quartile"
+    >
+    </Label>
+    <Label 
+        fx:id="lThirQ"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="12"
+        text=""
+    >
+        
+    </Label>        
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="13"
         text="Count">
     </Label>
     <Label 
         fx:id="lCount"
         GridPane.columnIndex="1" 
-        GridPane.rowIndex="10"
+        GridPane.rowIndex="13"
         text="">
     </Label>   
     

@@ -69,11 +69,4 @@
         text="">
     </Label>
     
-    <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="4" 
-        text="Ap column">
-        
-    </Label>
-    
 </GridPane>
