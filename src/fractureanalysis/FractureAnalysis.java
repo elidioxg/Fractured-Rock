@@ -240,6 +240,12 @@ public class FractureAnalysis extends Application {
         cbVarA.setItems(ol);
         ComboBox cbVarB = (ComboBox) grid.lookup("#cbVarB");
         cbVarB.setItems(ol);
+        ComboBox cbX = (ComboBox) grid.lookup("#cbX");
+        cbX.setItems(ol);
+        ComboBox cbY = (ComboBox) grid.lookup("#cbY");
+        cbY.setItems(ol);
+        ComboBox cbContent = (ComboBox) grid.lookup("#cbContent");
+        cbContent.setItems(ol);
         //ComboBox cbSpVar = (ComboBox) grid.lookup("#cbSpVar");
         //cbSpVar.setItems(ol);
         //cbSpVar.getSelectionModel().select(file.getSpColumn());

@@ -42,22 +42,22 @@ public class Vector {
             data[i] = new Number() {
                 @Override
                 public int intValue() {
-                    return (int) data[ii];
+                    return (int) data[ii].intValue();
                 }
 
                 @Override
                 public long longValue() {
-                    return (long) data[ii];
+                    return (long) data[ii].longValue();
                 }
 
                 @Override
                 public float floatValue() {
-                    return (float) data[ii];
+                    return (float) data[ii].floatValue();
                 }
 
                 @Override
                 public double doubleValue() {
-                    return (double) data[ii];
+                    return (double) data[ii].doubleValue();
                 }
             };
         }
@@ -69,6 +69,19 @@ public class Vector {
     }
 
     public void set(int index, double value) throws Exception {
+        if (!this.data.equals(null)) {
+            if (index < this.data.length) {
+                this.data[index] = value;
+            } else {
+                throw new Exception("Index higher than vector size");
+            }
+        } else {
+            throw new Exception("Null vector data");
+        }
+
+    }
+    
+    public void set(int index, Number value) throws Exception {
         if (!this.data.equals(null)) {
             if (index < this.data.length) {
                 this.data[index] = value;
@@ -96,22 +109,22 @@ public class Vector {
         vector[this.size] = new Number() {
             @Override
             public int intValue() {
-                return (int) vector[ii];
+                return (int) vector[ii].intValue();
             }
 
             @Override
             public long longValue() {
-                return (long) vector[ii];
+                return (long) vector[ii].longValue();
             }
 
             @Override
             public float floatValue() {
-                return (float) vector[ii];
+                return (float) vector[ii].floatValue();
             }
 
             @Override
             public double doubleValue() {
-                return (double) vector[ii];
+                return (double) vector[ii].doubleValue();
             }
         };
         vector[this.size] = value;

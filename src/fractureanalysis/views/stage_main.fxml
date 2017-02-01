@@ -145,6 +145,16 @@
             </content>
         </Tab>
         
+        <Tab
+            text="Covariance"            
+            closable="false" 
+        >
+            <content>
+                <fx:include source="tab_covariance.fxml"/>                    
+            </content>
+            
+        </Tab>
+        
     </TabPane> 
     
     <Label

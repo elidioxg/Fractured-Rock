@@ -90,22 +90,22 @@ public class Matrix {
                 data[j][i] = new Number() {
                     @Override
                     public int intValue() {
-                        return (int) data[jj][ii];
+                        return (int) data[jj][ii].intValue();
                     }
 
                     @Override
                     public long longValue() {
-                        return (long) data[jj][ii];
+                        return (long) data[jj][ii].longValue();
                     }
 
                     @Override
                     public float floatValue() {
-                        return (float) data[jj][ii];
+                        return (float) data[jj][ii].floatValue();
                     }
 
                     @Override
                     public double doubleValue() {
-                        return (double) data[jj][ii];
+                        return (double) data[jj][ii].doubleValue();
                     }
                 };
                 data[jj][ii] = value;
@@ -119,12 +119,14 @@ public class Matrix {
      * @param size
      */
     public Matrix(int size) {
-        data = new Number[columns][lines];
+        data = new Number[size][size];
+        columns = size;
+        lines = size;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 final int ii = i;
                 final int jj = j;
-                data[i][j] = new Number() {
+                data[j][i] = new Number() {
                     @Override
                     public int intValue() {
                         return (int) data[jj][ii];
@@ -239,14 +241,96 @@ public class Matrix {
     public Vector getLine(int index) {
         return null;
     }
-    
-    public void print(){
+
+    public void print() {
         System.out.println("Matrix data:");
-        for(int i=0; i< this.getColumnsCount(); i++){
-            for(int j=0 ; j <this.getLinesCount(); j++){
-                System.out.print(this.data[i][j]+" ");
+        for (int j = 0; j < this.getLinesCount(); j++) {
+            for (int i = 0; i < this.getColumnsCount(); i++) {
+                System.out.print(this.data[i][j] + " ");
             }
             System.out.println();
         }
     }
+
+    public void transpose() throws Exception {
+        Matrix newMatrix = new Matrix(this.lines, this.columns);
+        for (int i = 0; i < this.columns; i++) {
+            for (int j = 0; j < this.lines; j++) {
+                newMatrix.set(j, i, this.get(i, j));
+            }
+        }
+        this.data = newMatrix.data;
+        int aux = this.lines;
+        this.lines = this.columns;
+        this.columns = aux;
+    }
+
+    public Matrix getTransposeMatrix(Matrix matrix) throws Exception {
+        Matrix result = new Matrix(matrix.getLinesCount(), matrix.getColumnsCount());
+        for (int i = 0; i < matrix.getColumnsCount(); i++) {
+            for (int j = 0; j < matrix.getLinesCount(); j++) {
+                result.set(j, i, matrix.get(i, j));
+            }
+        }
+        return result;
+    }
+
+    //TODO
+    public Vector vectorMultiply(Vector vector) throws Exception {
+        System.out.println("VECTOR MULTIPLY");
+        if (this.columns != vector.size()) {
+            throw new Exception("Number of columns of matrix and vector size must be equal.");
+        }
+        Vector result = new Vector(this.getLinesCount());
+        for (int i = 0; i < this.lines; i++) {
+            double aux = 0.;
+            for (int j = 0; j < this.columns; j++) {
+                System.out.println("Value of matrix("+j+","+i+") = "+this.get(j, i));
+                aux += this.get(j, i).doubleValue() * vector.get(j).doubleValue();
+                System.out.println("Value of vector("+j+") = "+vector.get(j));
+                System.out.println("Multply result: "+aux);
+            }
+            result.set(i, aux);
+            System.out.println("Index: "+i+"  Value: "+aux);
+        }
+        return result;
+    }
+
+    /**
+     * Get the inverse of the matrix, only if it's a square matrix
+     *
+     * @return
+     */
+    public Matrix getInverse() throws Exception {
+
+        if (this.getColumnsCount() != this.getLinesCount()) {
+            throw new Exception("Must be a Square Matrix.");
+        }
+        Matrix result = new Matrix(this.getColumnsCount());
+        //O procedimento abaixo funciona para matrix com tamanho
+        //divisível por 4, verificar como se comporta em outros tamanhos
+        //talvez seja necessário criar algoritmos para tamanho 3 
+        //e tamanhos que não sejam divisíveis por 4
+        for (int i = 0; i < this.getColumnsCount(); i = i + 2) {
+            for (int j = 0; j < this.getLinesCount(); j = j + 2) {
+                double A = this.get(i, j).doubleValue();
+                double B = this.get(i+1, j).doubleValue();
+                double C = this.get(i, j+1).doubleValue();
+                double D = this.get(i+1, j+1).doubleValue();
+                double ai = (1./A)+( (1./A)*B*(1/(D-(C*1./A*B)))*C*1./A);
+                double bi = -(1./A)*B*(1./(D-C*1./A*B));
+                double ci = -(1./(D-C*1./A*B))*C*1./A;
+                double di = (1./(D-C*1/A*B));
+                result.set(i, j, ai);
+                result.set(i+1, j, bi);
+                result.set(i, j+1, ci);
+                result.set(i+1, j+1, di);
+                result.print();
+            }            
+        }
+        System.out.println("Complete inversion:");
+        result.print();
+        return result;
+    }
+
 }
