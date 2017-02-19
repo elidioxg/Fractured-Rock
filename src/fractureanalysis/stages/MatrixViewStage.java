@@ -75,9 +75,8 @@ public class MatrixViewStage {
 
             };
             cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
-            cbDatasets.setCellFactory(cellFactory);
-            ObservableList test = FXCollections.observableArrayList(datasets);
-            cbDatasets.setItems(test);            
+            cbDatasets.setCellFactory(cellFactory);            
+            cbDatasets.setItems(FXCollections.observableArrayList(datasets));            
             cbDatasets.getSelectionModel().selectFirst();
 
             Stage stage = new Stage();

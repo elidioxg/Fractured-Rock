@@ -19,14 +19,16 @@ package fractureanalysis.stages;
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  *
@@ -71,12 +73,29 @@ public class HistogramStage {
                     getClass().getResource(
                             "views/stage_histogram.fxml"));
             Parent parent = (Parent) loader.load();
-            ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");
-            ArrayList<String> datasetNames = new ArrayList();
-            for (int i = 0; i < datasets.size(); i++) {
-                datasetNames.add(datasets.get(i).getDatasetName());
-            }
-            cbDatasets.setItems(FXCollections.observableArrayList(datasetNames));
+            ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");           
+            
+            Callback<ListView<DatasetModel>, ListCell<DatasetModel>> cellFactory
+                    = new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
+                @Override
+                public ListCell<DatasetModel> call(ListView<DatasetModel> param) {
+                    return new ListCell<DatasetModel>() {
+                        @Override
+                        protected void updateItem(DatasetModel item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item.getDatasetName());
+                            } else {
+                                setGraphic(null);
+                            }
+                        }
+                    };
+                }
+
+            };
+            cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
+            cbDatasets.setCellFactory(cellFactory);
+            cbDatasets.setItems(FXCollections.observableArrayList(datasets));
             cbDatasets.getSelectionModel().selectFirst();
             ComboBox cbColumns = (ComboBox) parent.lookup("#cbColumnIndex");
             cbColumns.setItems(FXCollections.observableArrayList(

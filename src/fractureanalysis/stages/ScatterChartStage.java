@@ -11,7 +11,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class ScatterChartStage {
     
@@ -54,21 +57,33 @@ public class ScatterChartStage {
                     FractureAnalysis.getInstance().getClass().getResource(
                             "views/stage_scatter_chart.fxml"));
             Parent parent = (Parent) loader.load();
+                                          
+            ObservableList ol = FXCollections.observableArrayList(datasets.get(0).getHeaderArray());
+            Callback<ListView<DatasetModel>, ListCell<DatasetModel>> cellFactory
+                    = new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
+                @Override
+                public ListCell<DatasetModel> call(ListView<DatasetModel> param) {
+                    return new ListCell<DatasetModel>() {
+                        @Override
+                        protected void updateItem(DatasetModel item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item.getDatasetName());
+                            } else {
+                                setGraphic(null);
+                            }
+                        }
+                    };
+                }
+
+            };
             
-            //get the dataset list to put on combobox
-            List list = new ArrayList();
-            for (int i = 0; i < getDatasets().get(0).getHeaderArray().size(); i++) {
-                list.add(getDatasets().get(0).getHeaderArray(i));                
-            }
-            List datasetList = new ArrayList();
-            for (int i = 0; i < getDatasets().size(); i++) {                
-                datasetList.add(getDatasets().get(i).getDatasetName());
-            }
-            ObservableList ol = FXCollections.observableArrayList(list);
-            ObservableList olDatasets = FXCollections.observableArrayList(
-                    datasetList);            
-            ComboBox cbDatasets =  (ComboBox) parent.lookup("#cbDatasets");
-            cbDatasets.setItems(olDatasets);
+            ComboBox cbDatasets =  (ComboBox) parent.lookup("#cbDatasets");            
+            cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
+            cbDatasets.setCellFactory(cellFactory);
+            cbDatasets.setItems(FXCollections.observableArrayList(datasets));
+            cbDatasets.getSelectionModel().selectFirst();
+            
             cbDatasets.getSelectionModel().selectFirst();
             ComboBox comboBoxX = (ComboBox) parent.lookup("#cbX");
             ComboBox comboBoxY = (ComboBox) parent.lookup("#cbY");
