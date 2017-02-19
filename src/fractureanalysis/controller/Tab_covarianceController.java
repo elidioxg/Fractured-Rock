@@ -16,6 +16,7 @@
  */
 package fractureanalysis.controller;
 
+import fractureanalysis.Matrices.LUP;
 import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
@@ -50,15 +51,15 @@ public class Tab_covarianceController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        
+    public void initialize(URL url, ResourceBundle rb) {
 
     }
 
     @FXML
     protected void cbChange() throws Exception {
-        if (cbX.getSelectionModel().getSelectedIndex()>=0) {
-            if (cbY.getSelectionModel().getSelectedIndex()>=0) {
-                if (cbContent.getSelectionModel().getSelectedIndex()>=0) {
+        if (cbX.getSelectionModel().getSelectedIndex() >= 0) {
+            if (cbY.getSelectionModel().getSelectedIndex() >= 0) {
+                if (cbContent.getSelectionModel().getSelectedIndex() >= 0) {
                     int indexX = cbX.getSelectionModel().getSelectedIndex();
                     int indexY = cbY.getSelectionModel().getSelectedIndex();
                     int indexContent = cbContent.getSelectionModel().getSelectedIndex();
@@ -82,36 +83,58 @@ public class Tab_covarianceController implements Initializable {
                         serie.getData().add(new XYChart.Data<>(x.get(i), y.get(i)));
                     }
                     scLocation.getData().add(serie);
-                    Matrix distances = EuclideanDistance.getDistances(x, y);                    
-                    for(int i = 0; i < distances.getColumnsCount(); i++){
-                        for(int j = 0; j < distances.getLinesCount(); j++){                            
-                            double aux = 2000.* Math.exp(-distances.get(i, j).doubleValue()/250.);
-                            distances.set(i, j, aux);                          
+                    Matrix distances = EuclideanDistance.getDistances(x, y);
+                    for (int i = 0; i < distances.getColumnsCount(); i++) {
+                        for (int j = 0; j < distances.getLinesCount(); j++) {
+                            double aux = 2000. * Math.exp(-distances.get(i, j).doubleValue() / 250.);
+                            distances.set(i, j, aux);
                         }
-                    }      
-                    System.out.println("--Matrix distances--");
-                    distances.print();
-                    System.out.println("-----");
-                    Matrix inverse = distances.getInverse();   
-                    System.out.println("Inverse matrix");
-                    inverse.print();
-                    System.out.println();
-                    Vector mult = new Vector(4);
-                    mult.set(0, 908.7);
-                    mult.set(1, 831.8);
-                    mult.set(2, 1507.2);
-                    mult.set(3, 973.6);
-                    Vector nVector = inverse.vectorMultiply(mult);
-                    nVector.print();
-                    
-                    /*
-                    Matrix test = new Matrix(1, 4);
-                    test.set(0, 0, -70);
-                    test.set(0, 1, 20);
-                    test.set(0, 2, -20);
-                    test.set(0, 3, 50);
-                    */                    
-                    
+                    }
+
+                    /*Matrix m = new Matrix(5);
+                    m.set(0, 0, 1.81);
+                    m.set(0, 1, -1.513);
+                    m.set(0, 2, -.5588);
+                    m.set(0, 3, 1.97);
+                    m.set(0, 4, -1.088);
+                    m.set(1, 0, -1.9178);
+                    m.set(1, 1, -1.0880);
+                    m.set(1, 2, 1.3005);
+                    m.set(1, 3, 1.82589);
+                    m.set(1, 4, -.2647);
+                    m.set(2, 0, -1.088);
+                    m.set(2, 1, 1.82589);
+                    m.set(2, 2, -1.97606);
+                    m.set(2, 3, 1.4902);
+                    m.set(2, 4, -.5247);
+                    m.set(3, 0, -1.92279);
+                    m.set(3, 1, 1.058165);
+                    m.set(3, 2, 1.340458);
+                    m.set(3, 3, -1.795855);
+                    m.set(3, 4, -.352151);
+                    m.set(4, 0, 1.52511);
+                    m.set(4, 1, 1.973);
+                    m.set(4, 2, 1.02795);
+                    m.set(4, 3, -6.43244);        
+                    m.set(4, 4, -1.86021);        
+                    m.print();*/
+                    int size = 5;
+                    Matrix m = new Matrix(size);
+                    for (int i = 1; i <= size; i++) {
+                        for (int j = 1; j <= size; j++) {
+                            double value = Math.sin(i * j * j + i) * 2;
+                            m.set(j-1, i-1, value);
+                        }
+                    }
+                    m.print();
+                    //LUP lup = new LUP(m);
+                    Matrix dec = LUP.lupDecompose(m);
+                    System.out.println("Decompose:");
+                    dec.print();
+                    //Matrix inv = lup.lupInverse();
+                    //System.out.println("Inverse matrix:");
+                    //inv.print();
+
                 }
             }
         }
@@ -119,4 +142,3 @@ public class Tab_covarianceController implements Initializable {
     }
 
 }
-
