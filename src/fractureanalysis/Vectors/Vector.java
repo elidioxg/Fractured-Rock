@@ -60,6 +60,7 @@ public class Vector {
                     return (double) data[ii].doubleValue();
                 }
             };
+            data[i] = 0;
         }
     }
 
@@ -80,7 +81,7 @@ public class Vector {
         }
 
     }
-    
+            
     public void set(int index, Number value) throws Exception {
         if (!this.data.equals(null)) {
             if (index < this.data.length) {

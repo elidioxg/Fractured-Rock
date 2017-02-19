@@ -9,6 +9,7 @@ import fractureanalysis.model.Separator;
 import fractureanalysis.stages.FractureAnalysisStage;
 import fractureanalysis.stages.HistogramStage;
 import fractureanalysis.stages.LineChartStage;
+import fractureanalysis.stages.MatrixViewStage;
 import fractureanalysis.stages.OpenDataStage;
 import fractureanalysis.stages.ScatterChartStage;
 import fractureanalysis.stages.Variogram1DStage;
@@ -335,6 +336,13 @@ public class AppController implements Initializable {
         FractureAnalysisStage stage = new FractureAnalysisStage(
                 FractureAnalysis.getInstance().getDatasetList());
         stage.createStage();
+    }
+    
+      @FXML
+    protected void matrixViewStage() throws IOException{
+        MatrixViewStage view = new 
+        MatrixViewStage(FractureAnalysis.getInstance().getDatasetList());
+        view.createStage();
     }
 
     @FXML

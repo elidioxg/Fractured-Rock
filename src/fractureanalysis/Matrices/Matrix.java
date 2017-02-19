@@ -183,7 +183,10 @@ public class Matrix {
         this.columns = columns;
     }
 
-    public Number get(int column, int line) {
+    public Number get(int column, int line) throws Exception {
+        if(column > this.getColumnsCount() || line > this.getColumnsCount()){
+            throw new Exception("Line: "+line+" or column: "+column+" Out of range.");
+        }
         return this.data[column][line];
     }
 
@@ -276,22 +279,17 @@ public class Matrix {
     }
 
     //TODO
-    public Vector vectorMultiply(Vector vector) throws Exception {
-        System.out.println("VECTOR MULTIPLY");
+    public Vector vectorMultiply(Vector vector) throws Exception {      
         if (this.columns != vector.size()) {
             throw new Exception("Number of columns of matrix and vector size must be equal.");
         }
         Vector result = new Vector(this.getLinesCount());
         for (int i = 0; i < this.lines; i++) {
             double aux = 0.;
-            for (int j = 0; j < this.columns; j++) {
-                System.out.println("Value of matrix("+j+","+i+") = "+this.get(j, i));
-                aux += this.get(j, i).doubleValue() * vector.get(j).doubleValue();
-                System.out.println("Value of vector("+j+") = "+vector.get(j));
-                System.out.println("Multply result: "+aux);
+            for (int j = 0; j < this.columns; j++) {                
+                aux += this.get(j, i).doubleValue() * vector.get(j).doubleValue();                
             }
-            result.set(i, aux);
-            System.out.println("Index: "+i+"  Value: "+aux);
+            result.set(i, aux);            
         }
         return result;
     }
@@ -308,28 +306,25 @@ public class Matrix {
         }
         Matrix result = new Matrix(this.getColumnsCount());
         //O procedimento abaixo funciona para matrix com tamanho
-        //divisível por 4, verificar como se comporta em outros tamanhos
+        //divisível por 2, verificar como se comporta em outros tamanhos
         //talvez seja necessário criar algoritmos para tamanho 3 
-        //e tamanhos que não sejam divisíveis por 4
         for (int i = 0; i < this.getColumnsCount(); i = i + 2) {
             for (int j = 0; j < this.getLinesCount(); j = j + 2) {
                 double A = this.get(i, j).doubleValue();
-                double B = this.get(i+1, j).doubleValue();
-                double C = this.get(i, j+1).doubleValue();
-                double D = this.get(i+1, j+1).doubleValue();
-                double ai = (1./A)+( (1./A)*B*(1/(D-(C*1./A*B)))*C*1./A);
-                double bi = -(1./A)*B*(1./(D-C*1./A*B));
-                double ci = -(1./(D-C*1./A*B))*C*1./A;
-                double di = (1./(D-C*1/A*B));
+                double B = this.get(i + 1, j).doubleValue();
+                double C = this.get(i, j + 1).doubleValue();
+                double D = this.get(i + 1, j + 1).doubleValue();
+                double ai = (1. / A) + ((1. / A) * B * (1 / (D - (C * 1. / A * B))) * C * 1. / A);
+                double bi = -(1. / A) * B * (1. / (D - C * 1. / A * B));
+                double ci = -(1. / (D - C * 1. / A * B)) * C * 1. / A;
+                double di = (1. / (D - C * 1 / A * B));
                 result.set(i, j, ai);
-                result.set(i+1, j, bi);
-                result.set(i, j+1, ci);
-                result.set(i+1, j+1, di);
+                result.set(i + 1, j, bi);
+                result.set(i, j + 1, ci);
+                result.set(i + 1, j + 1, di);
                 result.print();
-            }            
-        }
-        System.out.println("Complete inversion:");
-        result.print();
+            }
+        }        
         return result;
     }
 

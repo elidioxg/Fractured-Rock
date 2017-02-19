@@ -70,6 +70,10 @@
                         text="2D Variogram"
                         onAction="#variogramStage2" >
                     </MenuItem>    
+                    <MenuItem 
+                        text="Matrix Content"
+                        onAction="#matrixViewStage">                        
+                    </MenuItem>
                 </items>
             </Menu>   
             <Menu text="Analysis">
@@ -77,7 +81,7 @@
                     <MenuItem 
                         text="Fracture Intensity" 
                         onAction="#fractureStage" 
-                        >
+                    >
                     </MenuItem>
                 </items>
             </Menu>
@@ -100,14 +104,14 @@
         
         <Tab
             text="Dataset"
-        closable="false" >
+            closable="false" >
             <content>
                 <fx:include fx:id="dataset" source="tab_dataset.fxml"/>
             </content>
         </Tab>
         
         <Tab text="Table"
-        closable="false">
+             closable="false">
                         
             <TableView 
                 fx:id="tvDataset"                
@@ -117,7 +121,7 @@
         </Tab>
         
         <Tab text="Summary"
-        closable="false">
+             closable="false">
             <content>
                 <fx:include fx:id="summaryView" source="tab_summary.fxml"/>
             </content>
@@ -125,21 +129,21 @@
         </Tab> 
         
         <Tab text="Histogram"
-        closable="false">
+             closable="false">
             <content>
                 <fx:include fx:id="histogramView" source="tab_histogram.fxml"/>
             </content>
         </Tab>
         
         <Tab text="Cumulative Frequency"
-        closable="false">
+             closable="false">
             <content>
                 <fx:include source="tab_cumulative_freq.fxml"/>
             </content>
         </Tab>
         
         <Tab text="Correlation"
-        closable="false">
+             closable="false">
             <content>
                 <fx:include source="tab_correlation.fxml"/>
             </content>

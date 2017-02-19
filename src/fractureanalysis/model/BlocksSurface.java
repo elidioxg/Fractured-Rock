@@ -16,6 +16,8 @@
  */
 package fractureanalysis.model;
 
+import fractureanalysis.Matrices.Matrix;
+import fractureanalysis.util.ColorScale;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -26,15 +28,20 @@ import javafx.scene.paint.Color;
  * @author elidioxg
  */
 public class BlocksSurface {
-    private static final int canvasSize = 300;
-    
-    private static double axisLen;    
+    /**
+     * Size of canvas
+     */
+    private int canvasSize;    
     
     private Canvas surface;
     /*
      *Number of horizontal and vertical lines
      */
     private final int gridLines;
+    /**
+     * Number of Blocks (per column or line) is gridLines + 1
+    */
+    private final int nBlocks;
     
     private Block[][] blocks;
     
@@ -44,40 +51,50 @@ public class BlocksSurface {
     private static ArrayList<Double> xTicksLabels;
     private static ArrayList<Double> yTicksLabels;
     
-    GraphicsContext gc;
+    private GraphicsContext gc;
+    
+    private final Color SURFACE_COLOR = Color.WHITE;
+    
+    private boolean labels = true;
             
-    public BlocksSurface(int nGridLines, double axisLen){
-        surface = new Canvas(canvasSize, canvasSize);
+    public BlocksSurface(GraphicsContext context, int nGridLines, int axisLen){
+        surface = new Canvas(axisLen, axisLen);
+        this.canvasSize = axisLen;
         this.gridLines  = nGridLines;
-        gc = surface.getGraphicsContext2D();
-        blocks = new Block[nGridLines][nGridLines];        
-        for(int i = 0 ; i < gridLines; i++){
-            for(int j = 0 ; j < gridLines; j++){
+        this.nBlocks = nGridLines+1;
+        gc = context;
+        gc.setFill(SURFACE_COLOR);
+        gc.fillRect(0, 0, axisLen, axisLen);   
+        blocks = new Block[nGridLines+1][nGridLines+1];        
+        for(int i = 0 ; i < gridLines+1; i++){
+            for(int j = 0 ; j < gridLines+1; j++){
                 blocks[j][i] = new Block(this, j, i);                
+                //blocks[j][i].setColor(teor, escala de teor);
             }
         }        
     }
     
     public int getSize(){
-        return BlocksSurface.canvasSize;
+        return canvasSize;
     }
     
     public int getNGridLines(){
         return this.gridLines;
     }
     
-    public void drawBlocks(){
-        /*for(int i = 0 ; i < gridLines; i++){
-            for(int j = 0 ; j < gridLines; j++){
-                
+    public void drawBlocks(Matrix data, ColorScale scale) throws Exception{
+        gc.setLineWidth(1);
+        for(int i = 0 ; i < gridLines+1; i++){
+            for(int j = 0 ; j < gridLines+1; j++){
+                blocks[i][j].setColor(
+                        scale.getColor(data.get(i,j).doubleValue()));
+                blocks[i][j].setContent(data.get(i,j));
+                blocks[i][j].draw(gc, this);
             }
-        }*/
-        gc.setFill(Color.GREEN);
-        gc.setStroke(Color.BLUE);
-        gc.setLineWidth(5);
-        this.gc.fillRect(blocks[1][1].getX(), 
-                blocks[1][1].getY(), 
-                blocks[1][1].getSize(), 
-                blocks[1][1].getSize());
+        }              
+    }
+    
+    public boolean showLabels(){
+        return this.labels;
     }
 }

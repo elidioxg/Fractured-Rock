@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.*?>
+
+<GridPane 
+    id="AnchorPane" 
+    prefHeight="600.0" 
+    prefWidth="800.0" 
+    styleClass="mainFxmlClass" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="fractureanalysis.controller.Stage_matrix_viewController">
+    <stylesheets>
+        <URL value="@app_style.css"/>
+    </stylesheets>
+    
+    <columnConstraints>
+        <ColumnConstraints percentWidth="15" ></ColumnConstraints>
+        <ColumnConstraints percentWidth="15" ></ColumnConstraints>
+        <ColumnConstraints percentWidth="15" ></ColumnConstraints>
+        <ColumnConstraints percentWidth="55" ></ColumnConstraints>
+    </columnConstraints>
+    
+    
+    <MenuBar 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="0"
+        GridPane.columnSpan="4">
+        <menus>
+            <Menu text="Export to Jpg Image"></Menu>
+        </menus>
+        
+    </MenuBar>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        text="Datasets">
+        
+    </Label>
+    <ComboBox 
+        fx:id="cbDatasets"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1"
+        onAction="#cbChange" >
+    </ComboBox>
+        
+    <CheckBox 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"
+        GridPane.columnSpan="2"
+        text="Labels with content value"
+        selected="true">
+        
+    </CheckBox>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3"        
+        text="Color scale">
+        
+    </Label>
+    <ComboBox 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="4"
+    >
+        
+    </ComboBox>
+    
+    <Canvas 
+        fx:id="cSurface"
+        GridPane.columnIndex="3"
+        GridPane.rowIndex="1" 
+        GridPane.rowSpan="5" 
+        width="600" 
+        height="600"
+    >
+        
+    </Canvas>
+    
+    <ButtonBar 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="6"
+        GridPane.columnSpan="4">
+        
+    </ButtonBar>
+    
+</GridPane>

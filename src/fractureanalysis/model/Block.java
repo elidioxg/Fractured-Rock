@@ -16,7 +16,9 @@
  */
 package fractureanalysis.model;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 /**
  *
@@ -34,9 +36,13 @@ public class Block {
     private final double xi, yi;
     private final double blockSize;
     
-    private double content = 0.;
+    private Number content = 0.;
     
-    private static Color color;
+    private Color color;
+    private final Color TEXT_COLOR = Color.BLACK;
+    private final int FONT_SIZE = 9;
+    
+    private final int padding = 15;
     
     private final BlocksSurface owner;
     
@@ -44,7 +50,7 @@ public class Block {
         this.column = column;
         this.line = line;
         this.owner = owner;
-        this.blockSize = (this.owner.getSize()/this.owner.getNGridLines());
+        this.blockSize = (owner.getSize()/owner.getNGridLines());
         xi = blockSize*column;        
         yi = blockSize*line;        
     }
@@ -60,4 +66,32 @@ public class Block {
     public double getSize(){
         return this.blockSize;
     }
+    
+    public Color getColor(){
+        return color;
+    }
+    
+    public void setColor(Color color){
+        this.color = color;
+    }
+    
+    public void setContent(Number value){
+        this.content = value;
+    }
+    
+    public Number getContent(){
+        return this.content;
+    }
+    
+    public void draw(GraphicsContext context, BlocksSurface owner){
+        context.setFill(getColor());
+        context.fillRect(getX(), getY(), 
+                getSize(), getSize());
+        if(owner.showLabels()){      
+            context.setFill(TEXT_COLOR);
+            context.setFont(Font.font(FONT_SIZE));
+            context.fillText(String.valueOf(content), getX()+padding, getY()+padding);
+        }
+    }
+    
 }
