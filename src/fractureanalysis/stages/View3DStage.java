@@ -17,16 +17,14 @@
 package fractureanalysis.stages;
 
 import fractureanalysis.FractureAnalysis;
+import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.scene.LightProperties;
 import fractureanalysis.view3d.Axis;
 import fractureanalysis.view3d.DrawPlanes3D;
-import javafx.scene.DepthTest;
+import fractureanalysis.view3d.SceneUtils;
 import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 /**
@@ -36,51 +34,55 @@ import javafx.stage.Stage;
 public class View3DStage {
 
     /**
-     * Default Camera Parameters
-     */
-    private final int defaultFarClip = 10000;
-    private final double defaultNearClip = 0.01;
-    private final double defaultFieldOfView = 25.;
-    private final double defaultXRotate = 180.;
-    private final double defaultYRotate = 0.;
-    private final double defaultZRotate = 0.;
-    private final double defaultXTranslate = 500;
-    private final double defaultYTranslate = -350.;
-    private final double defaultZTranslate = -3000.;
-    
-
-    /**
      * Create a Stage for 3D fractures representation
-     * @throws Exception 
+     *
+     * @throws Exception
      */
-    public void createStage() throws Exception {        
+    public void createStage() throws Exception {
         final Group root = new Group();
         root.getChildren().addAll(LightProperties.setScene3DLight());
         root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
         root.getChildren().addAll(DrawPlanes3D.drawPlanes(
                 FractureAnalysis.getInstance().file.getScanLine()));
-        root.getChildren().addAll(Axis.addAxis());        
-        
-        System.out.println("Fractures Count: "+
-                FractureAnalysis.getInstance().file.getScanLine().fracturesCount());
-        
+        root.getChildren().addAll(Axis.addAxis());
+
         Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
                 DrawPlanes3D.getViewSize(), true);
         scene.setFill(Color.WHITE);
-        PerspectiveCamera camera = new PerspectiveCamera();
-        camera.setFieldOfView(defaultFieldOfView);
-        camera.setFarClip(defaultFarClip);
-        camera.setNearClip(defaultNearClip);
-        camera.setDepthTest(DepthTest.ENABLE);
-        camera.getTransforms().addAll(
-                new Rotate(defaultXRotate, Rotate.X_AXIS),
-                new Rotate(defaultYRotate, Rotate.Y_AXIS),
-                new Rotate(defaultZRotate, Rotate.Z_AXIS),
-                new Translate(defaultXTranslate, defaultYTranslate,
-                        defaultZTranslate));
-        root.getChildren().add(camera);        
-        scene.setCamera(camera);
-        
+
+        SceneUtils utils = new SceneUtils();
+        utils.buildCamera(root);
+        utils.handleMouse(scene, root);
+        utils.handleKeyboard(scene, root);
+
+        Stage stage = new Stage();
+        stage.setTitle("3D View of Fracture Planes");
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    /**
+     * Create a Stage for 3D fractures representation
+     *
+     * @throws Exception
+     */
+    public void createStage(ScanLine scanline) throws Exception {
+        final Group root = new Group();
+        root.getChildren().addAll(LightProperties.setScene3DLight());
+        root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
+        root.getChildren().addAll(DrawPlanes3D.drawPlanes(
+                scanline));
+        root.getChildren().addAll(Axis.addAxis());
+
+        Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
+                DrawPlanes3D.getViewSize(), true);
+        scene.setFill(Color.WHITE);
+
+        SceneUtils utils = new SceneUtils();
+        utils.buildCamera(root);
+        utils.handleMouse(scene, root);
+        utils.handleKeyboard(scene, root);
+
         Stage stage = new Stage();
         stage.setTitle("3D View of Fracture Planes");
         stage.setScene(scene);
