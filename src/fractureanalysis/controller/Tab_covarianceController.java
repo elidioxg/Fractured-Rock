@@ -22,6 +22,7 @@ import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.math.EuclideanDistance;
 import fractureanalysis.model.Separator;
+import fractureanalysis.statistics.Covariance;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -84,56 +85,22 @@ public class Tab_covarianceController implements Initializable {
                     }
                     scLocation.getData().add(serie);
                     Matrix distances = EuclideanDistance.getDistances(x, y);
+                    distances.print();
+                    //plot covariance function on graph
+                    for (int i = 0; i < distances.getColumnsCount(); i++) {
+                        for (int j = i + 1; j < distances.getColumnsCount(); j++) {
+                            double h = distances.get(j, i).doubleValue();
+                            //double cov = Covariance
+                        }
+                    }
+
                     for (int i = 0; i < distances.getColumnsCount(); i++) {
                         for (int j = 0; j < distances.getLinesCount(); j++) {
                             double aux = 2000. * Math.exp(-distances.get(i, j).doubleValue() / 250.);
                             distances.set(i, j, aux);
                         }
                     }
-
-                    /*Matrix m = new Matrix(5);
-                    m.set(0, 0, 1.81);
-                    m.set(0, 1, -1.513);
-                    m.set(0, 2, -.5588);
-                    m.set(0, 3, 1.97);
-                    m.set(0, 4, -1.088);
-                    m.set(1, 0, -1.9178);
-                    m.set(1, 1, -1.0880);
-                    m.set(1, 2, 1.3005);
-                    m.set(1, 3, 1.82589);
-                    m.set(1, 4, -.2647);
-                    m.set(2, 0, -1.088);
-                    m.set(2, 1, 1.82589);
-                    m.set(2, 2, -1.97606);
-                    m.set(2, 3, 1.4902);
-                    m.set(2, 4, -.5247);
-                    m.set(3, 0, -1.92279);
-                    m.set(3, 1, 1.058165);
-                    m.set(3, 2, 1.340458);
-                    m.set(3, 3, -1.795855);
-                    m.set(3, 4, -.352151);
-                    m.set(4, 0, 1.52511);
-                    m.set(4, 1, 1.973);
-                    m.set(4, 2, 1.02795);
-                    m.set(4, 3, -6.43244);        
-                    m.set(4, 4, -1.86021);        
-                    m.print();*/
-                    int size = 5;
-                    Matrix m = new Matrix(size);
-                    for (int i = 1; i <= size; i++) {
-                        for (int j = 1; j <= size; j++) {
-                            double value = Math.sin(i * j * j + i) * 2;
-                            m.set(j-1, i-1, value);
-                        }
-                    }
-                    m.print();
-                    //LUP lup = new LUP(m);
-                    Matrix dec = LUP.lupDecompose(m);
-                    System.out.println("Decompose:");
-                    dec.print();
-                    //Matrix inv = lup.lupInverse();
-                    //System.out.println("Inverse matrix:");
-                    //inv.print();
+                    distances.print();
 
                 }
             }

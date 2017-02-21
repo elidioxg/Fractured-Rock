@@ -300,7 +300,6 @@ public class Matrix {
      * @return
      */
     public Matrix getInverse() throws Exception {
-
         if (this.getColumnsCount() != this.getLinesCount()) {
             throw new Exception("Must be a Square Matrix.");
         }

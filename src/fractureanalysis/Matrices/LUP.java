@@ -26,8 +26,9 @@ import fractureanalysis.Vectors.Vector;
  * @author elidioxg
  */
 public class LUP {
-
-    private Matrix matrix;
+    private Matrix original;    
+    private Matrix decomposed;
+    private Matrix inverse;
     private Vector P;
     private final int size;
 
@@ -35,25 +36,23 @@ public class LUP {
         if (matrix.getColumnsCount() != matrix.getLinesCount()) {
             throw new Exception("Columns and Lines counts must be equal.");
         }
-        this.matrix = matrix;
+        
+        this.original = matrix;
         this.size = matrix.getColumnsCount();
     }
 
-    public Matrix lupDecompose() throws Exception {
-        
-        int size = matrix.getColumnsCount();
-        Vector P = new Vector(size);
-        //this.P = new Vector(size);
+    public void lupDecompose() throws Exception {
+        Matrix matrix = this.original;
+        this.P = new Vector(size);
         int i, j, k, kd = 0, T;
         double p, t;
-        for (i = 1; i < size; i++) {
+        for (i = 0; i < size; i++) {
             P.set(i, i);
         }
-        P.print();
-        for (k = 1; k < size; k++) {
+        for (k = 0; k < size - 1; k++) {
             p = 0.;
             for (i = k; i < size; i++) {
-                t = matrix.get(i, k).doubleValue();
+                t = matrix.get(k, i).doubleValue();
                 if (t < 0) {
                     t *= -1;
                 }
@@ -67,12 +66,12 @@ public class LUP {
                 throw new Exception("ERROR: A singular matrix is supplied.");
             }
 
-            T = P.get(kd).intValue();
-            P.set(kd, P.get(k));
+            T = P.get(kd).intValue();            
+            P.set(kd, P.get(k).doubleValue());
             P.set(k, T);
-            for (i = 1; i < size; i++) {
+            for (i = 0; i < size; i++) {
                 t = matrix.get(i, kd).doubleValue();
-                matrix.set(i, kd, matrix.get(i, k));
+                matrix.set(i, kd, matrix.get(i, k).doubleValue());
                 matrix.set(i, k, t);
             }
 
@@ -87,56 +86,75 @@ public class LUP {
 
             }
         }
-        System.out.println();
-        System.out.println("PIVOT");
-        P.print();
-        matrix.print();
-        return matrix;
+        this.decomposed = matrix;
     }
 
-    public Matrix lupInverse() throws Exception {
-        int size = matrix.getColumnsCount();
-        int i, j, n, m;
+    public void lupInverse() throws Exception {
+        Matrix matrix = this.decomposed;
+        int i, n, m;
         double t;
 
         Vector X = new Vector(size);
         Vector Y = new Vector(size);
         Matrix B = new Matrix(size);
+
+        //Storing elements of the i-th column of the identity matrix in i-th row of 'B'.                          
+        for (i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                B.set(j, i, 0);
+            }
+            B.set(i, i, 1);
+        }
         /* Solving LUX = Pe, in order to calculate the inverse of 'A'. Here, 'e' is a column  
         * vector of the identity matrix of size 'size-1'. Solving for all 'e'. */
-        for (i = 1; i < size; i++) {
-            //Storing elements of the i-th column of the identity matrix in i-th row of 'B'.                          
-            B.set(i, i, 0);
 
+        for (i = 0; i < size; i++) {
             //Solving Ly = Pb
-            for (n = 1; n < size; n++) {
+            for (n = 0; n < size; n++) {
                 t = 0;
-                for (m = 1; m <= n - 1; m++) {
-                    t += matrix.get(n, m).doubleValue() * Y.get(m).doubleValue();
+                for (m = 0; m <= n-1; m++) {
+                    t += matrix.get(m, n).doubleValue() * Y.get(m).doubleValue();
                 }
-                double aux = this.P.get(n).doubleValue();
-                Y.set(n, B.get(i, (int) aux).doubleValue() - t);
+                int aux = (int) this.P.get(n).intValue();
+                Y.set(n, B.get(aux, i).doubleValue() - t);       
             }
-            //Solving Ux = y
-            for (n = size - 1; n >= 1; n--) {
-                t = 0;
-                for (m = n + 1; m < size; m++) {
-                    t += matrix.get(n, m).doubleValue() * X.get(m).intValue();
+            //Solving Ux = y            
+            for (n = size - 1; n >= 0; n--) {
+                t = 0;                
+                for (m = n+1; m < size; m++) {                    
+                    t += matrix.get(m, n).doubleValue() * X.get(m).doubleValue();                    
                 }
-                X.set(n, (Y.get(n).doubleValue() - t) / (matrix.get(n, n).doubleValue()));
-            }
+                double value = (Y.get(n).doubleValue() - t) / (matrix.get(n, n).doubleValue());
+                X.set(n, value);                
+            }     //Now, X contains the solution.         
 
-            for (j = 1; j < size; j++) {
-                B.set(i, j, X.get(j));
+            for (int j = 0; j < size; j++) {
+                B.set(j, i, X.get(j));
+                //System.out.println("B setado: " + B.get(j, i).doubleValue());
             }
         }
+        this.inverse = B;
+        System.out.println("\nB: ");
+        B.print();
         /* Copying transpose of 'B' into 'LU', which would the inverse of 'A'. */
-        for (i = 1; i < size; i++) {
-            for (j = 1; j < size; j++) {
-                matrix.set(i, j, B.get(j, i));
+        /*System.out.println("Copying transpose of 'B' into 'LU', which would the inverse of 'A'.");
+        for (i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                matrix.set(j, i, B.get(i, j).doubleValue());
             }
         }
-        return matrix;
+        matrix.print();*/
     }
 
+    public Matrix getOriginal() {
+        return this.original;
+    }
+    
+    public Matrix getInverse(){
+        return this.inverse;
+    }
+    
+    public Matrix getDecomposed(){
+        return this.decomposed;
+    }
 }
