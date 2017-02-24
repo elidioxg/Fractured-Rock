@@ -22,11 +22,10 @@ public class SceneUtils {
     double mouseOldX;
     double mouseOldY;
     double mouseDeltaX;
-    double mouseDeltaY;
-    boolean timelinePlaying = false;
+    double mouseDeltaY;  
     double ONE_FRAME = 1.0 / 24.0;
     double DELTA_MULTIPLIER = 200.0;
-    double CONTROL_MULTIPLIER = .1;
+    double CONTROL_MULTIPLIER = 100;
     double SHIFT_MULTIPLIER = 0.1;
     double ALT_MULTIPLIER = 1;
     final Xform cameraXform = new Xform();
@@ -68,8 +67,8 @@ public class SceneUtils {
         cameraXform3.getChildren().add(camera);
         cameraXform3.setRotateZ(180.0);
 
-        camera.setNearClip(0.1);
-        camera.setFarClip(10000.0);
+        camera.setNearClip(defaultNearClip);
+        camera.setFarClip(defaultFarClip);
         camera.setTranslateZ(-cameraDistance);
         cameraXform.ry.setAngle(320.0);
         cameraXform.rx.setAngle(40);
