@@ -29,12 +29,12 @@ public class Position3D {
     /**
      * This variables limit the range of values used for 3D plot.
      */
-    private final double minX = 0.;
-    private final double maxX = 1000000.;
-    private final double minY = 0.;
-    private final double maxY = 1000000.;
-    private final double minZ = 0.;
-    private final double maxZ = 1000000.;
+    private final double minX = -100000.;
+    private final double maxX = 100000.;
+    private final double minY = -100000.;
+    private final double maxY = 100000.;
+    private final double minZ = -100000.;
+    private final double maxZ = 100000.;
 
     private double X = 0.;
     private double Y = 0.;

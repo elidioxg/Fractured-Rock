@@ -45,7 +45,7 @@ public class View3DStage {
         root.getChildren().addAll(DrawPlanes3D.drawPlanes(
                 FractureAnalysis.getInstance().file.getScanLine()));
         root.getChildren().addAll(Axis.addAxis());
-
+        
         Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
                 DrawPlanes3D.getViewSize(), true);
         scene.setFill(Color.WHITE);
@@ -60,7 +60,7 @@ public class View3DStage {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     /**
      * Create a Stage for 3D fractures representation
      *
@@ -73,6 +73,9 @@ public class View3DStage {
         root.getChildren().addAll(DrawPlanes3D.drawPlanes(
                 scanline));
         root.getChildren().addAll(Axis.addAxis());
+        root.getChildren().addAll(Axis.addScanlineAxis(
+                FractureAnalysis.getInstance().file.getScanLine().getLenght()));
+        System.out.println(FractureAnalysis.getInstance().file.getScanLine().getLenght());
 
         Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
                 DrawPlanes3D.getViewSize(), true);

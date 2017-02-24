@@ -27,7 +27,7 @@ import javafx.scene.shape.DrawMode;
 public class DrawPlanes3D {
     
     private static double viewSize = 1000;
-    private static double defaultPlaneMinWidth = 20.;
+    private static double defaultPlaneMinWidth = 1.;
     
     public static void setViewSize(double size){
         viewSize = size;

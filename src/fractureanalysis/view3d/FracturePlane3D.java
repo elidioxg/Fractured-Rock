@@ -35,7 +35,8 @@ public class FracturePlane3D extends Box {
      */
     private Position3D position = new Position3D();
     
-    private double planeHeight = 200.;
+    private double planeHeight = 600.;
+    private double planeWidth = 600.;
     
     /**
      * Draw a plane of fracture. The plane will have azimuth equals to zero, and 
@@ -51,8 +52,9 @@ public class FracturePlane3D extends Box {
         this.az.setAz(0);
         this.deepIntensity = 0.;
         this.setPosX(distance);
+        this.setPosY(planeHeight/2);
         this.aperture = ap;
-        this.setDepth(aperture);
+        this.setDepth(planeWidth);
         this.setWidth(aperture);
         this.setHeight(planeHeight);
     }

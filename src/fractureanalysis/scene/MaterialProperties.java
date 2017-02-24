@@ -26,8 +26,8 @@ import javafx.scene.paint.PhongMaterial;
 public class MaterialProperties {
 
     /**
-     *Define the material of the background plane on 2D view.
-     * 
+     * Define the material of the background plane on 2D view.
+     *
      * @return
      */
     public static PhongMaterial setPlaneMaterial() {
@@ -38,7 +38,8 @@ public class MaterialProperties {
     }
 
     /**
-     *Define the material of fractures
+     * Define the material of fractures
+     *
      * @return
      */
     public static PhongMaterial setFractureMaterial() {
@@ -50,6 +51,7 @@ public class MaterialProperties {
 
     /**
      * Define the material for the axis on 3D view
+     *
      * @param index
      * @return
      */
@@ -67,6 +69,10 @@ public class MaterialProperties {
             case 2:
                 axis.setDiffuseColor(Color.DARKBLUE);
                 axis.setSpecularColor(Color.BLUE);
+                break;
+            case 3:
+                axis.setDiffuseColor(Color.BLACK);
+                axis.setSpecularColor(Color.BROWN);
                 break;
         }
         return axis;
