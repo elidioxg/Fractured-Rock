@@ -22,7 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class LineChartController implements Initializable {
+public class Stage_lineChartController implements Initializable {
 
     @FXML
     protected GridPane gpStage;

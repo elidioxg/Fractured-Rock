@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 elidioxg
+ * Copyright (C) 2017 elidioxg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,12 @@ import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.scene.LightProperties;
 import fractureanalysis.view3d.Axis;
 import fractureanalysis.view3d.DrawPlanes3D;
+import fractureanalysis.view3d.FracturePlane3D;
 import fractureanalysis.view3d.SceneUtils;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -34,31 +38,20 @@ import javafx.stage.Stage;
 public class View3DStage {
 
     /**
-     * Create a Stage for 3D fractures representation
-     *
-     * @throws Exception
+     * Setup stage for Fractures and Wells 3D view 
+     * @throws IOException 
      */
-    public void createStage() throws Exception {
-        final Group root = new Group();
-        root.getChildren().addAll(LightProperties.setScene3DLight());
-        root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
-        root.getChildren().addAll(DrawPlanes3D.drawPlanes(
-                FractureAnalysis.getInstance().file.getScanLine()));
-        root.getChildren().addAll(Axis.addAxis());
-        
-        Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
-                DrawPlanes3D.getViewSize(), true);
-        scene.setFill(Color.WHITE);
-
-        SceneUtils utils = new SceneUtils();
-        utils.buildCamera(root);
-        utils.handleMouse(scene, root);
-        utils.handleKeyboard(scene, root);
+    public void createSetupStage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().getClass().getResource(
+                "views/stage_3dview.fxml"));
+        Parent root = (Parent) loader.load();
 
         Stage stage = new Stage();
-        stage.setTitle("3D View of Fracture Planes");
+        Scene scene = new Scene(root);
+        stage.setTitle("Fractures view on wells");
         stage.setScene(scene);
         stage.show();
+
     }
 
     /**
@@ -66,7 +59,7 @@ public class View3DStage {
      *
      * @throws Exception
      */
-    public void createStage(ScanLine scanline) throws Exception {
+    public void scanlineContext(ScanLine scanline) throws Exception {
         final Group root = new Group();
         root.getChildren().addAll(LightProperties.setScene3DLight());
         root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
@@ -90,6 +83,28 @@ public class View3DStage {
         stage.setTitle("3D View of Fracture Planes");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void fracWellContext(FracturePlane3D[] frac) {
+        final Group root = new Group();
+        root.getChildren().addAll(LightProperties.setScene3DLight());
+        root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
+        root.getChildren().addAll(Axis.addAxis());
+
+        Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
+                DrawPlanes3D.getViewSize(), true);
+        scene.setFill(Color.WHITE);
+
+        SceneUtils utils = new SceneUtils();
+        utils.buildCamera(root);
+        utils.handleMouse(scene, root);
+        utils.handleKeyboard(scene, root);
+
+        Stage stage = new Stage();
+        stage.setTitle("3D View of Fracture Planes and Wells");
+        stage.setScene(scene);
+        stage.show();
+
     }
 
 }

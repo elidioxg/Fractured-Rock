@@ -69,13 +69,23 @@
                     <MenuItem 
                         text="2D Variogram"
                         onAction="#variogramStage2" >
-                    </MenuItem>    
+                    </MenuItem>                        
+                </items>                
+            </Menu>   
+            <Menu 
+                text="View">
+                <items>
                     <MenuItem 
                         text="Matrix Content"
                         onAction="#matrixViewStage">                        
                     </MenuItem>
-                </items>
-            </Menu>   
+                    <MenuItem 
+                        text="3D View"
+                        onAction="#view3DStage" 
+                    >                        
+                    </MenuItem>
+                </items>                
+            </Menu>
             <Menu text="Analysis">
                 <items>
                     <MenuItem 

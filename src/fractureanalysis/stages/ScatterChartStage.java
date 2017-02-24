@@ -3,7 +3,6 @@ package fractureanalysis.stages;
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

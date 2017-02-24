@@ -14,6 +14,7 @@ import fractureanalysis.stages.OpenDataStage;
 import fractureanalysis.stages.ScatterChartStage;
 import fractureanalysis.stages.Variogram1DStage;
 import fractureanalysis.stages.VariogramStage;
+import fractureanalysis.stages.View3DStage;
 import fractureanalysis.statistics.histogram.ClassInterval;
 import fractureanalysis.statistics.histogram.Frequency;
 import fractureanalysis.statistics.MaximumValue;
@@ -343,6 +344,12 @@ public class AppController implements Initializable {
         MatrixViewStage view = new 
         MatrixViewStage(FractureAnalysis.getInstance().getDatasetList());
         view.createStage();
+    }
+    
+    @FXML 
+    protected void view3DStage() throws IOException{
+        View3DStage stage = new View3DStage();
+        stage.createSetupStage();
     }
 
     @FXML
