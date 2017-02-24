@@ -26,125 +26,128 @@ import javafx.concurrent.Task;
 import javafx.scene.chart.XYChart;
 
 public class PlotSeries {
-    
+
     /**
      * Return a serie of two vectors representing X and Y axis.
+     *
      * @param columnX
      * @param columnY
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-    public static XYChart.Series plotLineSeries(Vector columnX, 
-            Vector columnY) throws Exception{
-        if(columnX.size()!=columnY.size()){
-            throw new Exception("Columns X and Y must have same size.");            
+    public static XYChart.Series plotLineSeries(Vector columnX,
+            Vector columnY) throws Exception {
+        if (columnX.size() != columnY.size()) {
+            throw new Exception("Columns X and Y must have same size.");
         }
-        if(columnX.size()==0 || columnY.size()==0){
+        if (columnX.size() == 0 || columnY.size() == 0) {
             throw new Exception("Vectors of size 0");
         }
-        XYChart.Series<Number, Number> series = new XYChart.Series();                
+        XYChart.Series<Number, Number> series = new XYChart.Series();
         Task<List<XYChart.Data<Number, Number>>> task;
-        task = new Task<List<XYChart.Data<Number, Number>>>(){
+        task = new Task<List<XYChart.Data<Number, Number>>>() {
             @Override
             protected List<XYChart.Data<Number, Number>> call() throws Exception {
-                List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();                
-                for(int i =0; i<columnX.size(); i++){
+                List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
+                for (int i = 0; i < columnX.size(); i++) {
                     chartData.add(new XYChart.Data(columnX.get(i).doubleValue(),
                             columnY.get(i).doubleValue()));
-                }                
+                }
                 return chartData;
             }
-        };        
+        };
         task.setOnSucceeded(e -> series.getData().addAll(task.getValue()));
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
-        return series;        
+        return series;
     }
-    
+
     /**
-     * Return a serie of two vectors representing X and Y axis 
-     * and a label naming the serie
+     * Return a serie of two vectors representing X and Y axis and a label
+     * naming the serie
+     *
      * @param serieName
      * @param columnX
      * @param columnY
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-    public static XYChart.Series plotLineSeries(String serieName, Vector columnX, 
-            Vector columnY) throws Exception{
-        if(columnX.size()!=columnY.size()){
-            throw new Exception("Columns X and Y must have same size.");            
+    public static XYChart.Series plotLineSeries(String serieName, Vector columnX,
+            Vector columnY) throws Exception {
+        if (columnX.size() != columnY.size()) {
+            throw new Exception("Columns X and Y must have same size.");
         }
-        if(columnX.size()==0 || columnY.size()==0){
+        if (columnX.size() == 0 || columnY.size() == 0) {
             throw new Exception("Vectors of size 0");
         }
-        XYChart.Series<Number, Number> series = new XYChart.Series();                
+        XYChart.Series<Number, Number> series = new XYChart.Series();
         series.setName(serieName);
         Task<List<XYChart.Data<Number, Number>>> task;
-        task = new Task<List<XYChart.Data<Number, Number>>>(){
+        task = new Task<List<XYChart.Data<Number, Number>>>() {
             @Override
             protected List<XYChart.Data<Number, Number>> call() throws Exception {
-                List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();                
-                for(int i =0; i<columnX.size(); i++){
+                List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
+                for (int i = 0; i < columnX.size(); i++) {
                     chartData.add(new XYChart.Data(columnX.get(i).doubleValue(),
                             columnY.get(i).doubleValue()));
-                }                
+                }
                 return chartData;
             }
-        };        
+        };
         task.setOnSucceeded(e -> series.getData().addAll(task.getValue()));
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
-        return series;        
+        return series;
     }
-    
+
     /**
-     * Return a line chart serie for two vectors represented as ArrayLists 
-     * with Double value.
+     * Return a line chart serie for two vectors represented as ArrayLists with
+     * Double value.
+     *
      * @param columnX
      * @param columnY
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-    public static XYChart.Series plotLineSeries(ArrayList<Double> columnX, 
-            ArrayList<Double> columnY) throws Exception{
-        if(columnX.size()!=columnY.size()){
-            throw new Exception("Columns X and Y must have same size.");            
+    public static XYChart.Series plotLineSeries(ArrayList<Double> columnX,
+            ArrayList<Double> columnY) throws Exception {
+        if (columnX.size() != columnY.size()) {
+            throw new Exception("Columns X and Y must have same size.");
         }
-        XYChart.Series<Number, Number> series = new XYChart.Series();        
+        XYChart.Series<Number, Number> series = new XYChart.Series();
         Task<List<XYChart.Data<Number, Number>>> task;
-        task = new Task<List<XYChart.Data<Number, Number>>>(){
+        task = new Task<List<XYChart.Data<Number, Number>>>() {
             @Override
             protected List<XYChart.Data<Number, Number>> call() throws Exception {
                 List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
-                for(int i =0; i<columnX.size(); i++){
+                for (int i = 0; i < columnX.size(); i++) {
                     chartData.add(new XYChart.Data(columnX.get(i),
                             columnY.get(i)));
                 }
                 return chartData;
             }
-        };        
+        };
         task.setOnSucceeded(e -> series.getData().addAll(task.getValue()));
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
-        return series;        
+        return series;
     }
-    
+
     /**
-     * 
+     *
      * @param filename
      * @param separator
      * @param serieLabel
      * @param columnX
      * @param columnY
-     * @return 
+     * @return
      */
     public XYChart.Series plotLineSeries(String filename, String separator,
             String serieLabel, int columnX, int columnY) {
-        
+
         XYChart.Series<Number, Number> series = new XYChart.Series();
         series.setName(serieLabel);
 
@@ -170,9 +173,9 @@ public class PlotSeries {
         thread.start();
         return series;
     }
-    
-    public XYChart.Series<Number, String> plotBarSeries(String filename, String separator, 
-            String serieName, int columnX, int columnY){
+
+    public XYChart.Series<Number, String> plotBarSeries(String filename, String separator,
+            String serieName, int columnX, int columnY) {
         XYChart.Series<Number, String> series = new XYChart.Series();
         series.setName(serieName);
 
@@ -199,58 +202,59 @@ public class PlotSeries {
         thread.start();
         return series;
     }
-    
-    public static XYChart.Series plotLineSeries(Matrix matrix, int colX, 
-            int colY) throws Exception{
-        
+
+    //Not working
+    public static XYChart.Series plotLineSeries(Matrix matrix, int colX,
+            int colY) throws Exception {
+
         XYChart.Series<Number, Number> series = new XYChart.Series();
         Task<List<XYChart.Data<Number, Number>>> task;
-        task = new Task<List<XYChart.Data<Number, Number>>>(){
+        task = new Task<List<XYChart.Data<Number, Number>>>() {
             @Override
             protected List<XYChart.Data<Number, Number>> call() throws Exception {
                 List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
-                for(int i =0; i<matrix.getLinesCount(); i++){
+                for (int i = 0; i < matrix.getLinesCount(); i++) {
                     chartData.add(new XYChart.Data(matrix.get(colX, i).doubleValue(),
                             matrix.get(colY, i).doubleValue()));
                 }
                 return chartData;
             }
-        };        
+        };
         task.setOnSucceeded(e -> series.getData().addAll(task.getValue()));
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
-        return series;        
+        return series;
     }
-    
+
     /**
      * Return a line chart serie for one vector at fixed X value
-     * 
+     *
      * @param valueX
      * @param columnY
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-    public static XYChart.Series plotLineSeries(double valueX, 
-            ArrayList<Double> columnY) throws Exception{
-        
-        XYChart.Series<Number, Number> series = new XYChart.Series();        
+    public static XYChart.Series plotLineSeries(double valueX,
+            ArrayList<Double> columnY) throws Exception {
+
+        XYChart.Series<Number, Number> series = new XYChart.Series();
         Task<List<XYChart.Data<Number, Number>>> task;
-        task = new Task<List<XYChart.Data<Number, Number>>>(){
+        task = new Task<List<XYChart.Data<Number, Number>>>() {
             @Override
             protected List<XYChart.Data<Number, Number>> call() throws Exception {
                 List<XYChart.Data<Number, Number>> chartData = new ArrayList<>();
-                for(int i =0; i<columnY.size(); i++){
+                for (int i = 0; i < columnY.size(); i++) {
                     chartData.add(new XYChart.Data(valueX,
                             columnY.get(i)));
                 }
                 return chartData;
             }
-        };        
+        };
         task.setOnSucceeded(e -> series.getData().addAll(task.getValue()));
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
-        return series;        
+        return series;
     }
 }

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fractureanalysis.math;
+package fractureanalysis.distance;
 
 import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.Vectors.Vector;
@@ -24,7 +24,32 @@ import fractureanalysis.Vectors.Vector;
  * @author elidioxg
  */
 public class EuclideanDistance {
-    
+    /**
+     * Create a matrix of Euclidean Distances
+     * @param matrix
+     * @param colX
+     * @param colY
+     * @return
+     * @throws Exception 
+     */
+    public static Matrix getDistances(Matrix matrix, int colX, int colY) throws Exception{
+        if(colX> matrix.getColumnsCount() || colY > matrix.getColumnsCount()){
+            throw new Exception("Index of column out o range.");
+        }
+        Vector x = matrix.getColumn(colX);
+        Vector y = matrix.getColumn(colY);
+        Matrix result = new Matrix(x.size());
+        for(int i = 0; i< x.size(); i++){
+            for(int j = 0; j <x.size(); j++){
+                double distX = x.get(i).doubleValue()-x.get(j).doubleValue();
+                double distY = y.get(i).doubleValue()-y.get(j).doubleValue();
+                double dist = Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
+                result.set(i, j, dist);
+                System.out.println("X: "+i+"  Y:"+j+"  D:"+dist);
+            }
+        }        
+        return result;
+    }
     /**
      * Create a matrix of Euclidean Distances
      * @param x
@@ -57,8 +82,9 @@ public class EuclideanDistance {
      * @param x
      * @param y
      * @return 
+     * @throws java.lang.Exception 
      */
-    public Vector getDistanceFrom(double X, double Y, Vector x, Vector y) throws Exception{
+    public static Vector getDistanceFrom(double X, double Y, Vector x, Vector y) throws Exception{
         if(x.size()!=y.size()){
             throw new Exception("Vectors must have same size.");
         }
@@ -71,5 +97,4 @@ public class EuclideanDistance {
         }
         return result;
     }
-    
 }

@@ -63,6 +63,41 @@ public class Vector {
             data[i] = 0;
         }
     }
+    
+    /**
+     * Create a vector filled with determined value
+     * @param size
+     * @param value 
+     */
+    public Vector(int size, Number value) {
+        this.data = new Number[size];
+        this.size = size;
+        for (int i = 0; i < size; i++) {
+            final int ii = i;
+            data[i] = new Number() {
+                @Override
+                public int intValue() {
+                    return (int) data[ii].intValue();
+                }
+
+                @Override
+                public long longValue() {
+                    return (long) data[ii].longValue();
+                }
+
+                @Override
+                public float floatValue() {
+                    return (float) data[ii].floatValue();
+                }
+
+                @Override
+                public double doubleValue() {
+                    return (double) data[ii].doubleValue();
+                }
+            };
+            data[i] = value;
+        }
+    }
 
     public void setData(Number[] data, int size) {
         this.data = data;

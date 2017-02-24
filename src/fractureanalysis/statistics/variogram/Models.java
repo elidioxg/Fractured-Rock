@@ -24,14 +24,22 @@ import fractureanalysis.Matrices.Matrix;
  */
 public class Models {
 
+    /**
+     *
+     * @param c The sill
+     * @param a The range
+     * @param h The steps on calculation
+     * @return
+     * @throws java.lang.Exception
+     */
     public static Matrix spherical(double c, double a, double h) throws Exception {
-        double aux = 0.1;
-        double value = Double.NaN;
+        double aux = h;
+        double value;
         int nSteps = (int) (a / h) + 5;
         Matrix result = new Matrix(2, nSteps + 1);
         for (int i = 0; i <= nSteps; i++) {
             if (aux <= a) {
-                value = c * ((1.5) * (h / a) - (.5) * (Math.pow((h / a), 3)));
+                value = c * ((1.5) * (aux / a) - (.5) * (Math.pow((aux / a), 3)));
 
             } else {
                 value = c;
@@ -41,35 +49,7 @@ public class Models {
             aux += h;
         }
         return result;
-    }
-
-    /**
-     *
-     * @param c The sill
-     * @param a The range
-     * @param h The steps on calculation
-     * @return
-     * @throws java.lang.Exception
-     */
-    public static Matrix spherical_(double c, double a, double h) throws Exception {
-        int nSteps = (int) (a / h) + 5;
-        Matrix result = new Matrix(2, nSteps + 1);
-        double aux = 0.1;
-        int index = 0;
-        while (aux <= a) {
-            double value = c * (((3 * aux) / 2 * a) - ((Math.pow(h, 3) / (2 * Math.pow(a, 3)))));
-            result.set(0, index, aux);
-            result.set(1, index, value);
-            aux += h;
-            index++;
-        }
-        for (int i = index; i < index + 4; i++) {
-            result.set(0, i, aux);
-            result.set(1, i, c);
-            aux += h;
-        }
-        return result;
-    }
+    }   
 
     /**
      * Curve fitting for Exponential Model on Variogram h(steps) = a(range)
