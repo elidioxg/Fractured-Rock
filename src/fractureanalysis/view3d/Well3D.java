@@ -39,27 +39,37 @@ public class Well3D extends Cylinder{
         this.posX = x;
         this.posY = y;
         this.posZ = z;
-    
+        setHeight(deep);
+        setRadius(diameter);    
+        setTranslateX(x);
+        setTranslateY(y+(deep/2));
+        setTranslateZ(z);
     }
     
     public void setDiameter(double diameter){
         this.diameter = diameter;
+        setRadius(diameter);
     }
     
     public void setDeep(double deep){
         this.deep = deep;
+        setHeight(deep);
+        setTranslateY(posY+(deep/2));
     }
     
     public void setPosX(double posX){
         this.posX = posX;
+        setTranslateX(posX);
     }
     
     public void setPosY(double posY){
         this.posY = posY;
+        setTranslateY(posY);
     }
     
     public void setPosZ(double posZ){
         this.posZ = posZ;
+        setTranslateZ(posZ);
     }
     
     public double getDiameter(){

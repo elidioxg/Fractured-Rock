@@ -42,7 +42,7 @@ public class Stage_3dviewController implements Initializable {
             tfWellX, tfWellY, tfWellZ, tfDeep, tfDiameter;
 
     @FXML
-    protected Button bWellAdd, bFracAdd, bGenerate;
+    protected Button bWellAdd, bFracAdd;
 
     @FXML
     protected ListView lvFrac, lvWell;

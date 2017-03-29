@@ -20,12 +20,11 @@
     </stylesheets>        
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="16"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="16"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="16"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="16"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="16"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="16"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="20"></ColumnConstraints>        
     </columnConstraints>
     
     <Label 
@@ -125,6 +124,13 @@
         text="List of wells">        
     </Label>
     
+    <Label 
+        GridPane.columnIndex="1"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="9"        
+        text="List of fractures">        
+    </Label>
+    
     <ListView
         fx:id="lvFrac"
         GridPane.columnIndex="0"
@@ -133,7 +139,20 @@
     >        
     </ListView>
     
-    
+    <ButtonBar
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="11">
+        <buttons>
+            <Button
+                text="Delete">                
+            </Button>
+            
+            <Button
+                text="Clear">                
+            </Button>
+        </buttons>        
+    </ButtonBar>
+        
     <Label 
         GridPane.columnIndex="2"
         GridPane.rowIndex="0"
@@ -216,18 +235,41 @@
         fx:id="lvWell"
         GridPane.columnIndex="2"
         GridPane.columnSpan="2" 
-        GridPane.rowIndex="9"        
+        GridPane.rowIndex="10"        
         
     >        
     </ListView>
+    
+    <ButtonBar
+        GridPane.columnIndex="2"       
+        GridPane.rowIndex="11">
+        <buttons>
+            <Button
+                text="Delete">                
+            </Button>
+            
+            <Button
+                text="Clear">                
+            </Button>
+        </buttons>        
+    </ButtonBar>
         
-    <Button 
-        fx:id="bGenerate"
-        GridPane.columnIndex="5"        
-        GridPane.rowIndex="1"    
-        onAction="#generateContext"    
-        text="Generate"
-    >        
-    </Button>
+    <MenuBar
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="4"
+        GridPane.rowIndex="0">
+        <menus>
+            <Menu
+                text="File">
+                <items>
+                    <MenuItem
+                        fx:id="miGenerate"
+                        text="Generate View"
+                        onAction="#generateContext">
+                    </MenuItem> 
+                </items>
+            </Menu>             
+        </menus>        
+    </MenuBar>    
     
 </GridPane>
