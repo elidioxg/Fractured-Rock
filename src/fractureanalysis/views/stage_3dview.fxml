@@ -101,13 +101,22 @@
         GridPane.rowIndex="7">        
     </TextField>
     
-    <Button 
-        fx:id="b"
+    <ButtonBar
         GridPane.columnIndex="0"
-        GridPane.rowIndex="8"
-        onAction="#addFracture"
-        text="Add">        
-    </Button>
+        GridPane.rowIndex="8">
+        <buttons>
+            <Button 
+                fx:id="b"        
+                onAction="#addFracture"
+                text="Add">        
+            </Button>
+            <Button
+                text="Add from file"
+            >
+                
+            </Button>
+        </buttons>
+    </ButtonBar>        
     
     <Label 
         GridPane.columnIndex="2"
@@ -187,13 +196,22 @@
         GridPane.rowIndex="6">        
     </TextField>
     
-    <Button 
-        fx:id="bWellAdd"
+    <ButtonBar 
         GridPane.columnIndex="3"
-        GridPane.rowIndex="7"
-        text="Add">        
-    </Button>            
-    
+        GridPane.rowIndex="7">
+        <buttons>
+            <Button 
+                fx:id="bWellAdd"        
+                text="Add"
+                onAction="#addPlane">        
+            </Button>
+            <Button
+                text="Add from file">
+                
+            </Button>
+        </buttons>    
+    </ButtonBar>
+                    
     <ListView
         fx:id="lvWell"
         GridPane.columnIndex="2"

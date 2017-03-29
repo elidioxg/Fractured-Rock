@@ -23,11 +23,15 @@ import fractureanalysis.view3d.Axis;
 import fractureanalysis.view3d.DrawPlanes3D;
 import fractureanalysis.view3d.FracturePlane3D;
 import fractureanalysis.view3d.SceneUtils;
+import fractureanalysis.view3d.Well3D;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -36,6 +40,9 @@ import javafx.stage.Stage;
  * @author elidioxg
  */
 public class View3DStage {
+    
+    private List<FracturePlane3D> list = new ArrayList();
+    private ListView lvFrac;
 
     /**
      * Setup stage for Fractures and Wells 3D view 
@@ -85,16 +92,19 @@ public class View3DStage {
         stage.show();
     }
 
-    public void fracWellContext(FracturePlane3D[] frac) {
+    public void fracWellContext(FracturePlane3D[] fracs, Well3D[] wells) {
         final Group root = new Group();
         root.getChildren().addAll(LightProperties.setScene3DLight());
         root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
         root.getChildren().addAll(Axis.addAxis());
+        
+        root.getChildren().addAll(fracs);
+        root.getChildren().addAll(wells);
 
         Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
                 DrawPlanes3D.getViewSize(), true);
         scene.setFill(Color.WHITE);
-
+        
         SceneUtils utils = new SceneUtils();
         utils.buildCamera(root);
         utils.handleMouse(scene, root);
