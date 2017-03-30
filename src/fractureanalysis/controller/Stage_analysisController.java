@@ -69,7 +69,7 @@ public class Stage_analysisController implements Initializable {
     protected void cbApAction() throws Exception {
         int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
         if (indexAp >= 0) {
-            int indexSp = FractureAnalysis.getInstance().file.getSpColumn();
+            int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
             if (indexSp >= 0) {
                 estimateFractures(indexAp, indexSp);
             }
@@ -85,7 +85,7 @@ public class Stage_analysisController implements Initializable {
     protected void cbSpAction() throws Exception {
         int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
         if (indexSp >= 0) {
-            int indexAp = FractureAnalysis.getInstance().file.getApColumn();
+            int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
             if (indexAp >= 0) {
                 estimateFractures(indexAp, indexSp);
             }

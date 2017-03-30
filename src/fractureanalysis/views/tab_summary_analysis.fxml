@@ -14,9 +14,8 @@
     fx:controller="fractureanalysis.controller.Stage_analysisController" >        
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="10"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="10"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="80"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="50"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="50"></ColumnConstraints> 
     </columnConstraints>
     
     <Label 
@@ -60,9 +59,11 @@
     
     <javafx.scene.chart.ScatterChart 
         fx:id="scScanline"
-        GridPane.columnIndex="2"
-        GridPane.rowIndex="1"
-        GridPane.rowSpan="4"   
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="4"
+        GridPane.rowSpan="4"
+        legendVisible="false"
     >
         <xAxis>
             <javafx.scene.chart.NumberAxis 

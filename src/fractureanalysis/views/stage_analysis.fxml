@@ -44,7 +44,7 @@
     <Label 
         GridPane.columnIndex="2"
         GridPane.rowIndex="0"
-        text="Ap Column">
+        text="b Column">
     </Label>
     <ComboBox 
         fx:id="cbApVar"
@@ -70,7 +70,7 @@
                 <fx:include source="tab_distribution.fxml"/>
             </content>
         </Tab>     
-        <Tab text="2D View"
+        <Tab text="View"
              closable="false">
             <content>
                 <fx:include source="tab_2dview.fxml"/>

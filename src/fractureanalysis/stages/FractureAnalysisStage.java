@@ -75,9 +75,9 @@ public class FractureAnalysisStage {
             ComboBox cbSpVar = (ComboBox) parent.getScene().getRoot().lookup("#cbSpVar");
             ComboBox cbApVar = (ComboBox) parent.getScene().getRoot().lookup("#cbApVar");
             cbApVar.setItems(FXCollections.observableArrayList(list));
-            cbApVar.getSelectionModel().select(0);
+            //cbApVar.getSelectionModel().select(0);
             cbSpVar.setItems(FXCollections.observableArrayList(list));
-            cbSpVar.getSelectionModel().select(1);
+            //cbSpVar.getSelectionModel().select(1);
             
             Stage stage = new Stage();            
             stage.setTitle("Fracture Intensity Analysis");

@@ -15,16 +15,17 @@
     xmlns:fx="http://javafx.com/fxml/1" 
     fx:controller="fractureanalysis.controller.Stage_3dviewController">
     
+    <gridLinesVisible>false</gridLinesVisible>
+    
     <stylesheets>
         <URL value="@app_style.css"/>
     </stylesheets>        
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="20"></ColumnConstraints>        
+        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="25"></ColumnConstraints>        
     </columnConstraints>
     
     <Label 
@@ -102,10 +103,10 @@
     
     <ButtonBar
         GridPane.columnIndex="0"
+        GridPane.columnSpan="2"
         GridPane.rowIndex="8">
         <buttons>
-            <Button 
-                fx:id="b"        
+            <Button
                 onAction="#addFracture"
                 text="Add">        
             </Button>
@@ -125,7 +126,7 @@
     </Label>
     
     <Label 
-        GridPane.columnIndex="1"
+        GridPane.columnIndex="0"
         GridPane.columnSpan="2"
         GridPane.rowIndex="9"        
         text="List of fractures">        
@@ -140,8 +141,9 @@
     </ListView>
     
     <ButtonBar
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="11">
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="12">
         <buttons>
             <Button
                 text="Delete">                
@@ -216,8 +218,9 @@
     </TextField>
     
     <ButtonBar 
-        GridPane.columnIndex="3"
-        GridPane.rowIndex="7">
+        GridPane.columnIndex="2"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="8">
         <buttons>
             <Button 
                 fx:id="bWellAdd"        
@@ -241,8 +244,9 @@
     </ListView>
     
     <ButtonBar
-        GridPane.columnIndex="2"       
-        GridPane.rowIndex="11">
+        GridPane.columnIndex="2"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="12">
         <buttons>
             <Button
                 text="Delete">                
