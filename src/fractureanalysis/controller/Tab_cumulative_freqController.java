@@ -61,7 +61,13 @@ public class Tab_cumulative_freqController implements Initializable {
             String filename = FractureAnalysis.getInstance().file.getFileName();
             String sep = FractureAnalysis.getInstance().file.getSeparator().getChar();
             boolean header = FractureAnalysis.getInstance().file.getHeader();
-            Vector vector = OpenDataset.openCSVFileToVector(filename, sep, selected, header);
+            boolean geoeas = FractureAnalysis.getInstance().file.isGeoeas();
+            Vector vector = new Vector();
+            if(geoeas){
+                vector = OpenDataset.openGeoeasToVector(filename, sep, selected);
+            } else {
+                vector = OpenDataset.openCSVFileToVector(filename, sep, selected, header);
+            }                    
             if (cbSorted.isSelected()) {
                 vector.sort();
             }

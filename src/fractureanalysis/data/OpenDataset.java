@@ -255,4 +255,141 @@ public class OpenDataset {
         return values;
     }
 
+    /**
+     * Open a file in Geoeas format convenction to a matrix
+     *
+     * @param filename
+     * @param sep
+     * @return
+     */
+    public static Matrix openGeoeasToMatrix(String filename, String sep) throws IOException {
+        BufferedReader br = null;
+        int fileRows = DatasetProperties.countLines(filename);
+        Matrix result = new Matrix();
+        try {
+            br = new BufferedReader(new FileReader(filename));
+            br.readLine(); //Jump title of file
+            String[] nVar = br.readLine().split(" "); //Get the number of columns
+            int cols = Integer.valueOf(nVar[0]);
+            int rows = fileRows - cols - 2;
+            for (int i = 0; i < cols; i++) {
+                br.readLine(); // jump the headers
+            }
+            Number[][] number = new Number[cols][rows];
+            String line;
+            int i = 0;
+            while ((line = br.readLine()) != null) {
+                String[] lineValues = line.split(sep);
+
+                for (int j = 0; j < lineValues.length; j++) {
+                    final int ii = i;
+                    final int jj = j;
+                    number[j][i] = new Number() {
+                        @Override
+                        public int intValue() {
+                            return (int) number[jj][ii];
+                        }
+
+                        @Override
+                        public long longValue() {
+                            return (long) number[jj][ii];
+                        }
+
+                        @Override
+                        public float floatValue() {
+                            return (float) number[jj][ii];
+                        }
+
+                        @Override
+                        public double doubleValue() {
+                            return (double) number[jj][ii];
+                        }
+                    };
+                    if (lineValues[j].trim().isEmpty()) {
+                        number[j][i] = Double.NaN;
+                    } else {
+                        number[j][i] = Double.parseDouble(lineValues[j].trim().
+                                replace(",", ".").replace("\"", ""));
+                    }
+                }
+                i++;
+            }
+            result.setData(number, rows, cols);
+        } catch (IOException | NumberFormatException e) {
+
+        }
+        return result;
+    }
+
+    /**
+     * Open a file in Geoeas format convenction to a vector
+     *
+     * @param filename
+     * @param sep
+     * @return
+     */
+    public static Vector openGeoeasToVector(String filename, String sep, int column) throws IOException, Exception {
+        BufferedReader br = null;
+        int fileRows = DatasetProperties.countLines(filename);
+        Vector result = new Vector();
+        try {
+            br = new BufferedReader(new FileReader(filename));
+            br.readLine(); //Jump title of file
+            String[] nVar = br.readLine().split(" "); //Get the number of columns
+            int cols = Integer.valueOf(nVar[0]);
+            if (cols < column) {
+                throw new Exception("Column index is higher than number of columns in file.");
+            }
+            int rows = fileRows - cols - 2;
+            for (int i = 0; i < cols; i++) {
+                br.readLine(); // jump the headers
+            }
+            Number[] number = new Number[rows];
+            String line;
+            int i = 0;
+            while ((line = br.readLine()) != null) {
+                String[] lineValues = line.split(sep);
+                final int ii = i;
+                number[i] = new Number() {
+                    @Override
+                    public int intValue() {
+                        return (int) number[ii];
+                    }
+
+                    @Override
+                    public long longValue() {
+                        return (long) number[ii];
+                    }
+
+                    @Override
+                    public float floatValue() {
+                        return (float) number[ii];
+                    }
+
+                    @Override
+                    public double doubleValue() {
+                        return (double) number[ii];
+                    }
+                };
+                if (lineValues[column].trim().isEmpty()) {
+                    number[i] = Double.NaN;
+                } else {
+                    String aux = lineValues[column].trim().
+                            replace(",", ".").replace("\"", "");
+                    int count = aux.length() - aux.replace(".", "").length();
+                    if (count > 1) {
+                        number[i] = Double.NaN;
+                    } else {
+                        number[i] = Double.parseDouble(aux);
+                    }
+                }
+                i++;
+            }
+            result.setData(number, rows);
+        } catch (IOException | NumberFormatException e) {
+
+        }
+        return result;
+    }
+
 }

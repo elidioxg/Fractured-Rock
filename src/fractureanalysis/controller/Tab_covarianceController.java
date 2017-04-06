@@ -16,13 +16,13 @@
  */
 package fractureanalysis.controller;
 
-import fractureanalysis.Matrices.LUP;
 import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
-import fractureanalysis.math.EuclideanDistance;
+import fractureanalysis.distance.EuclideanDistance;
 import fractureanalysis.model.Separator;
-import fractureanalysis.statistics.Covariance;
+import fractureanalysis.plot.PlotSeries;
+import fractureanalysis.statistics.variogram.Models;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -61,6 +61,8 @@ public class Tab_covarianceController implements Initializable {
         if (cbX.getSelectionModel().getSelectedIndex() >= 0) {
             if (cbY.getSelectionModel().getSelectedIndex() >= 0) {
                 if (cbContent.getSelectionModel().getSelectedIndex() >= 0) {
+                    scLocation.getData().clear();
+                    lcCovariance.getData().clear();
                     int indexX = cbX.getSelectionModel().getSelectedIndex();
                     int indexY = cbY.getSelectionModel().getSelectedIndex();
                     int indexContent = cbContent.getSelectionModel().getSelectedIndex();
@@ -86,6 +88,17 @@ public class Tab_covarianceController implements Initializable {
                     scLocation.getData().add(serie);
                     Matrix distances = EuclideanDistance.getDistances(x, y);
                     distances.print();
+                    double sill = 2000;
+                    double range = 250.;
+                    Matrix covLine = Models.spherical(sill, range, 30);
+                    
+                    System.out.println("CovLine1");
+                    covLine.print();
+                    Vector X = covLine.getColumn(0);
+                    Vector Y = covLine.getColumn(1);
+                    XYChart.Series serie2 =  PlotSeries.plotLineSeries(X, Y);
+                    //XYChart.Series serie2 =  PlotSeries.plotLineSeries(covLine, 0, 1);
+                    lcCovariance.getData().add(serie2);
                     //plot covariance function on graph
                     for (int i = 0; i < distances.getColumnsCount(); i++) {
                         for (int j = i + 1; j < distances.getColumnsCount(); j++) {

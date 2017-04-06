@@ -23,12 +23,15 @@ import fractureanalysis.statistics.SampleAmplitude;
 import fractureanalysis.table.TableUtils;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -78,21 +81,20 @@ public class AppController implements Initializable {
     protected void onMouseClicked() throws IOException {
         DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();
         if (dm != null) {
-            populateTable(dm.getFileName(), dm.getSeparator(), dm.getHeader());
+            populateTable(dm);
         }
     }
 
     /**
      * Populates the table on main stage. This table is used to view dataset
      * values.
-     * 
-     * TODO: Tirar esse procedimento daqui 
-     * 
+     *
+     * TODO: Tirar esse procedimento daqui, Adaptar para receber formato Geoeas
+     *
      * @param filename
      * @param separator
      * @param hasHeader
      */
-    
     public void populateTable(final String filename, final Separator separator,
             final boolean hasHeader) {
         tvDataset.getItems().clear();
@@ -157,6 +159,79 @@ public class AppController implements Initializable {
         }
     }
 
+    public void populateTable(DatasetModel dm) throws FileNotFoundException, IOException {
+        tvDataset.getItems().clear();
+        tvDataset.getColumns().clear();
+        tvDataset.setPlaceholder(new Label("Loading..."));
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                BufferedReader br = null;
+                br = new BufferedReader(new FileReader(dm.getFileName()));
+                String dataLine = null;
+                if (dm.getFileName().trim() != null) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (dm.getHeader()) {
+                                TableUtils tu = new TableUtils();
+                                for (int i = 0; i < dm.getHeaderArray().size(); i++) {
+                                    tvDataset.getColumns().add(
+                                            tu.createColumn(i, dm.getHeaderArray(i)));
+                                }
+                            } else {
+                                TableUtils tu = new TableUtils();
+                                for (int i = 0; i < dm.getHeaderArray().size(); i++) {
+                                    tvDataset.getColumns().add(
+                                            tu.createColumn(i, "Column " + String.valueOf(i + 1)));
+                                }
+                            }
+                        }
+                    });
+
+                    if (dm.isGeoeas()) {
+                        int jumpLines = dm.getColumnsCount() + 2;
+                        for (int i = 0; i < jumpLines; i++) {
+                            br.readLine();
+                        }
+                    } else {
+                        if (dm.getHeader()) {
+                            br.readLine();
+                        }
+                    }
+
+                    while ((dataLine = br.readLine()) != null) {
+                        final String[] dataValues = dataLine.split(dm.getSepString());
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Add additional columns if necessary:
+                                TableUtils tu = new TableUtils();
+                                for (int columnIndex = tvDataset.getColumns().size();
+                                        columnIndex < dataValues.length; columnIndex++) {
+                                    tvDataset.getColumns().add(tu.createColumn(columnIndex, ""));
+                                }
+                                ObservableList<StringProperty> data = FXCollections
+                                        .observableArrayList();
+                                for (String value : dataValues) {
+                                    data.add(new SimpleStringProperty(value));
+                                }
+                                tvDataset.getItems().add(data);
+                            }
+                        });
+
+                    }
+
+                }
+                return null;
+            }
+        };
+
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
     @FXML
     protected TextField tfSeparator;
 
@@ -214,7 +289,7 @@ public class AppController implements Initializable {
         } else if (rbSemicolon.isSelected()) {
             sep = new Separator(1);
         } else if (rbComma.isSelected()) {
-            sep = new Separator(2);;
+            sep = new Separator(2);
         } else {
             String aux = tfSeparator.getCharacters().toString();
             if (aux.length() != 0) {
@@ -277,6 +352,12 @@ public class AppController implements Initializable {
     }
 
     @FXML
+    protected void openGeoeas() throws IOException {
+        OpenDataStage od = new OpenDataStage();
+        od.stageOpenGeoeas();
+    }
+
+    @FXML
     Button btnClose;
 
     @FXML
@@ -317,37 +398,36 @@ public class AppController implements Initializable {
                 FractureAnalysis.getInstance().getDatasetList());
         vs.createStage();
     }
-    
+
     @FXML
     protected void variogramStage2() throws IOException {
         VariogramStage vs = new VariogramStage(
                 FractureAnalysis.getInstance().getDatasetList());
         vs.createStage2();
     }
-    
+
     @FXML
     protected void variogram1DStage() throws IOException {
         Variogram1DStage stage = new Variogram1DStage(
                 FractureAnalysis.getInstance().getDatasetList());
         stage.createStage();
     }
-    
+
     @FXML
-    protected void fractureStage() throws IOException{
+    protected void fractureStage() throws IOException {
         FractureAnalysisStage stage = new FractureAnalysisStage(
                 FractureAnalysis.getInstance().getDatasetList());
         stage.createStage();
     }
-    
-      @FXML
-    protected void matrixViewStage() throws IOException{
-        MatrixViewStage view = new 
-        MatrixViewStage(FractureAnalysis.getInstance().getDatasetList());
+
+    @FXML
+    protected void matrixViewStage() throws IOException {
+        MatrixViewStage view = new MatrixViewStage(FractureAnalysis.getInstance().getDatasetList());
         view.createStage();
     }
-    
-    @FXML 
-    protected void view3DStage() throws IOException{
+
+    @FXML
+    protected void view3DStage() throws IOException {
         View3DStage stage = new View3DStage();
         stage.createSetupStage();
     }
@@ -379,16 +459,28 @@ public class AppController implements Initializable {
      * When the combobox representing the column of dataset in current use is
      * changed, this procedure is executed. This procedure will clear and
      * generate the Histogram of one column of dataset.
+     *
+     * @throws java.lang.Exception
      */
     @FXML
     protected void cbHistogramChange() throws Exception {
         int index = cbColIndex.getSelectionModel().getSelectedIndex();
         boolean header = FractureAnalysis.getInstance().file.getHeader();
+        boolean geoeas = FractureAnalysis.getInstance().file.isGeoeas();
         Vector vector = new Vector();
         if (index >= 0) {
-            vector = OpenDataset.openCSVFileToVector(
-                    FractureAnalysis.getInstance().file.getFileName(),
-                    FractureAnalysis.getInstance().file.getSeparator().getChar(), index, header);
+            if (geoeas) {
+                vector = OpenDataset.openGeoeasToVector(
+                        FractureAnalysis.getInstance().file.getFileName(),
+                        FractureAnalysis.getInstance().file.getSeparator().getChar(), 
+                        index);
+            } else {
+                vector = OpenDataset.openCSVFileToVector(
+                        FractureAnalysis.getInstance().file.getFileName(),
+                        FractureAnalysis.getInstance().file.getSeparator().getChar(),
+                        index, header);
+            }
+
         }
         double amplitude = SampleAmplitude.getAmplitude(vector);
         double classIntervals = Frequency.sturgesExpression(amplitude, vector.size());

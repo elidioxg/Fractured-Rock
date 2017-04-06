@@ -41,9 +41,13 @@
             <Menu text="File">
                 <items>
                     <MenuItem 
-                        text="Open"
+                        text="Open CSV file"
                         onAction="#openFileStage" 
                     />
+                    <MenuItem
+                        text="Open geoeas file"
+                        onAction="#openGeoeas"
+                        />
                     <MenuItem 
                         text="Exit"
                         onAction="#close" />

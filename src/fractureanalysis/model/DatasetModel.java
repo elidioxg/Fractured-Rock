@@ -1,7 +1,6 @@
 package fractureanalysis.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DatasetModel {
 
@@ -14,13 +13,15 @@ public class DatasetModel {
     private int rowsCount = 0;
     private int spColumn = -1;
     private int apColumn = -1;
+    private boolean geoeasFormat = false;
 
     public DatasetModel() {
 
     }
 
     public DatasetModel(String datasetName, String filename, Separator separator,
-            boolean hasHeader, ArrayList<String> headerStrings, int columns, int rows) {
+            boolean hasHeader, ArrayList<String> headerStrings, int columns, 
+            int rows, boolean geoeas) {
         this.datasetName = datasetName;
         this.datasetFilename = filename;
         this.separator = separator;
@@ -28,6 +29,7 @@ public class DatasetModel {
         this.headerStrings = headerStrings;
         this.columnsCount = columns;
         this.rowsCount = rows;
+        this.geoeasFormat = geoeas;
 
     }
 
@@ -130,4 +132,11 @@ public class DatasetModel {
         return this.rowsCount;
     }
     
+    public void setGeoeasFormat(boolean value){
+        this.geoeasFormat = value;
+    }
+    
+    public boolean isGeoeas(){
+        return geoeasFormat;
+    }
 }

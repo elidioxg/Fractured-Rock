@@ -16,11 +16,15 @@
  */
 package fractureanalysis.data;
 
+import fractureanalysis.model.GeoeasFormat;
 import fractureanalysis.model.Separator;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,6 +37,7 @@ public class DatasetProperties {
     //TODO: um único procedimento para pegar todas as propriedades
     /**
      * Get the number of columns on the dataset
+     *
      * @param filename
      * @param separator
      * @return Number of columns in dataset file
@@ -64,10 +69,11 @@ public class DatasetProperties {
     }
 
     /**
-     * Get the number of columns 
+     * Get the number of columns
+     *
      * @param filename
-     * @param separator 
-     * @return 
+     * @param separator
+     * @return
      */
     public static int getColumnsCount(String filename, Separator separator) {
         BufferedReader br = null;
@@ -94,7 +100,7 @@ public class DatasetProperties {
             return 0;
         }
     }
-    
+
     /**
      *
      * @param filename
@@ -122,11 +128,30 @@ public class DatasetProperties {
         result.addAll(Arrays.asList(headerValues));
         return result;
     }
-    
+
+    public static GeoeasFormat getGoeasProperties(String filename) throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        GeoeasFormat gf = new GeoeasFormat();
+        gf.setTitle(br.readLine());
+        String[] nVar = br.readLine().split(" "); //Get the number of columns
+        int cols = Integer.valueOf(nVar[0]);
+        gf.setColumnsCount(cols);
+        for (int i = 0; i < cols; i++) {
+            gf.addHeader(br.readLine());
+        }
+        int nrows = 0;
+        while(br.readLine()!=null){
+            nrows++;
+        }
+        gf.setRowsCount(nrows);
+        return gf;
+    }
+
     /**
      * Get the number of rows on dataset
+     *
      * @param filename
-     * @return 
+     * @return
      */
     public static int getRowCount(String filename) {
         BufferedReader br = null;
@@ -149,5 +174,33 @@ public class DatasetProperties {
         }
         return count;
     }
-    
+
+    /**
+     * Quick way to count the lines of a file
+     *
+     * @param filename
+     * @return
+     * @throws IOException
+     */
+    public static int countLines(String filename) throws IOException {
+        InputStream is = new BufferedInputStream(new FileInputStream(filename));
+        try {
+            byte[] c = new byte[1024];
+            int count = 0;
+            int readChars = 0;
+            boolean empty = true;
+            while ((readChars = is.read(c)) != -1) {
+                empty = false;
+                for (int i = 0; i < readChars; ++i) {
+                    if (c[i] == '\n') {
+                        ++count;
+                    }
+                }
+            }
+            return (count == 0 && !empty) ? 1 : count;
+        } finally {
+            is.close();
+        }
+    }
+
 }

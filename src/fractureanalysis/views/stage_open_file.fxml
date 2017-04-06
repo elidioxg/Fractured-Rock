@@ -89,7 +89,6 @@
                 </TextField>        
             </HBox>
         </children>     
-        
     </VBox>
                 
     <ButtonBar 
@@ -108,4 +107,5 @@
                 onAction="#closeOpenFileStage"/>
         </buttons>
     </ButtonBar>
+    
 </GridPane>

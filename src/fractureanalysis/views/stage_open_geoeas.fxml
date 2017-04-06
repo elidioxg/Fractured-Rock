@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="WhitePane" 
+    prefHeight="250.0" 
+    prefWidth="350.0" 
+    styleClass="mainFxmlClass" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="fractureanalysis.controller.Stage_open_geoeasController"
+    alignment="CENTER">
+    
+    <stylesheets>
+        <URL value="@app_style.css"/>
+    </stylesheets>
+    
+    <Label 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1"
+        text="Location"/>
+    
+    <HBox GridPane.columnIndex="0"
+          GridPane.rowIndex="2"          
+    >
+        <TextField 
+            fx:id="tfFilename" >
+        </TextField>
+        <Button 
+            text="Locate"
+            onAction="#dialogOpen" 
+        />
+    </HBox>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3"
+        text="Separator">
+    </Label>
+    
+    <HBox 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="4"
+    >
+        <fx:define>
+            <ToggleGroup
+                fx:id="tgSeparator"/>
+        </fx:define>
+        <children>
+            <HBox >
+                <RadioButton
+                    fx:id="rbSpaces"
+                    selected="true"
+                    text="Spaces"
+                    onAction="#rbSpaces"/>
+                <RadioButton
+                    fx:id="rbComma"
+                    text="Comma"
+                    onAction="#rbComma"/>
+            </HBox>
+        </children>    
+    </HBox>
+    
+    <ButtonBar 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="5"     
+    >
+        <buttons>
+            <Button 
+                text="Apply"
+                ButtonBar.buttonData="APPLY"
+                onAction="#addToList"/>
+            <Button
+                fx:id="btnClose" 
+                ButtonBar.buttonData="CANCEL_CLOSE" 
+                text="Close"
+                onAction="#closeStage"/>
+        </buttons>
+    </ButtonBar>
+    
+</GridPane>

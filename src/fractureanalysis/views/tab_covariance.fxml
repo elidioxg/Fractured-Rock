@@ -97,13 +97,15 @@
         GridPane.rowIndex="3">
         <xAxis>
             <javafx.scene.chart.NumberAxis 
-                label="X" >
+                label="X"
+                autoRanging="true">
                 
             </javafx.scene.chart.NumberAxis>
         </xAxis>
         <yAxis>
             <javafx.scene.chart.NumberAxis 
-                label="Y" >
+                label="Y"
+                autoRanging="true">
                 
             </javafx.scene.chart.NumberAxis>
         </yAxis>

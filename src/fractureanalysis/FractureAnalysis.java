@@ -132,8 +132,12 @@ public class FractureAnalysis extends Application {
                         file.setHeaderStrings(dm.getHeaderArray());
                         file.setColumnsCount(dm.getColumnsCount());
                         file.setRowsCount(dm.getRowsCount());
-                        controller.populateTable(dm.getFileName(), 
-                                dm.getSeparator(), dm.getHeader());
+                        file.setGeoeasFormat(dm.isGeoeas());
+                        try {
+                            controller.populateTable(dm);
+                        } catch (IOException ex) {
+                            Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         try {
                             setColumnStatistics(dm.getFileName(), dm.getSeparator(),
                                     0/*dm.getCurrentColumn()*/,dm.getHeader());
@@ -161,7 +165,7 @@ public class FractureAnalysis extends Application {
     public void updateListView() {
         list.add(new DatasetModel(file.getDatasetName(), file.getFileName(),
                 file.getSeparator(), file.getHeader(), file.getHeaderArray(),
-                file.getColumnsCount(), file.getRowsCount()));
+                file.getColumnsCount(), file.getRowsCount(), file.isGeoeas()));
         
         ObservableList<DatasetModel> olDatasets
                 = FXCollections.observableList(list);
@@ -177,13 +181,21 @@ public class FractureAnalysis extends Application {
      * @param filename
      * @param separator
      * @param columnIndex
+     * @param header
+     * @throws java.lang.Exception
      */
     public void setColumnStatistics(String filename, Separator separator, 
             int columnIndex, boolean header) throws Exception {
         if (FractureAnalysis.getInstance().file.getColumnsCount() > 0) {
-            Vector array
-                    = OpenDataset.openCSVFileToVector(filename, separator.getChar(), 
-                            columnIndex, header);
+            Vector array;
+            if(FractureAnalysis.getInstance().file.isGeoeas()){
+                array = OpenDataset.openGeoeasToVector(
+                        filename, separator.getChar(), columnIndex);
+            } else {
+                array = OpenDataset.openCSVFileToVector(
+                        filename, separator.getChar(), columnIndex, header);
+            }
+            
             Label lAvg = (Label) grid.lookup("#lAvgValue");
             double avg = Average.arithmeticAverage(array);
             lAvg.setText(String.valueOf(avg));
@@ -224,7 +236,6 @@ public class FractureAnalysis extends Application {
         ObservableList<String> ol
                 = FXCollections.observableList(
                         FractureAnalysis.getInstance().file.getHeaderArray()
-                //DatasetProperties.getHeaders(filename, separator)
                 );
 
         ComboBox cbSColumn = (ComboBox) grid.lookup("#cbSColumn");
@@ -246,12 +257,6 @@ public class FractureAnalysis extends Application {
         cbY.setItems(ol);
         ComboBox cbContent = (ComboBox) grid.lookup("#cbContent");
         cbContent.setItems(ol);
-        //ComboBox cbSpVar = (ComboBox) grid.lookup("#cbSpVar");
-        //cbSpVar.setItems(ol);
-        //cbSpVar.getSelectionModel().select(file.getSpColumn());
-        //ComboBox cbApVar = (ComboBox) grid.lookup("#cbApVar");
-        //cbApVar.setItems(ol);
-        //cbApVar.getSelectionModel().select(file.getApColumn());
     }
 
     /**
@@ -268,16 +273,12 @@ public class FractureAnalysis extends Application {
         lColumns.setText(String.valueOf(file.getColumnsCount()));
         Label lRows = (Label) grid.lookup("#lRows");
         lRows.setText(String.valueOf(file.getRowsCount()));
-//        Label lApColumn = (Label) grid.lookup("#lApColumn");
-//        lApColumn.setText(String.valueOf(file.getApColumn()));
-//        Label lSpColumn = (Label) grid.lookup("#lSpColumn");
-//        lSpColumn.setText(String.valueOf(file.getSpColumn()));
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Application.launch(FractureAnalysis.class, args);
+    public static void main(String[] args) throws Exception {
+        Application.launch(FractureAnalysis.class, args);        
     }
 }
