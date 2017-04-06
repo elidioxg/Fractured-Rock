@@ -17,13 +17,13 @@ public class Variance {
         for (int i = 0; i < vector.size(); i++) {
             result += Math.pow(vector.get(i).doubleValue() - averageValue, 2);
         }
-        return result / vector.size();
+        return result / (vector.size()-1);
     }
 
     /**
      * Calculate the Variance of a vector with already known average value
      *
-     * @param array
+     * @param vector
      * @param average
      * @return
      */
@@ -32,7 +32,7 @@ public class Variance {
         for (int i = 0; i < vector.size(); i++) {
             result += Math.pow(vector.get(i).doubleValue() - average, 2);
         }
-        return result / vector.size();
+        return result / (vector.size()-1);
     }
 
 }
