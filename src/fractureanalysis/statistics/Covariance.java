@@ -85,28 +85,26 @@ public class Covariance {
         return result;
     }
     
-    public static Matrix getCovarianceMatrix(Matrix input) throws Exception{
-        if(input.getColumnsCount()!=input.getLinesCount()){
-            throw new Exception("Input must be a square matrix.");
-        }               
+    public static Matrix getCovarianceMatrix(Matrix input) throws Exception {   
         int size = input.getColumnsCount();
         Matrix result = new Matrix(size);
         /**
          * Each column of the matrix will be a vector
          */
         Vector[] vector = new Vector[size];
-        for(int i = 0 ; i < size; i++){
+        for (int i = 0; i < size; i++) {
             //vector[i] = new Vector(size);
-            vector[i] = input.getColumn(i);                    
+            vector[i] = input.getColumn(i);
+            vector[i].print();
         }
         /**
          * Covariance matrix algorithm
          */
-        for (int i = 0 ; i< size; i++){
+        for (int i = 0; i < size; i++) {
             result.set(i, i, Variance.variance(vector[i]));
-            for(int j = i+1; j < size; j++){
+            for (int j = i + 1; j < size; j++) {
                 result.set(j, i, Covariance.covariance(vector[i], vector[j]));
-                result.set(i, j , result.get(j, i));
+                result.set(i, j, result.get(j, i));
             }
         }
         return result;
