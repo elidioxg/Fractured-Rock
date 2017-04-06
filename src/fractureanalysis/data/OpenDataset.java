@@ -18,6 +18,7 @@ package fractureanalysis.data;
 
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.Matrices.Matrix;
+import fractureanalysis.util.ParseNumber;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -305,12 +306,7 @@ public class OpenDataset {
                             return (double) number[jj][ii];
                         }
                     };
-                    if (lineValues[j].trim().isEmpty()) {
-                        number[j][i] = Double.NaN;
-                    } else {
-                        number[j][i] = Double.parseDouble(lineValues[j].trim().
-                                replace(",", ".").replace("\"", ""));
-                    }
+                    number[j][i] = ParseNumber.parse(lineValues[j]);                    
                 }
                 i++;
             }
@@ -326,9 +322,12 @@ public class OpenDataset {
      *
      * @param filename
      * @param sep
+     * @param column
      * @return
+     * @throws java.io.IOException
      */
-    public static Vector openGeoeasToVector(String filename, String sep, int column) throws IOException, Exception {
+    public static Vector openGeoeasToVector(String filename, String sep, 
+            int column) throws IOException, Exception {
         BufferedReader br = null;
         int fileRows = DatasetProperties.countLines(filename);
         Vector result = new Vector();
@@ -371,18 +370,7 @@ public class OpenDataset {
                         return (double) number[ii];
                     }
                 };
-                if (lineValues[column].trim().isEmpty()) {
-                    number[i] = Double.NaN;
-                } else {
-                    String aux = lineValues[column].trim().
-                            replace(",", ".").replace("\"", "");
-                    int count = aux.length() - aux.replace(".", "").length();
-                    if (count > 1) {
-                        number[i] = Double.NaN;
-                    } else {
-                        number[i] = Double.parseDouble(aux);
-                    }
-                }
+                number[i] = ParseNumber.parse(lineValues[column]);
                 i++;
             }
             result.setData(number, rows);

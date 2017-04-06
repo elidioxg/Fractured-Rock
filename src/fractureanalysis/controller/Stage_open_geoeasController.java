@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 fedora
+ * Copyright (C) 2017 elidioxg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author fedora
+ * @author elidioxg
  */
 public class Stage_open_geoeasController implements Initializable {
 
@@ -63,7 +63,7 @@ public class Stage_open_geoeasController implements Initializable {
         if (rbComma.isSelected()) {
             sep = new Separator(2);
         } else {
-            sep = new Separator(" ");
+            sep = new Separator(3);
         }
         if (!tfFilename.getText().trim().isEmpty()) {
             File file = new File(tfFilename.getText());
@@ -76,7 +76,7 @@ public class Stage_open_geoeasController implements Initializable {
             FractureAnalysis.getInstance().file.setColumnsCount(
                     gf.getColumnsCount());            
             FractureAnalysis.getInstance().file.setRowsCount(gf.getRowsCount());
-            //FractureAnalysis.getInstance().file.setHeader(true);
+            FractureAnalysis.getInstance().file.setHeader(true);
             FractureAnalysis.getInstance().file.setGeoeasFormat(true);
             FractureAnalysis.getInstance().updateListView();
         } else {

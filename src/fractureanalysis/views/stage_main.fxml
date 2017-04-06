@@ -45,7 +45,7 @@
                         onAction="#openFileStage" 
                     />
                     <MenuItem
-                        text="Open geoeas file"
+                        text="Open Geoeas format file"
                         onAction="#openGeoeas"
                         />
                     <MenuItem 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 fedora
+ * Copyright (C) 2017 elidioxg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ import javafx.scene.shape.Cylinder;
 
 /**
  *
- * @author fedora
+ * @author elidioxg
  */
 public class Well3D extends Cylinder{
     private double diameter = 10.;
