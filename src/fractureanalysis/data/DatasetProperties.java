@@ -140,7 +140,7 @@ public class DatasetProperties {
             gf.addHeader(br.readLine());
         }
         int nrows = 0;
-        while(br.readLine()!=null){
+        while (br.readLine() != null) {
             nrows++;
         }
         gf.setRowsCount(nrows);
@@ -161,6 +161,42 @@ public class DatasetProperties {
             br = new BufferedReader(new FileReader(filename));
             while ((line = br.readLine()) != null) {
                 count += 1;
+            }
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Get the number of rows on dataset. If ignoreEmpty is true, then these
+     * lines will not be count
+     *
+     * @param filename
+     * @param ignoreEmpty
+     * @return
+     */
+    public static int getRowCount(String filename, boolean ignoreEmpty) {
+        BufferedReader br = null;
+        int count = 0;
+        String line = null;
+        try {
+            br = new BufferedReader(new FileReader(filename));
+            while ((line = br.readLine()) != null) {
+                if(ignoreEmpty){
+                    if (!line.trim().isEmpty()) {
+                    count += 1;
+                }
+                } else {
+                    count+=1;
+                }                
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
