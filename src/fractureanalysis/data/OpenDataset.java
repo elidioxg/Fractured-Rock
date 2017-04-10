@@ -326,20 +326,21 @@ public class OpenDataset {
      * @return
      * @throws java.io.IOException
      */
-    public static Vector openGeoeasToVector(String filename, String sep, 
+    public static Vector openGeoeasToVector(String filename, String sep,
             int column) throws IOException, Exception {
-        BufferedReader br = null;
+        BufferedReader br;
         int fileRows = DatasetProperties.countLines(filename);
         Vector result = new Vector();
         try {
             br = new BufferedReader(new FileReader(filename));
             br.readLine(); //Jump title of file
-            String[] nVar = br.readLine().split(" "); //Get the number of columns
+            String[] nVar = br.readLine().split(" ");
+            //Get the number of columns
             int cols = Integer.valueOf(nVar[0]);
             if (cols < column) {
                 throw new Exception("Column index is higher than number of columns in file.");
             }
-            int rows = fileRows - cols - 2;
+            int rows = fileRows - cols - 2;            
             for (int i = 0; i < cols; i++) {
                 br.readLine(); // jump the headers
             }
@@ -347,7 +348,54 @@ public class OpenDataset {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
-                String[] lineValues = line.split(sep);
+                String theNumber = null;
+                if (line.trim().isEmpty()) {
+                    //TODO: how to handle with empty lines
+                    break;
+                }
+                while (line.subSequence(0, 1).equals(" ")) {
+                    line = line.substring(1);
+                }
+                while (line.subSequence(line.length() - 1, line.length()).equals(" ")) {
+                    line = line.substring(line.length());
+                }                
+                // if the request column is the first
+                if (column == 0) {
+                    int c = 1;
+                    while (!line.subSequence(c, c + 1).equals(sep)) {
+                        c++;
+                    }
+                    theNumber = line.substring(0, c);                    
+                } else //if the requested column is the last one
+                if (column == (cols - 1)) {
+                    int c = line.length();
+                    while (!line.subSequence(c - 1, c).equals(sep)) {
+                        c--;
+                    }
+                    theNumber = line.substring(c, line.length());                
+                } else //the requested column is not the first nor the last
+                {                    
+                    int colIndex = 0;
+                    for (int n = 0; n < line.length(); n++) {                        
+                        if (line.subSequence(n, n + sep.length()).equals(sep)) {
+                            //jump other blank spaces, if separator is blank space
+                            while(line.subSequence(n, n + sep.length()).equals(sep)){
+                                n++;
+                            }
+                            colIndex++;                            
+                            if (colIndex == column) {
+                                //now, find the end of this column
+                                for (int m = n; n < line.length(); m++) {
+                                    if (line.subSequence(m, m + sep.length()).equals(sep)) {
+                                        theNumber = line.subSequence(n, m).toString();                                        
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
                 final int ii = i;
                 number[i] = new Number() {
                     @Override
@@ -370,7 +418,7 @@ public class OpenDataset {
                         return (double) number[ii];
                     }
                 };
-                number[i] = ParseNumber.parse(lineValues[column]);
+                number[i] = ParseNumber.parse(theNumber);
                 i++;
             }
             result.setData(number, rows);
