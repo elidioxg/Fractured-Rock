@@ -264,8 +264,8 @@ public class OpenDataset {
      * @return
      */
     public static Matrix openGeoeasToMatrix(String filename, String sep) throws IOException {
-        BufferedReader br = null;
-        int fileRows = DatasetProperties.countLines(filename);
+        BufferedReader br;
+        int fileRows = DatasetProperties.getRowCount(filename, true);
         Matrix result = new Matrix();
         try {
             br = new BufferedReader(new FileReader(filename));
@@ -280,37 +280,52 @@ public class OpenDataset {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
-                String[] lineValues = line.split(sep);
+                if (line.trim().isEmpty()) {
+                    break;
+                } else {
+                    while (line.subSequence(0, 1).equals(" ")) {
+                        line = line.substring(1);
+                    }
+                    while (line.subSequence(line.length() - 1, line.length()).equals(" ")) {
+                        line = line.substring(line.length());
+                    }
+                    //if separator is blank char
+                    if (sep.trim().equals("")) {
+                        line = line.replace(sep + sep + sep + sep, sep);
+                        line = line.replace(sep + sep + sep, sep);
+                        line = line.replace(sep + sep, sep);
+                    }
+                    String lineValues[] = line.split(sep);
+                    for (int j = 0; j < lineValues.length; j++) {
+                        final int ii = i;
+                        final int jj = j;
+                        number[j][i] = new Number() {
+                            @Override
+                            public int intValue() {
+                                return (int) number[jj][ii];
+                            }
 
-                for (int j = 0; j < lineValues.length; j++) {
-                    final int ii = i;
-                    final int jj = j;
-                    number[j][i] = new Number() {
-                        @Override
-                        public int intValue() {
-                            return (int) number[jj][ii];
-                        }
+                            @Override
+                            public long longValue() {
+                                return (long) number[jj][ii];
+                            }
 
-                        @Override
-                        public long longValue() {
-                            return (long) number[jj][ii];
-                        }
+                            @Override
+                            public float floatValue() {
+                                return (float) number[jj][ii];
+                            }
 
-                        @Override
-                        public float floatValue() {
-                            return (float) number[jj][ii];
-                        }
-
-                        @Override
-                        public double doubleValue() {
-                            return (double) number[jj][ii];
-                        }
-                    };
-                    number[j][i] = ParseNumber.parse(lineValues[j]);
+                            @Override
+                            public double doubleValue() {
+                                return (double) number[jj][ii];
+                            }
+                        };
+                        number[j][i] = ParseNumber.parse(lineValues[j]);
+                    }
+                    i++;
                 }
-                i++;
             }
-            result.setData(number, rows, cols);
+            result.setData(number, cols, rows);
         } catch (IOException | NumberFormatException e) {
 
         }
