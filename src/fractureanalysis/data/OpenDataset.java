@@ -35,6 +35,7 @@ public class OpenDataset {
      * @param column
      * @param hasHeader
      * @return
+     * @throws java.lang.Exception
      */
     public static Vector openCSVFileToVector(String fileName, String separator,
             int column, boolean hasHeader) throws Exception {
@@ -47,7 +48,9 @@ public class OpenDataset {
                 br.readLine();
             }
             while ((line = br.readLine()) != null) {
-                size++;
+                if (!line.trim().isEmpty()) {
+                    size++;
+                }
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
@@ -70,43 +73,44 @@ public class OpenDataset {
             }
             int i = 0;
             while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    lineValues = line.split(separator);
+                    final int ii = i;
+                    number[i] = new Number() {
+                        @Override
+                        public int intValue() {
+                            return (int) number[ii];
+                        }
 
-                lineValues = line.split(separator);
-                final int ii = i;
-                number[i] = new Number() {
-                    @Override
-                    public int intValue() {
-                        return (int) number[ii];
-                    }
+                        @Override
+                        public long longValue() {
+                            return (long) number[ii];
+                        }
 
-                    @Override
-                    public long longValue() {
-                        return (long) number[ii];
-                    }
+                        @Override
+                        public float floatValue() {
+                            return (float) number[ii];
+                        }
 
-                    @Override
-                    public float floatValue() {
-                        return (float) number[ii];
-                    }
-
-                    @Override
-                    public double doubleValue() {
-                        return (double) number[ii];
-                    }
-                };
-                if (lineValues[column].trim().isEmpty()) {
-                    number[i] = Double.NaN;
-                } else {
-                    String aux = lineValues[column].trim().
-                            replace(",", ".").replace("\"", "");
-                    int count = aux.length() - aux.replace(".", "").length();
-                    if (count > 1) {
+                        @Override
+                        public double doubleValue() {
+                            return (double) number[ii];
+                        }
+                    };
+                    if (lineValues[column].trim().isEmpty()) {
                         number[i] = Double.NaN;
                     } else {
-                        number[i] = Double.parseDouble(aux);
+                        String aux = lineValues[column].trim().
+                                replace(",", ".").replace("\"", "");
+                        int count = aux.length() - aux.replace(".", "").length();
+                        if (count > 1) {
+                            number[i] = Double.NaN;
+                        } else {
+                            number[i] = Double.parseDouble(aux);
+                        }
                     }
+                    i++;
                 }
-                i++;
             }
             vector.setData(number, i);
         } catch (FileNotFoundException e) {
@@ -147,7 +151,9 @@ public class OpenDataset {
             String[] lineValues = line.split(separator);
             xSize = lineValues.length;
             while ((line = br.readLine()) != null) {
-                ySize++;
+                if (!line.trim().isEmpty()) {
+                    ySize++;
+                }
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
@@ -169,41 +175,42 @@ public class OpenDataset {
             }
             int i = 0;
             while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
 
-                String[] lineValues = line.split(separator);
-                for (int j = 0; j < lineValues.length; j++) {
-                    final int ii = i;
-                    final int jj = j;
-                    number[j][i] = new Number() {
-                        @Override
-                        public int intValue() {
-                            return (int) number[jj][ii];
-                        }
+                    String[] lineValues = line.split(separator);
+                    for (int j = 0; j < lineValues.length; j++) {
+                        final int ii = i;
+                        final int jj = j;
+                        number[j][i] = new Number() {
+                            @Override
+                            public int intValue() {
+                                return (int) number[jj][ii];
+                            }
 
-                        @Override
-                        public long longValue() {
-                            return (long) number[jj][ii];
-                        }
+                            @Override
+                            public long longValue() {
+                                return (long) number[jj][ii];
+                            }
 
-                        @Override
-                        public float floatValue() {
-                            return (float) number[jj][ii];
-                        }
+                            @Override
+                            public float floatValue() {
+                                return (float) number[jj][ii];
+                            }
 
-                        @Override
-                        public double doubleValue() {
-                            return (double) number[jj][ii];
+                            @Override
+                            public double doubleValue() {
+                                return (double) number[jj][ii];
+                            }
+                        };
+                        if (lineValues[j].trim().isEmpty()) {
+                            number[j][i] = Double.NaN;
+                        } else {
+                            number[j][i] = Double.parseDouble(lineValues[j].trim().
+                                    replace(",", ".").replace("\"", ""));
                         }
-                    };
-                    if (lineValues[j].trim().isEmpty()) {
-                        number[j][i] = Double.NaN;
-                    } else {
-                        number[j][i] = Double.parseDouble(lineValues[j].trim().
-                                replace(",", ".").replace("\"", ""));
                     }
+                    i++;
                 }
-                i++;
-
             }
             matrix.setData(number, xSize, ySize);
         } catch (FileNotFoundException e) {
@@ -239,9 +246,11 @@ public class OpenDataset {
                 br.readLine();
             }
             while ((line = br.readLine()) != null) {
-                String[] lineValues = line.split(separator);
-                values.add(Double.valueOf(lineValues[column].trim().
-                        replace(",", ".").replace("\"", "")));
+                if (!line.trim().isEmpty()) {
+                    String[] lineValues = line.split(separator);
+                    values.add(Double.valueOf(lineValues[column].trim().
+                            replace(",", ".").replace("\"", "")));
+                }
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
@@ -262,6 +271,7 @@ public class OpenDataset {
      * @param filename
      * @param sep
      * @return
+     * @throws java.io.IOException
      */
     public static Matrix openGeoeasToMatrix(String filename, String sep) throws IOException {
         BufferedReader br;
@@ -270,7 +280,7 @@ public class OpenDataset {
         try {
             br = new BufferedReader(new FileReader(filename));
             br.readLine(); //Jump title of file
-            String[] nVar = br.readLine().split(" "); //Get the number of columns
+            String[] nVar = br.readLine().split(sep); //Get the number of columns
             int cols = Integer.valueOf(nVar[0]);
             int rows = fileRows - cols - 2;
             for (int i = 0; i < cols; i++) {
@@ -342,7 +352,7 @@ public class OpenDataset {
      * @throws java.io.IOException
      */
     public static Vector openGeoeasToVector(String filename, String sep,
-            int column) throws IOException, Exception {    
+            int column) throws IOException, Exception {
         BufferedReader br = null;
         //count the lines, ignoring the empty ones
         int fileRows = DatasetProperties.getRowCount(filename, true);
@@ -372,23 +382,23 @@ public class OpenDataset {
                     while (line.subSequence(0, 1).equals(" ")) {
                         line = line.substring(1);
                     }
-                    while (line.subSequence(line.length() - 1, line.length()).equals(" ")) {
-                        line = line.substring(line.length());
+                    while (line.subSequence(line.length(), line.length()).equals(" ")) {
+                        line = line.substring(line.length());                        
                     }
                     // if the request column is the first
                     if (column == 0) {
                         int c = 1;
-                        while (!line.subSequence(c, c + 1).equals(sep)) {
+                        while (!line.subSequence(c, c + 1).equals(sep)) {                            
                             c++;
                         }
-                        theNumber = line.substring(0, c);
+                        theNumber = line.substring(0, c);                        
                     } else //if the requested column is the last one
                     if (column == (cols - 1)) {
                         int c = line.length();
-                        while (!line.subSequence(c - 1, c).equals(sep)) {
+                        while (line.subSequence(c - 1, c).equals(sep)) {
                             c--;
                         }
-                        theNumber = line.substring(c, line.length());
+                        theNumber = line.substring(c - 1, line.length());
                     } else //the requested column is not the first nor the last
                     {
                         int colIndex = 0;

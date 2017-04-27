@@ -16,6 +16,7 @@
  */
 package fractureanalysis.statistics;
 
+import fractureanalysis.Vectors.Vector;
 import java.util.ArrayList;
 import java.util.Objects;
 import javafx.collections.FXCollections;
@@ -26,7 +27,53 @@ import javafx.collections.ObservableList;
  * @author elidioxg
  */
 public class Spearman {
-    //TODO: eliminate ArrayList and ObservableList, substitute for vector, use Comparator
+    
+    //TODO: ver se esta função que foi adaptada para recever Vector está
+    //funcionando corretamente
+    public static double calc(Vector a, Vector b) throws Exception {
+        double result = Double.NaN;
+        if (a.size() != b.size()) {
+            throw new Exception("Arrays must have same size.");
+        } else {
+            
+
+            ArrayList<Row> table = new ArrayList();
+            for (int i = 0; i < a.size(); i++) {
+                Row row = new Row(a.get(i).doubleValue(), b.get(i).doubleValue());
+                table.add(row);
+            }
+            a.sort();
+            for (int i = 0; i < a.size(); i++) {
+                for (int j = 0; j < a.size(); j++) {
+                    if (Objects.equals(table.get(i).xValue, a.get(j).doubleValue())) {
+                        table.get(i).setXRank(j + 1);
+                        break;
+                    }
+                }
+            }
+            b.sort();
+            for (int i = 0; i < b.size(); i++) {
+                for (int j = 0; j < b.size(); j++) {
+                    if (Objects.equals(table.get(i).yValue, b.get(j).doubleValue())) {
+                        table.get(i).setYRank(j + 1);
+                        break;
+                    }
+                }
+            }
+            //TODO: aqui ficarão os procedimentos que procuram por valores repetidos e modificam            
+//            for (int k = 0; k < a.size(); k++) {
+//                System.out.println("x: " + table.get(k).getX(k) + "  y: " + table.get(k).getY(k)
+//                        + "  xi: " + table.get(k).getXRank() + "  yi: " + table.get(k).getYRank());
+//            }
+            double sum = 0.;
+            for (int i = 0; i < a.size(); i++) {
+                sum += Math.pow(table.get(i).getXRank() - table.get(i).getYRank(), 2);
+            }
+            result = 1 - ((6 * sum) / (Math.pow(a.size(), 3) - a.size()));
+        }
+        return result;
+    }
+    
     /**
      *
      * @param a
@@ -65,11 +112,6 @@ public class Spearman {
                     }
                 }
             }
-            //TODO: aqui ficarão os procedimentos que procuram por valores repetidos e modificam            
-//            for (int k = 0; k < a.size(); k++) {
-//                System.out.println("x: " + table.get(k).getX(k) + "  y: " + table.get(k).getY(k)
-//                        + "  xi: " + table.get(k).getXRank() + "  yi: " + table.get(k).getYRank());
-//            }
             double sum = 0.;
             for (int i = 0; i < a.size(); i++) {
                 sum += Math.pow(table.get(i).getXRank() - table.get(i).getYRank(), 2);

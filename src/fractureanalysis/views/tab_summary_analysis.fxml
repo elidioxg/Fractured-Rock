@@ -85,5 +85,5 @@
             </javafx.scene.chart.NumberAxis>
         </yAxis>
     </javafx.scene.chart.ScatterChart>
-    
+       
 </GridPane>

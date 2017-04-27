@@ -25,9 +25,8 @@
     <rowConstraints>
         <RowConstraints percentHeight="5"/>
         <RowConstraints percentHeight="5"/>
-        <RowConstraints percentHeight="5"/>
         <RowConstraints percentHeight="80"/>
-        <RowConstraints percentHeight="5"/>
+        <RowConstraints percentHeight="10"/>
     </rowConstraints>
     
     <Label 
@@ -40,7 +39,7 @@
     <javafx.scene.chart.LineChart         
         fx:id="lcAux"
         GridPane.columnIndex="0"
-        GridPane.rowIndex="3"
+        GridPane.rowIndex="2"
         GridPane.columnSpan="3"        
         legendVisible="false"
         verticalGridLinesVisible="false" 
@@ -72,7 +71,7 @@
     <javafx.scene.chart.LineChart 
         fx:id="scFractureIntensity"
         GridPane.columnIndex="0"
-        GridPane.rowIndex="3"
+        GridPane.rowIndex="2"
         GridPane.columnSpan="3"        
         legendVisible="false"
         verticalGridLinesVisible="true" 
@@ -98,38 +97,5 @@
             />
         </yAxis>
     </javafx.scene.chart.LineChart>            
-    
-    <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="1"
-        text="Aperture value:">
-    </Label> 
-    
-    <TextField 
-        fx:id="tfApValueAt"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="1">
-    </TextField>  
-    
-    <Button 
-        GridPane.columnIndex="2"
-        GridPane.rowIndex="1"
-        text="Estimate"
-        onAction="#estimate" >
-    </Button>  
-    
-    <Label
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="2"
-        text="Value estimated:"
-    >
-    </Label>
-    
-    <Label 
-        fx:id="lValue"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="2"
-        text="">
-    </Label>  
     
 </GridPane>

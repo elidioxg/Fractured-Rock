@@ -18,19 +18,11 @@ package fractureanalysis.stages;
 
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.model.DatasetModel;
-import fractureanalysis.statistics.MaximumValue;
-import fractureanalysis.statistics.MinimumValue;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 /**

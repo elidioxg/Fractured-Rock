@@ -16,6 +16,7 @@
  */
 package fractureanalysis.statistics;
 
+import fractureanalysis.Vectors.Vector;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
@@ -27,6 +28,72 @@ import javafx.collections.ObservableList;
  * @author elidioxg
  */
 public class Kendall {
+    
+    //TODO: Conferir se esta função está funcionando corretamente. Foi adaptada 
+    //para receber Vector no lugar de ArrayList
+    public static double calc(Vector a, Vector b) throws Exception {
+        double result = Double.NaN;
+        if (a.size() != b.size()) {
+            throw new Exception("Arrays must have same size.");
+        } else {            
+            ArrayList<Row> table = new ArrayList();
+            for (int i = 0; i < a.size(); i++) {
+                Row row = new Row(i + 1, a.get(i).doubleValue(), b.get(i).doubleValue());
+                table.add(row);
+            }
+            a.sort();
+            for (int i = 0; i < a.size(); i++) {
+                for (int j = 0; j < a.size(); j++) {
+                    if (Objects.equals(a.get(i), a.get(j).doubleValue())) {
+                        table.get(i).setXRank(a.size() - (j));
+                        break;
+                    }
+                }
+            }
+            b.sort();
+            for (int i = 0; i < b.size(); i++) {
+                for (int j = 0; j < b.size(); j++) {
+                    if (Objects.equals(b.get(i), b.get(j).doubleValue())) {
+                        table.get(i).setYRank(b.size() - (j));
+                        break;
+                    }
+                }
+            }
+            Collections.sort(table, (Row o1, Row o2) -> {
+                if (o1.getXRank() > o2.getXRank()) {
+                    return 1;
+                }
+                if (o1.getXRank() < o2.getXRank()) {
+                    return -1;
+                }
+                return 0;
+            });
+
+            /*
+            for (int k = 0; k < a.size(); k++) {
+                System.out.println(table.get(k).getIndex() + "  " + table.get(k).getXRank()
+                        + "  " + table.get(k).getYRank());
+            }*/
+            
+            int S = 0;
+            int j = 1;            
+            while (j < a.size()) {
+                for (int i = j; i < a.size(); i++) {
+                    boolean xBigger = table.get(j - 1).getXRank() > table.get(i).getXRank();
+                    boolean yBigger = table.get(j - 1).getYRank() > table.get(i).getYRank();
+                    if (xBigger == yBigger) {                    
+                        S++;
+                    } else {                        
+                        S--;
+                    }
+                }                
+                j++;
+            }            
+            result = S/(.5*(a.size())*(a.size()-1));
+        }
+        return result;
+    }
+    
 //TODO: determine the standard error for the equation
     /**
      * Calculate the Kendall Tau correlation coefficient for two ArrayLists
@@ -76,11 +143,12 @@ public class Kendall {
                 return 0;
             });
 
+            /*
             for (int k = 0; k < a.size(); k++) {
                 System.out.println(table.get(k).getIndex() + "  " + table.get(k).getXRank()
                         + "  " + table.get(k).getYRank());
-            }
-
+            }*/
+            
             int S = 0;
             int j = 1;            
             while (j < a.size()) {
@@ -106,7 +174,7 @@ public class Kendall {
      * the correlation coefficient.
      */
 
-        private int index;
+        private final int index;
         private final Double x;
         private final Double y;
         private int xRank;

@@ -16,28 +16,32 @@
  */
 package fractureanalysis.controller;
 
-import fractureanalysis.FractureAnalysis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.analysis.Fracture;
 import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.plot.PlotSeries;
+import fractureanalysis.stages.FractureAnalysisStage;
+import fractureanalysis.stages.View3DStage;
 import fractureanalysis.statistics.LinearRegression.LinearRegression;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 /**
  *
@@ -55,11 +59,13 @@ public class Stage_analysisController implements Initializable {
     protected ComboBox cbSpVar, cbApVar;
 
     @FXML
-    protected LineChart scFractureIntensity, lcAux;
+    protected LineChart scFractureIntensity, lcAux, lcCumFreq;
 
     @FXML
     protected Label lFracInt, lAvgSpacing, lScanLen;
 
+    @FXML
+    protected CheckBox cbSort;
     /**
      * Handle actions for aperture column index combobox
      *
@@ -107,10 +113,10 @@ public class Stage_analysisController implements Initializable {
      * @throws Exception
      */
     private void estimateFractures(int indexAp, int indexSp) throws Exception {
-
-        String filename = FractureAnalysis.getInstance().file.getFileName();
-        String sep = FractureAnalysis.getInstance().file.getSeparator().getChar();
-        boolean header = FractureAnalysis.getInstance().file.getHeader();
+        Scene scene = (Scene) cbApVar.getScene();
+        String filename = FractureAnalysisStage.getDataset().getFileName();
+        String sep = FractureAnalysisStage.getDataset().getSeparator().getChar();                
+        boolean header = FractureAnalysisStage.getDataset().getHeader();
         Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexAp, header);
         Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
         ArrayList<Fracture> fracturesList = new ArrayList();
@@ -123,9 +129,29 @@ public class Stage_analysisController implements Initializable {
         } else {
             throw new Exception("Vector Ap must have same size of Vector Sp");
         }
+        /**
+         * Plot cummulative frequency
+         * 
+         */
+        lcCumFreq = (LineChart) scene.lookup("#lcCumFreq");
+        cbSort = (CheckBox) scene.lookup("#cbSort");
+        Double sum = vectorAp.sum();
+        double cum = 0.;
+        Vector x = new Vector(vectorAp.size());
+        Vector y = new Vector(vectorAp.size());        
+        if(!cbSort.isSelected()){
+            vectorAp.sort();
+        }
+        for (int i = 0; i < vectorAp.size(); i++) {
+            cum += vectorAp.get(i).doubleValue();
+            x.set(i, i);
+            y.set(i, cum / sum * 100);
+        }        
+        lcCumFreq.getData().addAll(PlotSeries.plotLineSeries(x, y));
+
         ScanLine scanline = new ScanLine(fracturesList);
-        FractureAnalysis.getInstance().file.setScanLine(scanline);
-        Scene scene = (Scene) cbApVar.getScene();
+
+        FractureAnalysisStage.getDataset().setScanLine(scanline);
 
         FractureIntensityAnalysis fi = new FractureIntensityAnalysis(
                 scanline);
@@ -174,20 +200,54 @@ public class Stage_analysisController implements Initializable {
     }
 
     @FXML
-    protected TextField tfApValueAt;
-
+    protected Button button;
     @FXML
-    protected Label lValue;
+    protected Group group;
 
+    /**
+     * Draw a 3D representation of the fractures from scanline
+     *
+     * @throws Exception
+     */
     @FXML
-    protected void estimate() {
-        /*if (lr != null) {
-            if ((lr.getInitialValue() != 0) & (lr.getInclination() != 0)) {
-                double value = Double.parseDouble(tfApValueAt.getText());
-                lr.getValueAt(value);
-                lValue.setText(String.valueOf(value));
+    protected void view3d() throws Exception {
+        int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
+        if (indexSp >= 0) {
+            int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
+            if (indexAp >= 0) {                
+                String filename = FractureAnalysisStage.getDataset().getFileName();
+                String sep = FractureAnalysisStage.getDataset().getSeparator().getChar();
+                boolean header = FractureAnalysisStage.getDataset().getHeader();                
+                Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexAp, header);
+                Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
+                ArrayList<Fracture> fracturesList = new ArrayList();
+                if (vectorAp.size() == vectorSp.size()) {
+                    for (int i = 0; i < vectorAp.size(); i++) {
+                        Fracture f = new Fracture(vectorAp.get(i).doubleValue(),
+                                vectorSp.get(i).doubleValue());
+                        fracturesList.add(f);
+                    }
+                } else {
+                    throw new Exception("Vector Ap must have same size of Vector Sp");
+                }
+                ScanLine scanline = new ScanLine(fracturesList);
+                View3DStage stage = new View3DStage();
+                stage.scanlineContext(scanline);
             }
-        }*/
+        }
+
+    }
+
+    /**
+     * Sort the Fractures by Aperture size, from bigger to smaller.
+     */
+    private class ApertureComparator implements Comparator<Fracture> {
+
+        @Override
+        public int compare(Fracture o1, Fracture o2) {
+            return o1.getAperture() < o2.getAperture()
+                    ? 1 : o1.getAperture() == o2.getAperture() ? 0 : -1;
+        }
     }
 
     @Override

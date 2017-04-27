@@ -40,13 +40,14 @@ import javafx.stage.Stage;
  * @author elidioxg
  */
 public class View3DStage {
-    
+
     private List<FracturePlane3D> list = new ArrayList();
     private ListView lvFrac;
 
     /**
-     * Setup stage for Fractures and Wells 3D view 
-     * @throws IOException 
+     * Setup stage for Fractures and Wells 3D view
+     *
+     * @throws IOException
      */
     public void createSetupStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().getClass().getResource(
@@ -73,9 +74,8 @@ public class View3DStage {
         root.getChildren().addAll(DrawPlanes3D.drawPlanes(
                 scanline));
         root.getChildren().addAll(Axis.addAxis());
-        root.getChildren().addAll(Axis.addScanlineAxis(
-                FractureAnalysis.getInstance().file.getScanLine().getLenght()));
-        System.out.println(FractureAnalysis.getInstance().file.getScanLine().getLenght());
+        root.getChildren().addAll(Axis.addScanlineAxis(                
+                FractureAnalysisStage.getDataset().getScanLine().getLenght()));
 
         Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
                 DrawPlanes3D.getViewSize(), true);
@@ -97,14 +97,14 @@ public class View3DStage {
         root.getChildren().addAll(LightProperties.setScene3DLight());
         root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
         root.getChildren().addAll(Axis.addAxis());
-        
+
         root.getChildren().addAll(fracs);
         root.getChildren().addAll(wells);
 
         Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
                 DrawPlanes3D.getViewSize(), true);
         scene.setFill(Color.WHITE);
-        
+
         SceneUtils utils = new SceneUtils();
         utils.buildCamera(root);
         utils.handleMouse(scene, root);

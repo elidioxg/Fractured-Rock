@@ -68,16 +68,16 @@ public class Stage_open_geoeasController implements Initializable {
         if (!tfFilename.getText().trim().isEmpty()) {
             File file = new File(tfFilename.getText());
             GeoeasFormat gf = DatasetProperties.getGoeasProperties(file.getAbsolutePath());
-            FractureAnalysis.getInstance().file.setFilename(file.getAbsolutePath());
-            FractureAnalysis.getInstance().file.setDatasetName(gf.getTitle());            
-            FractureAnalysis.getInstance().file.setHeaderStrings(
+            FractureAnalysis.getInstance().getAnalysisFile().setFilename(file.getAbsolutePath());
+            FractureAnalysis.getInstance().getAnalysisFile().setDatasetName(gf.getTitle());            
+            FractureAnalysis.getInstance().getAnalysisFile().setHeaderStrings(
                     gf.getHeaders());
-            FractureAnalysis.getInstance().file.setSeparator(sep);
-            FractureAnalysis.getInstance().file.setColumnsCount(
+            FractureAnalysis.getInstance().getAnalysisFile().setSeparator(sep);
+            FractureAnalysis.getInstance().getAnalysisFile().setColumnsCount(
                     gf.getColumnsCount());            
-            FractureAnalysis.getInstance().file.setRowsCount(gf.getRowsCount());
-            FractureAnalysis.getInstance().file.setHeader(true);
-            FractureAnalysis.getInstance().file.setGeoeasFormat(true);
+            FractureAnalysis.getInstance().getAnalysisFile().setRowsCount(gf.getRowsCount());
+            FractureAnalysis.getInstance().getAnalysisFile().setHeader(true);
+            FractureAnalysis.getInstance().getAnalysisFile().setGeoeasFormat(true);
             FractureAnalysis.getInstance().updateListView();
         } else {
             //TODO: alert message

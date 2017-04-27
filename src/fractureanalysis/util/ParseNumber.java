@@ -38,7 +38,7 @@ public class ParseNumber {
             return result;
         }
         if (aux.length > 1) {            
-            int power = 1;
+            double power = 1;
             for(int i=0; i < Integer.parseInt(aux[1]); i++){
                 power *= 10;
             }            

@@ -30,8 +30,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -109,7 +107,7 @@ public class AppController implements Initializable {
                     final String[] headerValues = headerLine.split(separator.getChar());
                     ArrayList<String> array = new ArrayList<>(Arrays.asList(headerValues));
                     if (hasHeader) {
-                        FractureAnalysis.getInstance().file.setHeaderStrings(array);
+                        FractureAnalysis.getInstance().getAnalysisFile().setHeaderStrings(array);
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
@@ -279,9 +277,9 @@ public class AppController implements Initializable {
     @FXML
     protected void addToList() throws IOException, Exception {
         if (cbHeader.isSelected()) {
-            FractureAnalysis.getInstance().file.setHeader(true);
+            FractureAnalysis.getInstance().getAnalysisFile().setHeader(true);
         } else {
-            FractureAnalysis.getInstance().file.setHeader(false);
+            FractureAnalysis.getInstance().getAnalysisFile().setHeader(false);
         }
         Separator sep;
         if (rbTab.isSelected()) {
@@ -301,19 +299,19 @@ public class AppController implements Initializable {
         }
         if (!tfFilename.getText().trim().isEmpty()) {
             File file = new File(tfFilename.getText());
-            FractureAnalysis.getInstance().file.setFilename(file.getAbsolutePath());
-            FractureAnalysis.getInstance().file.setDatasetName(file.getName());
+            FractureAnalysis.getInstance().getAnalysisFile().setFilename(file.getAbsolutePath());
+            FractureAnalysis.getInstance().getAnalysisFile().setDatasetName(file.getName());
             int columnCount = DatasetProperties.getColumnsCount(file.getAbsolutePath(), sep);
-            FractureAnalysis.getInstance().file.setHeaderStrings(
+            FractureAnalysis.getInstance().getAnalysisFile().setHeaderStrings(
                     DatasetProperties.getHeaders(file.getAbsolutePath(), sep));
-            FractureAnalysis.getInstance().file.setSeparator(sep);
-            FractureAnalysis.getInstance().file.setColumnsCount(
+            FractureAnalysis.getInstance().getAnalysisFile().setSeparator(sep);
+            FractureAnalysis.getInstance().getAnalysisFile().setColumnsCount(
                     columnCount);
             int rowCount = DatasetProperties.getRowCount(file.getAbsolutePath());
-            FractureAnalysis.getInstance().file.setRowsCount(rowCount);
-            if (FractureAnalysis.getInstance().file.getColumnsCount() > 1) {
-                FractureAnalysis.getInstance().file.setApColumn(1);
-                FractureAnalysis.getInstance().file.setSpColumn(0);
+            FractureAnalysis.getInstance().getAnalysisFile().setRowsCount(rowCount);
+            if (FractureAnalysis.getInstance().getAnalysisFile().getColumnsCount() > 1) {
+                FractureAnalysis.getInstance().getAnalysisFile().setApColumn(1);
+                FractureAnalysis.getInstance().getAnalysisFile().setSpColumn(0);
             }
             FractureAnalysis.getInstance().updateListView();
         } else {
@@ -416,7 +414,7 @@ public class AppController implements Initializable {
     @FXML
     protected void fractureStage() throws IOException {
         FractureAnalysisStage stage = new FractureAnalysisStage(
-                FractureAnalysis.getInstance().getDatasetList());
+                FractureAnalysis.getInstance().getAnalysisFile());
         stage.createStage();
     }
 
@@ -443,9 +441,9 @@ public class AppController implements Initializable {
         int colIndex = cbSColumn.getSelectionModel().getSelectedIndex();
         if (colIndex >= 0) {
             FractureAnalysis.getInstance().setColumnStatistics(
-                    FractureAnalysis.getInstance().file.getFileName(),
-                    FractureAnalysis.getInstance().file.getSeparator(),
-                    colIndex, FractureAnalysis.getInstance().file.getHeader());
+                    FractureAnalysis.getInstance().getAnalysisFile().getFileName(),
+                    FractureAnalysis.getInstance().getAnalysisFile().getSeparator(),
+                    colIndex, FractureAnalysis.getInstance().getAnalysisFile().getHeader());
         }
     }
 
@@ -465,19 +463,19 @@ public class AppController implements Initializable {
     @FXML
     protected void cbHistogramChange() throws Exception {
         int index = cbColIndex.getSelectionModel().getSelectedIndex();
-        boolean header = FractureAnalysis.getInstance().file.getHeader();
-        boolean geoeas = FractureAnalysis.getInstance().file.isGeoeas();
+        boolean header = FractureAnalysis.getInstance().getAnalysisFile().getHeader();
+        boolean geoeas = FractureAnalysis.getInstance().getAnalysisFile().isGeoeas();
         Vector vector = new Vector();
         if (index >= 0) {
             if (geoeas) {
                 vector = OpenDataset.openGeoeasToVector(
-                        FractureAnalysis.getInstance().file.getFileName(),
-                        FractureAnalysis.getInstance().file.getSeparator().getChar(), 
+                        FractureAnalysis.getInstance().getAnalysisFile().getFileName(),
+                        FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar(), 
                         index);
             } else {
                 vector = OpenDataset.openCSVFileToVector(
-                        FractureAnalysis.getInstance().file.getFileName(),
-                        FractureAnalysis.getInstance().file.getSeparator().getChar(),
+                        FractureAnalysis.getInstance().getAnalysisFile().getFileName(),
+                        FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar(),
                         index, header);
             }
 

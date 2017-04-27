@@ -59,7 +59,8 @@ public class Stage_matrix_viewController implements Initializable {
             double max = MaximumValue.getMaxValue(matrix);
             ColorScale scale = new ColorScale(min, max);
             BlocksSurface surface
-                    = new BlocksSurface(gc, matrix.getColumnsCount() - 1, gc.getCanvas().widthProperty().intValue());
+                    = new BlocksSurface(gc, matrix.getColumnsCount() - 1, 
+                            gc.getCanvas().widthProperty().intValue());
             surface.drawBlocks(matrix, scale);
         }
 

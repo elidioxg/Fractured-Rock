@@ -58,10 +58,10 @@ public class Tab_cumulative_freqController implements Initializable {
         lcLine.getData().clear();
         int selected = cbColumn.getSelectionModel().getSelectedIndex();
         if (selected >= 0) {
-            String filename = FractureAnalysis.getInstance().file.getFileName();
-            String sep = FractureAnalysis.getInstance().file.getSeparator().getChar();
-            boolean header = FractureAnalysis.getInstance().file.getHeader();
-            boolean geoeas = FractureAnalysis.getInstance().file.isGeoeas();
+            String filename = FractureAnalysis.getInstance().getAnalysisFile().getFileName();
+            String sep = FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar();
+            boolean header = FractureAnalysis.getInstance().getAnalysisFile().getHeader();
+            boolean geoeas = FractureAnalysis.getInstance().getAnalysisFile().isGeoeas();
             Vector vector = new Vector();
             if(geoeas){
                 vector = OpenDataset.openGeoeasToVector(filename, sep, selected);
@@ -82,7 +82,6 @@ public class Tab_cumulative_freqController implements Initializable {
                 //x.add(i);
                 y.set(i, cumulative / sum * 100);
                 //y.add(cumulative/sum*100);
-                //System.out.println("vector y value: "+y.get(i).doubleValue());
             }
             lcPoints.getData().addAll(PlotSeries.plotLineSeries(x, y));
             lcLine.getData().addAll(PlotSeries.plotLineSeries(x, y));

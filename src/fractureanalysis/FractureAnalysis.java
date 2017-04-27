@@ -58,7 +58,11 @@ public class FractureAnalysis extends Application {
 
     private final String strAppName = "Application Name";
 
-    public AnalysisFile file;
+    /**
+     * This AnalysisFile points to the item selected on ListView on Main Stage
+     */
+    private AnalysisFile file;
+    
     public Stage stage;
 
     public ListView listView;
@@ -82,6 +86,14 @@ public class FractureAnalysis extends Application {
     
     public List<DatasetModel> getDatasetList(){
         return this.list;
+    }
+    
+    /**
+     * Return the selected item on ListView of the Main Stage
+     * @return 
+     */
+    public AnalysisFile getAnalysisFile(){
+        return this.file;
     }
 
     @Override
@@ -150,13 +162,12 @@ public class FractureAnalysis extends Application {
                     }
                 }
             });
-
-            //grid.add(listView, 0, 2);
+            
             primaryStage.setOnCloseRequest(e -> Platform.exit());
             primaryStage.setTitle(strAppName);
             primaryStage.setScene(scene);
             primaryStage.show();
-            //test();
+            
         } catch (IOException e) {
             throw new IOException(e);
         }
@@ -277,6 +288,7 @@ public class FractureAnalysis extends Application {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
         Application.launch(FractureAnalysis.class, args);        

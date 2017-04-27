@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane 
+    id="WhitePane" 
+    prefHeight="400.0" 
+    prefWidth="600.0" 
+    styleClass="mainFxmlClass" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="fractureanalysis.controller.Tab_slcumfreqController">
+    
+    <stylesheets>
+        <URL value="@app_style.css"/>
+    </stylesheets>
+    
+    <CheckBox 
+        fx:id="cbSort"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        onAction="#cbAction"
+        text="sort">
+        
+    </CheckBox>
+    
+    <javafx.scene.chart.LineChart 
+        fx:id="lcCumFreq"
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="2"
+        GridPane.columnSpan="4" 
+        legendVisible="false">
+        
+        <xAxis>
+            <javafx.scene.chart.NumberAxis ></javafx.scene.chart.NumberAxis>
+        </xAxis>
+        <yAxis>
+            <javafx.scene.chart.NumberAxis
+                lowerBound="0" 
+                upperBound="100"
+                autoRanging="false">
+            </javafx.scene.chart.NumberAxis>
+        </yAxis>
+        
+    </javafx.scene.chart.LineChart>
+    
+</GridPane>

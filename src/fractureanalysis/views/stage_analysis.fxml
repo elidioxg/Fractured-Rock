@@ -33,7 +33,7 @@
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="0"  
-        text="Sp Column">
+        text="S Column">
     </Label>
     <ComboBox 
         fx:id="cbSpVar"
@@ -53,6 +53,18 @@
         onAction="#cbApAction">        
     </ComboBox>
     
+    <ButtonBar
+        GridPane.columnIndex="4"        
+        GridPane.rowIndex="0">
+        <buttons>
+            <Button
+                text="3D View"
+                onAction="#view3d">
+                
+            </Button>
+        </buttons>
+    </ButtonBar>        
+    
     <TabPane 
         GridPane.columnIndex="0"
         GridPane.rowIndex="1"  
@@ -69,11 +81,12 @@
             <content>
                 <fx:include source="tab_distribution.fxml"/>
             </content>
-        </Tab>     
-        <Tab text="View"
-             closable="false">
+        </Tab>             
+        <Tab 
+            text="Cumulative Frequency"
+            closable="false">
             <content>
-                <fx:include source="tab_2dview.fxml"/>
+                <fx:include source="tab_slcumfreq.fxml"/>
             </content>
         </Tab>                      
     </TabPane>

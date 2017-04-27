@@ -35,54 +35,59 @@ import javafx.scene.control.Label;
  *
  * @author elidioxg
  */
-public class CorrelationController implements Initializable{
-    
+public class CorrelationController implements Initializable {
+
     /**
      * Handle actions for Tab Correlation on Main Stage
-     * 
+     *
      * See views/tab_correlation.fxml
      */
-    
-    @FXML 
-    protected ComboBox cbVarA,cbVarB;
-    
-    @FXML 
+    @FXML
+    protected ComboBox cbVarA, cbVarB;
+
+    @FXML
     protected Label lCovariance, lPearson, lSpearman, lKendall;
-           
+
     /**
      * When the user change some of the combobox on tab correlation(main stage),
      * this procedure is executed.
-     * 
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @FXML
-    protected void comboboxChange() throws Exception{
+    protected void comboboxChange() throws Exception {
         int indexA = cbVarA.getSelectionModel().getSelectedIndex();
         int indexB = cbVarB.getSelectionModel().getSelectedIndex();
-        String filename = FractureAnalysis.getInstance().file.getFileName();
-        String sep = FractureAnalysis.getInstance().file.getSeparator().getChar();
-        if(indexA>=0 & indexB>=0){
-            Vector arrayA = OpenDataset.openCSVFileToVector(
-                    filename, sep, indexA, true);
-            Vector arrayB = OpenDataset.openCSVFileToVector(
-                    filename, sep, indexB, true);
+        String filename = FractureAnalysis.getInstance().getAnalysisFile().getFileName();
+        String sep = FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar();
+        boolean header = FractureAnalysis.getInstance().getAnalysisFile().getHeader();
+        if (indexA >= 0 & indexB >= 0) {
+            Vector arrayA;
+            Vector arrayB;
+            if (FractureAnalysis.getInstance().getAnalysisFile().isGeoeas()) {
+                arrayA = OpenDataset.openGeoeasToVector(filename, sep, indexA);
+                arrayB = OpenDataset.openGeoeasToVector(filename, sep, indexB);
+            } else {
+                arrayA = OpenDataset.openCSVFileToVector(
+                        filename, sep, indexA, header);
+                arrayB = OpenDataset.openCSVFileToVector(
+                        filename, sep, indexB, header);
+            }
+
             double covariance = Covariance.covariance(arrayA, arrayB);
             lCovariance.setText(String.valueOf(covariance));
             double pearson = Pearson.pearsonCoeff(arrayA, arrayB);
             lPearson.setText(String.valueOf(pearson));
-            //TODO: if dataset has header or not
-            ArrayList<Double> a = OpenDataset.openCSVFileToDouble(filename, sep, indexA, true);
-            ArrayList<Double> b = OpenDataset.openCSVFileToDouble(filename, sep, indexB, true);
-            double spearman = Spearman.calc(a, b);
+            double spearman = Spearman.calc(arrayA, arrayB);
             lSpearman.setText(String.valueOf(spearman));
-            double kendall = Kendall.calc(a, b);
+            double kendall = Kendall.calc(arrayA, arrayB);
             lKendall.setText(String.valueOf(kendall));
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
     }
-    
+
 }

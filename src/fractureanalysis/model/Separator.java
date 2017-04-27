@@ -23,7 +23,7 @@ package fractureanalysis.model;
 public class Separator {
 
     private String[] strSep = {"Tab", "semicolon", "colon", "Blank space"};
-    private final String[] sep = {"\t", ";", ",", "  "};
+    private final String[] sep = {"\t", ";", ",", " "};
     private final int defaultSep = 0;
     private String current;
     private int currentIndex;

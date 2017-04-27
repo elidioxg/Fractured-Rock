@@ -16,6 +16,7 @@
  */
 package fractureanalysis.controller;
 
+import fractureanalysis.FractureAnalysis;
 import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
@@ -66,20 +67,27 @@ public class Tab_covarianceController implements Initializable {
                     int indexX = cbX.getSelectionModel().getSelectedIndex();
                     int indexY = cbY.getSelectionModel().getSelectedIndex();
                     int indexContent = cbContent.getSelectionModel().getSelectedIndex();
-                    int indexDataset
-                            = fractureanalysis.FractureAnalysis.getInstance().listView.getSelectionModel().getSelectedIndex();
-                    String filename = fractureanalysis.FractureAnalysis.getInstance().
-                            getDatasetList().get(indexDataset).getFileName();
-                    Separator sep = fractureanalysis.FractureAnalysis.getInstance().
-                            getDatasetList().get(indexDataset).getSeparator();
-                    boolean header = fractureanalysis.FractureAnalysis.getInstance().
-                            getDatasetList().get(indexDataset).getHeader();
-                    Vector x = OpenDataset.openCSVFileToVector(
-                            filename, sep.getChar(), indexX, header);
-                    Vector y = OpenDataset.openCSVFileToVector(
-                            filename, sep.getChar(), indexY, header);
-                    Vector content = OpenDataset.openCSVFileToVector(
-                            filename, sep.getChar(), indexContent, header);
+
+                    String filename = FractureAnalysis.getInstance().getAnalysisFile().getFileName();
+                    Separator sep = FractureAnalysis.getInstance().getAnalysisFile().getSeparator();
+                    boolean header = FractureAnalysis.getInstance().getAnalysisFile().getHeader();
+
+                    Vector x;
+                    Vector y;
+                    Vector content;
+                    if (FractureAnalysis.getInstance().getAnalysisFile().isGeoeas()) {
+                        x = OpenDataset.openGeoeasToVector(filename, sep.getChar(), indexX);
+                        y = OpenDataset.openGeoeasToVector(filename, sep.getChar(), indexY);
+                        content = OpenDataset.openGeoeasToVector(filename, sep.getChar(), indexContent);
+                    } else {
+                        x = OpenDataset.openCSVFileToVector(
+                                filename, sep.getChar(), indexX, header);
+                        y = OpenDataset.openCSVFileToVector(
+                                filename, sep.getChar(), indexY, header);
+                        content = OpenDataset.openCSVFileToVector(
+                                filename, sep.getChar(), indexContent, header);
+                    }
+
                     ScatterChart.Series serie = new XYChart.Series();
 
                     for (int i = 0; i < x.size(); i++) {
@@ -91,12 +99,12 @@ public class Tab_covarianceController implements Initializable {
                     double sill = 2000;
                     double range = 250.;
                     Matrix covLine = Models.spherical(sill, range, 30);
-                    
+
                     System.out.println("CovLine1");
                     covLine.print();
                     Vector X = covLine.getColumn(0);
                     Vector Y = covLine.getColumn(1);
-                    XYChart.Series serie2 =  PlotSeries.plotLineSeries(X, Y);
+                    XYChart.Series serie2 = PlotSeries.plotLineSeries(X, Y);
                     //XYChart.Series serie2 =  PlotSeries.plotLineSeries(covLine, 0, 1);
                     lcCovariance.getData().add(serie2);
                     //plot covariance function on graph
