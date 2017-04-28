@@ -18,7 +18,6 @@ package fractureanalysis.data;
 
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.Matrices.Matrix;
-import fractureanalysis.util.ParseNumber;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -330,7 +329,7 @@ public class OpenDataset {
                                 return (double) number[jj][ii];
                             }
                         };
-                        number[j][i] = ParseNumber.parse(lineValues[j]);
+                        number[j][i] = Double.parseDouble(lineValues[j]);
                     }
                     i++;
                 }
@@ -445,7 +444,7 @@ public class OpenDataset {
                         return (double) number[ii];
                     }
                 };
-                number[i] = ParseNumber.parse(theNumber);
+                number[i] = Double.parseDouble(theNumber);
                 i++;
             }
             result.setData(number, rows);

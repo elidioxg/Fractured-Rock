@@ -4,6 +4,7 @@ import fractureanalysis.FractureAnalysis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.DatasetProperties;
 import fractureanalysis.data.OpenDataset;
+import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.model.Separator;
 import fractureanalysis.stages.FractureAnalysisStage;
@@ -107,7 +108,7 @@ public class AppController implements Initializable {
                     final String[] headerValues = headerLine.split(separator.getChar());
                     ArrayList<String> array = new ArrayList<>(Arrays.asList(headerValues));
                     if (hasHeader) {
-                        FractureAnalysis.getInstance().getAnalysisFile().setHeaderStrings(array);
+                        FractureAnalysis.getInstance().getDataset().setHeaderStrings(array);
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
@@ -199,6 +200,17 @@ public class AppController implements Initializable {
                     }
 
                     while ((dataLine = br.readLine()) != null) {
+                        System.out.println("Dataline: " + dataLine);
+                        if (dm.getSepString().trim().equals("")) {
+                            while (dataLine.subSequence(0, 1).equals(" ")) {
+                                dataLine = dataLine.substring(1);
+                            }
+                            dataLine = dataLine.replace(dm.getSepString() + dm.getSepString() + dm.getSepString() + dm.getSepString(), dm.getSepString());
+                            dataLine = dataLine.replace(dm.getSepString() + dm.getSepString() + dm.getSepString(), dm.getSepString());
+                            dataLine = dataLine.replace(dm.getSepString() + dm.getSepString(), dm.getSepString());
+                        }
+                        System.out.println("Dataline Trim: " + dataLine);
+
                         final String[] dataValues = dataLine.split(dm.getSepString());
                         Platform.runLater(new Runnable() {
                             @Override
@@ -276,11 +288,6 @@ public class AppController implements Initializable {
      */
     @FXML
     protected void addToList() throws IOException, Exception {
-        if (cbHeader.isSelected()) {
-            FractureAnalysis.getInstance().getAnalysisFile().setHeader(true);
-        } else {
-            FractureAnalysis.getInstance().getAnalysisFile().setHeader(false);
-        }
         Separator sep;
         if (rbTab.isSelected()) {
             sep = new Separator(0);
@@ -299,21 +306,22 @@ public class AppController implements Initializable {
         }
         if (!tfFilename.getText().trim().isEmpty()) {
             File file = new File(tfFilename.getText());
-            FractureAnalysis.getInstance().getAnalysisFile().setFilename(file.getAbsolutePath());
-            FractureAnalysis.getInstance().getAnalysisFile().setDatasetName(file.getName());
+            DatasetModel dataset = new AnalysisFile();
+            dataset.setFilename(file.getAbsolutePath());
+            dataset.setDatasetName(file.getName());
             int columnCount = DatasetProperties.getColumnsCount(file.getAbsolutePath(), sep);
-            FractureAnalysis.getInstance().getAnalysisFile().setHeaderStrings(
+            dataset.setHeaderStrings(
                     DatasetProperties.getHeaders(file.getAbsolutePath(), sep));
-            FractureAnalysis.getInstance().getAnalysisFile().setSeparator(sep);
-            FractureAnalysis.getInstance().getAnalysisFile().setColumnsCount(
-                    columnCount);
+            dataset.setSeparator(sep);
+            dataset.setColumnsCount(columnCount);
             int rowCount = DatasetProperties.getRowCount(file.getAbsolutePath());
-            FractureAnalysis.getInstance().getAnalysisFile().setRowsCount(rowCount);
-            if (FractureAnalysis.getInstance().getAnalysisFile().getColumnsCount() > 1) {
-                FractureAnalysis.getInstance().getAnalysisFile().setApColumn(1);
-                FractureAnalysis.getInstance().getAnalysisFile().setSpColumn(0);
+            dataset.setRowsCount(rowCount);
+            if (cbHeader.isSelected()) {
+                dataset.setHeader(true);
+            } else {
+                dataset.setHeader(false);
             }
-            FractureAnalysis.getInstance().updateListView();
+            FractureAnalysis.getInstance().addToListView(dataset);
         } else {
             //TODO: alert message
         }
@@ -414,7 +422,7 @@ public class AppController implements Initializable {
     @FXML
     protected void fractureStage() throws IOException {
         FractureAnalysisStage stage = new FractureAnalysisStage(
-                FractureAnalysis.getInstance().getAnalysisFile());
+                FractureAnalysis.getInstance().getDataset());
         stage.createStage();
     }
 
@@ -440,10 +448,9 @@ public class AppController implements Initializable {
     protected void cbSummaryChange() throws Exception {
         int colIndex = cbSColumn.getSelectionModel().getSelectedIndex();
         if (colIndex >= 0) {
-            FractureAnalysis.getInstance().setColumnStatistics(
-                    FractureAnalysis.getInstance().getAnalysisFile().getFileName(),
-                    FractureAnalysis.getInstance().getAnalysisFile().getSeparator(),
-                    colIndex, FractureAnalysis.getInstance().getAnalysisFile().getHeader());
+            DatasetModel dataset
+                    = FractureAnalysis.getInstance().listView.getSelectionModel().getSelectedItem();
+            FractureAnalysis.getInstance().setColumnStatistics(dataset, colIndex);
         }
     }
 
@@ -463,19 +470,19 @@ public class AppController implements Initializable {
     @FXML
     protected void cbHistogramChange() throws Exception {
         int index = cbColIndex.getSelectionModel().getSelectedIndex();
-        boolean header = FractureAnalysis.getInstance().getAnalysisFile().getHeader();
-        boolean geoeas = FractureAnalysis.getInstance().getAnalysisFile().isGeoeas();
+        boolean header = FractureAnalysis.getInstance().getDataset().getHeader();
+        boolean geoeas = FractureAnalysis.getInstance().getDataset().isGeoeas();
         Vector vector = new Vector();
         if (index >= 0) {
             if (geoeas) {
                 vector = OpenDataset.openGeoeasToVector(
-                        FractureAnalysis.getInstance().getAnalysisFile().getFileName(),
-                        FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar(), 
+                        FractureAnalysis.getInstance().getDataset().getFileName(),
+                        FractureAnalysis.getInstance().getDataset().getSeparator().getChar(),
                         index);
             } else {
                 vector = OpenDataset.openCSVFileToVector(
-                        FractureAnalysis.getInstance().getAnalysisFile().getFileName(),
-                        FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar(),
+                        FractureAnalysis.getInstance().getDataset().getFileName(),
+                        FractureAnalysis.getInstance().getDataset().getSeparator().getChar(),
                         index, header);
             }
 

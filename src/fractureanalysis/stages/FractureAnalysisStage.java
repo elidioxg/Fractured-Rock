@@ -17,6 +17,7 @@
 package fractureanalysis.stages;
 
 import fractureanalysis.model.AnalysisFile;
+import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -34,10 +35,12 @@ public class FractureAnalysisStage {
 
     private static FractureAnalysisStage instance;
 
-    private static AnalysisFile dataset;
+    private static DatasetModel dataset;
+    private static AnalysisFile analysisFile;
 
-    public FractureAnalysisStage(AnalysisFile dataset) {
+    public FractureAnalysisStage(DatasetModel dataset) {
         FractureAnalysisStage.dataset = dataset;
+        analysisFile = new AnalysisFile(dataset);
         instance = this;
     }
 
@@ -45,8 +48,12 @@ public class FractureAnalysisStage {
         return instance;
     }
 
-    public static AnalysisFile getDataset() {
+    public static DatasetModel getDataset() {
         return dataset;
+    }
+    
+    public static AnalysisFile getAnalysisFile(){
+        return analysisFile;
     }
 
     public void createStage() throws IOException {

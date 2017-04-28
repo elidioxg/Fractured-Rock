@@ -19,6 +19,7 @@ package fractureanalysis.controller;
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
+import fractureanalysis.model.DatasetModel;
 import fractureanalysis.statistics.Pearson;
 import fractureanalysis.statistics.Covariance;
 import fractureanalysis.statistics.Kendall;
@@ -58,30 +59,33 @@ public class CorrelationController implements Initializable {
     protected void comboboxChange() throws Exception {
         int indexA = cbVarA.getSelectionModel().getSelectedIndex();
         int indexB = cbVarB.getSelectionModel().getSelectedIndex();
-        String filename = FractureAnalysis.getInstance().getAnalysisFile().getFileName();
-        String sep = FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar();
-        boolean header = FractureAnalysis.getInstance().getAnalysisFile().getHeader();
-        if (indexA >= 0 & indexB >= 0) {
-            Vector arrayA;
-            Vector arrayB;
-            if (FractureAnalysis.getInstance().getAnalysisFile().isGeoeas()) {
-                arrayA = OpenDataset.openGeoeasToVector(filename, sep, indexA);
-                arrayB = OpenDataset.openGeoeasToVector(filename, sep, indexB);
-            } else {
-                arrayA = OpenDataset.openCSVFileToVector(
-                        filename, sep, indexA, header);
-                arrayB = OpenDataset.openCSVFileToVector(
-                        filename, sep, indexB, header);
-            }
+        DatasetModel dataset = FractureAnalysis.getInstance().getDataset();
+        if (dataset != null) {
+            String filename = dataset.getFileName();
+            String sep = dataset.getSeparator().getChar();
+            boolean header = dataset.getHeader();
+            if (indexA >= 0 & indexB >= 0) {
+                Vector arrayA;
+                Vector arrayB;
+                if (dataset.isGeoeas()) {
+                    arrayA = OpenDataset.openGeoeasToVector(filename, sep, indexA);
+                    arrayB = OpenDataset.openGeoeasToVector(filename, sep, indexB);
+                } else {
+                    arrayA = OpenDataset.openCSVFileToVector(
+                            filename, sep, indexA, header);
+                    arrayB = OpenDataset.openCSVFileToVector(
+                            filename, sep, indexB, header);
+                }
 
-            double covariance = Covariance.covariance(arrayA, arrayB);
-            lCovariance.setText(String.valueOf(covariance));
-            double pearson = Pearson.pearsonCoeff(arrayA, arrayB);
-            lPearson.setText(String.valueOf(pearson));
-            double spearman = Spearman.calc(arrayA, arrayB);
-            lSpearman.setText(String.valueOf(spearman));
-            double kendall = Kendall.calc(arrayA, arrayB);
-            lKendall.setText(String.valueOf(kendall));
+                double covariance = Covariance.covariance(arrayA, arrayB);
+                lCovariance.setText(String.valueOf(covariance));
+                double pearson = Pearson.pearsonCoeff(arrayA, arrayB);
+                lPearson.setText(String.valueOf(pearson));
+                double spearman = Spearman.calc(arrayA, arrayB);
+                lSpearman.setText(String.valueOf(spearman));
+                double kendall = Kendall.calc(arrayA, arrayB);
+                lKendall.setText(String.valueOf(kendall));
+            }
         }
     }
 

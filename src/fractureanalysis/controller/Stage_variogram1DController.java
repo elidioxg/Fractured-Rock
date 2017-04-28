@@ -67,11 +67,11 @@ public class Stage_variogram1DController implements Initializable {
         if (lvDistances.getItems().isEmpty()) {
             auto();
         }*/
-        String filename = FractureAnalysis.getInstance().getAnalysisFile().getFileName();
-        String sep = FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar();
+        String filename = FractureAnalysis.getInstance().getDataset().getFileName();
+        String sep = FractureAnalysis.getInstance().getDataset().getSeparator().getChar();
         int indexAp = cbValues.getSelectionModel().getSelectedIndex();
         int indexSp = cbDistances.getSelectionModel().getSelectedIndex();
-        boolean header = FractureAnalysis.getInstance().getAnalysisFile().getHeader();
+        boolean header = FractureAnalysis.getInstance().getDataset().getHeader();
         Vector vectorValues = OpenDataset.openCSVFileToVector(filename, sep, indexAp, header);
         Vector vectorDistances = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
         ArrayList<Fracture> fracturesList = new ArrayList();
@@ -123,7 +123,7 @@ public class Stage_variogram1DController implements Initializable {
      */
     @FXML
     protected void auto() {
-        ArrayList<Double> array = FractureAnalysis.getInstance().getAnalysisFile().getScanLine().getDistanceList();
+       /* ArrayList<Double> array = FractureAnalysis.getInstance().getAnalysisFile().getScanLine().getDistanceList();
         double max = MaximumValue.getMaxValue(array);
         double min = MinimumValue.getMinValue(array);
         double step = (max - min) / 10;
@@ -132,7 +132,7 @@ public class Stage_variogram1DController implements Initializable {
             listDistances.add(min + (step * i));
         }
         ObservableList<Double> ol = FXCollections.observableArrayList(listDistances);
-        lvDistances.getItems().addAll(ol);
+        lvDistances.getItems().addAll(ol);*/
     }
 
 }

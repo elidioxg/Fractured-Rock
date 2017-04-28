@@ -65,6 +65,7 @@ public class View3DStage {
     /**
      * Create a Stage for 3D fractures representation
      *
+     * @param scanline
      * @throws Exception
      */
     public void scanlineContext(ScanLine scanline) throws Exception {
@@ -75,7 +76,7 @@ public class View3DStage {
                 scanline));
         root.getChildren().addAll(Axis.addAxis());
         root.getChildren().addAll(Axis.addScanlineAxis(                
-                FractureAnalysisStage.getDataset().getScanLine().getLenght()));
+                FractureAnalysisStage.getAnalysisFile().getScanLine().getLenght()));
 
         Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
                 DrawPlanes3D.getViewSize(), true);

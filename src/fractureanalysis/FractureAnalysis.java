@@ -25,7 +25,6 @@ import fractureanalysis.controller.AppController;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
-import fractureanalysis.model.Separator;
 import fractureanalysis.statistics.Average;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
@@ -58,16 +57,10 @@ public class FractureAnalysis extends Application {
 
     private final String strAppName = "Application Name";
 
-    /**
-     * This AnalysisFile points to the item selected on ListView on Main Stage
-     */
-    private AnalysisFile file;
-    
     public Stage stage;
 
-    public ListView listView;
+    public ListView<DatasetModel> listView;
 
-    //TODO substituir por List<AnalysisFile>
     private List<DatasetModel> list;
 
     private AppController controller;
@@ -83,26 +76,31 @@ public class FractureAnalysis extends Application {
     public static FractureAnalysis getInstance() {
         return instance;
     }
-    
-    public List<DatasetModel> getDatasetList(){
+
+    public List<DatasetModel> getDatasetList() {
         return this.list;
     }
-    
+
     /**
      * Return the selected item on ListView of the Main Stage
-     * @return 
+     *
+     * @return
      */
-    public AnalysisFile getAnalysisFile(){
-        return this.file;
+    public DatasetModel getDataset() {
+        if (listView.getSelectionModel().getSelectedIndex() >= 0) {
+            return this.listView.getSelectionModel().getSelectedItem();
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {        
-        file = new AnalysisFile();       
+    public void start(Stage primaryStage) throws IOException {
+        //file = new AnalysisFile();       
         try {
             FXMLLoader root = new FXMLLoader(getClass().getResource(
                     "views/stage_main.fxml"));
-            grid = root.load(); 
+            grid = root.load();
             controller = root.getController();
             Scene scene = new Scene(grid);
             list = new ArrayList();
@@ -118,10 +116,7 @@ public class FractureAnalysis extends Application {
                             if (myObject != null) {
                                 setText(myObject.getDatasetName());
                                 try {
-                                    setColumnStatistics(
-                                            myObject.getFileName(),
-                                            myObject.getSeparator(), 0,
-                                            myObject.getHeader());
+                                    setColumnStatistics(myObject, 0);
                                 } catch (Exception ex) {
                                     Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
                                 }
@@ -136,77 +131,61 @@ public class FractureAnalysis extends Application {
                 @Override
                 public void handle(MouseEvent event) {
                     DatasetModel dm = (DatasetModel) listView.getSelectionModel().getSelectedItem();
-                    if (dm != null) {
-                        file.setFilename(dm.getFileName());
-                        file.setDatasetName(dm.getDatasetName());
-                        file.setSeparator(dm.getSeparator());
-                        file.setHeader(dm.getHeader());
-                        file.setHeaderStrings(dm.getHeaderArray());
-                        file.setColumnsCount(dm.getColumnsCount());
-                        file.setRowsCount(dm.getRowsCount());
-                        file.setGeoeasFormat(dm.isGeoeas());
+                    if (dm != null) {                        
                         try {
                             controller.populateTable(dm);
                         } catch (IOException ex) {
                             Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         try {
-                            setColumnStatistics(dm.getFileName(), dm.getSeparator(),
-                                    0/*dm.getCurrentColumn()*/,dm.getHeader());
+                            setColumnStatistics(dm, 0);
                         } catch (Exception ex) {
                             Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        setDatasetStatistics(file);
+                        setDatasetStatistics(dm);
                         itemsComboboxes();
 
                     }
                 }
             });
-            
+
             primaryStage.setOnCloseRequest(e -> Platform.exit());
             primaryStage.setTitle(strAppName);
             primaryStage.setScene(scene);
             primaryStage.show();
-            
+
         } catch (IOException e) {
             throw new IOException(e);
         }
     }
 
-    public void updateListView() {
-        list.add(new DatasetModel(file.getDatasetName(), file.getFileName(),
-                file.getSeparator(), file.getHeader(), file.getHeaderArray(),
-                file.getColumnsCount(), file.getRowsCount(), file.isGeoeas()));
-        
+    public void addToListView(DatasetModel file) {
+        list.add(file);
         ObservableList<DatasetModel> olDatasets
                 = FXCollections.observableList(list);
-
-        listView.setItems(null);
         listView.setItems(olDatasets);
-
     }
 
     /**
      * Set the statistics to selected column on combobox
      *
-     * @param filename
-     * @param separator
-     * @param columnIndex
-     * @param header
+     * @param dataset
+     * @param column
      * @throws java.lang.Exception
      */
-    public void setColumnStatistics(String filename, Separator separator, 
-            int columnIndex, boolean header) throws Exception {
-        if (FractureAnalysis.getInstance().file.getColumnsCount() > 0) {
+    public void setColumnStatistics(DatasetModel dataset, int column) throws Exception {
+        if (dataset.getColumnsCount() > 0) {
             Vector array;
-            if(FractureAnalysis.getInstance().file.isGeoeas()){
+            if (dataset.isGeoeas()) {
                 array = OpenDataset.openGeoeasToVector(
-                        filename, separator.getChar(), columnIndex);
+                        dataset.getFileName(), dataset.getSeparator().getChar(),
+                        column);
             } else {
                 array = OpenDataset.openCSVFileToVector(
-                        filename, separator.getChar(), columnIndex, header);
+                        dataset.getFileName(), dataset.getSeparator().getChar(),
+                        column, dataset.getHeader());
             }
-            
+
             Label lAvg = (Label) grid.lookup("#lAvgValue");
             double avg = Average.arithmeticAverage(array);
             lAvg.setText(String.valueOf(avg));
@@ -245,8 +224,7 @@ public class FractureAnalysis extends Application {
      */
     private void itemsComboboxes() {
         ObservableList<String> ol
-                = FXCollections.observableList(
-                        FractureAnalysis.getInstance().file.getHeaderArray()
+                = FXCollections.observableList(getDataset().getHeaderArray()
                 );
 
         ComboBox cbSColumn = (ComboBox) grid.lookup("#cbSColumn");
@@ -257,7 +235,7 @@ public class FractureAnalysis extends Application {
         cbColIndex.getSelectionModel().selectFirst();
         ComboBox cbColumn = (ComboBox) grid.lookup("#cbColumn");
         cbColumn.setItems(ol);
-        cbColumn.getSelectionModel().selectFirst();        
+        cbColumn.getSelectionModel().selectFirst();
         ComboBox cbVarA = (ComboBox) grid.lookup("#cbVarA");
         cbVarA.setItems(ol);
         ComboBox cbVarB = (ComboBox) grid.lookup("#cbVarB");
@@ -271,11 +249,12 @@ public class FractureAnalysis extends Application {
     }
 
     /**
-     * This function is used to change the labels texts on a Tab Pane in main stage.
+     * This function is used to change the labels texts on a Tab Pane in main
+     * stage.
      *
-     * @param file 
+     * @param file
      */
-    private void setDatasetStatistics(AnalysisFile file) {
+    private void setDatasetStatistics(DatasetModel file) {
         Label lFilename = (Label) grid.lookup("#lFilename");
         lFilename.setText(file.getFileName());
         Label lSeparator = (Label) grid.lookup("#lSeparator");
@@ -291,6 +270,6 @@ public class FractureAnalysis extends Application {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
-        Application.launch(FractureAnalysis.class, args);        
+        Application.launch(FractureAnalysis.class, args);
     }
 }

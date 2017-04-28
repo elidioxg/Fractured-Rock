@@ -151,7 +151,7 @@ public class Stage_analysisController implements Initializable {
 
         ScanLine scanline = new ScanLine(fracturesList);
 
-        FractureAnalysisStage.getDataset().setScanLine(scanline);
+        FractureAnalysisStage.getAnalysisFile().setScanLine(scanline);
 
         FractureIntensityAnalysis fi = new FractureIntensityAnalysis(
                 scanline);

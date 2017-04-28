@@ -18,6 +18,8 @@ package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.data.DatasetProperties;
+import fractureanalysis.model.AnalysisFile;
+import fractureanalysis.model.DatasetModel;
 import fractureanalysis.model.GeoeasFormat;
 import fractureanalysis.model.Separator;
 import java.io.File;
@@ -67,18 +69,17 @@ public class Stage_open_geoeasController implements Initializable {
         }
         if (!tfFilename.getText().trim().isEmpty()) {
             File file = new File(tfFilename.getText());
+            DatasetModel dataset = new DatasetModel();
             GeoeasFormat gf = DatasetProperties.getGoeasProperties(file.getAbsolutePath());
-            FractureAnalysis.getInstance().getAnalysisFile().setFilename(file.getAbsolutePath());
-            FractureAnalysis.getInstance().getAnalysisFile().setDatasetName(gf.getTitle());            
-            FractureAnalysis.getInstance().getAnalysisFile().setHeaderStrings(
-                    gf.getHeaders());
-            FractureAnalysis.getInstance().getAnalysisFile().setSeparator(sep);
-            FractureAnalysis.getInstance().getAnalysisFile().setColumnsCount(
-                    gf.getColumnsCount());            
-            FractureAnalysis.getInstance().getAnalysisFile().setRowsCount(gf.getRowsCount());
-            FractureAnalysis.getInstance().getAnalysisFile().setHeader(true);
-            FractureAnalysis.getInstance().getAnalysisFile().setGeoeasFormat(true);
-            FractureAnalysis.getInstance().updateListView();
+            dataset.setFilename(file.getAbsolutePath());
+            dataset.setDatasetName(gf.getTitle());            
+            dataset.setHeaderStrings(gf.getHeaders());
+            dataset.setSeparator(sep);
+            dataset.setColumnsCount(gf.getColumnsCount());            
+            dataset.setRowsCount(gf.getRowsCount());
+            dataset.setHeader(true);
+            dataset.setGeoeasFormat(true);
+            FractureAnalysis.getInstance().addToListView(dataset);
         } else {
             //TODO: alert message
         }

@@ -39,6 +39,18 @@ public class AnalysisFile extends DatasetModel {
         
     }
     
+    public AnalysisFile(DatasetModel dataset){
+        this.setColumnsCount(dataset.getColumnsCount());
+        this.setDatasetName(dataset.getDatasetName());
+        this.setFilename(dataset.getFileName());
+        this.setGeoeasFormat(dataset.isGeoeas());
+        this.setHeader(dataset.getHeader());
+        this.setHeaderStrings(dataset.getHeaderArray());
+        this.setRowsCount(dataset.getRowsCount());
+        this.setSepString(dataset.getSepString());
+        this.setSeparator(dataset.getSeparator());
+    }
+    
     /**
      * Set the scanline for this class
      * @param scanline 

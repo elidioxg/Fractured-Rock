@@ -19,6 +19,7 @@ package fractureanalysis.controller;
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
+import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -58,33 +59,36 @@ public class Tab_cumulative_freqController implements Initializable {
         lcLine.getData().clear();
         int selected = cbColumn.getSelectionModel().getSelectedIndex();
         if (selected >= 0) {
-            String filename = FractureAnalysis.getInstance().getAnalysisFile().getFileName();
-            String sep = FractureAnalysis.getInstance().getAnalysisFile().getSeparator().getChar();
-            boolean header = FractureAnalysis.getInstance().getAnalysisFile().getHeader();
-            boolean geoeas = FractureAnalysis.getInstance().getAnalysisFile().isGeoeas();
-            Vector vector = new Vector();
-            if(geoeas){
-                vector = OpenDataset.openGeoeasToVector(filename, sep, selected);
-            } else {
-                vector = OpenDataset.openCSVFileToVector(filename, sep, selected, header);
-            }                    
-            if (cbSorted.isSelected()) {
-                vector.sort();
+            DatasetModel dataset = FractureAnalysis.getInstance().getDataset();
+            if (dataset != null) {
+                String filename = dataset.getFileName();
+                String sep = dataset.getSeparator().getChar();
+                boolean header = dataset.getHeader();
+                boolean geoeas = dataset.isGeoeas();
+                Vector vector;
+                if (geoeas) {
+                    vector = OpenDataset.openGeoeasToVector(filename, sep, selected);
+                } else {
+                    vector = OpenDataset.openCSVFileToVector(filename, sep, selected, header);
+                }
+                if (cbSorted.isSelected()) {
+                    vector.sort();
+                }
+                double sum = vector.sum();
+                System.out.println("Sum: " + sum);
+                double cumulative = 0.;
+                Vector x = new Vector(vector.size());
+                Vector y = new Vector(vector.size());
+                for (int i = 0; i < vector.size(); i++) {
+                    cumulative += vector.get(i).doubleValue();
+                    x.set(i, i);
+                    //x.add(i);
+                    y.set(i, cumulative / sum * 100);
+                    //y.add(cumulative/sum*100);
+                }
+                lcPoints.getData().addAll(PlotSeries.plotLineSeries(x, y));
+                lcLine.getData().addAll(PlotSeries.plotLineSeries(x, y));
             }
-            double sum = vector.sum();
-            System.out.println("Sum: " + sum);
-            double cumulative = 0.;
-            Vector x = new Vector(vector.size());
-            Vector y = new Vector(vector.size());
-            for (int i = 0; i < vector.size(); i++) {
-                cumulative += vector.get(i).doubleValue();
-                x.set(i, i);
-                //x.add(i);
-                y.set(i, cumulative / sum * 100);
-                //y.add(cumulative/sum*100);
-            }
-            lcPoints.getData().addAll(PlotSeries.plotLineSeries(x, y));
-            lcLine.getData().addAll(PlotSeries.plotLineSeries(x, y));
         }
     }
 
