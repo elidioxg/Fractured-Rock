@@ -32,11 +32,10 @@ public class Variogram {
      * Create a variogram matrix considering angles of tolerance. The matrix is
      * returned represents
      *
-     *
-     *
      * @param xData
      * @param yData
      * @param contentData
+     * @param sill
      * @param stepSize
      * @param toleranceDistance
      * @param angleDirection
@@ -45,57 +44,77 @@ public class Variogram {
      * @throws Exception
      */
     public static Matrix variogram2D(Vector xData, Vector yData, Vector contentData,
-            double stepSize, double toleranceDistance, double angleDirection,
+            double sill, double stepSize, double toleranceDistance, double angleDirection,
             double angleTolerance) throws Exception {
         Matrix result;
         if (xData.size() != yData.size()) {
             throw new Exception("Vectors X and Y must have same size.");
         } else {
+            double step = sill;
             /**
-             * Define the number of points on variogram using the Step value
-             * and the distances X and Y
+             * Define the number of points on variogram using the Step value and
+             * the distances X and Y
              */
-            double distX = MaximumValue.getMaxValue(xData) - MinimumValue.getMinValue(xData); 
-            double distY  = MaximumValue.getMaxValue(yData) - MinimumValue.getMinValue(yData); 
+            double distX = MaximumValue.getMaxValue(xData) - MinimumValue.getMinValue(xData);
+            double distY = MaximumValue.getMaxValue(yData) - MinimumValue.getMinValue(yData);
             double linesNumber;
-            if(distX > distY){
-                linesNumber =  distX/stepSize;
+            if (distX > distY) {
+                linesNumber = distX;
             } else {
-                linesNumber =  distY/stepSize;
+                linesNumber = distY;
             }
             ArrayList<Double> steps = new ArrayList();
             ArrayList<Double> values = new ArrayList();
             ArrayList<Integer> pairs = new ArrayList();
-            for (int currentLine = 0; currentLine < linesNumber; currentLine++) {
+            while (step <= linesNumber) {
                 double value = 0.;
                 int pairsNumber = 0;
                 for (int i = 0; i < xData.size(); i++) {
+                    /**
+                     * Create a search window
+                     */
                     SearchWindow search = new SearchWindow(
                             xData.get(i).doubleValue(), yData.get(i).doubleValue(),
                             angleDirection, angleTolerance,
-                            stepSize, stepSize, true);
+                            step, step, true);
+                    /**
+                     * Verify if the point is inside the search window
+                     */
                     for (int j = i + 1; j < xData.size(); j++) {
                         if (SearchTools.isInside(search, xData.get(j).doubleValue(),
                                 yData.get(j).doubleValue())) {
                             value += Math.pow(contentData.get(i).doubleValue()
                                     - contentData.get(j).doubleValue(), 2);
-
                             pairsNumber++;
                         }
 
                     }
                 }
-                steps.add(stepSize);
-                stepSize += stepSize;
-                value /= 2 * pairsNumber;
-                values.add(value);
-                pairs.add(pairsNumber);
+                if (pairsNumber > 0) {
+                    steps.add(step);
+                    value /= 2 * pairsNumber;
+                    values.add(value);
+                    pairs.add(pairsNumber);
+                }
+                step += stepSize;
             }
-            result = new Matrix(3, values.size());
-            for(int i = 0; i< values.size(); i++){                
-                result.set(0, i, steps.get(i));
-                result.set(1, i, values.get(i));
-                result.set(2, i, pairs.get(i));
+            result = new Matrix(3, values.size() + 2);
+            /**
+             * Add the sill to the variogram matrix
+             */
+            result.set(0, 0, 0);
+            result.set(1, 0, 0);
+            result.set(2, 0, 0);
+            result.set(0, 1, stepSize / 10);
+            result.set(1, 1, sill);
+            result.set(2, 1, 0);
+            /**
+             * Add values to variogram matrix
+             */
+            for (int i = 2; i < values.size() + 2; i++) {
+                result.set(0, i, steps.get(i - 2));
+                result.set(1, i, values.get(i - 2));
+                result.set(2, i, pairs.get(i - 2));
             }
             return result;
         }
@@ -113,6 +132,7 @@ public class Variogram {
      * @return
      * @throws Exception
      */
+    //TODO: corrigir esta função de acordo com a de cima
     public static Matrix variogram2D(Matrix matrix, double initialDistance,
             double stepSize, double maxDistance, int columnX, int columnY,
             int columnContent) throws Exception {

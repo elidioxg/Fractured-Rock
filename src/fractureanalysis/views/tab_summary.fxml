@@ -166,7 +166,7 @@
     >
     </Label>
     <Label 
-        fx:id="lThirQ"
+        fx:id="lThirdQ"
         GridPane.columnIndex="1"
         GridPane.rowIndex="12"
         text=""

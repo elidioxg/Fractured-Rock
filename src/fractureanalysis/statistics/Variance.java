@@ -11,9 +11,8 @@ public class Variance {
      * @return
      */
     public static double variance(Vector vector) {
-        double result = 0.;
-        Average avg = new Average();
-        double averageValue = avg.arithmeticAverage(vector);
+        double result = 0.;        
+        double averageValue = Average.arithmeticAverage(vector);
         for (int i = 0; i < vector.size(); i++) {
             result += Math.pow(vector.get(i).doubleValue() - averageValue, 2);
         }

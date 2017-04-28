@@ -39,7 +39,7 @@ public class AnalysisFile extends DatasetModel {
         
     }
     
-    public AnalysisFile(DatasetModel dataset){
+    public AnalysisFile(DatasetModel dataset){        
         this.setColumnsCount(dataset.getColumnsCount());
         this.setDatasetName(dataset.getDatasetName());
         this.setFilename(dataset.getFileName());

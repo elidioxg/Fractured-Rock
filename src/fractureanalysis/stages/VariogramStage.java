@@ -19,7 +19,6 @@ package fractureanalysis.stages;
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
@@ -63,55 +62,6 @@ public class VariogramStage {
             FXMLLoader loader = new FXMLLoader(
                     FractureAnalysis.getInstance().getClass().getResource(
                             "views/stage_variogram.fxml"));
-            Parent parent = (Parent) loader.load();                        
-
-            ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");
-            
-            Callback<ListView<DatasetModel>, ListCell<DatasetModel>> cellFactory
-                    = new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
-                @Override
-                public ListCell<DatasetModel> call(ListView<DatasetModel> param) {
-                    return new ListCell<DatasetModel>() {
-                        @Override
-                        protected void updateItem(DatasetModel item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getDatasetName());
-                            } else {
-                                setGraphic(null);
-                            }
-                        }
-                    };
-                }
-
-            };
-            cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
-            cbDatasets.setCellFactory(cellFactory);
-            cbDatasets.setItems(FXCollections.observableArrayList(datasets));
-            cbDatasets.getSelectionModel().selectFirst();
-            ComboBox cbXColumn = (ComboBox) parent.lookup("#cbX");
-            cbXColumn.setItems(FXCollections.observableArrayList(
-                    datasets.get(0).getHeaderArray()));
-            ComboBox cbYColumn = (ComboBox) parent.lookup("#cbY");
-            cbYColumn.setItems(FXCollections.observableArrayList(
-                    datasets.get(0).getHeaderArray()));
-            ComboBox cbContentColumn = (ComboBox) parent.lookup("#cbContent");
-            cbContentColumn.setItems(FXCollections.observableArrayList(
-                    datasets.get(0).getHeaderArray()));
-            
-            Stage stageLine = new Stage();
-            Scene scene = new Scene(parent);
-            stageLine.setTitle("2D Variogram");
-            stageLine.setScene(scene);
-            stageLine.show();
-        }
-    }
-    
-    public void createStage2() throws IOException {
-        if (FractureAnalysis.getInstance().getDatasetList().size()>0) {
-            FXMLLoader loader = new FXMLLoader(
-                    FractureAnalysis.getInstance().getClass().getResource(
-                            "views/stage_variogram2.fxml"));
             Parent parent = (Parent) loader.load();                        
 
             ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");

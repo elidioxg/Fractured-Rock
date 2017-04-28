@@ -74,38 +74,35 @@
     >
     </ComboBox>
     
-    <Label 
+    <Label
         GridPane.columnIndex="0" 
         GridPane.rowIndex="4"
-        text="Initial value">
-    </Label>
-    <TextField
-        fx:id="tfInitial"
-        GridPane.columnIndex="1" 
-        GridPane.rowIndex="4"
+        text="Variogram Properties"
     >
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="5"
+        text="Sill">
+        
+    </Label>
+    <TextField 
+        fx:id="tfSill"
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="5"
+        text="0."
+    >        
     </TextField>
     
     <Label 
         GridPane.columnIndex="0" 
-        GridPane.rowIndex="5"
+        GridPane.rowIndex="6"
         text="Step size">
     </Label>
     <TextField 
         fx:id="tfStep"
         GridPane.columnIndex="1" 
-        GridPane.rowIndex="5"
-    >
-    </TextField>
-    
-    <Label 
-        GridPane.columnIndex="0" 
-        GridPane.rowIndex="6"
-        text="Maximum distance">
-    </Label>
-    <TextField 
-        fx:id="tfMax"
-        GridPane.columnIndex="1" 
         GridPane.rowIndex="6"
     >
     </TextField>
@@ -113,30 +110,54 @@
     <Label 
         GridPane.columnIndex="0" 
         GridPane.rowIndex="7"
-        text="Min angle tolerance">
+        text="Tolerance distance">
     </Label>
     <TextField 
-        fx:id="tfMinAngle"
+        fx:id="tfDistTol"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="7"
+    >
+    </TextField>
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="8"
+        text="Angle">
+    </Label>
+    <TextField 
+        fx:id="tfAngle"
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="8"
+    >
+    </TextField>
+    
+    <Label 
+        GridPane.columnIndex="0" 
+        GridPane.rowIndex="9"
+        text="Angle tolerance">
+    </Label>
+    <TextField 
+        fx:id="tfAngleTol"
+        GridPane.columnIndex="1" 
+        GridPane.rowIndex="9"
     >
     </TextField>
     
     <Label
         GridPane.columnIndex="0" 
-        GridPane.rowIndex="8"
-        text="Max angle tolerance">
+        GridPane.rowIndex="10"
+        text="Reflect">
     </Label>
-    <TextField 
-        fx:id="tfMaxAngle"
+    <CheckBox
+        fx:id="cbReflect"
         GridPane.columnIndex="1" 
-        GridPane.rowIndex="8"
+        GridPane.rowIndex="10"
     >
-    </TextField>
+    </CheckBox>
     
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="9"
+        GridPane.rowIndex="11"
         GridPane.columnSpan="2"
         text="Cutoff values">
         
@@ -144,31 +165,32 @@
     
     <Label 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="10"
+        GridPane.rowIndex="12"
         text="min"    >        
     </Label>
     <TextField 
         fx:id="tfMinValue"
         GridPane.columnIndex="1" 
-        GridPane.rowIndex="10"
+        GridPane.rowIndex="12"
     >        
     </TextField>
     
     <Label
         GridPane.columnIndex="0"
-        GridPane.rowIndex="11"
+        GridPane.rowIndex="13"
         text="max">
     </Label>
     <TextField 
         fx:id="tfMaxValue"
         GridPane.columnIndex="1"
-        GridPane.rowIndex="11"  >
+        GridPane.rowIndex="13"  >
         
     </TextField>
     
     <ButtonBar 
         GridPane.columnIndex="0" 
-        GridPane.rowIndex="12"
+        GridPane.rowIndex="15"
+        GridPane.rowSpan="2" 
         GridPane.columnSpan="2" 
     >
         <buttons>
@@ -177,6 +199,11 @@
                 onAction="#plot" 
                 text="Plot">
             </Button> 
+            <Button 
+                ButtonBar.buttonData="BACK_PREVIOUS"
+                onAction="#clear" 
+                text="Clear">
+            </Button>   
             <Button 
                 ButtonBar.buttonData="CANCEL_CLOSE"
                 text="Cancel">
@@ -188,7 +215,8 @@
         fx:id="lcVariogram"
         GridPane.columnIndex="2" 
         GridPane.rowIndex="0"
-        GridPane.rowSpan="12">
+        GridPane.rowSpan="13"
+        legendVisible="false">
         <xAxis>
             <javafx.scene.chart.NumberAxis 
                 label="Distance">
@@ -203,10 +231,11 @@
     
     <ScrollPane 
         GridPane.columnIndex="2" 
-        GridPane.rowIndex="12"
+        GridPane.rowIndex="13"
     >
         <fx:include source="pane_curve_fitting.fxml"/>
         
     </ScrollPane>
     
 </GridPane>
+

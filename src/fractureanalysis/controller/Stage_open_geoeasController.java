@@ -18,7 +18,6 @@ package fractureanalysis.controller;
 
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.data.DatasetProperties;
-import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.model.GeoeasFormat;
 import fractureanalysis.model.Separator;

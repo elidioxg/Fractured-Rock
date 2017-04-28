@@ -29,6 +29,7 @@ import fractureanalysis.statistics.Average;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
 import fractureanalysis.statistics.Mode;
+import fractureanalysis.statistics.Quartiles;
 import fractureanalysis.statistics.StdDeviation;
 import fractureanalysis.statistics.Variance;
 import fractureanalysis.statistics.VariationCoefficient;
@@ -115,11 +116,6 @@ public class FractureAnalysis extends Application {
                             super.updateItem(myObject, b);
                             if (myObject != null) {
                                 setText(myObject.getDatasetName());
-                                try {
-                                    setColumnStatistics(myObject, 0);
-                                } catch (Exception ex) {
-                                    Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
-                                }
                             }
                         }
                     };
@@ -212,6 +208,15 @@ public class FractureAnalysis extends Application {
             lGeoAvg.setText(String.valueOf(geoAvg));
             Label lCount = (Label) grid.lookup("#lCount");
             lCount.setText(String.valueOf(array.size()));
+            double fQ = Quartiles.firstQuartil(array);
+            Label lFirstQ = (Label) grid.lookup("#lFirstQ");
+            lFirstQ.setText(String.valueOf(fQ));
+            double sQ = Quartiles.secondQuartil(array);
+            Label lSecQ = (Label) grid.lookup("#lSecQ");
+            lSecQ.setText(String.valueOf(sQ));
+            double tQ = Quartiles.thirdQuartil(array);
+            Label lThirdQ = (Label) grid.lookup("#lThirdQ");
+            lThirdQ.setText(String.valueOf(tQ));
         }
     }
 

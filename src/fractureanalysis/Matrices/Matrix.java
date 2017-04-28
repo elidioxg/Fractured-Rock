@@ -184,8 +184,9 @@ public class Matrix {
     }
 
     public Number get(int column, int line) throws Exception {
-        if(column > this.getColumnsCount() || line > this.getColumnsCount()){
-            throw new Exception("Line: "+line+" or column: "+column+" Out of range.");
+        if(column > this.getColumnsCount() || line > this.getLinesCount()){
+            throw new Exception("Column: "+column+" or Line: "+line+" out of range."+
+                    "\nMatrix size: "+this.getColumnsCount()+", "+this.getLinesCount());
         }
         return this.data[column][line];
     }

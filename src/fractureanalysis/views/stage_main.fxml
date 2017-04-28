@@ -69,10 +69,6 @@
                     <MenuItem 
                         text="2D Variogram"
                         onAction="#variogramStage" >
-                    </MenuItem>
-                    <MenuItem 
-                        text="2D Variogram"
-                        onAction="#variogramStage2" >
                     </MenuItem>                        
                 </items>                
             </Menu>   

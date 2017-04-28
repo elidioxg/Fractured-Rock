@@ -30,7 +30,7 @@ public class Quartiles {
     }
 
     public static double secondQuartil(Vector vector) {
-        double result = Double.NaN;
+        double result;
         vector.sort(true);
         if ((vector.size() % 2) == 0) {
             double n1 = vector.get((int) (vector.size() / 2) - 1).doubleValue();

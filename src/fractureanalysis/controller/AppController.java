@@ -13,7 +13,6 @@ import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.MatrixViewStage;
 import fractureanalysis.stages.OpenDataStage;
 import fractureanalysis.stages.ScatterChartStage;
-import fractureanalysis.stages.Variogram1DStage;
 import fractureanalysis.stages.VariogramStage;
 import fractureanalysis.stages.View3DStage;
 import fractureanalysis.statistics.histogram.ClassInterval;
@@ -403,20 +402,6 @@ public class AppController implements Initializable {
         VariogramStage vs = new VariogramStage(
                 FractureAnalysis.getInstance().getDatasetList());
         vs.createStage();
-    }
-
-    @FXML
-    protected void variogramStage2() throws IOException {
-        VariogramStage vs = new VariogramStage(
-                FractureAnalysis.getInstance().getDatasetList());
-        vs.createStage2();
-    }
-
-    @FXML
-    protected void variogram1DStage() throws IOException {
-        Variogram1DStage stage = new Variogram1DStage(
-                FractureAnalysis.getInstance().getDatasetList());
-        stage.createStage();
     }
 
     @FXML
