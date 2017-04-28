@@ -31,7 +31,7 @@ public class StdDeviation {
         for(int i= 0; i<vector.size(); i++){
             sum += Math.pow((averageValue - vector.get(i).doubleValue()), 2);
         }
-        double result = Math.sqrt(sum/(vector.size()-1));
+        double result = Math.sqrt(sum/(vector.size()));
         return result;
     }
     
@@ -48,7 +48,7 @@ public class StdDeviation {
         for(int i = 0; i< vector.size(); i++){
             sum += Math.pow ((Math.log(sum) - Math.log(avrValue) ), 2);
         }
-        double sqrtValue = Math.sqrt(sum/(vector.size()-1));
+        double sqrtValue = Math.sqrt(sum/(vector.size()));
         double result = Math.pow(baseLog, sqrtValue);
         return result;
     }

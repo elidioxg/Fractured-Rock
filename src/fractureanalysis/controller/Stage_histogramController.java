@@ -102,7 +102,6 @@ public class Stage_histogramController implements Initializable {
                     dm.getFileName(),
                     dm.getSeparator().getChar(), columnIndex, dm.getHeader());
             double min = MinimumValue.getMinValue(vector);
-            System.out.println("Minimum: " + min);
             double max = MaximumValue.getMaxValue(vector);
             tfMinValue.setText(String.valueOf(min));
             tfMaxValue.setText(String.valueOf(max));
@@ -141,6 +140,7 @@ public class Stage_histogramController implements Initializable {
                                     list.get(i).getObsFrequency()));
                 }
                 bcHistogram.getData().clear();
+                bcHistogram.setTitle(cbColumnIndex.getEditor().getText());
                 bcHistogram.getData().addAll(series);
 
             } else {
