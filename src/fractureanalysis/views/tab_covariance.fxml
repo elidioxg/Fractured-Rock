@@ -94,17 +94,18 @@
         fx:id="lcCovariance"
         GridPane.columnIndex="4"
         GridPane.columnSpan="4"
-        GridPane.rowIndex="3">
+        GridPane.rowIndex="3"
+        legendVisible="false">
         <xAxis>
             <javafx.scene.chart.NumberAxis 
-                label="X"
+                label="h"
                 autoRanging="true">
                 
             </javafx.scene.chart.NumberAxis>
         </xAxis>
         <yAxis>
             <javafx.scene.chart.NumberAxis 
-                label="Y"
+                label="C(h)"
                 autoRanging="true">
                 
             </javafx.scene.chart.NumberAxis>
@@ -119,13 +120,15 @@
         legendVisible="false" >
         <xAxis>
             <javafx.scene.chart.NumberAxis 
-                label="h">
+                label="X"
+                autoRanging="true">
                 
             </javafx.scene.chart.NumberAxis>
         </xAxis>
         <yAxis>
             <javafx.scene.chart.NumberAxis 
-                label="C(h)" >
+                label="Y"
+                autoRanging="true">
                 
             </javafx.scene.chart.NumberAxis>
         </yAxis>

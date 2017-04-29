@@ -9,9 +9,9 @@
 <?import javafx.collections.*?>
 
 <GridPane 
-    id="AnchorPane" 
-    prefHeight="300.0" 
-    prefWidth="300.0" 
+    id="WhitePane" 
+    prefHeight="200.0" 
+    prefWidth="400.0" 
     styleClass="mainFxmlClass" 
     xmlns:fx="http://javafx.com/fxml/1" 
     fx:controller="fractureanalysis.controller.Stage_variogramController">
@@ -20,8 +20,8 @@
     </stylesheets>
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="20"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="80"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="30"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="70"></ColumnConstraints> 
     </columnConstraints>
     
     <Label 
@@ -74,18 +74,6 @@
         GridPane.rowIndex="3"        
     >   
     </TextField>   
-    
-    <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="4"        
-        text="Step">        
-    </Label>
-    <TextField 
-        fx:id="tfFitStep"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="4"        
-    >   
-    </TextField>     
     
     <ButtonBar 
         GridPane.columnIndex="0"

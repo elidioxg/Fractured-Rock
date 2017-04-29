@@ -30,10 +30,13 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.ArcType;
 
 /**
  *
@@ -41,19 +44,11 @@ import javafx.scene.control.TextField;
  */
 public class Stage_variogramController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
-
     @FXML
     protected ComboBox cbDatasets, cbContent, cbX, cbY;
 
     @FXML
-    protected TextField tfSill, tfStep, tfDistTol, tfAngle, tfAngleTol,
+    protected TextField tfNugget, tfStep, tfDistTol, tfAngle, tfAngleTol,
             tfSerieName;
 
     @FXML
@@ -101,9 +96,9 @@ public class Stage_variogramController implements Initializable {
                 content = OpenDataset.openCSVFileToVector(dm.getFileName(),
                         dm.getSeparator().getChar(), contentIndex, dm.getHeader());
             }
-            double sillValue = 0.;
-            if (!tfSill.getText().trim().isEmpty()) {
-                sillValue = Double.valueOf(tfSill.getText().trim());
+            double nuggetValue = 0.;
+            if (!tfNugget.getText().trim().isEmpty()) {
+                nuggetValue = Double.valueOf(tfNugget.getText().trim());
             }
             double stepSize = Double.valueOf(tfStep.getText().trim());
             double distTol = Double.valueOf(tfDistTol.getText().trim());
@@ -117,7 +112,7 @@ public class Stage_variogramController implements Initializable {
             }
             // boolean ref = cbReflect.isSelected();
 
-            Matrix variogram = Variogram.variogram2D(x, y, content, sillValue, stepSize,
+            Matrix variogram = Variogram.variogram2D(x, y, content, nuggetValue, stepSize,
                     distTol, angle, angleTol);
             variogram.print();
             ArrayList<Double> alX = new ArrayList<>();
@@ -134,45 +129,67 @@ public class Stage_variogramController implements Initializable {
     protected ComboBox cbModel;
 
     @FXML
-    protected TextField tfFitSill, tfFitRange, tfFitStep;
+    protected TextField tfFitSill, tfFitRange;
 
     @FXML
     protected void plotModel() throws Exception {
         if (cbModel.getSelectionModel().getSelectedIndex() >= 0) {
             if (!tfFitSill.getText().isEmpty()) {
                 if (!tfFitRange.getText().isEmpty()) {
-                    if (!tfFitStep.getText().isEmpty()) {
-                        double vSill = Double.valueOf(tfFitSill.getText());
-                        double vRange = Double.valueOf(tfFitRange.getText());
-                        double vStep = Double.valueOf(tfFitStep.getText());
-                        Matrix matrix = null;
-                        String serieName = "";
-                        switch (cbModel.getSelectionModel().getSelectedIndex()) {
-                            case 0:
-                                matrix = Models.spherical(vSill, vRange, vStep);
-                                serieName = "Spherical";
-                                break;
-                            case 1:
-                                matrix = Models.exponential(vSill, vRange, vStep);
-                                serieName = "Exponential";
-                                break;
-                            case 2:
-                                matrix = Models.gaussian(vSill, vRange, vStep);
-                                serieName = "Gaussian";
-                                break;
-                            case 3:
-                                matrix = Models.power(vSill, vStep);
-                                serieName = "Power";
-                            default:
-                                break;
-                        }
-                        lcVariogram = (LineChart) cbModel.getScene().lookup("#lcVariogram");
-                        lcVariogram.getData().add(
-                                PlotVariogramSeries.plotModel(matrix, 0, 1, serieName));
+
+                    double vSill = Double.valueOf(tfFitSill.getText());
+                    double vRange = Double.valueOf(tfFitRange.getText());
+                    Matrix matrix = null;
+                    String serieName = "";
+                    switch (cbModel.getSelectionModel().getSelectedIndex()) {
+                        case 0:
+                            matrix = Models.spherical(vSill, vRange);
+                            serieName = "Spherical";
+                            break;
+                        case 1:
+                            matrix = Models.exponential(vSill, vRange);
+                            serieName = "Exponential";
+                            break;
+                        case 2:
+                            matrix = Models.gaussian(vSill, vRange);
+                            serieName = "Gaussian";
+                            break;
+                        default:
+                            break;
                     }
+                    lcVariogram = (LineChart) cbModel.getScene().lookup("#lcVariogram");
+                    lcVariogram.getData().add(
+                            PlotVariogramSeries.plotModel(matrix, 0, 1, serieName));
+
                 }
             }
         }
 
+    }
+
+    @FXML
+    protected Canvas canvas;
+
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        /*double radiusX = canvas.getWidth() / 1.5;
+        double radiusY = canvas.getHeight() / 1.5;
+        double centerX = (canvas.getWidth() / 2) - (radiusX / 2);
+        double centerY = (canvas.getHeight() / 2) - (radiusY / 2);
+        double startAngle = 0;
+        double finalAngle = 360;
+        canvas.getGraphicsContext2D().setStroke(Paint.valueOf("BLACK"));
+        canvas.getGraphicsContext2D().strokeArc(
+                centerX, centerY,
+                radiusX, radiusY,
+                startAngle, finalAngle,
+                ArcType.ROUND);
+         */
     }
 }

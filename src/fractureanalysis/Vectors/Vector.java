@@ -139,11 +139,11 @@ public class Vector {
         return this.size;
     }
 
-    public void add(double value) {
-        Number[] vector = new Number[this.size++];
+    public void add(Number value) {
+        Number[] vector = new Number[this.size++]; 
         System.arraycopy(this.data, 0, vector, 0, this.size - 2);
         final int ii = this.size;
-        vector[this.size] = new Number() {
+        vector[this.size-1] = new Number() {
             @Override
             public int intValue() {
                 return (int) vector[ii].intValue();
@@ -164,7 +164,7 @@ public class Vector {
                 return (double) vector[ii].doubleValue();
             }
         };
-        vector[this.size] = value;
+        vector[this.size-1] = value;
         this.data = vector;
     }
 
@@ -219,12 +219,18 @@ public class Vector {
 
     public void print() throws Exception {
         System.out.println();
-        System.out.print("Vector: ");
         for (int i = 0; i < this.size(); i++) {
             System.out.print(this.get(i) + " ");
         }
     }
-
+    
+    public void print(String output) throws Exception {
+        System.out.print("\n"+output+":\n");
+        for (int i = 0; i < this.size(); i++) {
+            System.out.print(this.get(i) + " ");
+        }
+    }
+    
     public double sum() {
         double result = 0.;
         for (Number data1 : this.data) {
@@ -232,5 +238,6 @@ public class Vector {
         }
         return result;
     }
+    //TODO: removeRepeated()
 
 }

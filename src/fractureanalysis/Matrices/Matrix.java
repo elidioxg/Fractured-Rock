@@ -26,7 +26,7 @@ public class Matrix {
 
     private int lines = 0;
     private int columns = 0;
-    private Number[][] data;
+    private Number[][] data = null;
 
     public Matrix() {
 
@@ -184,9 +184,9 @@ public class Matrix {
     }
 
     public Number get(int column, int line) throws Exception {
-        if(column > this.getColumnsCount() || line > this.getLinesCount()){
-            throw new Exception("Column: "+column+" or Line: "+line+" out of range."+
-                    "\nMatrix size: "+this.getColumnsCount()+", "+this.getLinesCount());
+        if (column > this.getColumnsCount() || line > this.getLinesCount()) {
+            throw new Exception("Column: " + column + " or Line: " + line + " out of range."
+                    + "\nMatrix size: " + this.getColumnsCount() + ", " + this.getLinesCount());
         }
         return this.data[column][line];
     }
@@ -247,7 +247,16 @@ public class Matrix {
     }
 
     public void print() {
-        System.out.println("Matrix data:");
+        System.out.println();
+        for (int j = 0; j < this.getLinesCount(); j++) {
+            for (int i = 0; i < this.getColumnsCount(); i++) {
+                System.out.print(this.data[i][j] + " ");
+            }
+        }
+    }
+
+    public void print(String output) {
+        System.out.println("\n" + output + "\n");
         for (int j = 0; j < this.getLinesCount(); j++) {
             for (int i = 0; i < this.getColumnsCount(); i++) {
                 System.out.print(this.data[i][j] + " ");
@@ -279,18 +288,24 @@ public class Matrix {
         return result;
     }
 
+    /**
+     *
+     * @param vector
+     * @return
+     * @throws Exception
+     */
     //TODO
-    public Vector vectorMultiply(Vector vector) throws Exception {      
+    public Vector vectorMultiply(Vector vector) throws Exception {
         if (this.columns != vector.size()) {
             throw new Exception("Number of columns of matrix and vector size must be equal.");
         }
         Vector result = new Vector(this.getLinesCount());
         for (int i = 0; i < this.lines; i++) {
             double aux = 0.;
-            for (int j = 0; j < this.columns; j++) {                
-                aux += this.get(j, i).doubleValue() * vector.get(j).doubleValue();                
+            for (int j = 0; j < this.columns; j++) {
+                aux += this.get(j, i).doubleValue() * vector.get(j).doubleValue();
             }
-            result.set(i, aux);            
+            result.set(i, aux);
         }
         return result;
     }
@@ -299,13 +314,70 @@ public class Matrix {
      * Get the inverse of the matrix, only if it's a square matrix
      *
      * @return
+     * @throws java.lang.Exception
      */
     public Matrix getInverse() throws Exception {
-       
-        LUP lup = new LUP(this);       
+
+        LUP lup = new LUP(this);
         lup.lupDecompose();
         lup.lupInverse();
         return lup.getInverse();
+    }
+
+    /**
+     * Get the maximum value of the matrix
+     *
+     * @return
+     * @throws Exception
+     */
+    public Number getMax() throws Exception {
+        Number result = this.get(0, 0);
+        for (int i = 0; i < this.getLinesCount(); i++) {
+            for (int j = 0; j < this.getColumnsCount(); j++) {
+                if (result.doubleValue() < this.get(j, i).doubleValue()) {
+                    result = this.get(j, i);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get the minimum value of the matrix
+     *
+     * @return
+     * @throws Exception
+     */
+    public Number getMin() throws Exception {
+        Number result = this.get(0, 0);
+        for (int i = 0; i < this.getLinesCount(); i++) {
+            for (int j = 0; j < this.getColumnsCount(); j++) {
+                if (result.doubleValue() > this.get(j, i).doubleValue()) {
+                    result = this.get(j, i);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Return a sorted vector with all elements of the matrix
+     *
+     * @return
+     * @throws java.lang.Exception
+     */
+    //TODO: mudar result.set() para result.add()
+    public Vector transformToVector() throws Exception {
+        Vector result = new Vector(this.getColumnsCount() * this.getLinesCount());
+        int n = 0;
+        for (int i = 0; i < this.getLinesCount(); i++) {
+            for (int j = 0; j < this.getColumnsCount(); j++) {
+                result.set(n, this.get(j, i));
+                n++;
+            }
+        }
+        result.sort(true);
+        return result;
     }
 
 }

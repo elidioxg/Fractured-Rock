@@ -44,13 +44,13 @@ public class Variogram {
      * @throws Exception
      */
     public static Matrix variogram2D(Vector xData, Vector yData, Vector contentData,
-            double sill, double stepSize, double toleranceDistance, double angleDirection,
+            double nugget, double stepSize, double toleranceDistance, double angleDirection,
             double angleTolerance) throws Exception {
         Matrix result;
         if (xData.size() != yData.size()) {
             throw new Exception("Vectors X and Y must have same size.");
         } else {
-            double step = sill;
+            double step = nugget;
             /**
              * Define the number of points on variogram using the Step value and
              * the distances X and Y
@@ -100,13 +100,13 @@ public class Variogram {
             }
             result = new Matrix(3, values.size() + 2);
             /**
-             * Add the sill to the variogram matrix
+             * Add the nugget effect to the variogram matrix
              */
             result.set(0, 0, 0);
             result.set(1, 0, 0);
             result.set(2, 0, 0);
             result.set(0, 1, stepSize / 10);
-            result.set(1, 1, sill);
+            result.set(1, 1, nugget);
             result.set(2, 1, 0);
             /**
              * Add values to variogram matrix

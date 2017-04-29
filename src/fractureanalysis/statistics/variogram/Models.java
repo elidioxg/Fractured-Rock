@@ -28,14 +28,14 @@ public class Models {
      *
      * @param c The sill
      * @param a The range
-     * @param h The steps on calculation
      * @return
      * @throws java.lang.Exception
      */
-    public static Matrix spherical(double c, double a, double h) throws Exception {
-        double aux = h;
+    public static Matrix spherical(double c, double a) throws Exception {
+        double h=a/2;
+        double aux = 0.1;
         double value;
-        int nSteps = (int) (a / h) + 5;
+        int nSteps = 20;
         Matrix result = new Matrix(2, nSteps + 1);
         for (int i = 0; i <= nSteps; i++) {
             if (aux <= a) {
@@ -50,6 +50,8 @@ public class Models {
         }
         return result;
     }   
+    
+    
 
     /**
      * Curve fitting for Exponential Model on Variogram h(steps) = a(range)
@@ -60,9 +62,9 @@ public class Models {
      * @throws Exception
      */
     public static Matrix exponential(double c, double a) throws Exception {
-        double h = a;
+        double h = a/2;
         //int nSteps = (int) (a / h) + 5;
-        int nSteps = 10;
+        int nSteps = 20;
         Matrix result = new Matrix(2, nSteps + 1);
         double aux = 0.1;
         int index = 0;
@@ -78,37 +80,14 @@ public class Models {
     }
 
     /**
-     * Curve fitting for Exponential Model on Variogram
      *
-     * @param c The sill
-     * @param a The range
-     * @param h Steps of calculation
+     * @param c
+     * @param a
      * @return
      * @throws Exception
      */
-    public static Matrix exponential(double c, double a, double h) throws Exception {
-        if (h > a) {
-            throw new Exception("'h' (step) must be smaller than 'a' (range)");
-        }
-        int nSteps = (int) (a / h) + 10;
-        Matrix result = new Matrix(2, nSteps + 1);
-        double aux = 0.1;
-        int index = 0;
-        while (index <= nSteps) {
-            double value = c * (1 - Math.exp(-aux / a));
-            result.set(0, index, aux);
-            result.set(1, index, value);
-            aux += h;
-            index++;
-        }
-        return result;
-
-    }
-
-    public static Matrix gaussian(double c, double a, double h) throws Exception {
-        if (h > a) {
-            throw new Exception("'h' (step) must be smaller than 'a' (range)");
-        }
+    public static Matrix gaussian(double c, double a) throws Exception {
+        double h=a/2;        
         int nSteps = (int) (a / h) + 10;
         Matrix result = new Matrix(2, nSteps + 1);
         double aux = 0.1;
@@ -119,33 +98,6 @@ public class Models {
             result.set(1, index, value);
             aux += h;
             index++;
-        }
-        return result;
-
-    }
-
-    /**
-     * Power Model for Variogram Plot The range(a) is two
-     *
-     * @param c
-     * @param h
-     * @return
-     * @throws Exception
-     */
-    public static Matrix power(double c, double h) throws Exception {
-        int nSteps = (int) (2 / h);
-        double stepValue = 2 / h;
-        Matrix result = new Matrix(2, nSteps + 1);
-        double aux = 0.1;
-        int index = 0;
-        while (index <= nSteps) {            
-            double value = c * Math.pow(aux, stepValue);
-            result.set(0, index, aux);
-            result.set(1, index, value);
-            aux += h;
-            stepValue += stepValue;
-            index++;
-            result.print();
         }
         return result;
     }
