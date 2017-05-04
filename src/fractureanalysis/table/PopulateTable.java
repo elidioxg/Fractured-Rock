@@ -27,15 +27,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
@@ -43,12 +46,21 @@ import javafx.scene.control.TableView;
  * @author elidioxg
  */
 public class PopulateTable {
-    
+
+    /**
+     * Populate a table with data from a Matrix class.
+     *
+     * @param table
+     * @param matrix
+     * @param header
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void populateTable(
-            TableView table, 
-            Matrix matrix, 
+            TableView table,
+            Matrix matrix,
             String[] header) throws FileNotFoundException, IOException {
-        
+
         table.getItems().clear();
         table.getColumns().clear();
         table.setPlaceholder(new Label("Loading..."));
@@ -69,20 +81,16 @@ public class PopulateTable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        for (int i = 0; i < matrix.getLinesCount(); i++) {
-                            String[] str = new String[matrix.getColumnsCount() - 1];
-                            for (int j = 0; j < matrix.getColumnsCount(); j++) {
-                                try {
-                                    str[j] = String.valueOf(matrix.get(j, i).doubleValue());
-                                } catch (Exception ex) {
-                                    Logger.getLogger(AppController.class.getName()).log(Level.SEVERE, null, ex);
+                        for (int l = 0; l < matrix.getLinesCount(); l++) {
+                            ObservableList data = FXCollections.observableArrayList();
+                            try {
+                                for (int c = 0; c < matrix.getColumnsCount(); c++) {
+                                    data.add(new SimpleStringProperty(String.valueOf(matrix.get(c, l).doubleValue())));
                                 }
-                                ObservableList data = FXCollections.observableArrayList();
-                                for (String value : str) {
-                                    data.add(new SimpleStringProperty(value));
-                                }
-                                table.getItems().add(data);
+                            } catch (Exception ex) {
+                                Logger.getLogger(PopulateTable.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            table.getItems().add(data);
                         }
                     }
                 });
@@ -94,7 +102,17 @@ public class PopulateTable {
         thread.start();
     }
 
-    public static void populateTable(TableView table, DatasetModel dm) throws FileNotFoundException, IOException {
+    /**
+     * Populate a TableView with data from a DatasetModel
+     *
+     * @param table
+     * @param dm
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static void populateTable(
+            TableView table,
+            DatasetModel dm) throws FileNotFoundException, IOException {
         table.getItems().clear();
         table.getColumns().clear();
         table.setPlaceholder(new Label("Loading..."));
@@ -175,19 +193,19 @@ public class PopulateTable {
         thread.setDaemon(true);
         thread.start();
     }
-    
+
     /**
-     * Populates the table on main stage. This table is used to view dataset
-     * values.
+     * Populate a table with data from a file.
      *
      * TODO: adaptar para receber formato Geoeas
      *
+     * @param table
      * @param filename
      * @param separator
      * @param hasHeader
      */
-    public void populateTable(TableView table, 
-            final String filename, 
+    public void populateTable(TableView table,
+            final String filename,
             final Separator separator,
             final boolean hasHeader) {
         table.getItems().clear();
@@ -230,7 +248,7 @@ public class PopulateTable {
                             public void run() {
                                 // Add additional columns if necessary:
                                 TableUtils tu = new TableUtils();
-                                for (int columnIndex =table.getColumns().size();
+                                for (int columnIndex = table.getColumns().size();
                                         columnIndex < dataValues.length; columnIndex++) {
                                     table.getColumns().add(tu.createColumn(columnIndex, ""));
                                 }
@@ -251,5 +269,5 @@ public class PopulateTable {
             thread.start();
         }
     }
-    
+
 }
