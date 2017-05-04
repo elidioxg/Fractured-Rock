@@ -166,10 +166,7 @@ public class Stage_variogramController implements Initializable {
         }
 
     }
-
-    @FXML
-    protected Canvas canvas;
-
+    
     /**
      * Initializes the controller class.
      *
@@ -178,18 +175,6 @@ public class Stage_variogramController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*double radiusX = canvas.getWidth() / 1.5;
-        double radiusY = canvas.getHeight() / 1.5;
-        double centerX = (canvas.getWidth() / 2) - (radiusX / 2);
-        double centerY = (canvas.getHeight() / 2) - (radiusY / 2);
-        double startAngle = 0;
-        double finalAngle = 360;
-        canvas.getGraphicsContext2D().setStroke(Paint.valueOf("BLACK"));
-        canvas.getGraphicsContext2D().strokeArc(
-                centerX, centerY,
-                radiusX, radiusY,
-                startAngle, finalAngle,
-                ArcType.ROUND);
-         */
+        
     }
 }

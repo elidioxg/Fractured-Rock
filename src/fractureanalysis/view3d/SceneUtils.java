@@ -12,17 +12,17 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 public class SceneUtils {
-    
-    public SceneUtils(){
-        
+
+    public SceneUtils() {
+
     }
-    
+
     double mousePosX;
     double mousePosY;
     double mouseOldX;
     double mouseOldY;
     double mouseDeltaX;
-    double mouseDeltaY;  
+    double mouseDeltaY;
     double ONE_FRAME = 1.0 / 24.0;
     double DELTA_MULTIPLIER = 200.0;
     double CONTROL_MULTIPLIER = 100;
@@ -33,7 +33,7 @@ public class SceneUtils {
     final Xform cameraXform3 = new Xform();
     PerspectiveCamera camera;
     final double cameraDistance = 350;
-    
+
     /**
      * Default Camera Parameters
      */
@@ -46,7 +46,7 @@ public class SceneUtils {
     private final double defaultXTranslate = 500;
     private final double defaultYTranslate = -350.;
     private final double defaultZTranslate = -3000.;
-    
+
     public void buildCamera(Group root) {
         camera = new PerspectiveCamera();
         camera.setFieldOfView(defaultFieldOfView);
@@ -111,17 +111,17 @@ public class SceneUtils {
                     double newZ = z + mouseDeltaX * modifierFactor * modifier;
                     camera.setTranslateZ(newZ);
                 } else if (me.isMiddleButtonDown()) {
-                    cameraXform2.t.setX(cameraXform2.t.getX() + mouseDeltaX * modifierFactor * modifier * 0.3);  // -
-                    cameraXform2.t.setY(cameraXform2.t.getY() + mouseDeltaY * modifierFactor * modifier * 0.3);  // -
+                    cameraXform2.t.setX(cameraXform2.t.getX() + mouseDeltaX * modifierFactor * modifier * 20.);  // -
+                    cameraXform2.t.setY(cameraXform2.t.getY() + mouseDeltaY * modifierFactor * modifier * 20.);  // -
                 }
             }
         });
     }
 
-    public void handleKeyboard(Scene scene, final Node root) {        
+    public void handleKeyboard(Scene scene, final Node root) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent event) {                
+            public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case Z:
                         if (event.isShiftDown()) {
@@ -131,7 +131,7 @@ public class SceneUtils {
                         }
                         cameraXform2.t.setX(0.0);
                         cameraXform2.t.setY(0.0);
-                        break;                      
+                        break;
                     case UP:
                         if (event.isControlDown() && event.isShiftDown()) {
                             cameraXform2.t.setY(cameraXform2.t.getY() - 10.0 * CONTROL_MULTIPLIER);

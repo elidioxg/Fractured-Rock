@@ -6,6 +6,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.*?>
 
 <GridPane 
     id="WhitePane" 
@@ -21,9 +22,10 @@
     </stylesheets>
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="20"/>
-        <ColumnConstraints percentWidth="20"/>
-        <ColumnConstraints percentWidth="60"/>   
+        <ColumnConstraints percentWidth="15"/>
+        <ColumnConstraints percentWidth="15"/>
+        <ColumnConstraints percentWidth="50"/>
+        <ColumnConstraints percentWidth="20"/>        
     </columnConstraints>
     
     <Label 
@@ -84,11 +86,11 @@
     <Label
         GridPane.columnIndex="0" 
         GridPane.rowIndex="5"
-        text="Sill">
+        text="Nugget">
         
     </Label>
     <TextField 
-        fx:id="tfSill"
+        fx:id="tfNugget"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="5"
         text="0."
@@ -230,10 +232,20 @@
     </javafx.scene.chart.LineChart>
     
     <ScrollPane 
-        GridPane.columnIndex="2" 
-        GridPane.rowIndex="13"
+        GridPane.columnIndex="3" 
+        GridPane.rowIndex="1"
+        GridPane.rowSpan="4"
     >
         <fx:include source="pane_curve_fitting.fxml"/>
+        
+    </ScrollPane>
+    
+    <ScrollPane 
+        GridPane.columnIndex="3" 
+        GridPane.rowIndex="5"
+        GridPane.rowSpan="6"
+    >
+        <fx:include source="pane_variogram_canvas.fxml"/>
         
     </ScrollPane>
     

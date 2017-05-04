@@ -29,7 +29,7 @@ public class Vector {
 
     }
 
-    public Vector(Number[] data, int size) {
+    public Vector(Number[] data, int size) {        
         this.data = data;
         this.size = size;
     }
@@ -71,7 +71,7 @@ public class Vector {
      * @param value
      */
     public Vector(int size, Number value) {
-        this.data = new Number[size];
+        this.data = new Number[size];        
         this.size = size;
         for (int i = 0; i < size; i++) {
             final int ii = i;

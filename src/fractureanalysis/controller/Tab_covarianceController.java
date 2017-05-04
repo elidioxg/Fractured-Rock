@@ -23,8 +23,6 @@ import fractureanalysis.data.OpenDataset;
 import fractureanalysis.distance.EuclideanDistance;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.model.Separator;
-import fractureanalysis.plot.PlotSeries;
-import fractureanalysis.statistics.variogram.Models;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -52,6 +50,8 @@ public class Tab_covarianceController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,34 +97,13 @@ public class Tab_covarianceController implements Initializable {
                             serie.getData().add(new XYChart.Data<>(x.get(i), y.get(i)));
                         }
                         scLocation.getData().add(serie);
-                        Matrix distances = EuclideanDistance.getDistances(x, y);
-                        distances.print();
-                        double sill = 2000;
-                        double range = 250.;
-                        Matrix covLine = Models.spherical(sill, range, 30);
-
-                        System.out.println("CovLine1");
-                        covLine.print();
-                        Vector X = covLine.getColumn(0);
-                        Vector Y = covLine.getColumn(1);
-                        XYChart.Series serie2 = PlotSeries.plotLineSeries(X, Y);
-                        //XYChart.Series serie2 =  PlotSeries.plotLineSeries(covLine, 0, 1);
-                        lcCovariance.getData().add(serie2);
-                        //plot covariance function on graph
-                        for (int i = 0; i < distances.getColumnsCount(); i++) {
-                            for (int j = i + 1; j < distances.getColumnsCount(); j++) {
-                                double h = distances.get(j, i).doubleValue();
-                                //double cov = Covariance
-                            }
-                        }
-
-                        for (int i = 0; i < distances.getColumnsCount(); i++) {
-                            for (int j = 0; j < distances.getLinesCount(); j++) {
-                                double aux = 2000. * Math.exp(-distances.get(i, j).doubleValue() / 250.);
-                                distances.set(i, j, aux);
-                            }
-                        }
-                        distances.print();
+                        
+                        Matrix distances = EuclideanDistance.getDistances(x, y);                                                 
+                                                
+                        //XYChart.Series serie2 = PlotSeries.plotLineSeries(distancesVec, cov);                 
+                        //lcCovariance.getData().add(serie2);
+                        
+                        
                     }
                 }
             }

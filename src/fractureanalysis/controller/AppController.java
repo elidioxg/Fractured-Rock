@@ -238,7 +238,7 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    protected void fractureStage() throws IOException {
+    protected void fractureStage() throws IOException, Exception {
         FractureAnalysisStage stage = new FractureAnalysisStage(
                 FractureAnalysis.getInstance().getDataset());
         stage.createStage();

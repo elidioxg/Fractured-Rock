@@ -68,7 +68,7 @@
         fx:id="tvValues"
         GridPane.columnIndex="4"
         GridPane.rowIndex="2"
-        GridPane.columnSpan="4">
+        GridPane.columnSpan="5">
         
     </TableView>
     

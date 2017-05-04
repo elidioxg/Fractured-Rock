@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.*?>
+
+<AnchorPane 
+    id="AnchorPane" 
+    prefHeight="200.0" 
+    prefWidth="200.0" 
+    styleClass="mainFxmlClass" 
+    xmlns:fx="http://javafx.com/fxml/1" 
+    fx:controller="fractureanalysis.controller.Pane_variogram_canvasController">
+    <stylesheets>
+        <URL value="@app_style.css"/>
+    </stylesheets>
+    
+    <Canvas
+        fx:id="canvas"       
+        width="150"
+        height="150">
+        
+    </Canvas>        
+    
+</AnchorPane>

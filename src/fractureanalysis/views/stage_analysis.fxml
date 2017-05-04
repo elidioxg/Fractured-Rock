@@ -54,7 +54,7 @@
     </ComboBox>
     
     <ButtonBar
-        GridPane.columnIndex="4"        
+        GridPane.columnIndex="3"        
         GridPane.rowIndex="0">
         <buttons>
             <Button

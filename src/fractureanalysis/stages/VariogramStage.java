@@ -99,7 +99,7 @@ public class VariogramStage {
             
             Stage stageLine = new Stage();
             Scene scene = new Scene(parent);
-            stageLine.setTitle("2D Variogram");
+            stageLine.setTitle("Variogram");
             stageLine.setScene(scene);
             stageLine.show();
         }

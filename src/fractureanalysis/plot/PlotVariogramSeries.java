@@ -50,6 +50,7 @@ public class PlotVariogramSeries {
         return PlotSeries.plotLineSeries(distance, variogramValue);
     }    
     
+    //TODO: verificar e corrigir
     public static XYChart.Series plotModel(Matrix matrix, int colX, int colY,
             String serieName) throws Exception{
         XYChart.Series serie = PlotSeries.plotLineSeries(matrix, colX, colY);
