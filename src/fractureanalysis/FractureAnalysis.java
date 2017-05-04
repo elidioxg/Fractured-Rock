@@ -33,6 +33,7 @@ import fractureanalysis.statistics.Quartiles;
 import fractureanalysis.statistics.StdDeviation;
 import fractureanalysis.statistics.Variance;
 import fractureanalysis.statistics.VariationCoefficient;
+import fractureanalysis.table.PopulateTable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
@@ -61,6 +63,8 @@ public class FractureAnalysis extends Application {
     public Stage stage;
 
     public ListView<DatasetModel> listView;
+    
+    private TableView tvDataset;
 
     private List<DatasetModel> list;
 
@@ -93,7 +97,7 @@ public class FractureAnalysis extends Application {
         } else {
             return null;
         }
-    }
+    }        
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -106,6 +110,7 @@ public class FractureAnalysis extends Application {
             Scene scene = new Scene(grid);
             list = new ArrayList();
             listView = (ListView) grid.lookup("#lvDatasets");
+            tvDataset = (TableView)grid.lookup("#tvDataset");
 
             listView.setCellFactory(new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
                 @Override
@@ -128,8 +133,8 @@ public class FractureAnalysis extends Application {
                 public void handle(MouseEvent event) {
                     DatasetModel dm = (DatasetModel) listView.getSelectionModel().getSelectedItem();
                     if (dm != null) {                        
-                        try {
-                            controller.populateTable(dm);
+                        try {                            
+                            PopulateTable.populateTable(tvDataset, dm);
                         } catch (IOException ex) {
                             Logger.getLogger(FractureAnalysis.class.getName()).log(Level.SEVERE, null, ex);
                         }

@@ -20,22 +20,13 @@ import fractureanalysis.statistics.histogram.Frequency;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
 import fractureanalysis.statistics.SampleAmplitude;
-import fractureanalysis.table.TableUtils;
-import java.io.BufferedReader;
+import fractureanalysis.table.PopulateTable;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -79,167 +70,9 @@ public class AppController implements Initializable {
     protected void onMouseClicked() throws IOException {
         DatasetModel dm = (DatasetModel) lvDatasets.getSelectionModel().getSelectedItem();
         if (dm != null) {
-            populateTable(dm);
+            PopulateTable.populateTable(tvDataset, dm);
         }
-    }
-
-    /**
-     * Populates the table on main stage. This table is used to view dataset
-     * values.
-     *
-     * TODO: Tirar esse procedimento daqui, Adaptar para receber formato Geoeas
-     *
-     * @param filename
-     * @param separator
-     * @param hasHeader
-     */
-    public void populateTable(final String filename, final Separator separator,
-            final boolean hasHeader) {
-        tvDataset.getItems().clear();
-        tvDataset.getColumns().clear();
-        if (filename.trim() != null) {
-            tvDataset.setPlaceholder(new Label("Loading..."));
-            Task<Void> task = new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    BufferedReader br = new BufferedReader(new FileReader(filename));
-                    final String headerLine = br.readLine();
-                    final String[] headerValues = headerLine.split(separator.getChar());
-                    ArrayList<String> array = new ArrayList<>(Arrays.asList(headerValues));
-                    if (hasHeader) {
-                        FractureAnalysis.getInstance().getDataset().setHeaderStrings(array);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                TableUtils tu = new TableUtils();
-                                for (int i = 0; i < headerValues.length; i++) {
-                                    tvDataset.getColumns().add(
-                                            tu.createColumn(i, headerValues[i]));
-                                }
-                            }
-                        });
-                    } else {
-                        Platform.runLater(() -> {
-                            TableUtils tu = new TableUtils();
-                            for (int i = 0; i < headerValues.length; i++) {
-                                tvDataset.getColumns().add(
-                                        tu.createColumn(i, "Column " + String.valueOf(i + 1)));
-                            }
-                        });
-                    }
-                    String dataLine;
-                    while ((dataLine = br.readLine()) != null) {
-                        final String[] dataValues = dataLine.split(separator.getChar());
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                // Add additional columns if necessary:
-                                TableUtils tu = new TableUtils();
-                                for (int columnIndex = tvDataset.getColumns().size();
-                                        columnIndex < dataValues.length; columnIndex++) {
-                                    tvDataset.getColumns().add(tu.createColumn(columnIndex, ""));
-                                }
-                                ObservableList<StringProperty> data = FXCollections
-                                        .observableArrayList();
-                                for (String value : dataValues) {
-                                    data.add(new SimpleStringProperty(value));
-                                }
-                                tvDataset.getItems().add(data);
-                            }
-                        });
-                    }
-                    return null;
-                }
-            };
-            Thread thread = new Thread(task);
-            thread.setDaemon(true);
-            thread.start();
-        }
-    }
-
-    public void populateTable(DatasetModel dm) throws FileNotFoundException, IOException {
-        tvDataset.getItems().clear();
-        tvDataset.getColumns().clear();
-        tvDataset.setPlaceholder(new Label("Loading..."));
-        Task<Void> task = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                BufferedReader br = null;
-                br = new BufferedReader(new FileReader(dm.getFileName()));
-                String dataLine = null;
-                if (dm.getFileName().trim() != null) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (dm.getHeader()) {
-                                TableUtils tu = new TableUtils();
-                                for (int i = 0; i < dm.getHeaderArray().size(); i++) {
-                                    tvDataset.getColumns().add(
-                                            tu.createColumn(i, dm.getHeaderArray(i)));
-                                }
-                            } else {
-                                TableUtils tu = new TableUtils();
-                                for (int i = 0; i < dm.getHeaderArray().size(); i++) {
-                                    tvDataset.getColumns().add(
-                                            tu.createColumn(i, "Column " + String.valueOf(i + 1)));
-                                }
-                            }
-                        }
-                    });
-
-                    if (dm.isGeoeas()) {
-                        int jumpLines = dm.getColumnsCount() + 2;
-                        for (int i = 0; i < jumpLines; i++) {
-                            br.readLine();
-                        }
-                    } else {
-                        if (dm.getHeader()) {
-                            br.readLine();
-                        }
-                    }
-
-                    while ((dataLine = br.readLine()) != null) {
-                        System.out.println("Dataline: " + dataLine);
-                        if (dm.getSepString().trim().equals("")) {
-                            while (dataLine.subSequence(0, 1).equals(" ")) {
-                                dataLine = dataLine.substring(1);
-                            }
-                            dataLine = dataLine.replace(dm.getSepString() + dm.getSepString() + dm.getSepString() + dm.getSepString(), dm.getSepString());
-                            dataLine = dataLine.replace(dm.getSepString() + dm.getSepString() + dm.getSepString(), dm.getSepString());
-                            dataLine = dataLine.replace(dm.getSepString() + dm.getSepString(), dm.getSepString());
-                        }
-                        System.out.println("Dataline Trim: " + dataLine);
-
-                        final String[] dataValues = dataLine.split(dm.getSepString());
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                // Add additional columns if necessary:
-                                TableUtils tu = new TableUtils();
-                                for (int columnIndex = tvDataset.getColumns().size();
-                                        columnIndex < dataValues.length; columnIndex++) {
-                                    tvDataset.getColumns().add(tu.createColumn(columnIndex, ""));
-                                }
-                                ObservableList<StringProperty> data = FXCollections
-                                        .observableArrayList();
-                                for (String value : dataValues) {
-                                    data.add(new SimpleStringProperty(value));
-                                }
-                                tvDataset.getItems().add(data);
-                            }
-                        });
-
-                    }
-
-                }
-                return null;
-            }
-        };
-
-        Thread thread = new Thread(task);
-        thread.setDaemon(true);
-        thread.start();
-    }
+    }      
 
     @FXML
     protected TextField tfSeparator;
