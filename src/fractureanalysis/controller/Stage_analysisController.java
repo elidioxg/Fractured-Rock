@@ -196,7 +196,7 @@ public class Stage_analysisController implements Initializable {
          */
         scScanline = (ScatterChart) scene.lookup("#scScanline");
         scScanline.getData().add(
-                PlotSeries.plotLineSeries(0, scanline.getDistanceList()));
+                PlotSeries.plotLineSeries(0, scanline.getDistanceList()));        
     }
 
     @FXML

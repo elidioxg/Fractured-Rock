@@ -47,7 +47,7 @@ public class AnalysisFile extends DatasetModel {
         this.setHeader(dataset.getHeader());
         this.setHeaderStrings(dataset.getHeaderArray());
         this.setRowsCount(dataset.getRowsCount());
-        this.setSepString(dataset.getSepString());
+        this.setSepString(dataset.getSeparator().getChar());
         this.setSeparator(dataset.getSeparator());
     }
     

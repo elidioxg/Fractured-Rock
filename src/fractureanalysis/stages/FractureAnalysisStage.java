@@ -16,6 +16,7 @@
  */
 package fractureanalysis.stages;
 
+import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
@@ -37,10 +38,13 @@ public class FractureAnalysisStage {
 
     private static DatasetModel dataset;
     private static AnalysisFile analysisFile;
+    
+    private static FractureIntensityAnalysis analysis;
 
-    public FractureAnalysisStage(DatasetModel dataset) {
+    public FractureAnalysisStage(DatasetModel dataset) throws Exception {
         FractureAnalysisStage.dataset = dataset;
         analysisFile = new AnalysisFile(dataset);
+        analysis = new FractureIntensityAnalysis(analysisFile.getScanLine());
         instance = this;
     }
 
@@ -54,6 +58,10 @@ public class FractureAnalysisStage {
     
     public static AnalysisFile getAnalysisFile(){
         return analysisFile;
+    }
+    
+    public static FractureIntensityAnalysis getAnalysis(){
+        return analysis;
     }
 
     public void createStage() throws IOException {

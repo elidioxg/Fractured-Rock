@@ -50,7 +50,7 @@ public class ScanLine {
                 this.fracturesCount += 1;
             }
             this.lenght = this.lenght/1000;
-        }
+        }        
     }
 
     /**

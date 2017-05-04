@@ -115,7 +115,7 @@
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="7" 
-        text="Serie Name:"/>
+        text="Legend:"/>
     <TextField         
         fx:id="tfSerieLabel"
         GridPane.columnIndex="1"

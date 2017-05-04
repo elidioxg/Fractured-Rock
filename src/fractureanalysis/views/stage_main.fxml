@@ -67,7 +67,7 @@
                         onAction="#histogramStage" >
                     </MenuItem>                    
                     <MenuItem 
-                        text="2D Variogram"
+                        text="Variogram"
                         onAction="#variogramStage" >
                     </MenuItem>                        
                 </items>                

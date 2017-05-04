@@ -89,7 +89,7 @@ public class DatasetModel {
     }
 
     public void setSepString(String sep) {
-        this.separator.getChar();
+        this.separator = new Separator(sep);
     }
 
     public String getSepString() {

@@ -23,7 +23,6 @@ package fractureanalysis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.controller.AppController;
 import fractureanalysis.data.OpenDataset;
-import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.statistics.Average;
 import fractureanalysis.statistics.MaximumValue;
@@ -66,9 +65,7 @@ public class FractureAnalysis extends Application {
     
     private TableView tvDataset;
 
-    private List<DatasetModel> list;
-
-    private AppController controller;
+    private List<DatasetModel> list;   
 
     private static FractureAnalysis instance;
 
@@ -106,7 +103,7 @@ public class FractureAnalysis extends Application {
             FXMLLoader root = new FXMLLoader(getClass().getResource(
                     "views/stage_main.fxml"));
             grid = root.load();
-            controller = root.getController();
+            
             Scene scene = new Scene(grid);
             list = new ArrayList();
             listView = (ListView) grid.lookup("#lvDatasets");

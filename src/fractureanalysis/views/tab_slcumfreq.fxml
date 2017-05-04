@@ -23,9 +23,25 @@
         fx:id="cbSort"
         GridPane.columnIndex="0"
         GridPane.rowIndex="1"
-        onAction="#cbAction"
+        onAction="#sort"
         text="sort">
         
+    </CheckBox>
+    
+    <CheckBox
+        fx:id="cbSimplify"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1"
+        onAction="#simplify"
+        text="simplify">
+    </CheckBox>
+    
+    <CheckBox
+        fx:id="cbNormalize"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="1"
+        onAction="#normalize"
+        text="normalize">        
     </CheckBox>
     
     <javafx.scene.chart.LineChart 
@@ -47,5 +63,13 @@
         </yAxis>
         
     </javafx.scene.chart.LineChart>
+    
+    <TableView
+        fx:id="tvValues"
+        GridPane.columnIndex="4"
+        GridPane.rowIndex="2"
+        GridPane.columnSpan="4">
+        
+    </TableView>
     
 </GridPane>
