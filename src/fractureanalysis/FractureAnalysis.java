@@ -21,7 +21,6 @@ package fractureanalysis;
  * @author elidioxg
  */
 import fractureanalysis.Vectors.Vector;
-import fractureanalysis.controller.AppController;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.statistics.Average;
@@ -56,29 +55,31 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
 public class FractureAnalysis extends Application {
-
+    
     private final String strAppName = "Application Name";
-
+    
     public Stage stage;
-
+    
+    private final String FORMAT_NUMBER = "%.2f";
+    
     public ListView<DatasetModel> listView;
     
     private TableView tvDataset;
-
-    private List<DatasetModel> list;   
-
+    
+    private List<DatasetModel> list;    
+    
     private static FractureAnalysis instance;
-
+    
     private GridPane grid;
-
+    
     public FractureAnalysis() {
         instance = this;
     }
-
+    
     public static FractureAnalysis getInstance() {
         return instance;
     }
-
+    
     public List<DatasetModel> getDatasetList() {
         return this.list;
     }
@@ -94,8 +95,8 @@ public class FractureAnalysis extends Application {
         } else {
             return null;
         }
-    }        
-
+    }    
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
         //file = new AnalysisFile();       
@@ -107,8 +108,8 @@ public class FractureAnalysis extends Application {
             Scene scene = new Scene(grid);
             list = new ArrayList();
             listView = (ListView) grid.lookup("#lvDatasets");
-            tvDataset = (TableView)grid.lookup("#tvDataset");
-
+            tvDataset = (TableView) grid.lookup("#tvDataset");
+            
             listView.setCellFactory(new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
                 @Override
                 public ListCell<DatasetModel> call(ListView<DatasetModel> myObjectListView) {
@@ -124,7 +125,7 @@ public class FractureAnalysis extends Application {
                     return cell;
                 }
             });
-
+            
             listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -142,21 +143,21 @@ public class FractureAnalysis extends Application {
                         }
                         setDatasetStatistics(dm);
                         itemsComboboxes();
-
+                        
                     }
                 }
             });
-
+            
             primaryStage.setOnCloseRequest(e -> Platform.exit());
             primaryStage.setTitle(strAppName);
             primaryStage.setScene(scene);
             primaryStage.show();
-
+            
         } catch (IOException e) {
             throw new IOException(e);
         }
     }
-
+    
     public void addToListView(DatasetModel file) {
         list.add(file);
         ObservableList<DatasetModel> olDatasets
@@ -183,42 +184,46 @@ public class FractureAnalysis extends Application {
                         dataset.getFileName(), dataset.getSeparator().getChar(),
                         column, dataset.getHeader());
             }
-
+            
             Label lAvg = (Label) grid.lookup("#lAvgValue");
             double avg = Average.arithmeticAverage(array);
-            lAvg.setText(String.valueOf(avg));
+            lAvg.setText(String.format(FORMAT_NUMBER, avg));
             Label lMinValue = (Label) grid.lookup("#lMinValue");
             double min = MinimumValue.getMinValue(array);
-            lMinValue.setText(String.valueOf(min));
+            lMinValue.setText(String.format(FORMAT_NUMBER, min));
             Label lMaxValue = (Label) grid.lookup("#lMaxValue");
             double max = MaximumValue.getMaxValue(array);
-            lMaxValue.setText(String.valueOf(max));
+            lMaxValue.setText(String.format(FORMAT_NUMBER, max));
             Label lModeValue = (Label) grid.lookup("#lModeValue");
-            double mode = Mode.getMode(array);
-            lModeValue.setText(String.valueOf(mode));
+            Double mode = Mode.getMode(array);
+            if (mode.equals(Double.NaN)) {
+                lModeValue.setText("No mode");
+            } else {
+                lModeValue.setText(String.format(FORMAT_NUMBER, mode));
+            }
             Label lStdDevValue = (Label) grid.lookup("#lStdDevValue");
             double stdDev = StdDeviation.stdDeviation(array);
-            lStdDevValue.setText(String.valueOf(stdDev));
+            lStdDevValue.setText(String.format(FORMAT_NUMBER, stdDev));
             Label lVariance = (Label) grid.lookup("#lVariance");
             double variance = Variance.variance(array);
-            lVariance.setText(String.valueOf(variance));
+            lVariance.setText(String.format(FORMAT_NUMBER, variance));
             Label lVariation = (Label) grid.lookup("#lVariation");
             double variation = VariationCoefficient.variationCoefficient(array);
-            lVariation.setText(String.valueOf(variation));
+            lVariation.setText(String.format(FORMAT_NUMBER, variation));
             Label lGeoAvg = (Label) grid.lookup("#lGeoAvg");
             double geoAvg = Average.geometricAverage(array);
-            lGeoAvg.setText(String.valueOf(geoAvg));
+            lGeoAvg.setText(String.format(FORMAT_NUMBER, geoAvg));
             Label lCount = (Label) grid.lookup("#lCount");
             lCount.setText(String.valueOf(array.size()));
             double fQ = Quartiles.firstQuartil(array);
             Label lFirstQ = (Label) grid.lookup("#lFirstQ");
-            lFirstQ.setText(String.valueOf(fQ));
+            lFirstQ.setText(String.format(FORMAT_NUMBER, fQ));
             double sQ = Quartiles.secondQuartil(array);
             Label lSecQ = (Label) grid.lookup("#lSecQ");
-            lSecQ.setText(String.valueOf(sQ));
+            lSecQ.setText(String.format(FORMAT_NUMBER, sQ));
             double tQ = Quartiles.thirdQuartil(array);
             Label lThirdQ = (Label) grid.lookup("#lThirdQ");
-            lThirdQ.setText(String.valueOf(tQ));
+            lThirdQ.setText(String.format(FORMAT_NUMBER, tQ));
         }
     }
 
@@ -233,7 +238,7 @@ public class FractureAnalysis extends Application {
         ObservableList<String> ol
                 = FXCollections.observableList(getDataset().getHeaderArray()
                 );
-
+        
         ComboBox cbSColumn = (ComboBox) grid.lookup("#cbSColumn");
         cbSColumn.setItems(ol);
         cbSColumn.getSelectionModel().selectFirst();

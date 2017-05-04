@@ -42,7 +42,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class AppController implements Initializable {
+public class Stage_mainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

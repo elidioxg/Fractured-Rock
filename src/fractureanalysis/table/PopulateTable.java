@@ -18,7 +18,6 @@ package fractureanalysis.table;
 
 import fractureanalysis.FractureAnalysis;
 import fractureanalysis.Matrices.Matrix;
-import fractureanalysis.controller.AppController;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.model.Separator;
 import java.io.BufferedReader;
@@ -27,18 +26,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**

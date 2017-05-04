@@ -25,7 +25,6 @@ import fractureanalysis.statistics.Covariance;
 import fractureanalysis.statistics.Kendall;
 import fractureanalysis.statistics.Spearman;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,8 +35,9 @@ import javafx.scene.control.Label;
  *
  * @author elidioxg
  */
-public class CorrelationController implements Initializable {
+public class Tab_correlationController implements Initializable {
 
+    private final String FORMAT_NUMBER = "%.2f";
     /**
      * Handle actions for Tab Correlation on Main Stage
      *
@@ -78,13 +78,13 @@ public class CorrelationController implements Initializable {
                 }
 
                 double covariance = Covariance.covariance(arrayA, arrayB);
-                lCovariance.setText(String.valueOf(covariance));
+                lCovariance.setText(String.format(FORMAT_NUMBER, covariance));
                 double pearson = Pearson.pearsonCoeff(arrayA, arrayB);
-                lPearson.setText(String.valueOf(pearson));
+                lPearson.setText(String.format(FORMAT_NUMBER, pearson));
                 double spearman = Spearman.calc(arrayA, arrayB);
-                lSpearman.setText(String.valueOf(spearman));
+                lSpearman.setText(String.format(FORMAT_NUMBER, spearman));
                 double kendall = Kendall.calc(arrayA, arrayB);
-                lKendall.setText(String.valueOf(kendall));
+                lKendall.setText(String.format(FORMAT_NUMBER, kendall));
             }
         }
     }

@@ -21,7 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class ScatterChartController implements Initializable {
+public class Stage_scatterChartController implements Initializable {
 
     @FXML
     protected GridPane gpStage;

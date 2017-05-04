@@ -52,6 +52,8 @@ public class Stage_analysisController implements Initializable {
     /**
      * Views: views/tab_distribution.fxml , tab_summary_analysis.fxml
      */
+    private static final String FORMAT_NUMBER = "%.2f";
+    
     @FXML
     protected ScatterChart scScanline;
 
@@ -158,9 +160,9 @@ public class Stage_analysisController implements Initializable {
         lFracInt = (Label) scene.lookup("#lFracInt");
         lAvgSpacing = (Label) scene.lookup("#lAvgSpacing");
         lScanLen = (Label) scene.lookup("#lScanLen");
-        lFracInt.setText(String.valueOf(fi.getFractureIntensity()));
-        lAvgSpacing.setText(String.valueOf(fi.getAverageSpacing()));
-        lScanLen.setText(String.valueOf(scanline.getLenght()));
+        lFracInt.setText(String.format(FORMAT_NUMBER, fi.getFractureIntensity()));
+        lAvgSpacing.setText(String.format(FORMAT_NUMBER, fi.getAverageSpacing()));
+        lScanLen.setText(String.format(FORMAT_NUMBER, scanline.getLenght()));
         //distribution tab
         scFractureIntensity = (LineChart) scene.lookup("#scFractureIntensity");
         lcAux = (LineChart) scene.lookup("#lcAux");

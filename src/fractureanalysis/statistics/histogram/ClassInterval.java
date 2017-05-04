@@ -22,10 +22,9 @@ package fractureanalysis.statistics.histogram;
  */
 public class ClassInterval {
 
-    private int index;
-    private double inferior;
-    private double superior;
-    private double centralTeor;
+    private final double inferior;
+    private final double superior;
+    private final double centralTeor;
     private int obsFrequency =0;
     private String label= "";
     
@@ -36,8 +35,7 @@ public class ClassInterval {
      * @param inferior Inferior limit of Class Interval 
      * @param superior Superior limit of Class Interval
      */
-    public ClassInterval(int index, double inferior, double superior){
-        this.index=index;
+    public ClassInterval(int index, double inferior, double superior){        
         this.inferior=inferior;
         this.superior=superior;
         this.centralTeor = (superior - inferior);
