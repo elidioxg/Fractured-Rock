@@ -61,7 +61,7 @@
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="3" 
-        text="X Axis label:" />
+        text="X Axis: Label" />
     <TextField 
         fx:id="tfXLabel"
         GridPane.columnIndex="1"
@@ -71,12 +71,27 @@
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="4" 
-        text="Y Axis label:"/>
+        text="Y Axis: Label"/>
     <TextField         
         fx:id="tfYLabel"
         GridPane.columnIndex="1"
         GridPane.rowIndex="4" 
-    /> 
+    />
+    
+    <CheckBox
+        fx:id="cbLogX"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="3"
+        selected="false"
+        text="Logarithmic">
+    </CheckBox>    
+    <CheckBox
+        fx:id="cbLogY"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="4"
+        selected="false"
+        text="Logarithmic">
+    </CheckBox> 
 
     <Label 
         GridPane.columnIndex="0"

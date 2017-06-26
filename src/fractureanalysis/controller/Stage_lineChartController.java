@@ -1,10 +1,12 @@
 package fractureanalysis.controller;
 
+import contrib.LogarithmicAxis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
-import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.stages.LineChartStage;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.ValueAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -26,13 +29,13 @@ public class Stage_lineChartController implements Initializable {
 
     @FXML
     protected GridPane gpStage;
-    
+
     @FXML
     protected TextField tfGraphLabel, tfXLabel, tfYLabel, tfSerieLabel,
             tfMinX, tfMaxX, tfMinY, tfMaxY;
 
     @FXML
-    protected CheckBox cbAutoAxis, cbXSorted, cbYSorted;
+    protected CheckBox cbAutoAxis, cbXSorted, cbYSorted, cbLogX, cbLogY;
 
     @FXML
     private ComboBox cbDatasets, comboBoxX, comboBoxY;
@@ -68,36 +71,74 @@ public class Stage_lineChartController implements Initializable {
         if (cbYSorted.isSelected()) {
             y.sort();
         }
-        if (cbAutoAxis.isSelected()) {
-            lineChart.getXAxis().setAutoRanging(true);
-            lineChart.getYAxis().setAutoRanging(true);
-             PlotSeries plot = new PlotSeries();
-        lineChart.getData().add(plot.plotLineSeries(dm.getFileName(),
-                dm.getSeparator().getChar(), tfSerieLabel.getText(), indexX, indexY));
+        ValueAxis xAxis;
+        ValueAxis yAxis;
+        double minX;
+        if (tfMinX.getText().isEmpty()) {
+            minX = MinimumValue.getMinValue(x);
         } else {
-            double minX = Double.valueOf(tfMinX.getText());
-            double maxX = Double.valueOf(tfMaxX.getText());
-            double minY = Double.valueOf(tfMinY.getText());
-            double maxY = Double.valueOf(tfMaxY.getText());
-            NumberAxis xAxis = new NumberAxis(tfXLabel.getText(), minX, maxX, (maxX - minX) / 10);
-            NumberAxis yAxis = new NumberAxis(tfYLabel.getText(), minY, maxY, (maxY - minY) / 10);
-            xAxis.setAutoRanging(false);
-            yAxis.setAutoRanging(false);
-            ObservableList<XYChart.Series> data = FXCollections.observableArrayList();
-           LineChart.Series serie = new XYChart.Series();           
-           serie.setName(tfSerieLabel.getText());
-           for (int i = 0; i < x.size(); i++) {
-                serie.getData().add(
-                        new XYChart.Data<>(x.get(i), y.get(i)));
-            }
-           lineChart.setVisible(false);
-           data.add(serie);
-           lineChart  = new LineChart(xAxis, yAxis, data);
-           gpStage.add(lineChart,3,1,1,13);
+            minX = Double.valueOf(tfMinX.getText());
         }
+        double maxX;
+        if (tfMaxX.getText().isEmpty()) {
+            maxX = MaximumValue.getMaxValue(x);
+        } else {
+            maxX = Double.valueOf(tfMaxX.getText());
+        }
+        double minY;
+        if (tfMinY.getText().isEmpty()) {
+            minY = MinimumValue.getMinValue(y);
+        } else {
+            minY = Double.valueOf(tfMinY.getText());
+        }
+        double maxY;
+        if (tfMaxY.getText().isEmpty()) {
+            maxY = MaximumValue.getMaxValue(y);
+        } else {
+            maxY = Double.valueOf(tfMaxY.getText());
+        }
+
+        if (cbLogX.isSelected()) {
+            if (!cbAutoAxis.isSelected()) {
+                xAxis = new LogarithmicAxis(minX, maxX);
+                xAxis.setAutoRanging(false);
+            } else {
+                xAxis = new LogarithmicAxis();
+                xAxis.setAutoRanging(true);
+            }
+
+        } else {
+            xAxis = new NumberAxis(tfXLabel.getText(), minX, maxX, (maxX - minX) / 10);
+        }
+
+        if (cbLogY.isSelected()) {
+            if (!cbAutoAxis.isSelected()) {
+                yAxis = new LogarithmicAxis(minY, maxY);
+                yAxis.setAutoRanging(false);
+            } else {
+                yAxis = new LogarithmicAxis();
+                yAxis.setAutoRanging(true);
+            }
+
+        } else {
+            yAxis = new NumberAxis(tfYLabel.getText(), minY, maxY, (maxY - minY) / 10);
+        }
+
+        ObservableList<XYChart.Series> data = FXCollections.observableArrayList();
+        LineChart.Series serie = new XYChart.Series();
+        serie.setName(tfSerieLabel.getText());
+        for (int i = 0; i < x.size(); i++) {
+            serie.getData().add(
+                    new XYChart.Data<>(x.get(i), y.get(i)));
+        }
+        lineChart.setVisible(false);
+        data.add(serie);
+        lineChart = new LineChart(xAxis, yAxis, data);
+        gpStage.add(lineChart, 3, 1, 1, 13);
+
         lineChart.setTitle(tfGraphLabel.getText());
         lineChart.getXAxis().setLabel(tfXLabel.getText());
-        lineChart.getYAxis().setLabel(tfYLabel.getText());        
+        lineChart.getYAxis().setLabel(tfYLabel.getText());
     }
 
     /**

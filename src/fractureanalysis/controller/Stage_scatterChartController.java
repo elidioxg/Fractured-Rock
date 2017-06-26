@@ -1,10 +1,13 @@
 package fractureanalysis.controller;
 
+import contrib.LogarithmicAxis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.stages.ScatterChartStage;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -13,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.ValueAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -37,7 +41,7 @@ public class Stage_scatterChartController implements Initializable {
             tfMinX, tfMaxX, tfMinY, tfMaxY, tfSerieLabel;
 
     @FXML
-    protected CheckBox cbAutoAxis, cbXSorted, cbYSorted;
+    protected CheckBox cbAutoAxis, cbXSorted, cbYSorted, cbLogX, cbLogY;
 
     @FXML
     protected ScatterChart scatterChart;
@@ -68,34 +72,75 @@ public class Stage_scatterChartController implements Initializable {
         if (cbYSorted.isSelected()) {
             y.sort();
         }
-        if (cbAutoAxis.isSelected()) {
-            scatterChart.getXAxis().setAutoRanging(true);
-            scatterChart.getYAxis().setAutoRanging(true);
-            scatterChart.getData().add(PlotSeries.plotLineSeries(tfSerieLabel.getText(), x, y));
+        ValueAxis xAxis;
+        ValueAxis yAxis;
+        double minX;
+        if (tfMinX.getText().isEmpty()) {
+            minX = MinimumValue.getMinValue(x);
         } else {
-            double minX = Double.valueOf(tfMinX.getText());
-            double maxX = Double.valueOf(tfMaxX.getText());
-            double minY = Double.valueOf(tfMinY.getText());
-            double maxY = Double.valueOf(tfMaxY.getText());
-            NumberAxis xAxis = new NumberAxis(tfXLabel.getText(), minX, maxX, (maxX - minX) / 10);
-            NumberAxis yAxis = new NumberAxis(tfYLabel.getText(), minY, maxY, (maxY - minY) / 10);
-            xAxis.setAutoRanging(false);
-            yAxis.setAutoRanging(false);
-            ObservableList<XYChart.Series> data = FXCollections.observableArrayList();
-            ScatterChart.Series serie = new XYChart.Series();
-            serie.setName(tfSerieLabel.getText());
-            for (int i = 0; i < x.size(); i++) {
-                serie.getData().add(
-                        new XYChart.Data<>(x.get(i), y.get(i)));
-            }
-            scatterChart.setVisible(false);
-            data.add(serie);
-            scatterChart = new ScatterChart(xAxis, yAxis, data);
-            gpStage.add(scatterChart, 3, 1, 1, 13);
+            minX = Double.valueOf(tfMinX.getText());
         }
+        double maxX;
+        if (tfMaxX.getText().isEmpty()) {
+            maxX = MaximumValue.getMaxValue(x);
+        } else {
+            maxX = Double.valueOf(tfMaxX.getText());
+        }
+        double minY;
+        if (tfMinY.getText().isEmpty()) {
+            minY = MinimumValue.getMinValue(y);
+        } else {
+            minY = Double.valueOf(tfMinY.getText());
+        }
+        double maxY;
+        if (tfMaxY.getText().isEmpty()) {
+            maxY = MaximumValue.getMaxValue(y);
+        } else {
+            maxY = Double.valueOf(tfMaxY.getText());
+        }
+        if (cbLogX.isSelected()) {
+            if (!cbAutoAxis.isSelected()) {
+                xAxis = new LogarithmicAxis(minX, maxX);
+                xAxis.setAutoRanging(false);
+            } else {
+                xAxis = new LogarithmicAxis();
+                xAxis.setAutoRanging(true);
+            }
+
+        } else {
+            xAxis = new NumberAxis(tfXLabel.getText(), minX, maxX, (maxX - minX) / 10);
+        }
+
+        if (cbLogY.isSelected()) {
+            if (!cbAutoAxis.isSelected()) {
+                yAxis = new LogarithmicAxis(minY, maxY);
+                yAxis.setAutoRanging(false);
+            } else {
+                yAxis = new LogarithmicAxis();
+                yAxis.setAutoRanging(true);
+            }
+
+        } else {
+            yAxis = new NumberAxis(tfYLabel.getText(), minY, maxY, (maxY - minY) / 10);
+        }
+
+        ObservableList<XYChart.Series> data = FXCollections.observableArrayList();
+        ScatterChart.Series serie = new XYChart.Series();
+        serie.setName(tfSerieLabel.getText());
+        for (int i = 0; i < x.size(); i++) {
+            serie.getData().add(
+                    new XYChart.Data<>(x.get(i), y.get(i)));
+        }
+        scatterChart.setVisible(false);
+        data.add(serie);
+        scatterChart = new ScatterChart(xAxis, yAxis, data);
+        gpStage.add(scatterChart, 3, 1, 1, 13);
+
         scatterChart.setTitle(tfGraphLabel.getText());
-        scatterChart.getXAxis().setLabel(tfXLabel.getText());
-        scatterChart.getYAxis().setLabel(tfYLabel.getText());
+        scatterChart.getXAxis()
+                .setLabel(tfXLabel.getText());
+        scatterChart.getYAxis()
+                .setLabel(tfYLabel.getText());
     }
 
     /**
