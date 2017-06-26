@@ -13,7 +13,7 @@
     prefWidth="600.0" 
     styleClass="mainFxmlClass" 
     xmlns:fx="http://javafx.com/fxml/1" 
-    fx:controller="fractureanalysis.controller.AppController">
+    fx:controller="fractureanalysis.controller.Stage_mainController">
     
     <Label text="Column: "
            GridPane.columnIndex="0"

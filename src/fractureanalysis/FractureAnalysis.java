@@ -230,8 +230,6 @@ public class FractureAnalysis extends Application {
     /**
      * Add the headers to the combobox in summary view
      *
-     * @param filename
-     * @param separator
      * @throws IOException
      */
     private void itemsComboboxes() {
