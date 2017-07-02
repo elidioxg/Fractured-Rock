@@ -16,61 +16,65 @@
  */
 package fractureanalysis.view3d;
 
+import fractureanalysis.scene.MaterialProperties;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.shape.Cylinder;
 
 /**
  *
  * @author elidioxg
  */
-public class Well3D extends Cylinder{
+public class DrillingHole {
+
     private double diameter = 10.;
     private double deep = 100.;
     private double posX = 0.;
     private double posY = 0.;
     private double posZ = 0.;
+    private ObservableList<Lithology> lit;
+    private ObservableList<FracturePlane> frac;    
     
-    public Well3D(){
-    
-    }
-    
-    public Well3D(double diameter, double deep, double x, double y, double z){
+    public DrillingHole(double diameter, double deep, double x,
+            double y, double z) {
         this.diameter = diameter;
         this.deep = deep;
         this.posX = x;
         this.posY = y;
         this.posZ = z;
-        setHeight(deep);
-        setRadius(diameter);    
-        setTranslateX(x);
-        setTranslateY(y+(deep/2));
-        setTranslateZ(z);
+        lit = FXCollections.observableArrayList();
+        frac = FXCollections.observableArrayList();
     }
-    
-    public void setDiameter(double diameter){
+
+    public DrillingHole(double diameter, double deep, double x,
+            double y, double z, ObservableList lithology, ObservableList fractures) {
         this.diameter = diameter;
-        setRadius(diameter);
-    }
-    
-    public void setDeep(double deep){
         this.deep = deep;
-        setHeight(deep);
-        setTranslateY(posY+(deep/2));
+        this.posX = x;
+        this.posY = y;
+        this.posZ = z;
+        lit= lithology;
+        frac = fractures;
     }
     
-    public void setPosX(double posX){
-        this.posX = posX;
-        setTranslateX(posX);
+    public Cylinder drawWell(){
+        if(this.diameter <=1){ this.diameter=2;}
+        Cylinder c = new Cylinder(this.diameter-1., this.getDeep());
+        c.setTranslateX(this.getX());
+        c.setTranslateY(this.getY()+(this.getDeep()/2));
+        c.setTranslateZ(this.getZ());
+        c.setMaterial(MaterialProperties.setWeelMaterial());
+        return c;
     }
     
-    public void setPosY(double posY){
-        this.posY = posY;
-        setTranslateY(posY);
+    public ObservableList<FracturePlane> getFracturePlane3Ds() throws Exception{
+        return this.frac;
     }
     
-    public void setPosZ(double posZ){
-        this.posZ = posZ;
-        setTranslateZ(posZ);
-    }
+    public ObservableList<Lithology> getLithologys(){
+        return this.lit;
+    }    
+    
     
     public double getDiameter(){
         return this.diameter;
@@ -90,5 +94,13 @@ public class Well3D extends Cylinder{
     
     public double getZ(){
         return this.posZ;
+    }
+    
+    public ObservableList<Lithology> getLithology(){
+        return this.lit;
+    }
+    
+    public ObservableList<FracturePlane> getFractures(){
+        return this.frac;
     }
 }

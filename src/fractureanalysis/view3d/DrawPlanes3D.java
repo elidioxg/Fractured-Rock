@@ -41,23 +41,19 @@ public class DrawPlanes3D {
      * Receives a scanline data to make a 3D plot of the fractures. 
      * @param scanline
      * @return 
+     * @throws java.lang.Exception 
      */
     public static FracturePlane3D[] drawPlanes(ScanLine scanline) throws Exception {
         FracturePlane3D[] planes = new FracturePlane3D[scanline.fracturesCount()];
-        setViewSize(scanline.getLenght());
-        System.out.println("Scanline lenght: "+scanline.getLenght());
-        System.out.println("View Size: "+getViewSize());
+        setViewSize(scanline.getLenght());        
         double distance = 0.;              
         for (int i = 0; i < scanline.fracturesCount(); i++) {                                                       
             distance+= scanline.getSpList().get(i);
             double position = distance;
-            double width = scanline.getApList().get(i);
-            System.out.println();
-            System.out.println("Plane Position: "+position);
-            System.out.println("Plane width: "+width);
+            double width = scanline.getApList().get(i);            
             if(width<defaultPlaneMinWidth){ width = defaultPlaneMinWidth;}
             planes[i] = new FracturePlane3D(width, position);               
-            distance+=scanline.getApList().get(i);                                   
+            distance += scanline.getApList().get(i);                                   
             planes[i].setMaterial(MaterialProperties.setFractureMaterial());
             planes[i].setDrawMode(DrawMode.FILL);          
         }

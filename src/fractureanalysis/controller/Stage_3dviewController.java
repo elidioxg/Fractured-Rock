@@ -16,9 +16,11 @@
  */
 package fractureanalysis.controller;
 
+import fractureanalysis.scene.MaterialProperties;
 import fractureanalysis.stages.View3DStage;
-import fractureanalysis.view3d.FracturePlane3D;
-import fractureanalysis.view3d.Well3D;
+import fractureanalysis.view3d.DrillingHole;
+import fractureanalysis.view3d.FracturePlane;
+import fractureanalysis.view3d.Lithology;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -26,9 +28,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Material;
 
 /**
  * FXML Controller class
@@ -38,14 +42,30 @@ import javafx.scene.control.TextField;
 public class Stage_3dviewController implements Initializable {
 
     @FXML
-    protected TextField tfLen, tfDir, tfDip, tfFracX, tfFracY, tfFracZ,
-            tfWellX, tfWellY, tfWellZ, tfDeep, tfDiameter;
+    protected TextField tfDir, tfDip, tfFracDeep,
+            tfWellX, tfWellY, tfWellZ, tfDeep, tfDiameter, tfInit, tfEnd,
+            tfLitName;
+
+    @FXML
+    protected ComboBox cbFracWell, cbLitWell, cbMaterial;
 
     @FXML
     protected Button bWellAdd, bFracAdd;
 
     @FXML
-    protected ListView lvFrac, lvWell;
+    protected ListView lvFrac, lvWell, lvLithology;
+
+    @FXML
+    protected void addLit() {
+        int i = cbLitWell.getSelectionModel().getSelectedIndex();
+        int z = cbMaterial.getSelectionModel().getSelectedIndex();
+        if (i >= 0 && z >= 0) {
+            Lithology lit = new Lithology(tfLitName.getText(), (DrillingHole) cbLitWell.getItems().get(i),
+                    Double.valueOf(tfInit.getText()), Double.valueOf(tfEnd.getText()),
+                    (Material) cbMaterial.getItems().get(z));
+            lvLithology.getItems().add(lit);
+        }
+    }
 
     /**
      * Add FracturePlane3D Object as item on ListView
@@ -54,110 +74,116 @@ public class Stage_3dviewController implements Initializable {
      */
     @FXML
     protected void addFracture() throws Exception {
-        double len = 0.;
         double dir = 0.;
         double dip = 0.;
-        double x = 0.;
-        double y = 0.;
-        double z = 0.;
-        if (!tfLen.getText().isEmpty()) {
-            len = Double.valueOf(tfLen.getText());
-        }
         if (!tfDir.getText().isEmpty()) {
             dir = Double.valueOf(tfDir.getText());
         }
         if (!tfDip.getText().isEmpty()) {
             dip = Double.valueOf(tfDip.getText());
         }
-        if (!tfFracX.getText().isEmpty()) {
-            x = Double.valueOf(tfFracX.getText());
-        }
-        if (!tfFracY.getText().isEmpty()) {
-            y = Double.valueOf(tfFracY.getText());
-        }
-        if (!tfFracZ.getText().isEmpty()) {
-            z = Double.valueOf(tfFracZ.getText());
-        }
-        FracturePlane3D frac = new FracturePlane3D(len, dir, dip, x, y, z);
-        ObservableList<FracturePlane3D> ol = lvFrac.getItems();
-        ol.add(frac);
-        lvFrac.setItems(ol);
         
+        DrillingHole dh = (DrillingHole) cbFracWell.getSelectionModel().getSelectedItem();        
+        double y = dh.getY() + Double.valueOf(tfFracDeep.getText());
+                
+        FracturePlane frac
+                = new FracturePlane(dh, dir, dip, y);
+        ObservableList<FracturePlane> ol = lvFrac.getItems();
+        ol.add(frac);
+        dh.getFractures().add(frac);
+        lvFrac.setItems(ol);
     }
-    
+
     @FXML
-    protected void addPlane(){
+    protected void addWell() {
         double x = 0.;
         double y = 0.;
         double z = 0.;
         double deep = 100.;
         double diameter = 10.;
-        if(!tfWellX.getText().isEmpty()){
+        if (!tfWellX.getText().isEmpty()) {
             x = Double.valueOf(tfWellX.getText());
         }
-        if(!tfWellY.getText().isEmpty()){
+        if (!tfWellY.getText().isEmpty()) {
             y = Double.valueOf(tfWellY.getText());
         }
-        if(!tfWellZ.getText().isEmpty()){
+        if (!tfWellZ.getText().isEmpty()) {
             z = Double.valueOf(tfWellZ.getText());
         }
-        if(!tfDeep.getText().isEmpty()){
+        if (!tfDeep.getText().isEmpty()) {
             deep = Double.valueOf(tfDeep.getText());
         }
-        if(!tfDiameter.getText().isEmpty()){
+        if (!tfDiameter.getText().isEmpty()) {
             diameter = Double.valueOf(tfDiameter.getText());
         }
-        Well3D well = new Well3D(diameter, deep, x, y, z);
-        ObservableList<Well3D> ol = FXCollections.observableList(lvWell.getItems());
+        DrillingHole well = new DrillingHole(diameter, deep, x, y, z);
+        ObservableList<DrillingHole> ol = FXCollections.observableList(lvWell.getItems());
         ol.add(well);
         lvWell.setItems(ol);
+        cbFracWell.setItems(ol);
+        cbLitWell.setItems(ol);
     }
 
     @FXML
-    protected void generateContext() {
-        int size = lvFrac.getItems().size();
+    protected void generateContext() throws Exception {
         View3DStage s = new View3DStage();
-        FracturePlane3D[] fracs = new FracturePlane3D[size];
-        for (int i = 0; i < size; i++) {
-            fracs[i] = (FracturePlane3D) lvFrac.getItems().get(i);
-        }
-        ObservableList wellList = lvWell.getItems();
-        Well3D[] wells = new Well3D[wellList.size()];
-        for(int i = 0; i < wellList.size(); i++){
-            wells[i] = (Well3D) lvWell.getItems().get(i);
-        }
-        s.fracWellContext(fracs, wells);
+        s.fracWellContext(lvWell.getItems());
     }
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lvFrac.setCellFactory(lv -> new ListCell<FracturePlane3D>(){
+        lvFrac.setCellFactory(lv -> new ListCell<FracturePlane>() {
             @Override
-            public void updateItem(FracturePlane3D item, boolean empty){
+            public void updateItem(FracturePlane item, boolean empty) {
                 super.updateItem(item, empty);
-                if(empty){
+                if (empty) {
                     setText(null);
                 } else {
                     setText("Teste");
                 }
             }
         });
-        lvWell.setCellFactory(lv -> new ListCell<Well3D>(){
+        lvWell.setCellFactory(lv -> new ListCell<DrillingHole>() {
             @Override
-            public void updateItem(Well3D well, boolean empty){
+            public void updateItem(DrillingHole well, boolean empty) {
                 super.updateItem(well, empty);
-                if(empty){
+                if (empty) {
                     setText(null);
                 } else {
                     setText("Teste");
                 }
             }
         });
+        cbMaterial.setCellFactory(lv -> new ListCell<Material>() {
+            @Override
+            public void updateItem(Material material, boolean empty) {
+                super.updateItem(material, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText("Classe a ser criada");
+                }
+            }            
+        });
+        cbMaterial.setItems(MaterialProperties.getLithologiesMaterial());
+        lvLithology.setCellFactory(lv -> new ListCell<Lithology>() {
+            @Override
+            public void updateItem(Lithology lit, boolean empty){
+                super.updateItem(lit, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(lit.getName());
+                }
+            }
+        });
+
     }
 
 }

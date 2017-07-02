@@ -22,129 +22,108 @@
     </stylesheets>        
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="25"></ColumnConstraints> 
-        <ColumnConstraints percentWidth="25"></ColumnConstraints>        
-    </columnConstraints>
+        <ColumnConstraints percentWidth="17"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="17"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="17"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="17"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="17"></ColumnConstraints> 
+        <ColumnConstraints percentWidth="17"></ColumnConstraints>          
+    </columnConstraints>        
     
     <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="0" 
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="1" 
         GridPane.rowSpan="2"  
         text="Add Fracture">
     </Label>
     
-    <Label
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="2" 
-        text="Lenght">        
-    </Label>
-    <TextField 
-        fx:id="tfLen"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="2" >        
-    </TextField>    
-    
     <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="3"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="4"
         text="Direction">        
     </Label>
     <TextField 
         fx:id="tfDir"
-        GridPane.columnIndex="1"
-        GridPane.rowIndex="3">        
-    </TextField>
-    
-    <Label 
-        GridPane.columnIndex="0"
-        GridPane.rowIndex="4"
-        text="Dip Intensity">        
-    </Label>
-    <TextField 
-        fx:id="tfDip"
-        GridPane.columnIndex="1"
+        GridPane.columnIndex="3"
         GridPane.rowIndex="4">        
     </TextField>
     
     <Label 
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="2"
         GridPane.rowIndex="5"
-        text="X">        
+        text="Dip Intensity">        
     </Label>
     <TextField 
-        fx:id="tfFracX"
-        GridPane.columnIndex="1"
+        fx:id="tfDip"
+        GridPane.columnIndex="3"
         GridPane.rowIndex="5">        
     </TextField>
     
     <Label 
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="2"
         GridPane.rowIndex="6"
-        text="Y">        
+        text="Well">        
     </Label>
-    <TextField 
-        fx:id="tfFracY"
-        GridPane.columnIndex="1"
+    <ComboBox 
+        fx:id="cbFracWell"
+        GridPane.columnIndex="3"
         GridPane.rowIndex="6">        
-    </TextField>
+    </ComboBox>
     
     <Label 
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="2"
         GridPane.rowIndex="7"
-        text="Z">        
+        text="Deep">        
     </Label>
     <TextField 
-        fx:id="tfFracZ"
-        GridPane.columnIndex="1"
+        fx:id="tfFracDeep"
+        GridPane.columnIndex="3"
         GridPane.rowIndex="7">        
     </TextField>
     
     <ButtonBar
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="2"
         GridPane.columnSpan="2"
-        GridPane.rowIndex="8">
+        GridPane.rowIndex="9">
         <buttons>
             <Button
                 onAction="#addFracture"
                 text="Add">        
             </Button>
-            <Button
-                text="Add from file"
-            >
-                
-            </Button>
+            
         </buttons>
     </ButtonBar>        
     
     <Label 
         GridPane.columnIndex="2"
         GridPane.columnSpan="2"
-        GridPane.rowIndex="9"        
-        text="List of wells">        
-    </Label>
-    
-    <Label 
-        GridPane.columnIndex="0"
-        GridPane.columnSpan="2"
-        GridPane.rowIndex="9"        
+        GridPane.rowIndex="10"        
         text="List of fractures">        
     </Label>
     
     <ListView
         fx:id="lvFrac"
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="2"
         GridPane.columnSpan="2" 
-        GridPane.rowIndex="10"        
+        GridPane.rowIndex="11"        
     >        
     </ListView>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="10"        
+        text="List of wells">        
+    </Label>
     
     <ButtonBar
         GridPane.columnIndex="0"
         GridPane.columnSpan="2"
         GridPane.rowIndex="12">
         <buttons>
+            <Button
+                text="Edit">                
+            </Button>
             <Button
                 text="Delete">                
             </Button>
@@ -156,98 +135,200 @@
     </ButtonBar>
         
     <Label 
-        GridPane.columnIndex="2"
-        GridPane.rowIndex="0"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
         GridPane.rowSpan="2"
         text="Add Well">        
     </Label>
     
     <Label 
-        GridPane.columnIndex="2"
-        GridPane.rowIndex="2"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3"
         text="X">        
     </Label>
     <TextField 
         fx:id="tfWellX"
-        GridPane.columnIndex="3"
-        GridPane.rowIndex="2">        
-    </TextField>
-    
-    <Label 
-        GridPane.columnIndex="2"
-        GridPane.rowIndex="3"
-        text="Y">        
-    </Label>
-    <TextField 
-        fx:id="tfWellY"
-        GridPane.columnIndex="3"
+        GridPane.columnIndex="1"
         GridPane.rowIndex="3">        
     </TextField>
     
     <Label 
-        GridPane.columnIndex="2"
+        GridPane.columnIndex="0"
         GridPane.rowIndex="4"
-        text="Z">        
+        text="Y">        
     </Label>
     <TextField 
-        fx:id="tfWellZ"
-        GridPane.columnIndex="3"
+        fx:id="tfWellY"
+        GridPane.columnIndex="1"
         GridPane.rowIndex="4">        
     </TextField>
     
     <Label 
-        GridPane.columnIndex="2"
+        GridPane.columnIndex="0"
         GridPane.rowIndex="5"
-        text="Deep">        
+        text="Z">        
     </Label>
     <TextField 
-        fx:id="tfDeep"
-        GridPane.columnIndex="3"
+        fx:id="tfWellZ"
+        GridPane.columnIndex="1"
         GridPane.rowIndex="5">        
     </TextField>
     
     <Label 
-        GridPane.columnIndex="2"
+        GridPane.columnIndex="0"
         GridPane.rowIndex="6"
+        text="Deep">        
+    </Label>
+    <TextField 
+        fx:id="tfDeep"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="6">        
+    </TextField>
+    
+    <Label 
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="7"
         text="Diameter">        
     </Label>
     <TextField 
         fx:id="tfDiameter"
-        GridPane.columnIndex="3"
-        GridPane.rowIndex="6">        
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="7">        
     </TextField>
     
     <ButtonBar 
-        GridPane.columnIndex="2"
+        GridPane.columnIndex="0"
         GridPane.columnSpan="2"
-        GridPane.rowIndex="8">
+        GridPane.rowIndex="9">
         <buttons>
             <Button 
                 fx:id="bWellAdd"        
                 text="Add"
-                onAction="#addPlane">        
+                onAction="#addWell">        
             </Button>
-            <Button
-                text="Add from file">
-                
-            </Button>
+            
         </buttons>    
     </ButtonBar>
-                    
-    <ListView
-        fx:id="lvWell"
-        GridPane.columnIndex="2"
-        GridPane.columnSpan="2" 
-        GridPane.rowIndex="10"        
-        
-    >        
-    </ListView>
-    
+                   
     <ButtonBar
         GridPane.columnIndex="2"
         GridPane.columnSpan="2"
         GridPane.rowIndex="12">
         <buttons>
+            <Button
+                text="Edit">                
+            </Button>
+            <Button
+                text="Delete">                
+            </Button>
+            
+            <Button
+                text="Clear">                
+            </Button>
+        </buttons>        
+    </ButtonBar>
+                      
+    <ListView
+        fx:id="lvWell"
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="2" 
+        GridPane.rowIndex="11"        
+        
+    >        
+    </ListView>
+    
+    <Label 
+        GridPane.columnIndex="4"
+        GridPane.rowIndex="1"
+        GridPane.rowSpan="2"
+        text="Lithology">        
+    </Label>
+    
+    <Label 
+        GridPane.columnIndex="4"
+        GridPane.rowIndex="3"
+        text="Init">        
+    </Label>
+    <TextField 
+        fx:id="tfInit"
+        GridPane.columnIndex="5"
+        GridPane.rowIndex="3">        
+    </TextField>
+    
+    <Label 
+        GridPane.columnIndex="4"
+        GridPane.rowIndex="4"
+        text="End">        
+    </Label>
+    <TextField 
+        fx:id="tfEnd"
+        GridPane.columnIndex="5"
+        GridPane.rowIndex="4">        
+    </TextField>
+    
+    <Label
+        GridPane.columnIndex="4"        
+        GridPane.rowIndex="5"
+        text="Well">
+    </Label>
+    <ComboBox 
+        fx:id="cbLitWell"
+        GridPane.columnIndex="5"  
+        GridPane.rowIndex="5"
+    >        
+    </ComboBox>
+        
+    <Label 
+        GridPane.columnIndex="4"
+        GridPane.rowIndex="6"
+        text="Material">        
+    </Label>
+    <ComboBox 
+        fx:id="cbMaterial"
+        GridPane.columnIndex="5"
+        GridPane.rowIndex="6">        
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="4"
+        GridPane.rowIndex="7"
+        text="Name">        
+    </Label>
+    <TextField 
+        fx:id="tfLitName"
+        GridPane.columnIndex="5"
+        GridPane.rowIndex="7">        
+    </TextField>
+    
+    <ListView
+        fx:id="lvLithology"
+        GridPane.columnIndex="4"
+        GridPane.columnSpan="2" 
+        GridPane.rowIndex="11"                
+    >        
+    </ListView>
+    
+    <ButtonBar 
+        GridPane.columnIndex="4"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="9">
+        <buttons>
+            <Button 
+                fx:id="bLitAdd"        
+                text="Add"
+                onAction="#addLit">        
+            </Button>            
+        </buttons>    
+    </ButtonBar>
+    
+    <ButtonBar
+        GridPane.columnIndex="4"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="12">
+        <buttons>
+            <Button
+                text="Edit">                
+            </Button>
             <Button
                 text="Delete">                
             </Button>
@@ -260,7 +341,7 @@
         
     <MenuBar
         GridPane.columnIndex="0"
-        GridPane.columnSpan="4"
+        GridPane.columnSpan="6"
         GridPane.rowIndex="0">
         <menus>
             <Menu
@@ -271,8 +352,16 @@
                         text="Generate View"
                         onAction="#generateContext">
                     </MenuItem> 
+                    <MenuItem
+                        fx:id="miLoad"
+                        text="Load">
+                    </MenuItem> 
+                    <MenuItem
+                        fx:id="miSave"
+                        text="Save">
+                    </MenuItem> 
                 </items>
-            </Menu>             
+            </Menu>                         
         </menus>        
     </MenuBar>    
     

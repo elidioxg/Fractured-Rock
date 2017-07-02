@@ -41,6 +41,7 @@ public class Axis {
      */
     static int defaultLenght = 15000;
 
+    static double defaultOpacity = .1;
     /**
      * Add the X, Y and Z axis. The axis consists on three cylinders with width
      * and height defined by constants.
@@ -52,14 +53,17 @@ public class Axis {
         c[0] = new Cylinder(defaultWidth, defaultLenght);
         c[0].getTransforms().add(new Rotate(90., Rotate.X_AXIS));
         c[0].setMaterial(MaterialProperties.setAxisMaterial(0));
+        c[0].setOpacity(defaultOpacity);
 
         c[1] = new Cylinder(defaultWidth, defaultLenght);
         c[1].getTransforms().add(new Rotate(90., Rotate.Y_AXIS));
         c[1].setMaterial(MaterialProperties.setAxisMaterial(1));
+        c[1].setOpacity(defaultOpacity);
 
         c[2] = new Cylinder(defaultWidth, defaultLenght);
         c[2].getTransforms().add(new Rotate(90., Rotate.Z_AXIS));
         c[2].setMaterial(MaterialProperties.setAxisMaterial(2));
+        c[2].setOpacity(defaultOpacity);
         return c;
     }
 

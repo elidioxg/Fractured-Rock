@@ -29,7 +29,6 @@ import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -238,18 +237,6 @@ public class Stage_analysisController implements Initializable {
             }
         }
 
-    }
-
-    /**
-     * Sort the Fractures by Aperture size, from bigger to smaller.
-     */
-    private class ApertureComparator implements Comparator<Fracture> {
-
-        @Override
-        public int compare(Fracture o1, Fracture o2) {
-            return o1.getAperture() < o2.getAperture()
-                    ? 1 : o1.getAperture() == o2.getAperture() ? 0 : -1;
-        }
     }
 
     @Override

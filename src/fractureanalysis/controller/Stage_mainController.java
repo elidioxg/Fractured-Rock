@@ -43,7 +43,7 @@ public class Stage_mainController implements Initializable {
     protected TableView tvDataset;
 
     @FXML
-    private ListView lvDatasets;    
+    private ListView lvDatasets;
 
     /**
      * Mouse handler for datasets listview on main stage
@@ -56,7 +56,7 @@ public class Stage_mainController implements Initializable {
         if (dm != null) {
             PopulateTable.populateTable(tvDataset, dm);
         }
-    }      
+    }
 
     /**
      * Create the stage for choosing the dataset file to add to program.
@@ -73,7 +73,7 @@ public class Stage_mainController implements Initializable {
     protected void openGeoeas() throws IOException {
         OpenDataStage od = new OpenDataStage();
         od.stageOpenGeoeas();
-    }  
+    }
 
     /**
      * Create a stage for line chart plotting.
@@ -110,9 +110,14 @@ public class Stage_mainController implements Initializable {
 
     @FXML
     protected void fractureStage() throws IOException, Exception {
-        FractureAnalysisStage stage = new FractureAnalysisStage(
-                FractureAnalysis.getInstance().getDataset());
-        stage.createStage();
+        if (FractureAnalysis.getInstance().getDataset().equals(null)) {
+            // TODO: implementar dialog window
+            throw new Exception("No dataset selected.");
+        } else {
+            FractureAnalysisStage stage = new FractureAnalysisStage(
+                    FractureAnalysis.getInstance().getDataset());
+            stage.createStage();
+        }
     }
 
     @FXML

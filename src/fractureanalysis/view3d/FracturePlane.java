@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 elidioxg
+ * Copyright (C) 2017 elidioxg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,16 +16,16 @@
  */
 package fractureanalysis.view3d;
 
-import javafx.scene.shape.Box;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.transform.Rotate;
 
 /**
  *
  * @author elidioxg
  */
-public class FracturePlane3D extends Box{
+public class FracturePlane extends Ellipse {
 
     private Azimuth az = new Azimuth();
-    private double aperture = 200;
     /**
      * Deep intensity of the fracture
      */
@@ -33,30 +33,24 @@ public class FracturePlane3D extends Box{
     /**
      * Position of the plane on scene
      */
-    private Position3D position = new Position3D();
+    private final Position3D position = new Position3D();
 
-    private double planeHeight = 200.;
-    private double planeWidth = 20.;
+    private final double planeHeight = 200.;
+    private final double planeWidth = 20.;
 
-    /**
-     * Draw a plane of fracture. The plane will have azimuth equals to zero, and
-     * deep intensity equals to 90. If need draw a plane with different azimuth
-     * and other values of Y and Z use the next function.
-     *
-     * @param ap
-     * @param distance
-     * @throws Exception
-     */
-    //todo: fix deep intensity of plane, o padrao é 90
-    public FracturePlane3D(double ap, double distance) throws Exception {
-        this.az.setAz(0);
-        this.deepIntensity = 0.;
-        this.setPosX(distance);
-        this.setPosY(planeHeight / 2);
-        this.aperture = ap;
-        this.setDepth(planeWidth);
-        this.setWidth(aperture);
-        this.setHeight(planeHeight);
+    public FracturePlane(DrillingHole owner, double direction,
+            double deepIntensity, double posY) throws Exception {
+        this.az.setAz(direction);
+        this.deepIntensity = deepIntensity;        
+        this.setPosX(owner.getX());
+        this.setPosY(owner.getY() + posY);
+        this.setPosZ(owner.getZ());
+        this.setRadiusX(planeHeight);
+        this.setRadiusY(planeHeight);
+
+        this.getTransforms().addAll(
+                new Rotate(direction, Rotate.Z_AXIS),
+                new Rotate(deepIntensity, Rotate.X_AXIS));
     }
 
     public void setDirection(double direction) {
@@ -104,12 +98,6 @@ public class FracturePlane3D extends Box{
 
     public double getPosZ() {
         return this.position.getZ();
-    }
-
-    public void setPosXYZ(double x, double y, double z) throws Exception {
-        this.setPosX(x);
-        this.setPosY(y);
-        this.setPosZ(z);
     }
 
 }

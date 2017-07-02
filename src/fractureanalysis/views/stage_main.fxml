@@ -69,7 +69,7 @@
                     <MenuItem 
                         text="Variogram"
                         onAction="#variogramStage" >
-                    </MenuItem>                        
+                    </MenuItem>                                         
                 </items>                
             </Menu>   
             <Menu 

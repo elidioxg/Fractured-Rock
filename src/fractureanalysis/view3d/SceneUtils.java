@@ -106,11 +106,11 @@ public class SceneUtils {
                 if (me.isPrimaryButtonDown()) {
                     cameraXform.ry.setAngle(cameraXform.ry.getAngle() - mouseDeltaX * modifierFactor * modifier * 2.0);  // +
                     cameraXform.rx.setAngle(cameraXform.rx.getAngle() + mouseDeltaY * modifierFactor * modifier * 2.0);  // -
-                } else if (me.isSecondaryButtonDown()) {
-                    double z = camera.getTranslateZ();
-                    double newZ = z + mouseDeltaX * modifierFactor * modifier;
-                    camera.setTranslateZ(newZ);
                 } else if (me.isMiddleButtonDown()) {
+                    double z = camera.getTranslateZ();                                        
+                    double newZ = z + mouseDeltaY * modifierFactor * modifier*100;
+                    camera.setTranslateZ(newZ);                    
+                } else if (me.isSecondaryButtonDown()) {
                     cameraXform2.t.setX(cameraXform2.t.getX() + mouseDeltaX * modifierFactor * modifier * 20.);  // -
                     cameraXform2.t.setY(cameraXform2.t.getY() + mouseDeltaY * modifierFactor * modifier * 20.);  // -
                 }

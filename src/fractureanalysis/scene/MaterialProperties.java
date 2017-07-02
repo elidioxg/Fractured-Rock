@@ -16,6 +16,8 @@
  */
 package fractureanalysis.scene;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 
@@ -76,5 +78,28 @@ public class MaterialProperties {
                 break;
         }
         return axis;
+    }
+    
+    public static PhongMaterial setWeelMaterial() {
+        final PhongMaterial material = new PhongMaterial();
+        material.setDiffuseColor(Color.BLACK);
+        material.setSpecularColor(Color.CHOCOLATE);
+        return material;
+    }
+    
+    public static ObservableList<PhongMaterial> getLithologiesMaterial(){
+        final PhongMaterial m1 = new PhongMaterial();
+        m1.setDiffuseColor(Color.YELLOW);
+        m1.setSpecularColor(Color.YELLOWGREEN);
+        final PhongMaterial m2 = new PhongMaterial();
+        m2.setDiffuseColor(Color.BROWN);
+        m2.setSpecularColor(Color.BURLYWOOD);
+        final PhongMaterial m3 = new PhongMaterial();
+        m3.setDiffuseColor(Color.DARKGOLDENROD);
+        m3.setSpecularColor(Color.DARKRED);
+        
+        ObservableList<PhongMaterial> materials = FXCollections.observableArrayList();
+        materials.addAll(m1,m2,m3);
+        return materials;
     }
 }
