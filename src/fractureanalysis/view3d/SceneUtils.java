@@ -8,6 +8,7 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
@@ -84,6 +85,17 @@ public class SceneUtils {
                 mouseOldY = me.getSceneY();
             }
         });
+        scene.setOnScroll(new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent event) {
+                double modifierFactor = 10.;
+                double z = camera.getTranslateZ();
+                double newZ = z - event.getDeltaY() * modifierFactor;
+                camera.setTranslateZ(newZ);                
+                event.consume();
+            }
+        });
+
         scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
@@ -107,9 +119,9 @@ public class SceneUtils {
                     cameraXform.ry.setAngle(cameraXform.ry.getAngle() - mouseDeltaX * modifierFactor * modifier * 2.0);  // +
                     cameraXform.rx.setAngle(cameraXform.rx.getAngle() + mouseDeltaY * modifierFactor * modifier * 2.0);  // -
                 } else if (me.isMiddleButtonDown()) {
-                    double z = camera.getTranslateZ();                                        
-                    double newZ = z + mouseDeltaY * modifierFactor * modifier*100;
-                    camera.setTranslateZ(newZ);                    
+                    double z = camera.getTranslateZ();
+                    double newZ = z + mouseDeltaY * modifierFactor * modifier * 100;
+                    camera.setTranslateZ(newZ);
                 } else if (me.isSecondaryButtonDown()) {
                     cameraXform2.t.setX(cameraXform2.t.getX() + mouseDeltaX * modifierFactor * modifier * 20.);  // -
                     cameraXform2.t.setY(cameraXform2.t.getY() + mouseDeltaY * modifierFactor * modifier * 20.);  // -

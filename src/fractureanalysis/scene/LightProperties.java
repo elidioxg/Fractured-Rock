@@ -82,7 +82,7 @@ public class LightProperties {
     /**
      * Default ambient color
      */
-    static Color ambientLight = Color.GREEN;
+    static Color ambientLight = Color.WHITE;
     /**
      * Add eight point lights to the scene
      * 

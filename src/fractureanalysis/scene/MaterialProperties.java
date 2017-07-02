@@ -80,7 +80,7 @@ public class MaterialProperties {
         return axis;
     }
     
-    public static PhongMaterial setWeelMaterial() {
+    public static PhongMaterial setWellMaterial() {
         final PhongMaterial material = new PhongMaterial();
         material.setDiffuseColor(Color.BLACK);
         material.setSpecularColor(Color.CHOCOLATE);

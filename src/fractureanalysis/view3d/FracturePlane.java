@@ -50,7 +50,7 @@ public class FracturePlane extends Ellipse {
 
         this.getTransforms().addAll(
                 new Rotate(direction, Rotate.Z_AXIS),
-                new Rotate(deepIntensity, Rotate.X_AXIS));
+                new Rotate(90.+deepIntensity, Rotate.X_AXIS));
     }
 
     public void setDirection(double direction) {

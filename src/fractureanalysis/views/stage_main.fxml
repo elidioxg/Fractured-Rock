@@ -69,29 +69,24 @@
                     <MenuItem 
                         text="Variogram"
                         onAction="#variogramStage" >
-                    </MenuItem>                                         
-                </items>                
-            </Menu>   
-            <Menu 
-                text="View">
-                <items>
+                    </MenuItem>   
                     <MenuItem 
                         text="Matrix Content"
                         onAction="#matrixViewStage">                        
-                    </MenuItem>
-                    <MenuItem 
-                        text="3D View"
-                        onAction="#view3DStage" 
-                    >                        
-                    </MenuItem>
+                    </MenuItem>                                      
                 </items>                
-            </Menu>
+            </Menu>               
             <Menu text="Analysis">
                 <items>
                     <MenuItem 
                         text="Fracture Intensity" 
                         onAction="#fractureStage" 
                     >
+                    </MenuItem>
+                    <MenuItem 
+                        text="Drilling Hole"
+                        onAction="#view3DStage" 
+                    >                        
                     </MenuItem>
                 </items>
             </Menu>

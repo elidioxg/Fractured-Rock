@@ -63,7 +63,7 @@ public class DrillingHole {
         c.setTranslateX(this.getX());
         c.setTranslateY(this.getY()+(this.getDeep()/2));
         c.setTranslateZ(this.getZ());
-        c.setMaterial(MaterialProperties.setWeelMaterial());
+        c.setMaterial(MaterialProperties.setWellMaterial());
         return c;
     }
     
