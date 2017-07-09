@@ -49,6 +49,7 @@
         fx:id="cbX"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="1"
+        onAction="#cbXYChange"
     >
     </ComboBox>
     
@@ -61,6 +62,7 @@
         fx:id="cbY"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="2"
+        onAction="#cbXYChange"
     >
     </ComboBox>
     
@@ -248,6 +250,24 @@
         <fx:include source="pane_variogram_canvas.fxml"/>
         
     </ScrollPane>
+    
+    <javafx.scene.chart.ScatterChart 
+        fx:id="scLoc"
+        GridPane.columnIndex="3" 
+        GridPane.rowIndex="12"
+        GridPane.rowSpan="4"
+        legendVisible="false">
+        <xAxis>
+            <javafx.scene.chart.NumberAxis 
+                label="X"
+            />               
+        </xAxis>
+        <yAxis>
+            <javafx.scene.chart.NumberAxis 
+                label="Y"
+            />               
+        </yAxis>        
+    </javafx.scene.chart.ScatterChart>                
     
 </GridPane>
 

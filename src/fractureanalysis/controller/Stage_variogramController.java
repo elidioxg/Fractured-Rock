@@ -30,13 +30,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.ArcType;
 
 /**
  *
@@ -56,10 +55,50 @@ public class Stage_variogramController implements Initializable {
 
     @FXML
     protected LineChart lcVariogram;
+    
+    @FXML
+    protected ScatterChart scLoc;
 
     @FXML
     protected void clear() {
         lcVariogram.getData().clear();
+    }
+
+    @FXML
+    protected void cbXYChange() throws Exception {
+        int indexX = cbX.getSelectionModel().getSelectedIndex();
+        int indexY = cbY.getSelectionModel().getSelectedIndex();
+        if (indexX >= 0 && indexY >= 0) {
+            DatasetModel dataset = (DatasetModel) cbDatasets.getSelectionModel().getSelectedItem();
+            scLoc.getData().clear();
+            String filename = dataset.getFileName();            
+            String sep = dataset.getSeparator().getChar();
+            Vector x,y;
+            if (dataset.isGeoeas()) {
+                x = OpenDataset.openGeoeasToVector(filename, 
+                        sep, 
+                        indexX);
+                y = OpenDataset.openGeoeasToVector(filename, 
+                        sep, 
+                        indexY);                
+            } else {
+                x = OpenDataset.openCSVFileToVector(
+                        filename, 
+                        sep, 
+                        indexX, 
+                        dataset.getHeader());
+                y = OpenDataset.openCSVFileToVector(
+                        filename, sep, indexY, 
+                        dataset.getHeader());                
+            }
+
+            ScatterChart.Series serie = new XYChart.Series();
+
+            for (int i = 0; i < x.size(); i++) {
+                serie.getData().add(new XYChart.Data<>(x.get(i), y.get(i)));
+            }
+            scLoc.getData().add(serie);
+        }
     }
 
     /**
@@ -166,7 +205,7 @@ public class Stage_variogramController implements Initializable {
         }
 
     }
-    
+
     /**
      * Initializes the controller class.
      *
@@ -175,6 +214,6 @@ public class Stage_variogramController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 }
