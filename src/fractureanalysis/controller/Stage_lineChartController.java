@@ -61,10 +61,19 @@ public class Stage_lineChartController implements Initializable {
         DatasetModel dm = LineChartStage.getInstance().getDatasets().get(datasetIndex);
         int indexX = comboBoxX.getSelectionModel().getSelectedIndex();
         int indexY = comboBoxY.getSelectionModel().getSelectedIndex();
-        Vector x = OpenDataset.openCSVFileToVector(dm.getFileName(),
-                dm.getSeparator().getChar(), indexX, dm.getHeader());
-        Vector y = OpenDataset.openCSVFileToVector(dm.getFileName(),
-                dm.getSeparator().getChar(), indexY, dm.getHeader());
+        Vector x;
+        Vector y;
+        if (dm.isGeoeas()) {
+            x = OpenDataset.openGeoeasToVector(dm.getFileName(),
+                    dm.getSeparator().getChar(), indexX);
+            y = OpenDataset.openGeoeasToVector(dm.getFileName(),
+                    dm.getSeparator().getChar(), indexY);
+        } else {
+            x = OpenDataset.openCSVFileToVector(dm.getFileName(),
+                    dm.getSeparator().getChar(), indexX, dm.getHeader());
+            y = OpenDataset.openCSVFileToVector(dm.getFileName(),
+                    dm.getSeparator().getChar(), indexY, dm.getHeader());
+        }
         if (cbXSorted.isSelected()) {
             x.sort();
         }

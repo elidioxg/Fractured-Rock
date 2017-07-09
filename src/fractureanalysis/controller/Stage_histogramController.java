@@ -76,9 +76,9 @@ public class Stage_histogramController implements Initializable {
                     FXCollections.observableArrayList(
                             DatasetProperties.getHeaders(
                                     FractureAnalysis.getInstance().getDatasetList().
-                                    get(index).getFileName(),
+                                            get(index).getFileName(),
                                     FractureAnalysis.getInstance().getDatasetList().
-                                    get(index).getSeparator()
+                                            get(index).getSeparator()
                             )));
         } else {
             throw new Exception("Combobox empty");
@@ -87,9 +87,10 @@ public class Stage_histogramController implements Initializable {
 
     /**
      * Handle action for Column Index ComboBox. When this combobox is changed
-     * the TextView with cutoff values must be updated. The cutoff values
-     * limit the maximum and minimum values used for the histogram ploting.
-     * @throws Exception 
+     * the TextView with cutoff values must be updated. The cutoff values limit
+     * the maximum and minimum values used for the histogram ploting.
+     *
+     * @throws Exception
      */
     @FXML
     protected void cbColumnAction() throws Exception {
@@ -98,9 +99,15 @@ public class Stage_histogramController implements Initializable {
             int columnIndex = cbColumnIndex.getSelectionModel().getSelectedIndex();
             DatasetModel dm;
             dm = HistogramStage.getInstance().getDatasets().get(datasetIndex);
-            Vector vector = OpenDataset.openCSVFileToVector(
-                    dm.getFileName(),
-                    dm.getSeparator().getChar(), columnIndex, dm.getHeader());
+            Vector vector;
+            if (dm.isGeoeas()) {
+                vector = OpenDataset.openGeoeasToVector(dm.getFileName(),
+                        dm.getSeparator().getChar(), columnIndex);
+            } else {
+                vector = OpenDataset.openCSVFileToVector(
+                        dm.getFileName(),
+                        dm.getSeparator().getChar(), columnIndex, dm.getHeader());
+            }
             double min = MinimumValue.getMinValue(vector);
             double max = MaximumValue.getMaxValue(vector);
             tfMinValue.setText(String.valueOf(min));
@@ -112,8 +119,8 @@ public class Stage_histogramController implements Initializable {
 
     /**
      * Handle action for Plot Button on Histogram Stage
-     * 
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @FXML
     protected void plot() throws Exception {
@@ -124,9 +131,16 @@ public class Stage_histogramController implements Initializable {
                 int columnIndex = cbColumnIndex.getSelectionModel().getSelectedIndex();
                 DatasetModel dm;
                 dm = HistogramStage.getInstance().getDatasets().get(datasetIndex);
-                Vector vector = OpenDataset.openCSVFileToVector(
-                        dm.getFileName(),
-                        dm.getSeparator().getChar(), columnIndex, dm.getHeader());
+                Vector vector;
+                if (dm.isGeoeas()) {
+                    vector = OpenDataset.openGeoeasToVector(dm.getFileName(),
+                            dm.getSeparator().getChar(), columnIndex);
+
+                } else {
+                    vector = OpenDataset.openCSVFileToVector(
+                            dm.getFileName(),
+                            dm.getSeparator().getChar(), columnIndex, dm.getHeader());
+                }
                 double min = Double.valueOf(tfMinValue.getText());
                 double max = Double.valueOf(tfMaxValue.getText());
                 int intervals = Integer.valueOf(tfIntervals.getText());

@@ -35,8 +35,7 @@ public class FracturePlane extends Ellipse {
      */
     private final Position3D position = new Position3D();
 
-    private final double planeHeight = 200.;
-    private final double planeWidth = 20.;
+    private final double planeHeight = 10;    
 
     public FracturePlane(DrillingHole owner, double direction,
             double deepIntensity, double posY) throws Exception {
@@ -45,8 +44,8 @@ public class FracturePlane extends Ellipse {
         this.setPosX(owner.getX());
         this.setPosY(owner.getY() + posY);
         this.setPosZ(owner.getZ());
-        this.setRadiusX(planeHeight);
-        this.setRadiusY(planeHeight);
+        this.setRadiusX(owner.getDiameter()*planeHeight);
+        this.setRadiusY(owner.getDiameter()*planeHeight);
 
         this.getTransforms().addAll(
                 new Rotate(direction, Rotate.Z_AXIS),

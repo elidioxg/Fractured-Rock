@@ -103,4 +103,28 @@ public class DrillingHole {
     public ObservableList<FracturePlane> getFractures(){
         return this.frac;
     }
+    
+    public void setLithologys(ObservableList<Lithology> lithologys){
+        this.lit = lithologys;
+    }
+    
+    public void setFractures(ObservableList<FracturePlane> fracturePlanes){
+        this.frac = fracturePlanes;
+    }
+    
+    public void addLithology(Lithology lit){
+        this.lit.add(lit);
+    }
+    
+    public void addFracture(FracturePlane frac){
+        this.frac.add(frac);
+    }
+    
+    public void rmLithology(Lithology lit){
+        this.lit.remove(lit);
+    }
+    
+    public void rmFracture(FracturePlane frac){
+        this.frac.remove(frac);
+    }
 }
