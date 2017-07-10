@@ -135,6 +135,7 @@ public class Stage_analysisController implements Initializable {
          * 
          */
         lcCumFreq = (LineChart) scene.lookup("#lcCumFreq");
+        lcCumFreq.getData().clear();
         cbSort = (CheckBox) scene.lookup("#cbSort");
         Double sum = vectorAp.sum();
         double cum = 0.;
@@ -164,6 +165,7 @@ public class Stage_analysisController implements Initializable {
         lScanLen.setText(String.format(FORMAT_NUMBER, scanline.getLenght()));
         //distribution tab
         scFractureIntensity = (LineChart) scene.lookup("#scFractureIntensity");
+        scFractureIntensity.getData().clear();
         lcAux = (LineChart) scene.lookup("#lcAux");
         ArrayList<Fracture> al = fi.getArrayDistribution();
         ArrayList<Double> cumulative = new ArrayList<>();
@@ -177,7 +179,7 @@ public class Stage_analysisController implements Initializable {
         scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));
         /**
          * Add linear regression
-         */
+         */        
         LinearRegression lr = new LinearRegression(aperture, cumulative);
         double min = MinimumValue.getMinValue(aperture);
         double max = MaximumValue.getMaxValue(aperture);
@@ -189,13 +191,14 @@ public class Stage_analysisController implements Initializable {
         // double last = lr.getValueAt(10);
         XYChart.Series serieRegression = new XYChart.Series();
         serieRegression.getData().add(new XYChart.Data<>(min, first));
-        serieRegression.getData().add(new XYChart.Data<>(max, last));
+        serieRegression.getData().add(new XYChart.Data<>(max, last));        
         scFractureIntensity.getData().add(serieRegression);
         lcAux.getData().add(serieRegression);
         /**
          * Plot Scanline on Scatter Chart
          */
         scScanline = (ScatterChart) scene.lookup("#scScanline");
+        scScanline.getData().clear();
         scScanline.getData().add(
                 PlotSeries.plotLineSeries(0, scanline.getDistanceList()));        
     }

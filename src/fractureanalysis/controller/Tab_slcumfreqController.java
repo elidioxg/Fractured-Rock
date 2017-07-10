@@ -16,6 +16,7 @@
  */
 package fractureanalysis.controller;
 
+import contrib.LogarithmicAxis;
 import fractureanalysis.Matrices.Matrix;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.analysis.FractureIntensityAnalysis;
@@ -29,9 +30,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.ValueAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -39,15 +43,37 @@ import javafx.scene.control.TableView;
  * @author elidioxg
  */
 public class Tab_slcumfreqController implements Initializable {
+    
+    @FXML
+    protected GridPane gpPane;
 
     @FXML
-    protected CheckBox cbSort, cbSimplify, cbNormalize;
+    protected CheckBox cbSort, cbSimplify, cbNormalize, cbLogAxis;
 
     @FXML
     protected LineChart lcCumFreq;
 
     @FXML
-    protected TableView tvValues;
+    protected TableView tvValues;        
+    
+    @FXML
+    protected void cbLogAction() throws Exception{
+        ValueAxis xAxis, yAxis;
+        if(cbLogAxis.isSelected()){
+            xAxis = new LogarithmicAxis(0.001, 10);
+            yAxis = new LogarithmicAxis(0.001, 100);
+            yAxis.setAutoRanging(false);
+        }else {
+            xAxis = new NumberAxis("X",0, 10, 1);
+            yAxis = new NumberAxis("Y", 100, 0, 5);
+            yAxis.setAutoRanging(false);
+        }
+        lcCumFreq.visibleProperty().setValue(false);
+        lcCumFreq = new LineChart(xAxis, yAxis);
+        lcCumFreq.legendVisibleProperty().setValue(false);
+        gpPane.add(lcCumFreq, 0, 2,4,4);
+        sort();
+    }
 
     @FXML
     protected void sort() throws IOException, Exception {
@@ -59,7 +85,7 @@ public class Tab_slcumfreqController implements Initializable {
             String[] header = {"b", "cumulative number"};
             PopulateTable.populateTable(tvValues, matrix, header);
             //plot
-            XYChart.Series serie = PlotSeries.plotLineSeries(matrix, 0, 1);
+            XYChart.Series serie = PlotSeries.plotLineSeries(matrix, 0, 1);           
             lcCumFreq.getData().clear();
             lcCumFreq.getYAxis().setAutoRanging(true);
             lcCumFreq.getData().add(serie);
@@ -87,7 +113,7 @@ public class Tab_slcumfreqController implements Initializable {
                 x.set(i, i);
                 y.set(i, cum / sum * 100);
             }
-            XYChart.Series serie = PlotSeries.plotLineSeries(x, y);
+            XYChart.Series serie = PlotSeries.plotLineSeries(x, y);            
             lcCumFreq.getData().addAll(serie);            
         }
     }
@@ -107,7 +133,7 @@ public class Tab_slcumfreqController implements Initializable {
             lcCumFreq.getYAxis().setAutoRanging(true);
             lcCumFreq.getData().add(serie);
             serie.getChart().getXAxis().setLabel("b");
-            serie.getChart().getYAxis().setLabel("Cumulative Number");            
+            serie.getChart().getYAxis().setLabel("Cumulative Number");                   
         } else {
             cbNormalize.setSelected(false);
             sort();
@@ -129,7 +155,7 @@ public class Tab_slcumfreqController implements Initializable {
             lcCumFreq.getYAxis().setAutoRanging(true);
             lcCumFreq.getData().add(serie);
             serie.getChart().getXAxis().setLabel("b");
-            serie.getChart().getYAxis().setLabel("Normalized Value");
+            serie.getChart().getYAxis().setLabel("Normalized Value");            
         } else {
             simplify();
         }

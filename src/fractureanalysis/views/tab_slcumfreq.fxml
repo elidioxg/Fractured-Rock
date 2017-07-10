@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane 
+    fx:id="gpPane"
     id="WhitePane" 
     prefHeight="400.0" 
     prefWidth="600.0" 
@@ -48,6 +49,7 @@
         fx:id="lcCumFreq"
         GridPane.columnIndex="0" 
         GridPane.rowIndex="2"
+        GridPane.rowSpan="4"
         GridPane.columnSpan="4" 
         legendVisible="false">
         
@@ -68,8 +70,17 @@
         fx:id="tvValues"
         GridPane.columnIndex="4"
         GridPane.rowIndex="2"
-        GridPane.columnSpan="5">
+        GridPane.columnSpan="6">
         
     </TableView>
+    
+    <CheckBox
+        fx:id="cbLogAxis"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="7"
+        text="Log Axis"
+        onAction="#cbLogAction"       
+    >
+    </CheckBox>
     
 </GridPane>
