@@ -67,12 +67,17 @@ public class SceneUtils {
         cameraXform2.getChildren().add(cameraXform3);
         cameraXform3.getChildren().add(camera);
         cameraXform3.setRotateZ(180.0);
-
-        camera.setNearClip(defaultNearClip);
-        camera.setFarClip(defaultFarClip);
+        
         camera.setTranslateZ(-cameraDistance);
         cameraXform.ry.setAngle(320.0);
         cameraXform.rx.setAngle(40);
+    }
+    
+    public void resetCamera() {                
+        cameraXform.ry.setAngle(320.0);
+        cameraXform.rx.setAngle(40);
+        cameraXform3.setRotateZ(180.0);
+        camera.setTranslateZ(-cameraDistance);
     }
 
     public void handleMouse(Scene scene, final Node root) {
@@ -135,6 +140,9 @@ public class SceneUtils {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
+                    case H:
+                        resetCamera();
+                        break;
                     case Z:
                         if (event.isShiftDown()) {
                             cameraXform.ry.setAngle(0.0);
