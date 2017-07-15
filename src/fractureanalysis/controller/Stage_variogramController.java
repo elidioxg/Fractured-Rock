@@ -26,14 +26,14 @@ import fractureanalysis.stages.SearchWindowStage;
 import fractureanalysis.stages.VariogramStage;
 import fractureanalysis.statistics.variogram.Models;
 import fractureanalysis.statistics.variogram.Variogram;
-import fractureanalysis.view2d.CanvasSearchWindow;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
@@ -41,8 +41,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.ArcType;
 
 /**
  *
@@ -70,12 +68,46 @@ public class Stage_variogramController implements Initializable {
     protected Canvas canvas;
 
     @FXML
-    protected void canvasDraw() throws IOException {
-        if (!tfAngle.getText().isEmpty() && !tfAngleTol.getText().isEmpty()) {
-            SearchWindowStage st = new SearchWindowStage();
-            st.createStage(Double.valueOf(tfAngle.getText()),
-                    Double.valueOf(tfAngleTol.getText()),
-                    cbReflect.isSelected());            
+    protected void cbDatasetChange() {
+        DatasetModel dm = (DatasetModel) cbDatasets.getSelectionModel().getSelectedItem();
+        ObservableList ol = FXCollections.observableArrayList(dm.getHeaderArray());
+        cbX.setItems(ol);
+        cbY.setItems(ol);
+        cbContent.setItems(ol);
+    }
+
+    @FXML
+    protected void canvasDraw() throws IOException, Exception {
+        DatasetModel dm = (DatasetModel) cbDatasets.getSelectionModel().getSelectedItem();
+        int x = cbX.getSelectionModel().getSelectedIndex();
+        int y = cbY.getSelectionModel().getSelectedIndex();
+        int z = cbContent.getSelectionModel().getSelectedIndex();
+        if (x >= 0 && y >= 0 && z >= 0) {
+
+            if (!tfDistTol.getText().isEmpty()
+                    && !tfAngle.getText().isEmpty()
+                    && !tfAngleTol.getText().isEmpty()) {
+                SearchWindowStage st = new SearchWindowStage();
+                st.createStage();
+                Vector vX, vY, vZ;
+
+                if (dm.isGeoeas()) {
+                    vX = OpenDataset.openGeoeasToVector(dm.getFileName(), dm.getSeparator().getChar(), x);
+                    vY = OpenDataset.openGeoeasToVector(dm.getFileName(), dm.getSeparator().getChar(), y);
+                    vZ = OpenDataset.openGeoeasToVector(dm.getFileName(), dm.getSeparator().getChar(), z);
+                } else {
+                    vX = OpenDataset.openCSVFileToVector(dm.getFileName(),
+                            dm.getSeparator().getChar(), x, dm.getHeader());
+                    vY = OpenDataset.openCSVFileToVector(dm.getFileName(),
+                            dm.getSeparator().getChar(), y, dm.getHeader());
+                    vZ = OpenDataset.openCSVFileToVector(dm.getFileName(),
+                            dm.getSeparator().getChar(), z, dm.getHeader());
+                }
+                st.drawCanvas(vX, vY, vZ,
+                        Double.valueOf(tfDistTol.getText()),
+                        Double.valueOf(tfAngle.getText()),
+                        Double.valueOf(tfAngleTol.getText()), cbReflect.isSelected());
+            }
         }
     }
 

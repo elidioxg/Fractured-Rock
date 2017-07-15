@@ -17,11 +17,11 @@
 package fractureanalysis.stages;
 
 import fractureanalysis.FractureAnalysis;
+import fractureanalysis.Vectors.Vector;
 import fractureanalysis.view2d.CanvasSearchWindow;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -30,19 +30,29 @@ import javafx.stage.Stage;
  * @author elidioxg
  */
 public class SearchWindowStage {
-    public void createStage(double initAngle, double finalAngle, boolean reflect) throws IOException{
+
+    private GridPane parent;
+
+    public SearchWindowStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().getClass().getResource(
-                            "views/pane_variogram_canvas.fxml"));
-        GridPane parent = (GridPane)loader.load();
-        CanvasSearchWindow csw = new CanvasSearchWindow(initAngle, finalAngle, reflect);
-        Canvas canvas = csw.getCanvas();
-               
-        parent.add(canvas, 2, 1, 4, 4);
+                "views/pane_variogram_canvas.fxml"));
+        parent = (GridPane) loader.load();
+
+    }
+
+    public void createStage() {
         Stage stage = new Stage();
-        Scene scene = new Scene(parent);        
+        Scene scene = new Scene(parent);
         stage.setTitle("Variogram Search Window");
         stage.setScene(scene);
         stage.show();
     }
-    
+
+    public void drawCanvas(Vector x, Vector y, Vector z, double distTol,
+            double angle, double angleTol, boolean ref) {
+        CanvasSearchWindow csw
+                = new CanvasSearchWindow(x, y, z, distTol, angle, angleTol, ref);
+        parent.add(csw.getCanvas(), 0, 4, 5, 5);
+    }
+
 }

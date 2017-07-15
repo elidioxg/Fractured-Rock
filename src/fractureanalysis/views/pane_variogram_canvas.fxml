@@ -19,6 +19,14 @@
         <URL value="@app_style.css"/>
     </stylesheets>
     
+    <columnConstraints>
+        <ColumnConstraints percentWidth="15"></ColumnConstraints>
+        <ColumnConstraints percentWidth="15"></ColumnConstraints>
+        <ColumnConstraints percentWidth="15"></ColumnConstraints>
+        <ColumnConstraints percentWidth="15"></ColumnConstraints>
+        <ColumnConstraints percentWidth="40"></ColumnConstraints>
+    </columnConstraints>
+    
     <Label
         GridPane.columnIndex="0"
         GridPane.rowIndex="1"
@@ -28,7 +36,7 @@
     <Label 
         GridPane.columnIndex="1"
         GridPane.rowIndex="1"
-        fx:id="tfA"
+        fx:id="lAngle"
     >
         
     </Label>
@@ -42,7 +50,7 @@
     <Label 
         GridPane.columnIndex="1"
         GridPane.rowIndex="2"
-        fx:id="tfTA"
+        fx:id="lTolAangle"
     >
         
     </Label>
@@ -56,19 +64,31 @@
     <Label 
         GridPane.columnIndex="1"
         GridPane.rowIndex="3"
-        fx:id="tfR"
+        fx:id="lReflect"
     >
         
     </Label>
     
-    <Canvas
-        fx:id="canvas"
+    <Label
         GridPane.columnIndex="2"
         GridPane.rowIndex="1"
-        GridPane.rowSpan="4"
-        GridPane.columnSpan="4"        
-        width="400"
-        height="400">
+        text="Tolerance distance: ">
+        
+    </Label>
+    <Label 
+        GridPane.columnIndex="3"
+        GridPane.rowIndex="1"
+        fx:id="lTolDist">        
+    </Label>    
+    
+    <Canvas
+        fx:id="canvas"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="4"
+        GridPane.rowSpan="5"
+        GridPane.columnSpan="5"        
+        width="600"
+        height="600">
         
     </Canvas>        
     

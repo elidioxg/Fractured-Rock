@@ -37,6 +37,7 @@
         fx:id="cbDatasets"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="0"  
+        onAction="#cbDatasetChange"
     >
     </ComboBox>
     
@@ -120,6 +121,7 @@
         fx:id="tfDistTol"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="7"
+        text="20"
     >
     </TextField>
     
