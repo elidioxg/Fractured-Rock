@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.canvas.*?>
 
-<AnchorPane 
-    id="AnchorPane" 
-    prefHeight="200.0" 
-    prefWidth="200.0" 
+<GridPane 
+    id="WhitePane" 
+    prefHeight="600.0" 
+    prefWidth="600.0" 
     styleClass="mainFxmlClass" 
     xmlns:fx="http://javafx.com/fxml/1" 
     fx:controller="fractureanalysis.controller.Pane_variogram_canvasController">
@@ -19,11 +19,57 @@
         <URL value="@app_style.css"/>
     </stylesheets>
     
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="1"
+        text="Angle: ">
+        
+    </Label>
+    <Label 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="1"
+        fx:id="tfA"
+    >
+        
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="2"
+        text="Tolerance angle: ">
+        
+    </Label>
+    <Label 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="2"
+        fx:id="tfTA"
+    >
+        
+    </Label>
+    
+    <Label
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="3"
+        text="Reflect: ">
+        
+    </Label>
+    <Label 
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="3"
+        fx:id="tfR"
+    >
+        
+    </Label>
+    
     <Canvas
-        fx:id="canvas"       
-        width="150"
-        height="150">
+        fx:id="canvas"
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="1"
+        GridPane.rowSpan="4"
+        GridPane.columnSpan="4"        
+        width="400"
+        height="400">
         
     </Canvas>        
     
-</AnchorPane>
+</GridPane>

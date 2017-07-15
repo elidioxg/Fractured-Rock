@@ -22,9 +22,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.StrokeType;
 
 /**
  * FXML Controller class
@@ -37,7 +34,7 @@ public class Pane_variogram_canvasController implements Initializable {
 
     @FXML
     protected Canvas canvas;
-
+            
     /**
      * Initializes the controller class.
      *
@@ -45,21 +42,8 @@ public class Pane_variogram_canvasController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        double radiusX = canvas.getWidth() / 1.5;
-        double radiusY = canvas.getHeight() / 1.5;
-        double centerX = (canvas.getWidth() / 2) - (radiusX / 2);
-        double centerY = (canvas.getHeight() / 2) - (radiusY / 2);
-        CanvasSearchWindow csw = new CanvasSearchWindow(0, 30);
-        double startAngle = csw.getInitAngle();
-        double finalAngle = csw.getFinalAngle();
-        canvas.getGraphicsContext2D().setStroke(Paint.valueOf("BLACK"));
-        canvas.getGraphicsContext2D().setFill(Paint.valueOf("WHITE"));
-        canvas.getGraphicsContext2D().strokeArc(
-                centerX, centerY,
-                radiusX, radiusY,
-                startAngle, finalAngle,
-                ArcType.ROUND);
+    public void initialize(URL url, ResourceBundle rb) {        
+        
     }
 
 }

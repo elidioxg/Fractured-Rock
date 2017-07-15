@@ -24,8 +24,7 @@ public class Angles {
 
     private static final int CORRECTION_FACTOR = 90;
 
-    public static double parseAngle(double angle) {
-        angle += CORRECTION_FACTOR;
+    public static double parseAngle(double angle) {        
         while (angle > 360.) {
             angle -= 360.;
         }
@@ -33,6 +32,10 @@ public class Angles {
             angle += 360;
         }
         return angle;
+    }
+    
+    public static int getCorrection(){
+        return CORRECTION_FACTOR;
     }
 
 }

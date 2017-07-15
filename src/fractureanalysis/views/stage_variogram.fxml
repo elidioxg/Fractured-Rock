@@ -132,6 +132,7 @@
         fx:id="tfAngle"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="8"
+        text="0"        
     >
     </TextField>
     
@@ -144,6 +145,7 @@
         fx:id="tfAngleTol"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="9"
+        text="90"        
     >
     </TextField>
     
@@ -156,6 +158,7 @@
         fx:id="cbReflect"
         GridPane.columnIndex="1" 
         GridPane.rowIndex="10"
+        selected="true"        
     >
     </CheckBox>
     
@@ -210,7 +213,11 @@
             </Button>   
             <Button 
                 ButtonBar.buttonData="CANCEL_CLOSE"
-                text="Cancel">
+                text="Close">
+            </Button> 
+            <Button                 
+                text="View search window"
+                onAction="#canvasDraw">
             </Button>             
         </buttons>
     </ButtonBar>
@@ -240,22 +247,13 @@
     >
         <fx:include source="pane_curve_fitting.fxml"/>
         
-    </ScrollPane>
-    
-    <ScrollPane 
-        GridPane.columnIndex="3" 
-        GridPane.rowIndex="5"
-        GridPane.rowSpan="6"
-    >
-        <fx:include source="pane_variogram_canvas.fxml"/>
-        
-    </ScrollPane>
+    </ScrollPane>               
     
     <javafx.scene.chart.ScatterChart 
         fx:id="scLoc"
         GridPane.columnIndex="3" 
-        GridPane.rowIndex="12"
-        GridPane.rowSpan="4"
+        GridPane.rowIndex="5"
+        GridPane.rowSpan="5"
         legendVisible="false">
         <xAxis>
             <javafx.scene.chart.NumberAxis 

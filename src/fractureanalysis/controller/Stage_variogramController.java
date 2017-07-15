@@ -22,20 +22,27 @@ import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.plot.PlotVariogramSeries;
+import fractureanalysis.stages.SearchWindowStage;
 import fractureanalysis.stages.VariogramStage;
 import fractureanalysis.statistics.variogram.Models;
 import fractureanalysis.statistics.variogram.Variogram;
+import fractureanalysis.view2d.CanvasSearchWindow;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.ArcType;
 
 /**
  *
@@ -55,9 +62,22 @@ public class Stage_variogramController implements Initializable {
 
     @FXML
     protected LineChart lcVariogram;
-    
+
     @FXML
     protected ScatterChart scLoc;
+
+    @FXML
+    protected Canvas canvas;
+
+    @FXML
+    protected void canvasDraw() throws IOException {
+        if (!tfAngle.getText().isEmpty() && !tfAngleTol.getText().isEmpty()) {
+            SearchWindowStage st = new SearchWindowStage();
+            st.createStage(Double.valueOf(tfAngle.getText()),
+                    Double.valueOf(tfAngleTol.getText()),
+                    cbReflect.isSelected());            
+        }
+    }
 
     @FXML
     protected void clear() {
@@ -71,25 +91,25 @@ public class Stage_variogramController implements Initializable {
         if (indexX >= 0 && indexY >= 0) {
             DatasetModel dataset = (DatasetModel) cbDatasets.getSelectionModel().getSelectedItem();
             scLoc.getData().clear();
-            String filename = dataset.getFileName();            
+            String filename = dataset.getFileName();
             String sep = dataset.getSeparator().getChar();
-            Vector x,y;
+            Vector x, y;
             if (dataset.isGeoeas()) {
-                x = OpenDataset.openGeoeasToVector(filename, 
-                        sep, 
+                x = OpenDataset.openGeoeasToVector(filename,
+                        sep,
                         indexX);
-                y = OpenDataset.openGeoeasToVector(filename, 
-                        sep, 
-                        indexY);                
+                y = OpenDataset.openGeoeasToVector(filename,
+                        sep,
+                        indexY);
             } else {
                 x = OpenDataset.openCSVFileToVector(
-                        filename, 
-                        sep, 
-                        indexX, 
+                        filename,
+                        sep,
+                        indexX,
                         dataset.getHeader());
                 y = OpenDataset.openCSVFileToVector(
-                        filename, sep, indexY, 
-                        dataset.getHeader());                
+                        filename, sep, indexY,
+                        dataset.getHeader());
             }
 
             ScatterChart.Series serie = new XYChart.Series();
