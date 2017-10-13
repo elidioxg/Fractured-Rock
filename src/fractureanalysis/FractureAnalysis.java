@@ -249,13 +249,7 @@ public class FractureAnalysis extends Application {
         ComboBox cbVarA = (ComboBox) grid.lookup("#cbVarA");
         cbVarA.setItems(ol);
         ComboBox cbVarB = (ComboBox) grid.lookup("#cbVarB");
-        cbVarB.setItems(ol);
-        ComboBox cbX = (ComboBox) grid.lookup("#cbX");
-        cbX.setItems(ol);
-        ComboBox cbY = (ComboBox) grid.lookup("#cbY");
-        cbY.setItems(ol);
-        ComboBox cbContent = (ComboBox) grid.lookup("#cbContent");
-        cbContent.setItems(ol);
+        cbVarB.setItems(ol);        
     }
 
     /**
