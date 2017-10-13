@@ -63,7 +63,7 @@
                         onAction="#scatterChartStage"
                     />
                     <MenuItem
-                        text="Custom Histogram"
+                        text="Histogram"
                         onAction="#histogramStage" >
                     </MenuItem>                    
                     <MenuItem 
@@ -82,12 +82,7 @@
                         text="Fracture Intensity" 
                         onAction="#fractureStage" 
                     >
-                    </MenuItem>
-                    <MenuItem 
-                        text="Drilling Hole"
-                        onAction="#view3DStage" 
-                    >                        
-                    </MenuItem>
+                    </MenuItem>                    
                 </items>
             </Menu>
                          
@@ -153,17 +148,7 @@
                 <fx:include source="tab_correlation.fxml"/>
             </content>
         </Tab>
-        
-        <Tab
-            text="Covariance"            
-            closable="false" 
-        >
-            <content>
-                <fx:include source="tab_covariance.fxml"/>                    
-            </content>
-            
-        </Tab>
-        
+               
     </TabPane> 
     
     <Label

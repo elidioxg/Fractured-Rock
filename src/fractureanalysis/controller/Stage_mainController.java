@@ -110,7 +110,7 @@ public class Stage_mainController implements Initializable {
 
     @FXML
     protected void fractureStage() throws IOException, Exception {
-        if (FractureAnalysis.getInstance().getDataset().equals(null)) {
+        if (FractureAnalysis.getInstance().getDatasetList().size()==0) {
             // TODO: implementar dialog window
             throw new Exception("No dataset selected.");
         } else {
@@ -124,12 +124,6 @@ public class Stage_mainController implements Initializable {
     protected void matrixViewStage() throws IOException {
         MatrixViewStage view = new MatrixViewStage(FractureAnalysis.getInstance().getDatasetList());
         view.createStage();
-    }
-
-    @FXML
-    protected void view3DStage() throws IOException {
-        View3DStage stage = new View3DStage();
-        stage.createSetupStage();
     }
 
     @FXML

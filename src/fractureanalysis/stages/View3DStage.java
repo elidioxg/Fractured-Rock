@@ -46,24 +46,6 @@ public class View3DStage {
     private ListView lvFrac;
 
     /**
-     * Setup stage for Fractures and Wells 3D view
-     *
-     * @throws IOException
-     */
-    public void createSetupStage() throws IOException {
-        FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().getClass().getResource(
-                "views/stage_3dview.fxml"));
-        Parent root = (Parent) loader.load();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setTitle("Fractures view on wells");
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    /**
      * Create a Stage for 3D fractures representation
      *
      * @param scanline
@@ -92,34 +74,6 @@ public class View3DStage {
         stage.setTitle("3D View of Fracture Planes");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void fracWellContext(ObservableList<DrillingHole> drillings) throws Exception {
-        final Group root = new Group();
-        //root.getChildren().addAll(LightProperties.setScene3DLight());
-        root.getChildren().addAll(LightProperties.setScene3DAmbientLight());
-        root.getChildren().addAll(Axis.addAxis());
-
-        for(DrillingHole x: drillings){
-            root.getChildren().addAll(x.drawWell());
-            root.getChildren().addAll(x.getLithologys());
-            root.getChildren().addAll(x.getFracturePlane3Ds());
-        }
-               
-        Scene scene = new Scene(root, DrawPlanes3D.getViewSize(),
-                DrawPlanes3D.getViewSize(), true);
-        scene.setFill(Color.WHITE);
-
-        SceneUtils utils = new SceneUtils();
-        utils.buildCamera(root);
-        utils.handleMouse(scene, root);
-        utils.handleKeyboard(scene, root);
-
-        Stage stage = new Stage();
-        stage.setTitle("3D View of Fracture Planes and Wells");
-        stage.setScene(scene);
-        stage.show();
-
-    }
+    }   
 
 }

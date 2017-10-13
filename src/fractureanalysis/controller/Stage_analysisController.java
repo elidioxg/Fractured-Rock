@@ -170,37 +170,33 @@ public class Stage_analysisController implements Initializable {
         ArrayList<Fracture> al = fi.getArrayDistribution();
         ArrayList<Double> cumulative = new ArrayList<>();
         ArrayList<Double> aperture = new ArrayList<>();
-        for (Fracture values : al) {
-            cumulative.add(Math.log10(Double.valueOf(values.getCumulativeNumber())));
-            aperture.add(Math.log10(values.getAperture()));
-//            cumulative.add(Double.valueOf(values.getCumulativeNumber()));
-//            aperture.add(values.getAperture());
+        for (Fracture values : al) {            
+            cumulative.add(Double.valueOf(values.getCumulativeNumber()));
+            aperture.add(values.getAperture());
         }
-        scFractureIntensity.getData().addAll(PlotSeries.plotLineSeries(aperture, cumulative));
+        scFractureIntensity.getData().add(PlotSeries.plotLineSeries(aperture, 
+                cumulative));
         /**
          * Add linear regression
          */        
         LinearRegression lr = new LinearRegression(aperture, cumulative);
-        double min = MinimumValue.getMinValue(aperture);
+        double min = MinimumValue.getMinValue(cumulative);
         double max = MaximumValue.getMaxValue(aperture);
         double first = lr.getValueAt(min);
         double last = lr.getValueAt(max);
-        //double min = 0.001;
-        //double max = 10;
-        //double first = lr.getValueAt(0.001);
-        // double last = lr.getValueAt(10);
-        XYChart.Series serieRegression = new XYChart.Series();
-        serieRegression.getData().add(new XYChart.Data<>(min, first));
-        serieRegression.getData().add(new XYChart.Data<>(max, last));        
-        scFractureIntensity.getData().add(serieRegression);
-        lcAux.getData().add(serieRegression);
+        
+        XYChart.Series<Number, Number> serieRegression = new XYChart.Series();                
+        serieRegression.getData().add(new XYChart.Data<>(max, first));
+        serieRegression.getData().add(new XYChart.Data<>(min, last));        
+        scFractureIntensity.getData().addAll(serieRegression);
+        lcAux.getData().addAll(serieRegression);
         /**
          * Plot Scanline on Scatter Chart
          */
         scScanline = (ScatterChart) scene.lookup("#scScanline");
         scScanline.getData().clear();
         scScanline.getData().add(
-                PlotSeries.plotLineSeries(0, scanline.getDistanceList()));        
+                PlotSeries.plotLineSeries(0, scanline.getDistanceList()));          
     }
 
     @FXML

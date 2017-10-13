@@ -44,25 +44,25 @@
         legendVisible="false"
         verticalGridLinesVisible="false" 
         horizontalGridLinesVisible="false"
-        animated="true"
-        translateY="57">
+        animated="false"
+        translateY="45">
         <xAxis >
-            <javafx.scene.chart.NumberAxis    
+            <contrib.LogarithmicAxis    
                 label="Aperture"             
                 lowerBound="0.01"
                 upperBound="10"
-                tickUnit="1"
-                autoRanging="false"
+                
+                autoRanging="true"
                 tickLabelsVisible="true"
                 /> 
         </xAxis>
         <yAxis> 
-            <javafx.scene.chart.NumberAxis 
+            <contrib.LogarithmicAxis 
                 label="Average Spacing"
                 lowerBound="0.001"
-                upperBound="10"
-                tickUnit="1"
-                autoRanging="false"
+                upperBound="100"
+                
+                autoRanging="true"
                 side="LEFT"                  
             />
         </yAxis>
@@ -76,22 +76,23 @@
         legendVisible="false"
         verticalGridLinesVisible="true" 
         horizontalGridLinesVisible="true"
-        translateX="75">
+        animated="false"
+        translateX="45">
         <xAxis >
-            <javafx.scene.chart.NumberAxis                 
+            <contrib.LogarithmicAxis                 
                 label="Aperture"
                 lowerBound="0.01"
                 upperBound="10"
-                tickUnit="1"
+                
                 autoRanging="true"                
                 side="TOP"/> 
         </xAxis>
         <yAxis>             
-            <javafx.scene.chart.NumberAxis 
+            <contrib.LogarithmicAxis 
                 label="Cumulative Fracture Intensity"
-                lowerBound="10"
-                upperBound="0.001"
-                tickUnit="0.1"
+                lowerBound="0.001"
+                upperBound="100"
+                
                 autoRanging="true"
                 side="RIGHT"                                             
             />
