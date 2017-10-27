@@ -21,6 +21,8 @@ import fractureanalysis.analysis.Fracture;
 import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.analysis.ScanLine;
 import fractureanalysis.data.OpenDataset;
+import fractureanalysis.model.AnalysisFile;
+import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.stages.FractureAnalysisStage;
 import fractureanalysis.stages.View3DStage;
@@ -30,6 +32,7 @@ import fractureanalysis.statistics.MinimumValue;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -57,6 +60,9 @@ public class Stage_analysisController implements Initializable {
     protected ScatterChart scScanline;
 
     @FXML
+    protected ComboBox cbDS;
+    
+    @FXML
     protected ComboBox cbSpVar, cbApVar;
 
     @FXML
@@ -67,6 +73,17 @@ public class Stage_analysisController implements Initializable {
 
     @FXML
     protected CheckBox cbSort;
+    
+    @FXML
+    protected void cbDSAction() throws Exception{
+        if(cbDS.getSelectionModel().getSelectedIndex()>=0){
+            DatasetModel dm = (DatasetModel) cbDS.getSelectionModel().getSelectedItem();
+            ArrayList<String> list = dm.getHeaderArray();                
+            cbSpVar.setItems(FXCollections.observableArrayList(list));
+            cbApVar.setItems(FXCollections.observableArrayList(list));                 
+        }
+    }
+    
     /**
      * Handle actions for aperture column index combobox
      *
@@ -113,11 +130,17 @@ public class Stage_analysisController implements Initializable {
      * @param indexSp
      * @throws Exception
      */
-    private void estimateFractures(int indexAp, int indexSp) throws Exception {
+    private void estimateFractures(int indexAp, int indexSp) throws Exception {        
         Scene scene = (Scene) cbApVar.getScene();
-        String filename = FractureAnalysisStage.getDataset().getFileName();
-        String sep = FractureAnalysisStage.getDataset().getSeparator().getChar();                
-        boolean header = FractureAnalysisStage.getDataset().getHeader();
+        
+        DatasetModel dm = (DatasetModel) cbDS.getSelectionModel().getSelectedItem();        
+        AnalysisFile af = new AnalysisFile(dm);
+        FractureAnalysisStage.setAnalysisFile(af);
+        
+        String filename = dm.getFileName();
+        String sep = dm.getSeparator().getChar();                
+        boolean header = dm.getHeader();
+        
         Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexAp, header);
         Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
         ArrayList<Fracture> fracturesList = new ArrayList();
@@ -214,10 +237,11 @@ public class Stage_analysisController implements Initializable {
         int indexSp = cbSpVar.getSelectionModel().getSelectedIndex();
         if (indexSp >= 0) {
             int indexAp = cbApVar.getSelectionModel().getSelectedIndex();
-            if (indexAp >= 0) {                
-                String filename = FractureAnalysisStage.getDataset().getFileName();
-                String sep = FractureAnalysisStage.getDataset().getSeparator().getChar();
-                boolean header = FractureAnalysisStage.getDataset().getHeader();                
+            if (indexAp >= 0) {         
+                DatasetModel dm = (DatasetModel) cbDS.getSelectionModel().getSelectedItem();
+                String filename = dm.getFileName();
+                String sep = dm.getSeparator().getChar();
+                boolean header = dm.getHeader();                
                 Vector vectorAp = OpenDataset.openCSVFileToVector(filename, sep, indexAp, header);
                 Vector vectorSp = OpenDataset.openCSVFileToVector(filename, sep, indexSp, header);
                 ArrayList<Fracture> fracturesList = new ArrayList();

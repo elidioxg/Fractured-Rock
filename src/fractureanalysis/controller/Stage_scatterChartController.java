@@ -4,7 +4,6 @@ import contrib.LogarithmicAxis;
 import fractureanalysis.Vectors.Vector;
 import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
-import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.stages.ScatterChartStage;
 import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;

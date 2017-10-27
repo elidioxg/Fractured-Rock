@@ -21,12 +21,16 @@ import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  *
@@ -36,15 +40,12 @@ public class FractureAnalysisStage {
 
     private static FractureAnalysisStage instance;
 
-    private static DatasetModel dataset;
+    private static List<DatasetModel> datasets;
     private static AnalysisFile analysisFile;
-    
-    private static FractureIntensityAnalysis analysis;
 
-    public FractureAnalysisStage(DatasetModel dataset) throws Exception {
-        FractureAnalysisStage.dataset = dataset;
-        analysisFile = new AnalysisFile(dataset);
-        analysis = new FractureIntensityAnalysis(analysisFile.getScanLine());
+    //private static FractureIntensityAnalysis analysis;
+    public FractureAnalysisStage(List<DatasetModel> datasets) throws Exception {
+        FractureAnalysisStage.datasets = datasets;
         instance = this;
     }
 
@@ -52,18 +53,21 @@ public class FractureAnalysisStage {
         return instance;
     }
 
-    public static DatasetModel getDataset() {
-        return dataset;
-    }
-    
-    public static AnalysisFile getAnalysisFile(){
-        return analysisFile;
-    }
-    
-    public static FractureIntensityAnalysis getAnalysis(){
-        return analysis;
+    public static List<DatasetModel> getDatasets() {
+        return datasets;
     }
 
+    public static void setAnalysisFile(AnalysisFile af) {
+        analysisFile = af;
+    }
+
+    public static AnalysisFile getAnalysisFile() {
+        return analysisFile;
+    }
+
+//    public static FractureIntensityAnalysis getAnalysis(){
+//        return analysis;
+//    }
     public void createStage() throws IOException {
 
         FXMLLoader loader = new FXMLLoader(
@@ -76,11 +80,30 @@ public class FractureAnalysisStage {
         /**
          * Get the headers of dataset
          */
-        ArrayList<String> list = getDataset().getHeaderArray();
-        
+        ArrayList<String> list = getDatasets().get(0).getHeaderArray();
+
         /**
          * Add the headers of dataset to comboboxes
          */
+        ComboBox cbDS = (ComboBox) parent.getScene().getRoot().lookup("#cbDS");       
+        
+        cbDS.setCellFactory(new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
+            @Override
+            public ListCell<DatasetModel> call(ListView<DatasetModel> myObjectListView) {
+                ListCell<DatasetModel> cell = new ListCell<DatasetModel>() {
+                    @Override
+                    protected void updateItem(DatasetModel myObject, boolean b) {
+                        super.updateItem(myObject, b);
+                        if (myObject != null) {
+                            setText(myObject.getDatasetName());
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+        cbDS.setItems(FXCollections.observableList(getDatasets()));
+
         ComboBox cbSpVar = (ComboBox) parent.getScene().getRoot().lookup("#cbSpVar");
         ComboBox cbApVar = (ComboBox) parent.getScene().getRoot().lookup("#cbApVar");
         cbApVar.setItems(FXCollections.observableArrayList(list));

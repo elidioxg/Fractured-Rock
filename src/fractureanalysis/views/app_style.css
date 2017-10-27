@@ -24,19 +24,11 @@
 }
 
 #scFractureIntensity .default-color0.chart-series-line {
-    -fx-stroke: transparent;    
+    -fx-stroke: transparent;     
 }
 
 #scFractureIntensity .default-color1.chart-line-symbol {
     -fx-background-color: transparent;
-}
-
-#lcLine .default-color0.chart-series-line {
-    -fx-stroke: transparent;    
-}
-
-#lcLine .default-color1.chart-line-symbol {
-    -fx-background-color: transparent;    
 }
 
 #chartHistogram {

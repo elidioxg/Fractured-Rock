@@ -11,7 +11,6 @@ import fractureanalysis.stages.MatrixViewStage;
 import fractureanalysis.stages.OpenDataStage;
 import fractureanalysis.stages.ScatterChartStage;
 import fractureanalysis.stages.VariogramStage;
-import fractureanalysis.stages.View3DStage;
 import fractureanalysis.statistics.histogram.ClassInterval;
 import fractureanalysis.statistics.histogram.Frequency;
 import fractureanalysis.statistics.MaximumValue;
@@ -115,7 +114,7 @@ public class Stage_mainController implements Initializable {
             throw new Exception("No dataset selected.");
         } else {
             FractureAnalysisStage stage = new FractureAnalysisStage(
-                    FractureAnalysis.getInstance().getDataset());
+                    FractureAnalysis.getInstance().getDatasetList());
             stage.createStage();
         }
     }

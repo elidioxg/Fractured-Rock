@@ -22,7 +22,8 @@
         <ColumnConstraints minWidth="30"  />
         <ColumnConstraints minWidth="60"/>
         <ColumnConstraints minWidth="30"/>
-        <ColumnConstraints minWidth="60"/>
+        <ColumnConstraints minWidth="30"/>
+        <ColumnConstraints minWidth="30"/>
     </columnConstraints>
     
     <rowConstraints>
@@ -33,28 +34,40 @@
     <Label 
         GridPane.columnIndex="0"
         GridPane.rowIndex="0"  
+        text="Dataset">
+    </Label>
+    <ComboBox 
+        fx:id="cbDS"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="0"
+        onAction="#cbDSAction">
+    </ComboBox>
+    
+    <Label 
+        GridPane.columnIndex="2"
+        GridPane.rowIndex="0"  
         text="S Column">
     </Label>
     <ComboBox 
         fx:id="cbSpVar"
-        GridPane.columnIndex="1"
+        GridPane.columnIndex="3"
         GridPane.rowIndex="0"
         onAction="#cbSpAction">
     </ComboBox>
     <Label 
-        GridPane.columnIndex="2"
+        GridPane.columnIndex="4"
         GridPane.rowIndex="0"
         text="b Column">
     </Label>
     <ComboBox 
         fx:id="cbApVar"
-        GridPane.columnIndex="3"
+        GridPane.columnIndex="5"
         GridPane.rowIndex="0"
         onAction="#cbApAction">        
     </ComboBox>
     
     <ButtonBar
-        GridPane.columnIndex="3"        
+        GridPane.columnIndex="6"        
         GridPane.rowIndex="0">
         <buttons>
             <Button
@@ -68,7 +81,7 @@
     <TabPane 
         GridPane.columnIndex="0"
         GridPane.rowIndex="1"  
-        GridPane.columnSpan="4"         
+        GridPane.columnSpan="6"         
     >
         <Tab text="Summary"
              closable="false">

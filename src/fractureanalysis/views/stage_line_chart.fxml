@@ -32,14 +32,44 @@
         <ColumnConstraints percentWidth="55" ></ColumnConstraints>
     </columnConstraints>
     
+    <rowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+        <RowConstraints percentHeight="16"></RowConstraints>
+    </rowConstraints>
+    
     <MenuBar 
         GridPane.columnIndex="0"
         GridPane.rowIndex="0"  
         GridPane.columnSpan="4">        
         <menus>
             <Menu 
-                text="Export to JPG">
+                text="File">
+                <items>
+                    <MenuItem
+                        text="Save Figure">
+                        
+                    </MenuItem>
+                    <MenuItem
+                        text="Close"
+                        onAction="#closeLineStage">
+                        
+                    </MenuItem>
+                </items>
             </Menu>
+            
         </menus>
     </MenuBar> 
     

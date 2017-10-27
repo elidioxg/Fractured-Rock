@@ -34,8 +34,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -52,6 +54,9 @@ public class Stage_histogramController implements Initializable {
 
     @FXML
     protected BarChart bcHistogram;
+    
+    @FXML
+    protected Button btnClose;
 
     /**
      * Initializes the controller class.
@@ -170,7 +175,13 @@ public class Stage_histogramController implements Initializable {
      */
     @FXML
     protected void clear() {
-
+        bcHistogram.getData().clear();
+    }
+    
+    @FXML 
+    protected void close(){
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        stage.close();
     }
 
 }

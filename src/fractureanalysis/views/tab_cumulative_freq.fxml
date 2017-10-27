@@ -39,12 +39,20 @@
         onAction="#cbAction" >
     </CheckBox>  
     
+    <CheckBox 
+        fx:id="cbLogAxis"
+        GridPane.columnIndex="4"
+        GridPane.rowIndex="0"
+        text="Log Axis"         >
+    </CheckBox>  
+    
     <javafx.scene.chart.LineChart 
         fx:id="lcPoints"
         GridPane.columnIndex="0" 
         GridPane.rowIndex="2"
         GridPane.columnSpan="4" 
-        legendVisible="false">
+        legendVisible="false"
+        animated="false">
         
         <xAxis>
             <javafx.scene.chart.NumberAxis ></javafx.scene.chart.NumberAxis>
@@ -57,28 +65,6 @@
             </javafx.scene.chart.NumberAxis>
         </yAxis>
         
-    </javafx.scene.chart.LineChart>
-    <javafx.scene.chart.LineChart 
-        fx:id="lcLine"
-        GridPane.columnIndex="0" 
-        GridPane.rowIndex="2"
-        GridPane.columnSpan="4"
-        legendVisible="false"
-        verticalGridLinesVisible="false" 
-        horizontalGridLinesVisible="false"
-    >
-        
-        <xAxis>
-            <javafx.scene.chart.NumberAxis ></javafx.scene.chart.NumberAxis>
-        </xAxis>
-        <yAxis>
-            <javafx.scene.chart.NumberAxis 
-                lowerBound="0" 
-                upperBound="100"
-                autoRanging="false"  >
-            </javafx.scene.chart.NumberAxis>
-        </yAxis>
-        
-    </javafx.scene.chart.LineChart>
+    </javafx.scene.chart.LineChart>    
     
 </GridPane>

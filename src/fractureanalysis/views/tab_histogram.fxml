@@ -46,7 +46,8 @@
         GridPane.columnIndex="0"
         GridPane.columnSpan="2"
         GridPane.rowIndex="1" 
-        GridPane.rowSpan="2">
+        GridPane.rowSpan="2"
+        animated="false">
         
         <xAxis>
             <javafx.scene.chart.CategoryAxis label="Classes"/> 

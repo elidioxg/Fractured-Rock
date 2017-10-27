@@ -48,15 +48,14 @@ public class Tab_cumulative_freqController implements Initializable {
     protected ComboBox cbColumn;
 
     @FXML
-    protected LineChart lcPoints, lcLine;
+    protected LineChart lcPoints;
 
     @FXML
     protected CheckBox cbSorted;
 
     @FXML
     protected void cbAction() throws Exception {
-        lcPoints.getData().clear();
-        lcLine.getData().clear();
+        lcPoints.getData().clear();        
         int selected = cbColumn.getSelectionModel().getSelectedIndex();
         if (selected >= 0) {
             DatasetModel dataset = FractureAnalysis.getInstance().getDataset();
@@ -74,20 +73,16 @@ public class Tab_cumulative_freqController implements Initializable {
                 if (cbSorted.isSelected()) {
                     vector.sort();
                 }
-                double sum = vector.sum();
-                System.out.println("Sum: " + sum);
+                double sum = vector.sum();                
                 double cumulative = 0.;
                 Vector x = new Vector(vector.size());
                 Vector y = new Vector(vector.size());
                 for (int i = 0; i < vector.size(); i++) {
                     cumulative += vector.get(i).doubleValue();
-                    x.set(i, i);
-                    //x.add(i);
-                    y.set(i, cumulative / sum * 100);
-                    //y.add(cumulative/sum*100);
+                    x.set(i, i);                    
+                    y.set(i, cumulative / sum * 100);                    
                 }
-                lcPoints.getData().addAll(PlotSeries.plotLineSeries(x, y));
-                lcLine.getData().addAll(PlotSeries.plotLineSeries(x, y));
+                lcPoints.getData().addAll(PlotSeries.plotLineSeries(x, y));                
             }
         }
     }

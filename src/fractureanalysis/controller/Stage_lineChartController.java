@@ -135,7 +135,13 @@ public class Stage_lineChartController implements Initializable {
 
         ObservableList<XYChart.Series> data = FXCollections.observableArrayList();
         LineChart.Series serie = new XYChart.Series();
-        serie.setName(tfSerieLabel.getText());
+        String legend = tfSerieLabel.getText();
+        if(legend.trim().isEmpty()){
+            lineChart.legendVisibleProperty().setValue(false);
+        } else {            
+            lineChart.legendVisibleProperty().setValue(true);
+            serie.setName(legend);
+        }
         for (int i = 0; i < x.size(); i++) {
             serie.getData().add(
                     new XYChart.Data<>(x.get(i), y.get(i)));
