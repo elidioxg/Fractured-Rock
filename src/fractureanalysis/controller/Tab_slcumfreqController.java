@@ -22,6 +22,8 @@ import fractureanalysis.Vectors.Vector;
 import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.stages.FractureAnalysisStage;
+import fractureanalysis.statistics.MaximumValue;
+import fractureanalysis.statistics.MinimumValue;
 import fractureanalysis.table.PopulateTable;
 import java.io.IOException;
 import java.net.URL;
@@ -43,7 +45,7 @@ import javafx.scene.layout.GridPane;
  * @author elidioxg
  */
 public class Tab_slcumfreqController implements Initializable {
-    
+
     @FXML
     protected GridPane gpPane;
 
@@ -54,29 +56,29 @@ public class Tab_slcumfreqController implements Initializable {
     protected LineChart lcCumFreq;
 
     @FXML
-    protected TableView tvValues;        
-    
+    protected TableView tvValues;
+
     @FXML
-    protected void cbLogAction() throws Exception{
-        ValueAxis xAxis, yAxis;
-        if(cbLogAxis.isSelected()){
+    protected void sort() throws IOException, Exception {        
+        ValueAxis xAxis, yAxis;                
+        if (cbLogAxis.isSelected()) {
             xAxis = new LogarithmicAxis(0.001, 10);
-            yAxis = new LogarithmicAxis(0.001, 100);
+            yAxis = new LogarithmicAxis(0.001, 100);                        
             yAxis.setAutoRanging(false);
-        }else {
-            xAxis = new NumberAxis("X",0, 10, 1);
+            xAxis.setAutoRanging(true);
+        } else {
+            xAxis = new NumberAxis("X", 1, 10, 1);
             yAxis = new NumberAxis("Y", 100, 0, 5);
             yAxis.setAutoRanging(false);
+            xAxis.setAutoRanging(true);
         }
         lcCumFreq.visibleProperty().setValue(false);
         lcCumFreq = new LineChart(xAxis, yAxis);
         lcCumFreq.legendVisibleProperty().setValue(false);
-        gpPane.add(lcCumFreq, 0, 2,4,4);
-        sort();
-    }
-
-    @FXML
-    protected void sort() throws IOException, Exception {
+        lcCumFreq.setAnimated(false);
+        gpPane.add(lcCumFreq, 0, 2, 4, 4);
+        
+        XYChart.Series serie;
         if (cbSort.isSelected()) {
             cbSimplify.setSelected(false);
             cbNormalize.setSelected(false);
@@ -85,7 +87,7 @@ public class Tab_slcumfreqController implements Initializable {
             String[] header = {"b", "cumulative number"};
             PopulateTable.populateTable(tvValues, matrix, header);
             //plot
-            XYChart.Series serie = PlotSeries.plotLineSeries(matrix, 0, 1);           
+            serie = PlotSeries.plotLineSeries(matrix, 0, 1);
             lcCumFreq.getData().clear();
             lcCumFreq.getYAxis().setAutoRanging(true);
             lcCumFreq.getData().add(serie);
@@ -113,9 +115,9 @@ public class Tab_slcumfreqController implements Initializable {
                 x.set(i, i);
                 y.set(i, cum / sum * 100);
             }
-            XYChart.Series serie = PlotSeries.plotLineSeries(x, y);            
-            lcCumFreq.getData().addAll(serie);            
-        }
+            serie = PlotSeries.plotLineSeries(x, y);
+            lcCumFreq.getData().addAll(serie);
+        }                
     }
 
     @FXML
@@ -133,7 +135,7 @@ public class Tab_slcumfreqController implements Initializable {
             lcCumFreq.getYAxis().setAutoRanging(true);
             lcCumFreq.getData().add(serie);
             serie.getChart().getXAxis().setLabel("b");
-            serie.getChart().getYAxis().setLabel("Cumulative Number");                   
+            serie.getChart().getYAxis().setLabel("Cumulative Number");
         } else {
             cbNormalize.setSelected(false);
             sort();
@@ -155,7 +157,7 @@ public class Tab_slcumfreqController implements Initializable {
             lcCumFreq.getYAxis().setAutoRanging(true);
             lcCumFreq.getData().add(serie);
             serie.getChart().getXAxis().setLabel("b");
-            serie.getChart().getYAxis().setLabel("Normalized Value");            
+            serie.getChart().getYAxis().setLabel("Normalized Value");
         } else {
             simplify();
         }

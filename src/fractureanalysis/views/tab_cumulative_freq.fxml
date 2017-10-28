@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane 
+    fx:id="gpCumFreq"
     id="WhitePane" 
     prefHeight="400.0" 
     prefWidth="600.0" 
@@ -43,7 +44,8 @@
         fx:id="cbLogAxis"
         GridPane.columnIndex="4"
         GridPane.rowIndex="0"
-        text="Log Axis"         >
+        text="Log Axis"
+        onAction="#cbAction">
     </CheckBox>  
     
     <javafx.scene.chart.LineChart 
@@ -51,6 +53,7 @@
         GridPane.columnIndex="0" 
         GridPane.rowIndex="2"
         GridPane.columnSpan="4" 
+        GridPane.rowSpan="4"
         legendVisible="false"
         animated="false">
         

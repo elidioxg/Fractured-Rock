@@ -16,7 +16,6 @@
  */
 package fractureanalysis.stages;
 
-import fractureanalysis.analysis.FractureIntensityAnalysis;
 import fractureanalysis.model.AnalysisFile;
 import fractureanalysis.model.DatasetModel;
 import java.io.IOException;

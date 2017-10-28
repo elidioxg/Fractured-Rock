@@ -28,6 +28,7 @@
     </columnConstraints>
     
     <rowConstraints>
+        <RowConstraints percentHeight="5"></RowConstraints>
         <RowConstraints percentHeight="10"></RowConstraints>
         <RowConstraints percentHeight="10"></RowConstraints>
         <RowConstraints percentHeight="10"></RowConstraints>
@@ -36,8 +37,7 @@
         <RowConstraints percentHeight="10"></RowConstraints>
         <RowConstraints percentHeight="10"></RowConstraints>
         <RowConstraints percentHeight="10"></RowConstraints>
-        <RowConstraints percentHeight="10"></RowConstraints>
-        <RowConstraints percentHeight="10"></RowConstraints>
+        <RowConstraints percentHeight="15"></RowConstraints>
     </rowConstraints>
     
     <MenuBar 
@@ -131,7 +131,7 @@
     
     <ButtonBar 
         GridPane.columnIndex="0"
-        GridPane.rowIndex="7"
+        GridPane.rowIndex="9"
         GridPane.columnSpan="2">
         
         <buttons>

@@ -79,7 +79,7 @@
         GridPane.columnIndex="1"
         GridPane.rowIndex="7"
         text="Log Axis"
-        onAction="#cbLogAction"       
+        onAction="#sort"       
     >
     </CheckBox>
     
