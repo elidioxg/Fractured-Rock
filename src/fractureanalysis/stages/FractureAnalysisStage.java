@@ -42,10 +42,10 @@ public class FractureAnalysisStage {
     private static List<DatasetModel> datasets;
     private static AnalysisFile analysisFile;
 
-    //private static FractureIntensityAnalysis analysis;
     public FractureAnalysisStage(List<DatasetModel> datasets) throws Exception {
         FractureAnalysisStage.datasets = datasets;
         instance = this;
+        createStage();
     }
 
     public static FractureAnalysisStage getInstance() {
@@ -64,10 +64,7 @@ public class FractureAnalysisStage {
         return analysisFile;
     }
 
-//    public static FractureIntensityAnalysis getAnalysis(){
-//        return analysis;
-//    }
-    public void createStage() throws IOException {
+    private void createStage() throws IOException {
 
         FXMLLoader loader = new FXMLLoader(
                 fractureanalysis.FractureAnalysis.getInstance().getClass()

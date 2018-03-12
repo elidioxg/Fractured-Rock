@@ -21,7 +21,6 @@ import fractureanalysis.model.DatasetModel;
 import java.io.IOException;
 import java.util.List;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,15 +38,16 @@ public class MatrixViewStage {
 
     private List<DatasetModel> datasets;
 
-    public MatrixViewStage(List<DatasetModel> datasets) {
+    public MatrixViewStage(List<DatasetModel> datasets) throws IOException {
         this.datasets = datasets;
+        createStage();
     }
 
     public List<DatasetModel> getDatasets() {
         return this.datasets;
     }
 
-    public void createStage() throws IOException {
+    private void createStage() throws IOException {
         if (!getDatasets().isEmpty()) {
             FXMLLoader loader = new FXMLLoader(
                     FractureAnalysis.getInstance().getClass().getResource(
@@ -55,7 +55,7 @@ public class MatrixViewStage {
             Parent root = loader.load();
 
             ComboBox cbDatasets = (ComboBox) root.lookup("#cbDatasets");
-            
+
             Callback<ListView<DatasetModel>, ListCell<DatasetModel>> cellFactory
                     = new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
                 @Override
@@ -75,14 +75,14 @@ public class MatrixViewStage {
 
             };
             cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
-            cbDatasets.setCellFactory(cellFactory);            
-            cbDatasets.setItems(FXCollections.observableArrayList(datasets));            
+            cbDatasets.setCellFactory(cellFactory);
+            cbDatasets.setItems(FXCollections.observableArrayList(datasets));
             cbDatasets.getSelectionModel().selectFirst();
 
             Stage stage = new Stage();
             stage.setTitle("Matrix Content View");
             stage.setScene(new Scene(root));
-            stage.show();            
+            stage.show();
         }
     }
 }

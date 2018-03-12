@@ -22,6 +22,7 @@ import fractureanalysis.data.OpenDataset;
 import fractureanalysis.model.DatasetModel;
 import fractureanalysis.plot.PlotSeries;
 import fractureanalysis.plot.PlotVariogramSeries;
+import fractureanalysis.stages.AlertStage;
 import fractureanalysis.stages.SearchWindowStage;
 import fractureanalysis.stages.VariogramStage;
 import fractureanalysis.statistics.variogram.Models;
@@ -47,6 +48,11 @@ import javafx.scene.control.TextField;
  * @author elidioxg
  */
 public class Stage_variogramController implements Initializable {
+    
+    private static final String ERR_STEP_VALUE_EMPTY = "Value of Step is empty";
+    private static final String ERR_TOLERANCE_VALUE_EMPTY = "Value of Tolerance Distance is empty";
+    private static final String ERR_ANGLE_VALUE_EMPTY = "Value of Angle is empty";
+    private static final String ERR_ANGLETOL_VALUE_EMPTY = "Value of Angle Tolerance is empty";
 
     @FXML
     protected ComboBox cbDatasets, cbContent, cbX, cbY;
@@ -82,15 +88,16 @@ public class Stage_variogramController implements Initializable {
         int x = cbX.getSelectionModel().getSelectedIndex();
         int y = cbY.getSelectionModel().getSelectedIndex();
         int z = cbContent.getSelectionModel().getSelectedIndex();
-        if (x >= 0 && y >= 0 && z >= 0) {
 
-            if (!tfDistTol.getText().isEmpty()
-                    && !tfAngle.getText().isEmpty()
-                    && !tfAngleTol.getText().isEmpty()) {
-                SearchWindowStage st = new SearchWindowStage();
-                st.createStage();
-                Vector vX, vY, vZ;
-
+        if (!tfDistTol.getText().isEmpty()
+                && !tfAngle.getText().isEmpty()
+                && !tfAngleTol.getText().isEmpty()) {
+            SearchWindowStage st = new SearchWindowStage();
+            st.createStage();
+            Vector vX = new Vector();
+            Vector vY = new Vector();
+            Vector vZ = new Vector();
+            if (x >= 0 && y >= 0 && z >= 0) {
                 if (dm.isGeoeas()) {
                     vX = OpenDataset.openGeoeasToVector(dm.getFileName(), dm.getSeparator().getChar(), x);
                     vY = OpenDataset.openGeoeasToVector(dm.getFileName(), dm.getSeparator().getChar(), y);
@@ -103,12 +110,13 @@ public class Stage_variogramController implements Initializable {
                     vZ = OpenDataset.openCSVFileToVector(dm.getFileName(),
                             dm.getSeparator().getChar(), z, dm.getHeader());
                 }
-                st.drawCanvas(vX, vY, vZ,
-                        Double.valueOf(tfDistTol.getText()),
-                        Double.valueOf(tfAngle.getText()),
-                        Double.valueOf(tfAngleTol.getText()), cbReflect.isSelected());
             }
+            st.drawCanvas(vX, vY, vZ,
+                    Double.valueOf(tfDistTol.getText()),
+                    Double.valueOf(tfAngle.getText()),
+                    Double.valueOf(tfAngleTol.getText()), cbReflect.isSelected());
         }
+
     }
 
     @FXML
@@ -191,15 +199,29 @@ public class Stage_variogramController implements Initializable {
             if (!tfNugget.getText().trim().isEmpty()) {
                 nuggetValue = Double.valueOf(tfNugget.getText().trim());
             }
+            if (tfStep.getText().trim().isEmpty()) {
+                AlertStage.newAlertStage(ERR_STEP_VALUE_EMPTY);
+                return;
+            }
+            if (tfDistTol.getText().trim().isEmpty()) {
+                AlertStage.newAlertStage(ERR_TOLERANCE_VALUE_EMPTY);
+                return;
+            }
             double stepSize = Double.valueOf(tfStep.getText().trim());
             double distTol = Double.valueOf(tfDistTol.getText().trim());
             double angle = 0.;
             if (!tfAngle.getText().trim().isEmpty()) {
                 angle = Double.valueOf(tfAngle.getText().trim());
+            } else {
+                AlertStage.newAlertStage(ERR_ANGLE_VALUE_EMPTY);
+                return;
             }
             double angleTol = 360.;
             if (!tfAngleTol.getText().trim().isEmpty()) {
                 angleTol = Double.valueOf(tfAngleTol.getText().trim());
+            } else {
+                AlertStage.newAlertStage(ERR_ANGLETOL_VALUE_EMPTY);
+                return;
             }
             // boolean ref = cbReflect.isSelected();
 

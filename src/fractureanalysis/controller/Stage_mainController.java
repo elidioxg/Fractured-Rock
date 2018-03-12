@@ -8,6 +8,7 @@ import fractureanalysis.stages.FractureAnalysisStage;
 import fractureanalysis.stages.HistogramStage;
 import fractureanalysis.stages.LineChartStage;
 import fractureanalysis.stages.MatrixViewStage;
+import fractureanalysis.stages.AlertStage;
 import fractureanalysis.stages.OpenDataStage;
 import fractureanalysis.stages.ScatterChartStage;
 import fractureanalysis.stages.VariogramStage;
@@ -32,6 +33,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 
 public class Stage_mainController implements Initializable {
+
+    private static String NO_DATASET_LOADED = ""
+            + "No dataset Loaded";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,48 +85,61 @@ public class Stage_mainController implements Initializable {
      */
     @FXML
     protected void lineChartStage() throws IOException {
-        LineChartStage lcs = new LineChartStage(
-                FractureAnalysis.getInstance().getDatasetList());
-        lcs.createStage();
+        if (FractureAnalysis.getInstance().getDatasetList().isEmpty()) {
+            AlertStage.newAlertStage(NO_DATASET_LOADED);
+        } else {
+            LineChartStage lcs = new LineChartStage(
+                    FractureAnalysis.getInstance().getDatasetList());
+        }
     }
 
     @FXML
     protected void scatterChartStage() throws IOException {
-        ScatterChartStage scs = new ScatterChartStage(
-                FractureAnalysis.getInstance().getDatasetList());
-        scs.createStage();
+        if (FractureAnalysis.getInstance().getDatasetList().isEmpty()) {
+            AlertStage.newAlertStage(NO_DATASET_LOADED);
+        } else {
+            ScatterChartStage scs = new ScatterChartStage(
+                    FractureAnalysis.getInstance().getDatasetList());
+        }
     }
 
     @FXML
     protected void histogramStage() throws IOException {
-        HistogramStage hs = new HistogramStage(
-                FractureAnalysis.getInstance().getDatasetList());
-        hs.createStage();
+        if (FractureAnalysis.getInstance().getDatasetList().isEmpty()) {
+            AlertStage.newAlertStage(NO_DATASET_LOADED);
+        } else {
+            HistogramStage hs = new HistogramStage(
+                    FractureAnalysis.getInstance().getDatasetList());
+        }
     }
 
     @FXML
     protected void variogramStage() throws IOException {
-        VariogramStage vs = new VariogramStage(
-                FractureAnalysis.getInstance().getDatasetList());
-        vs.createStage();
+        if (FractureAnalysis.getInstance().getDatasetList().isEmpty()) {
+            AlertStage.newAlertStage(NO_DATASET_LOADED);
+        } else {
+            VariogramStage vs = new VariogramStage(
+                    FractureAnalysis.getInstance().getDatasetList());
+        }
     }
 
     @FXML
     protected void fractureStage() throws IOException, Exception {
-        if (FractureAnalysis.getInstance().getDatasetList().size()==0) {
-            // TODO: implementar dialog window
-            throw new Exception("No dataset selected.");
+        if (FractureAnalysis.getInstance().getDatasetList().isEmpty()) {
+            AlertStage.newAlertStage(NO_DATASET_LOADED);
         } else {
             FractureAnalysisStage stage = new FractureAnalysisStage(
                     FractureAnalysis.getInstance().getDatasetList());
-            stage.createStage();
         }
     }
 
     @FXML
     protected void matrixViewStage() throws IOException {
-        MatrixViewStage view = new MatrixViewStage(FractureAnalysis.getInstance().getDatasetList());
-        view.createStage();
+        if (FractureAnalysis.getInstance().getDatasetList().isEmpty()) {
+            AlertStage.newAlertStage(NO_DATASET_LOADED);
+        } else {
+            MatrixViewStage view = new MatrixViewStage(FractureAnalysis.getInstance().getDatasetList());
+        }
     }
 
     @FXML

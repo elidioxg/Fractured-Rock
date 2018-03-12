@@ -35,74 +35,78 @@ import javafx.util.Callback;
  * @author elidioxg
  */
 public class VariogramStage {
-    
+
     private static VariogramStage instance;
-    
-    public static VariogramStage getInstance(){        
+
+    public static VariogramStage getInstance() {
         return instance;
     }
-    
-    public VariogramStage(List<DatasetModel> datasets){
+
+    public VariogramStage(List<DatasetModel> datasets) throws IOException {
         instance = this;
         this.datasets = datasets;
+        createStage();
     }
-    
+
     public List<DatasetModel> datasets;
-    
-    public List<DatasetModel> getDatasets(){
+
+    public List<DatasetModel> getDatasets() {
         return this.datasets;
     }
-    
-    public void setDatasets(List<DatasetModel> datasets){
+
+    public void setDatasets(List<DatasetModel> datasets) {
         this.datasets = datasets;
     }
-    
-    public void createStage() throws IOException {
-        if (FractureAnalysis.getInstance().getDatasetList().size()>0) {
-            FXMLLoader loader = new FXMLLoader(
-                    FractureAnalysis.getInstance().getClass().getResource(
-                            "views/stage_variogram.fxml"));
-            Parent parent = (Parent) loader.load();                        
 
-            ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");
-            Callback<ListView<DatasetModel>, ListCell<DatasetModel>> cellFactory
-                    = new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
-                @Override
-                public ListCell<DatasetModel> call(ListView<DatasetModel> param) {
-                    return new ListCell<DatasetModel>() {
-                        @Override
-                        protected void updateItem(DatasetModel item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getDatasetName());
-                            } else {
-                                setGraphic(null);
-                            }
+    private void createStage() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(
+                FractureAnalysis.getInstance().getClass().getResource(
+                        "views/stage_variogram.fxml"));
+        Parent parent = (Parent) loader.load();
+
+        ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");
+        Callback<ListView<DatasetModel>, ListCell<DatasetModel>> cellFactory
+                = new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
+            @Override
+            public ListCell<DatasetModel> call(ListView<DatasetModel> param) {
+                return new ListCell<DatasetModel>() {
+                    @Override
+                    protected void updateItem(DatasetModel item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getDatasetName());
+                        } else {
+                            setGraphic(null);
                         }
-                    };
-                }
+                    }
+                };
+            }
 
-            };
-            cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
-            cbDatasets.setCellFactory(cellFactory);
+        };
+        cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
+        cbDatasets.setCellFactory(cellFactory);
+        
+        ComboBox cbXColumn = (ComboBox) parent.lookup("#cbX");
+        ComboBox cbYColumn = (ComboBox) parent.lookup("#cbY");        
+        ComboBox cbContentColumn = (ComboBox) parent.lookup("#cbContent");
+        
+        if (!datasets.isEmpty()) {
             cbDatasets.setItems(FXCollections.observableArrayList(datasets));
             cbDatasets.getSelectionModel().selectFirst();
-            ComboBox cbXColumn = (ComboBox) parent.lookup("#cbX");
             cbXColumn.setItems(FXCollections.observableArrayList(
-                    datasets.get(0).getHeaderArray()));
-            ComboBox cbYColumn = (ComboBox) parent.lookup("#cbY");
+                datasets.get(0).getHeaderArray()));
             cbYColumn.setItems(FXCollections.observableArrayList(
-                    datasets.get(0).getHeaderArray()));
-            ComboBox cbContentColumn = (ComboBox) parent.lookup("#cbContent");
+                datasets.get(0).getHeaderArray()));
             cbContentColumn.setItems(FXCollections.observableArrayList(
-                    datasets.get(0).getHeaderArray()));
-            
-            Stage stageLine = new Stage();
-            Scene scene = new Scene(parent);
-            stageLine.setTitle("Variogram");
-            stageLine.setScene(scene);
-            stageLine.show();
+                datasets.get(0).getHeaderArray()));
         }
+
+        Stage stageLine = new Stage();
+        Scene scene = new Scene(parent);
+        stageLine.setTitle("Variogram");
+        stageLine.setScene(scene);
+        stageLine.show();
     }
-    
+
 }

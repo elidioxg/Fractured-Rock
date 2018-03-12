@@ -16,12 +16,12 @@
  */
 package fractureanalysis.controller;
 
-import fractureanalysis.view2d.CanvasSearchWindow;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -29,11 +29,12 @@ import javafx.scene.canvas.Canvas;
  * @author elidioxg
  */
 public class Pane_variogram_canvasController implements Initializable {
-
    
-
     @FXML
     protected Canvas canvas;
+    
+    @FXML
+    protected ComboBox cbPoints;
             
     /**
      * Initializes the controller class.

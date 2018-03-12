@@ -35,23 +35,24 @@ import javafx.util.Callback;
  * @author elidioxg
  */
 public class HistogramStage {
+
     /**
      * Custom Histogram Stage
-     * 
-     * This stage is used for plotting a histogram with many properties
-     * defined by the user(cutoff values, number of classes, etc);
-     * 
-     * View: views/stage_histogram.fxml
-     * Controller: controller/Stage_histogramController.java
+     *
+     * This stage is used for plotting a histogram with many properties defined
+     * by the user(cutoff values, number of classes, etc);
+     *
+     * View: views/stage_histogram.fxml Controller:
+     * controller/Stage_histogramController.java
      */
-
     private static HistogramStage instance;
 
     private List<DatasetModel> datasets;
 
-    public HistogramStage(List<DatasetModel> datasets) {
+    public HistogramStage(List<DatasetModel> datasets) throws IOException {
         instance = this;
         this.datasets = datasets;
+        createStage();
     }
 
     public static HistogramStage getInstance() {
@@ -64,48 +65,49 @@ public class HistogramStage {
 
     /**
      * Create a stage for plotting custom histogram.
-     * 
-     * @throws IOException 
+     *
+     * @throws IOException
      */
-    public void createStage() throws IOException {
-        if (FractureAnalysis.getInstance().getDatasetList().size()>0) {
-            FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().
-                    getClass().getResource(
-                            "views/stage_histogram.fxml"));
-            Parent parent = (Parent) loader.load();
-            ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");           
-            
-            Callback<ListView<DatasetModel>, ListCell<DatasetModel>> cellFactory
-                    = new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
-                @Override
-                public ListCell<DatasetModel> call(ListView<DatasetModel> param) {
-                    return new ListCell<DatasetModel>() {
-                        @Override
-                        protected void updateItem(DatasetModel item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getDatasetName());
-                            } else {
-                                setGraphic(null);
-                            }
-                        }
-                    };
-                }
+    private void createStage() throws IOException {
 
-            };
-            cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
-            cbDatasets.setCellFactory(cellFactory);
+        FXMLLoader loader = new FXMLLoader(FractureAnalysis.getInstance().
+                getClass().getResource(
+                        "views/stage_histogram.fxml"));
+        Parent parent = (Parent) loader.load();
+        ComboBox cbDatasets = (ComboBox) parent.lookup("#cbDatasets");
+
+        Callback<ListView<DatasetModel>, ListCell<DatasetModel>> cellFactory
+                = new Callback<ListView<DatasetModel>, ListCell<DatasetModel>>() {
+            @Override
+            public ListCell<DatasetModel> call(ListView<DatasetModel> param) {
+                return new ListCell<DatasetModel>() {
+                    @Override
+                    protected void updateItem(DatasetModel item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getDatasetName());
+                        } else {
+                            setGraphic(null);
+                        }
+                    }
+                };
+            }
+
+        };
+        cbDatasets.setButtonCell((ListCell) cellFactory.call(null));
+        cbDatasets.setCellFactory(cellFactory);
+        if (!datasets.isEmpty()) {
             cbDatasets.setItems(FXCollections.observableArrayList(datasets));
             cbDatasets.getSelectionModel().selectFirst();
-            ComboBox cbColumns = (ComboBox) parent.lookup("#cbColumnIndex");
-            cbColumns.setItems(FXCollections.observableArrayList(
-                    datasets.get(0).getHeaderArray()));
-            Stage stageLine = new Stage();
-            Scene scene = new Scene(parent);
-            stageLine.setTitle("Custom Histogram");
-            stageLine.setScene(scene);
-            stageLine.show();
         }
+        ComboBox cbColumns = (ComboBox) parent.lookup("#cbColumnIndex");
+        cbColumns.setItems(FXCollections.observableArrayList(
+                datasets.get(0).getHeaderArray()));
+        Stage stageLine = new Stage();
+        Scene scene = new Scene(parent);
+        stageLine.setTitle("Custom Histogram");
+        stageLine.setScene(scene);
+        stageLine.show();
     }
 
 }
