@@ -21,6 +21,7 @@ import fractureanalysis.statistics.MaximumValue;
 import fractureanalysis.statistics.MinimumValue;
 import fractureanalysis.util.Angles;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.paint.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.ArcType;
 
@@ -30,12 +31,13 @@ import javafx.scene.shape.ArcType;
  */
 public class CanvasSearchWindow {
 
-    private final double WIDTH = 400;
-    private final double LENGHT = 400;
+    private final double WIDTH = 300;
+    private final double LENGHT = 300;
 
     private final double distTol;
     private final double initAngle;
-    private final double finalAngle;
+    private final double angleTolerance;
+    private final double reflectedInitAngle;    
     private final boolean reflect;
     private final Vector vecX, vecY, vecZ;
     private final double totalDistance;
@@ -45,8 +47,9 @@ public class CanvasSearchWindow {
     public CanvasSearchWindow(Vector x, Vector y, Vector z, double distTol,
             double angle, double angleTol, boolean reflect) {
         this.distTol = distTol;
-        initAngle = Angles.parseAngle(angle - (angleTol / 2) + Angles.getCorrection());
-        finalAngle = Angles.parseAngle(angleTol);
+        initAngle = Angles.getCorrection(Angles.parseAngle(angle - (angleTol / 2)));
+        angleTolerance = Angles.parseAngle(angleTol);
+        reflectedInitAngle = Angles.getRevAngle(initAngle);        
         this.reflect = reflect;
         this.vecX = x;
         this.vecY = y;
@@ -90,16 +93,17 @@ public class CanvasSearchWindow {
         double radiusY = canvas.getHeight() * distTol / totalDistance;
         double centerX = (canvas.getWidth() / 2) - (radiusX / 2);
         double centerY = (canvas.getHeight() / 2) - (radiusY / 2);
+        canvas.getGraphicsContext2D().setLineWidth(2);        
         canvas.getGraphicsContext2D().strokeArc(
                 centerX, centerY,
                 radiusX, radiusY,
-                this.initAngle, this.finalAngle,
+                this.initAngle, this.angleTolerance,
                 ArcType.ROUND);
-        if (this.reflect) {
+        if (this.reflect) {                    
             canvas.getGraphicsContext2D().strokeArc(
                     centerX, centerY,
                     radiusX, radiusY,
-                    -this.initAngle, -this.finalAngle,
+                    this.reflectedInitAngle, this.angleTolerance,
                     ArcType.ROUND);
         }
     }

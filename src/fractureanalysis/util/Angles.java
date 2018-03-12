@@ -22,9 +22,9 @@ package fractureanalysis.util;
  */
 public class Angles {
 
-    private static final int CORRECTION_FACTOR = 90;
+    private static final double CORRECTION_FACTOR = 0;
 
-    public static double parseAngle(double angle) {        
+    public static double parseAngle(double angle) {
         while (angle > 360.) {
             angle -= 360.;
         }
@@ -33,9 +33,13 @@ public class Angles {
         }
         return angle;
     }
-    
-    public static int getCorrection(){
-        return CORRECTION_FACTOR;
+
+    public static double getCorrection(double value) {
+        return(parseAngle(360-(value+CORRECTION_FACTOR)));
+    }
+
+    public static double getRevAngle(double angle) {
+        return (parseAngle(angle + 180.));
     }
 
 }
