@@ -10,9 +10,9 @@
 <GridPane 
     xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="fractureanalysis.controller.Stage_mainController"     
-    id="gridPane" 
-    prefHeight="768.0" 
-    prefWidth="1024.0"     
+    id="WhitePane" 
+    prefHeight="600.0" 
+    prefWidth="800.0"     
 >
     <gridLinesVisible>true</gridLinesVisible>
     
@@ -176,7 +176,7 @@
         <ProgressBar 
             fx:id="pbStatus"
             progress="0"
-            prefWidth="800"
+            prefWidth="400"
             HBox.hgrow="ALWAYS"
             GridPane.halignment="CENTER" 
             visible="false" 

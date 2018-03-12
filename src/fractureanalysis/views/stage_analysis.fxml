@@ -10,8 +10,8 @@
 <GridPane 
     xmlns:fx="http://javafx.com/fxml/1"
     id="WhitePane" 
-    prefHeight="850.0" 
-    prefWidth="900.0"
+    prefHeight="600.0" 
+    prefWidth="800.0"
     fx:controller="fractureanalysis.controller.Stage_analysisController">        
     
      <stylesheets>
@@ -28,7 +28,8 @@
     
     <rowConstraints>
         <RowConstraints percentHeight="5" />
-        <RowConstraints percentHeight="95" />
+        <RowConstraints percentHeight="90" />
+        <RowConstraints percentHeight="5" />
     </rowConstraints>
     
     <Label 
@@ -67,13 +68,18 @@
     </ComboBox>
     
     <ButtonBar
-        GridPane.columnIndex="6"        
-        GridPane.rowIndex="0">
+        GridPane.columnIndex="0"
+        GridPane.columnSpan="2"
+        GridPane.rowIndex="2">
         <buttons>
             <Button
                 text="3D View"
                 onAction="#view3d">
                 
+            </Button>
+            <Button
+                text="Close"
+            >
             </Button>
         </buttons>
     </ButtonBar>        

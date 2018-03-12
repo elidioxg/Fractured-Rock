@@ -34,7 +34,7 @@
     
     <CheckBox 
         fx:id="cbSorted"
-        GridPane.columnIndex="3"
+        GridPane.columnIndex="2"
         GridPane.rowIndex="0"
         text="Sorted"
         onAction="#cbAction" >
@@ -42,7 +42,7 @@
     
     <CheckBox 
         fx:id="cbLogAxis"
-        GridPane.columnIndex="4"
+        GridPane.columnIndex="3"
         GridPane.rowIndex="0"
         text="Log Axis"
         onAction="#cbAction">

@@ -130,7 +130,7 @@
     </TextField>
     
     <ButtonBar 
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="2"
         GridPane.rowIndex="9"
         GridPane.columnSpan="2">
         

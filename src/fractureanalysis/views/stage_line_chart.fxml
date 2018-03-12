@@ -156,7 +156,7 @@
         fx:id="cbYSorted" 
         GridPane.columnIndex="2"
         GridPane.rowIndex="6" 
-        selected="true"
+        selected="false"
         text="Sorted"    >
     </CheckBox>
     
@@ -235,7 +235,7 @@
     </TextField>
     
     <ButtonBar 
-        GridPane.columnIndex="0"
+        GridPane.columnIndex="3"
         GridPane.rowIndex="14"
         GridPane.columnSpan="2">  
         <buttons>
@@ -256,6 +256,7 @@
     <javafx.scene.chart.LineChart 
         fx:id="lineChart"
         GridPane.columnIndex="3"
+        GridPane.columnSpan="2"
         GridPane.rowIndex="1"        
         GridPane.rowSpan="13" 
     >

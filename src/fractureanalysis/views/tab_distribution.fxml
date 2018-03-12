@@ -8,8 +8,8 @@
 
 <GridPane 
     id="WhitePane"     
-    prefHeight="700.0" 
-    prefWidth="900.0" 
+    prefHeight="480.0" 
+    prefWidth="600.0" 
     xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="fractureanalysis.controller.Stage_analysisController">
     

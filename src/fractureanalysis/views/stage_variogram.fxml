@@ -228,7 +228,7 @@
         fx:id="lcVariogram"
         GridPane.columnIndex="2" 
         GridPane.rowIndex="0"
-        GridPane.rowSpan="13"
+        GridPane.rowSpan="14"
         legendVisible="false">
         <xAxis>
             <javafx.scene.chart.NumberAxis 
@@ -245,7 +245,7 @@
     <ScrollPane 
         GridPane.columnIndex="3" 
         GridPane.rowIndex="1"
-        GridPane.rowSpan="4"
+        GridPane.rowSpan="5"
     >
         <fx:include source="pane_curve_fitting.fxml"/>
         
@@ -254,8 +254,8 @@
     <javafx.scene.chart.ScatterChart 
         fx:id="scLoc"
         GridPane.columnIndex="3" 
-        GridPane.rowIndex="5"
-        GridPane.rowSpan="5"
+        GridPane.rowIndex="7"
+        GridPane.rowSpan="7"
         legendVisible="false">
         <xAxis>
             <javafx.scene.chart.NumberAxis 

@@ -10,7 +10,7 @@
 
 <GridPane 
     id="WhitePane" 
-    prefHeight="600.0" 
+    prefHeight="480.0" 
     prefWidth="600.0" 
     styleClass="mainFxmlClass" 
     xmlns:fx="http://javafx.com/fxml/1" 
@@ -20,11 +20,8 @@
     </stylesheets>
     
     <columnConstraints>
-        <ColumnConstraints percentWidth="15"></ColumnConstraints>
-        <ColumnConstraints percentWidth="15"></ColumnConstraints>
-        <ColumnConstraints percentWidth="15"></ColumnConstraints>
-        <ColumnConstraints percentWidth="15"></ColumnConstraints>
-        <ColumnConstraints percentWidth="40"></ColumnConstraints>
+        <ColumnConstraints percentWidth="50"></ColumnConstraints>
+        <ColumnConstraints percentWidth="50"></ColumnConstraints>        
     </columnConstraints>
     
     <Label
@@ -70,26 +67,39 @@
     </Label>
     
     <Label
-        GridPane.columnIndex="2"
-        GridPane.rowIndex="1"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="4"
         text="Tolerance distance: ">
         
     </Label>
     <Label 
-        GridPane.columnIndex="3"
-        GridPane.rowIndex="1"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="4"
         fx:id="lTolDist">        
     </Label>    
+        
+    <Label
+        text="Points"
+        GridPane.columnIndex="0"
+        GridPane.rowIndex="5">
+        
+    </Label>
+    
+    <ComboBox
+        fx:id="cbPoints"
+        GridPane.columnIndex="1"
+        GridPane.rowIndex="5">
+        
+    </ComboBox>
     
     <Canvas
         fx:id="canvas"
         GridPane.columnIndex="0"
-        GridPane.rowIndex="4"
-        GridPane.rowSpan="5"
-        GridPane.columnSpan="5"        
-        width="600"
-        height="600">
-        
+        GridPane.rowIndex="7"
+        GridPane.rowSpan="3"
+        GridPane.columnSpan="2"
+        width="200"
+        height="200">        
     </Canvas>        
     
 </GridPane>

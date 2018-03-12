@@ -7,12 +7,12 @@
 }
 
 .text-field{
-    
+    -fx-padding: 9;    
 }
 
 .label{
     -fx-padding: 9;
-    -fx-font: 12px serif; 
+    -fx-font: 14px serif;
 }
 
 .ComboBox{
